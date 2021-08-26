@@ -82,7 +82,7 @@ plt.hist(
 Visualization of statistical data of a distribution (minimum, median, maximum, ...)
 
 ```py
-plt.boxplot(dice_simulation_1)
+plt.boxplot(dice_simulation_1, whis=(0, 100))
 ```
 
 ```py

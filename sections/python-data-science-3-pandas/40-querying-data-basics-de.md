@@ -10,13 +10,13 @@
 eine Spalte (als Series) auswählen:
 
 ```py
-titanic["age"]
+titanic["Age"]
 ```
 
 mehrere Spalten (als DataFrame) auswählen:
 
 ```py
-titanic[["name", "age"]]
+titanic[["Name", "Age"]]
 ```
 
 ## Spalten auswählen
@@ -24,7 +24,7 @@ titanic[["name", "age"]]
 kürzere Notation (funktioniert nicht für alle Spaltennamen):
 
 ```py
-titanic.age
+titanic.Age
 ```
 
 Fälle, in denen die kürzere Notation nicht verwendet werden kann:
@@ -66,11 +66,11 @@ sp500.iloc[0 : 10]
 ## Zeilen auswählen
 
 ```py
-titanic[titanic["pclass"] == 1]
+titanic[titanic["Pclass"] == 1]
 ```
 
 ```py
-titanic[titanic["age"] >= 70]
+titanic[titanic["Age"] >= 70]
 ```
 
 ## Zufällig Zeilen auswählen
@@ -105,8 +105,8 @@ titanic[titanic["age"] >= 70]
 
 ## Lösungen: Titanic
 
-- alle Überlebenden: `titanic[titanic["survived"] == "Yes"]`
-- alle 60-Jährigen: `titanic[titanic["age"] == 60]`
+- alle Überlebenden: `titanic[titanic["Survived"] == "Yes"]`
+- alle 60-Jährigen: `titanic[titanic["Age"] == 60]`
 
 ## Aufgabe: Wechselkurse
 

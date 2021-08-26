@@ -2252,21 +2252,20 @@ model = keras.Model(inputs, outputs)
 </section><section class="slide"><h2>Building a model</h2>
 <p>sequential API:</p>
 <pre><code class="hljs language-py">model = keras.Sequential([
-    keras.layers.Flatten(input_shape=[<span class="hljs-number">28</span>, <span class="hljs-number">28</span>]),
+    keras.layers.Flatten(input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)),
     keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>),
     keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>),
 ])
 </code></pre>
 <p>functional API:</p>
-<pre><code class="hljs language-py">inputs = keras.layers.Input(shape=[<span class="hljs-number">28</span>, <span class="hljs-number">28</span>])
-x = keras.layers.Flatten()(x)
+<pre><code class="hljs language-py">inputs = keras.layers.Input(shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>))
+x = keras.layers.Flatten()(inputs)
 x = keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>)(x)
 outputs = keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>)(x)
 model = keras.Model(inputs, outputs)
 </code></pre>
 </section><section class="slide"><h2>Compilation and training</h2>
 <pre><code class="hljs language-py">model.<span class="hljs-built_in">compile</span>(
-    optimizer=<span class="hljs-string">"adam"</span>,
     loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
     metrics=[<span class="hljs-string">"accuracy"</span>],
 )
@@ -2274,7 +2273,7 @@ model.fit(x_train, y_train, epochs=<span class="hljs-number">15</span>, validati
 </code></pre>
 </section><section class="slide"><h2>Improvements</h2>
 <p>adding a rescaling layer:</p>
-<pre><code class="hljs language-py">keras.layers.experimental.preprocessing.Rescaling(<span class="hljs-number">1</span>/<span class="hljs-number">255</span>)
+<pre><code class="hljs language-py">keras.layers.Rescaling(<span class="hljs-number">1</span>/<span class="hljs-number">255</span>)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Inspecting the iris classification network</h1>
 </section><section class="slide"><h2>Creating and training the network</h2>
@@ -2397,31 +2396,6 @@ model.fit(x, y, epochs=<span class="hljs-number">100</span>, validation_split=<s
 </section><section class="slide"><h2>Example: California housing prices</h2>
 <p>evaluate:</p>
 <pre><code class="hljs language-py">model.evaluate(x, y)
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Example: digit recognition</h1>
-</section><section class="slide"><h2>Example: digit recognition</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> tensorflow <span class="hljs-keyword">import</span> keras
-
-(
-    (x_train, y_train),
-    (x_test, y_test),
-) = keras.datasets.mnist.load_data()
-
-model = keras.Sequential([
-    keras.layers.experimental.preprocessing.Rescaling(
-        <span class="hljs-number">1</span> / <span class="hljs-number">255</span>, input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)
-    ),
-    keras.layers.Flatten(input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)),
-    keras.layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">"relu"</span>),
-    keras.layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">"softmax"</span>),
-])
-model.<span class="hljs-built_in">compile</span>(
-    loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
-    metrics=[<span class="hljs-string">"sparse_categorical_accuracy"</span>],
-)
-model.fit(x_train, y_train, epochs=<span class="hljs-number">5</span>, validation_split=<span class="hljs-number">0.1</span>)
-
-print(model.evaluate(x_test, y_test))
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Example: image classification - cat or dog</h1>
 </section><section class="slide"><h2>Example: image classification - cat or dog</h2>

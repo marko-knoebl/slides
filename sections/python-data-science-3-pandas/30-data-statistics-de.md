@@ -49,7 +49,7 @@ berechnet die folgenden Daten:
 Liste einzigartiger Werte:
 
 ```py
-titanic["pclass"].unique()
+titanic["Pclass"].unique()
 ```
 
 ```txt
@@ -59,7 +59,7 @@ titanic["pclass"].unique()
 Zählen einzelner Vorkommen:
 
 ```py
-titanic["pclass"].value_counts()
+titanic["Pclass"].value_counts()
 ```
 
 ```txt

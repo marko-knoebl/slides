@@ -25,13 +25,13 @@ df2 = df1.drop(columns=["pop"])
 Konvertieren von Typen:
 
 ```py
-titanic["survived"] = titanic["survived"].astype("bool")
+titanic["Survived"] = titanic["Survived"].astype("bool")
 ```
 
 Ersetzen von Werten:
 
 ```py
-titanic["alive"] = titanic["alive"].replace(
+titanic["Alive"] = titanic["Alive"].replace(
     {"yes": True, "no": False}
 )
 ```
@@ -54,49 +54,36 @@ iris_setosa["sepal_ratio"].mean()
 iris_setosa["sepal_ratio"].std()
 ```
 
-## Abgeleitete Werte berechnen mittels NumPy
+## Abgeleitete Werte berechnen
 
 Aufgabe:
 
-- Analysiere die monatlichen S&P 500 Daten und berechne den monatlichen Gewinn / Verlust
+Analysiere die monatlichen S&P 500 Daten und berechne den monatlichen Gewinn / Verlust
 
-## Abgeleitete Werte berechnen mittels NumPy
+Hinweis: Verwende die Methode `.diff()`, um die Differenz zwischen der vorherigen und der aktuellen Zeile zu berechnen
 
-Umwandeln in ein NumPy-Array:
-
-```py
-values_np = sp500["SP500"].to_numpy()
-```
-
-Differenz aufeinanderfolgender Monate:
+## Abgeleitete Werte berechnen
 
 ```py
-diffs = values_np[1:] - values_np[:-1]
-# add a single NaN to the front
-diffs = np.concatenate([
-    np.array([float('nan')]), diffs])
-```
-
-Hinzufügen zu Daten:
-
-```py
-sp500["Diff"] = diffs
+sp500["Diff"] = sp500["SP500"].diff()
 sp500["Gain"] = sp500["Diff"] / sp500["SP500"]
 ```
 
 ## Abgeleitete Werte berechnen mittels eigenen Funktionen
 
 ```py
-def classifier(value):
-    if value < 2:
-        return 0
-    elif value < 10:
-        return 1
+def classifier(age):
+    if age < 18:
+        return "youth"
+    elif age < 60:
+        return "adult"
     else:
-        return 2
+        return "senior"
 
-df["class"] = df["value"].apply(classifier)
+titanic["AgeCls"] = titanic["Age"].apply(classifier)
 ```
+
+(effizientere Alternative: `pd.cut()`)
 
 ## Einzelne Daten setzen
 

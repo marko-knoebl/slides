@@ -2292,7 +2292,7 @@ plt.barh([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>
 </code></pre>
 </section><section class="slide"><h2>Box plot</h2>
 <p>Visualization of statistical data of a distribution (minimum, median, maximum, ...)</p>
-<pre><code class="hljs language-py">plt.boxplot(dice_simulation_1)
+<pre><code class="hljs language-py">plt.boxplot(dice_simulation_1, whis=(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>))
 </code></pre>
 <pre><code class="hljs language-py">plt.boxplot(
     [dice_simulation_1, dice_simulation_2],
@@ -2354,7 +2354,8 @@ plt.legend()
 <pre><code class="hljs language-py">plt.boxplot(
     [petal_length, petal_width, sepal_length, sepal_width],
     labels=[<span class="hljs-string">"petal length"</span>, <span class="hljs-string">"petal width"</span>, <span class="hljs-string">"sepal length"</span>,
-            <span class="hljs-string">"sepal width"</span>]
+            <span class="hljs-string">"sepal width"</span>],
+    whis=(<span class="hljs-number">0</span>, <span class="hljs-number">100</span>)
 )
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Pyplot: figure, axes &#x26; subplots</h1>
@@ -2448,6 +2449,25 @@ plt.imshow(image, cmap=<span class="hljs-string">"gray"</span>)
 <pre><code class="hljs language-py">colors = np.array([[[<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0</span>]],
                    [[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]])
 plt.imshow(colors)
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Artists</h1>
+</section><section class="slide"><h2>Artists</h2>
+<p>Artist = base class for elements in a figure</p>
+</section><section class="slide"><h2>Artists</h2>
+<p>example: creating an artist (rectangle) explicitly</p>
+<pre><code class="hljs language-py">ax = plt.gca()
+
+r = plt.Rectangle((<span class="hljs-number">0.25</span>, <span class="hljs-number">0.75</span>), <span class="hljs-number">0.1</span>, <span class="hljs-number">0.1</span>, color=<span class="hljs-string">"C0"</span>)
+
+ax.add_artist(r)
+</code></pre>
+</section><section class="slide"><h2>Artists</h2>
+<p>examples: creating primitive <em>artists</em>:</p>
+<pre><code class="hljs language-py">l = plt.Line2D((<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>), (<span class="hljs-number">0.25</span>, <span class="hljs-number">0.75</span>), color=<span class="hljs-string">"C0"</span>)
+r = plt.Rectangle((<span class="hljs-number">0.25</span>, <span class="hljs-number">0.75</span>), <span class="hljs-number">0.1</span>, <span class="hljs-number">0.1</span>, color=<span class="hljs-string">"C1"</span>)
+c = plt.Circle((<span class="hljs-number">0.75</span>, <span class="hljs-number">0.75</span>), <span class="hljs-number">0.1</span>, color=<span class="hljs-string">"C2"</span>)
+p = plt.Polygon([[<span class="hljs-number">0.2</span>, <span class="hljs-number">0.2</span>], [<span class="hljs-number">0.5</span>, <span class="hljs-number">0.1</span>], [<span class="hljs-number">0.8</span>, <span class="hljs-number">0.2</span>]], color=<span class="hljs-string">"C3"</span>)
+t = plt.Text(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-string">"Hello!"</span>, size=<span class="hljs-number">40</span>, color=<span class="hljs-string">"C4"</span>)
 </code></pre></section></section></div>
     </div>
     <script>/*!

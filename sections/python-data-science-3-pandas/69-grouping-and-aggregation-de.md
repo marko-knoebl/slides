@@ -27,7 +27,7 @@ Funktionen und Methoden:
 Anzahl von Passagieren pro Klasse:
 
 ```py
-titanic["pclass"].value_counts()
+titanic["Pclass"].value_counts()
 
 # 3    491
 # 1    216
@@ -39,13 +39,13 @@ titanic["pclass"].value_counts()
 Mediane aller numerischen Werte der Passagiere je Klasse:
 
 ```py
-titanic.groupby("pclass").median()
+titanic.groupby("Pclass").median()
 ```
 
 Median der Alter pro Klasse:
 
 ```py
-titanic.groupby("pclass")["age"].median()
+titanic.groupby("Pclass")["Age"].median()
 
 # 1    37.0
 # 2    29.0
@@ -57,7 +57,7 @@ titanic.groupby("pclass")["age"].median()
 Anzahl der Passagiere nach Klasse und Geschlecht (_Kontingenztabelle_ oder _Kreuztabelle_)
 
 ```py
-pd.crosstab(titanic["pclass"], titanic["sex"])
+pd.crosstab(titanic["Pclass"], titanic["Sex"])
 ```
 
 ```txt
@@ -74,18 +74,18 @@ Durchschnittliches Alter nach Geschlecht und Klasse:
 
 ```py
 pd.crosstab(
-    index=titanic["pclass"],
-    columns=titanic["sex"],
-    values=titanic["age"],
+    index=titanic["Pclass"],
+    columns=titanic["Sex"],
+    values=titanic["Age"],
     aggfunc=np.mean)
 ```
 
 ```py
 pd.pivot_table(
     data=titanic,
-    values="age",
-    index=["pclass"],
-    columns=["sex"],
+    values="Age",
+    index=["Pclass"],
+    columns=["Sex"],
     aggfunc=np.mean)
 ```
 

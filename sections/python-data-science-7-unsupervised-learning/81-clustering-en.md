@@ -30,6 +30,43 @@ This process converges
 
 [Python Data Science Handbook - k-Means Clustering](https://jakevdp.github.io/PythonDataScienceHandbook/05.11-k-means.html)
 
+## k-means clustering: example
+
+example for iris measurements (assuming species are unknown):
+
+```py
+measurements = np.array([[5.1, 3.5, 1.4, 0.2],
+                         [4.9, 3.0, 1.4, 0.2],
+                         [4.7, 3.2, 1.3, 0.2], ...])
+
+from sklearn.cluster import KMeans
+
+model = KMeans(n_clusters=3)
+model.fit(measurements)
+```
+
+## k-means clustering: example
+
+cluster centers:
+
+```py
+model.cluster_centers_
+```
+
+## k-means clustering: example
+
+visualizing clusters:
+
+```py
+species_pred = model.predict(measurements)
+
+plt.scatter(
+    measurements[:, 0],
+    measurements[:, 1],
+    c=species_pred
+)
+```
+
 ## k-means clustering
 
 examples:

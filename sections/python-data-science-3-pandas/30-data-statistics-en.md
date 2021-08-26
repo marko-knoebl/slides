@@ -49,7 +49,7 @@ The above computes the following data:
 get a list of unique values:
 
 ```py
-titanic["pclass"].unique()
+titanic["Pclass"].unique()
 ```
 
 ```txt
@@ -59,7 +59,7 @@ titanic["pclass"].unique()
 count occurences:
 
 ```py
-titanic["pclass"].value_counts()
+titanic["Pclass"].value_counts()
 ```
 
 ```txt

@@ -10,12 +10,12 @@ Values that represent missing data (since pandas 1.0):
 ## Missing data
 
 ```py
-titanic["age"].shape
+titanic["Age"].shape
 # (891,)
 ```
 
 ```py
-titanic["age"].count()
+titanic["Age"].count()
 # 714
 ```
 
@@ -24,7 +24,7 @@ titanic["age"].count()
 show all rows with missing _age_ entries:
 
 ```py
-titanic.loc[titanic["age"].isna()]
+titanic.loc[titanic["Age"].isna()]
 ```
 
 ## Removing rows
@@ -38,7 +38,7 @@ titanic = titanic.dropna()
 removing any rows with missing data in the age column:
 
 ```py
-titanic = titanic.dropna(subset=["age"])
+titanic = titanic.dropna(subset=["Age"])
 ```
 
 ## Filling values
@@ -46,19 +46,19 @@ titanic = titanic.dropna(subset=["age"])
 Filling missing data with zeros:
 
 ```py
-titanic["age"] = titanic["age"].fillna(0)
+titanic["Age"] = titanic["Age"].fillna(0)
 ```
 
 Filling missing data by using the _last_ valid datapoint:
 
 ```py
-titanic["age"] = titanic["age"].fillna(method="ffill")
+titanic["Age"] = titanic["Age"].fillna(method="ffill")
 ```
 
 Filling missing data by using the _next_ valid datapoint:
 
 ```py
-titanic["age"] = titanic["age"].fillna(method="bfill")
+titanic["Age"] = titanic["Age"].fillna(method="bfill")
 ```
 
 ## Interpolating values

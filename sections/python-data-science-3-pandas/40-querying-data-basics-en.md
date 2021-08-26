@@ -10,13 +10,13 @@
 accessing a column (as a Series):
 
 ```py
-titanic["age"]
+titanic["Age"]
 ```
 
 accessing multiple columns (as a DataFrame):
 
 ```py
-titanic[["name", "age"]]
+titanic[["Name", "Age"]]
 ```
 
 ## Selecting columns
@@ -24,7 +24,7 @@ titanic[["name", "age"]]
 short notation (does not work for all column names):
 
 ```py
-titanic.age
+titanic.Age
 ```
 
 cases where the short notation cannot be used:
@@ -66,11 +66,11 @@ sp500.iloc[0 : 10]
 ## Selecting rows
 
 ```py
-titanic[titanic["pclass"] == 1]
+titanic[titanic["Pclass"] == 1]
 ```
 
 ```py
-titanic[titanic["age"] >= 70]
+titanic[titanic["Age"] >= 70]
 ```
 
 ## Sampling data
@@ -105,8 +105,8 @@ titanic[titanic["age"] >= 70]
 
 ## Solutions: Titanic
 
-- all survivors: `titanic[titanic["survived"] == "Yes"]`
-- all 60-year-olds: `titanic[titanic["age"] == 60]`
+- all survivors: `titanic[titanic["Survived"] == "Yes"]`
+- all 60-year-olds: `titanic[titanic["Age"] == 60]`
 
 ## Exercise: Exchange rates
 

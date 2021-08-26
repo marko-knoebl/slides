@@ -10,12 +10,12 @@ Werte, die fehlende Daten symbolisieren (ab pandas 1.0):
 ## Fehlende Daten
 
 ```py
-titanic["age"].shape
+titanic["Age"].shape
 # (891,)
 ```
 
 ```py
-titanic["age"].count()
+titanic["Age"].count()
 # 714
 ```
 
@@ -24,7 +24,7 @@ titanic["age"].count()
 Anzeigen aller Zeilen mit fehlenden _age_-Einträgen:
 
 ```py
-titanic.loc[titanic["age"].isna()]
+titanic.loc[titanic["Age"].isna()]
 ```
 
 ## Fehlende Daten
@@ -38,7 +38,7 @@ titanic = titanic.dropna()
 Entfernen aller Zeilen mit fehlenden Daten in der Spalte _age_:
 
 ```py
-titanic = titanic.dropna(subset=["age"])
+titanic = titanic.dropna(subset=["Age"])
 ```
 
 ## Ersetzen fehlender Daten
@@ -46,19 +46,19 @@ titanic = titanic.dropna(subset=["age"])
 Ersetzen fehlender Daten durch Nullen:
 
 ```py
-titanic["age"] = titanic["age"].fillna(0)
+titanic["Age"] = titanic["Age"].fillna(0)
 ```
 
 Ersetzen fehlender Daten durch den _letzten_ gültigen Wert:
 
 ```py
-titanic["age"] = titanic["age"].fillna(method="ffill")
+titanic["Age"] = titanic["Age"].fillna(method="ffill")
 ```
 
 Ersetzen fehlender Daten durch den _nächsten_ gültigen Wert:
 
 ```py
-titanic["age"] = titanic["age"].fillna(method="bfill")
+titanic["Age"] = titanic["Age"].fillna(method="bfill")
 ```
 
 ## Interpolieren von Werten

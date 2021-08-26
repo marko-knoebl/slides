@@ -18,11 +18,11 @@ nach Zeile und Spalte auswählen:
 Grundlegende Methode:
 
 ```py
-titanic[titanic["pclass"] == 1]
+titanic[titanic["Pclass"] == 1]
 ```
 
 ```py
-titanic[titanic["age"] >= 70]
+titanic[titanic["Age"] >= 70]
 ```
 
 ## Zeilen auswählen: fortgeschritten
@@ -30,23 +30,23 @@ titanic[titanic["age"] >= 70]
 männliche Passagiere in der ersten Klasse:
 
 ```py
-titanic[(titanic["pclass"] > 1) & (titanic["sex"] == "male")]
+titanic[(titanic["Pclass"] > 1) & (titanic["Sex"] == "male")]
 ```
 
 Passagiere, die in Southampton oder Queenstown an Bord gingen:
 
 ```py
-titanic[titanic["embarked"].isin(["S", "Q"])]
+titanic[titanic["Embarked"].isin(["S", "Q"])]
 ```
 
 ## Zeilen auswählen: fortgeschritten
 
 ```py
-titanic.query("pclass > 1 and sex == 'male'")
+titanic.query("Pclass > 1 and Sex == 'male'")
 ```
 
 ```py
-titanic.query("embarked in ['S', 'Q']")
+titanic.query("Embarked in ['S', 'Q']")
 ```
 
 ## Übung: Titanic
@@ -60,14 +60,14 @@ erwachsene (>= 18) Männer, sortiert nach Alter:
 
 ```py
 titanic[
-    (titanic["age"] >= 18) & (titanic["sex"] = "male")
-].sort_values(by="age")
+    (titanic["Age"] >= 18) & (titanic["Sex"] = "male")
+].sort_values(by="Age")
 ```
 
 erwachsene Überlebende:
 
 ```py
-titanic[(titanic["age"] >= 18) & (titanic["survived"] == "Yes")]
+titanic[(titanic["Age"] >= 18) & (titanic["Survived"] == "Yes")]
 ```
 
 ## Übungen: Iris-Blüten

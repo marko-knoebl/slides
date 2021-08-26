@@ -23,7 +23,5 @@ desired data format:
 ## Rescaling
 
 ```py
-from keras.layers.experimental.preprocessing import Rescaling
-
-Rescaling(1/255, offset=-0.5)
+keras.layers.Rescaling(1/255, offset=-0.5)
 ```

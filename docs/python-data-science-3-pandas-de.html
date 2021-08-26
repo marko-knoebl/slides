@@ -2179,7 +2179,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>Monatliche Preise des US-Aktienindex <em>S&#x26;P 500</em>: <a href="https://datahub.io/core/s-and-p-500/r/data.csv">https://datahub.io/core/s-and-p-500/r/data.csv</a></li>
 <li>Wechselkurse: <a href="https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv">https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv</a></li>
 <li>Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a></li>
-<li>Passagierdaten der Titanic: <a href="https://public.opendatasoft.com/explore/dataset/titanic-passengers/download">https://public.opendatasoft.com/explore/dataset/titanic-passengers/download</a></li>
+<li>Passagierdaten der Titanic: <a href="https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv">https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv</a></li>
 </ul>
 </section><section class="slide"><h2>CSV importieren</h2>
 <p>mögliche Lösungen:</p>
@@ -2202,7 +2202,7 @@ exchange_rates = pd.read_csv(
            <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"species"</span>],
 )
 titanic = pd.read_csv(
-    <span class="hljs-string">"https://public.opendatasoft.com/explore/dataset/titanic-passengers/download"</span>,
+    <span class="hljs-string">"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"</span>,
     sep=<span class="hljs-string">";"</span>,
 )
 </code></pre>
@@ -2293,12 +2293,12 @@ dtype: float64
 </ul>
 </section><section class="slide"><h2>Statistiken</h2>
 <p>Liste einzigartiger Werte:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].unique()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Pclass"</span>].unique()
 </code></pre>
 <pre><code class="hljs language-txt">[2, 3, 1]
 </code></pre>
 <p>Zählen einzelner Vorkommen:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].value_counts()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Pclass"</span>].value_counts()
 </code></pre>
 <pre><code class="hljs language-txt">3    491
 1    216
@@ -2312,14 +2312,14 @@ dtype: float64
 </ul>
 </section><section class="slide"><h2>Spalten auswählen</h2>
 <p>eine Spalte (als Series) auswählen:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>]
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>]
 </code></pre>
 <p>mehrere Spalten (als DataFrame) auswählen:</p>
-<pre><code class="hljs language-py">titanic[[<span class="hljs-string">"name"</span>, <span class="hljs-string">"age"</span>]]
+<pre><code class="hljs language-py">titanic[[<span class="hljs-string">"Name"</span>, <span class="hljs-string">"Age"</span>]]
 </code></pre>
 </section><section class="slide"><h2>Spalten auswählen</h2>
 <p>kürzere Notation (funktioniert nicht für alle Spaltennamen):</p>
-<pre><code class="hljs language-py">titanic.age
+<pre><code class="hljs language-py">titanic.Age
 </code></pre>
 <p>Fälle, in denen die kürzere Notation nicht verwendet werden kann:</p>
 <pre><code class="hljs language-py">df[<span class="hljs-string">"first name"</span>]  <span class="hljs-comment"># space in name</span>
@@ -2341,9 +2341,9 @@ df[<span class="hljs-string">"mean"</span>]        <span class="hljs-comment"># 
 <pre><code class="hljs language-py">sp500.iloc[<span class="hljs-number">0</span> : <span class="hljs-number">10</span>]
 </code></pre>
 </section><section class="slide"><h2>Zeilen auswählen</h2>
-<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"pclass"</span>] == <span class="hljs-number">1</span>]
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"Pclass"</span>] == <span class="hljs-number">1</span>]
 </code></pre>
-<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">70</span>]
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"Age"</span>] >= <span class="hljs-number">70</span>]
 </code></pre>
 </section><section class="slide"><h2>Zufällig Zeilen auswählen</h2>
 <ul>
@@ -2377,8 +2377,8 @@ df[<span class="hljs-string">"mean"</span>]        <span class="hljs-comment"># 
 </ul>
 </section><section class="slide"><h2>Lösungen: Titanic</h2>
 <ul>
-<li>alle Überlebenden: <code>titanic[titanic["survived"] == "Yes"]</code></li>
-<li>alle 60-Jährigen: <code>titanic[titanic["age"] == 60]</code></li>
+<li>alle Überlebenden: <code>titanic[titanic["Survived"] == "Yes"]</code></li>
+<li>alle 60-Jährigen: <code>titanic[titanic["Age"] == 60]</code></li>
 </ul>
 </section><section class="slide"><h2>Aufgabe: Wechselkurse</h2>
 <ul>
@@ -2418,21 +2418,21 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </ul>
 </section><section class="slide"><h2>Zeilen auswählen</h2>
 <p>Grundlegende Methode:</p>
-<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"pclass"</span>] == <span class="hljs-number">1</span>]
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"Pclass"</span>] == <span class="hljs-number">1</span>]
 </code></pre>
-<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">70</span>]
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"Age"</span>] >= <span class="hljs-number">70</span>]
 </code></pre>
 </section><section class="slide"><h2>Zeilen auswählen: fortgeschritten</h2>
 <p>männliche Passagiere in der ersten Klasse:</p>
-<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"pclass"</span>] > <span class="hljs-number">1</span>) &#x26; (titanic[<span class="hljs-string">"sex"</span>] == <span class="hljs-string">"male"</span>)]
+<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"Pclass"</span>] > <span class="hljs-number">1</span>) &#x26; (titanic[<span class="hljs-string">"Sex"</span>] == <span class="hljs-string">"male"</span>)]
 </code></pre>
 <p>Passagiere, die in Southampton oder Queenstown an Bord gingen:</p>
-<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"embarked"</span>].isin([<span class="hljs-string">"S"</span>, <span class="hljs-string">"Q"</span>])]
+<pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"Embarked"</span>].isin([<span class="hljs-string">"S"</span>, <span class="hljs-string">"Q"</span>])]
 </code></pre>
 </section><section class="slide"><h2>Zeilen auswählen: fortgeschritten</h2>
-<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"pclass > 1 and sex == 'male'"</span>)
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"Pclass > 1 and Sex == 'male'"</span>)
 </code></pre>
-<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"embarked in ['S', 'Q']"</span>)
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"Embarked in ['S', 'Q']"</span>)
 </code></pre>
 </section><section class="slide"><h2>Übung: Titanic</h2>
 <ul>
@@ -2442,11 +2442,11 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </section><section class="slide"><h2>Lösungen: Titanic</h2>
 <p>erwachsene (>= 18) Männer, sortiert nach Alter:</p>
 <pre><code class="hljs language-py">titanic[
-    (titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>) &#x26; (titanic[<span class="hljs-string">"sex"</span>] = <span class="hljs-string">"male"</span>)
-].sort_values(by=<span class="hljs-string">"age"</span>)
+    (titanic[<span class="hljs-string">"Age"</span>] >= <span class="hljs-number">18</span>) &#x26; (titanic[<span class="hljs-string">"Sex"</span>] = <span class="hljs-string">"male"</span>)
+].sort_values(by=<span class="hljs-string">"Age"</span>)
 </code></pre>
 <p>erwachsene Überlebende:</p>
-<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"age"</span>] >= <span class="hljs-number">18</span>) &#x26; (titanic[<span class="hljs-string">"survived"</span>] == <span class="hljs-string">"Yes"</span>)]
+<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"Age"</span>] >= <span class="hljs-number">18</span>) &#x26; (titanic[<span class="hljs-string">"Survived"</span>] == <span class="hljs-string">"Yes"</span>)]
 </code></pre>
 </section><section class="slide"><h2>Übungen: Iris-Blüten</h2>
 <ul>
@@ -2473,10 +2473,10 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </code></pre>
 </section><section class="slide"><h2>Konvertieren von Daten</h2>
 <p>Konvertieren von Typen:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"survived"</span>] = titanic[<span class="hljs-string">"survived"</span>].astype(<span class="hljs-string">"bool"</span>)
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Survived"</span>] = titanic[<span class="hljs-string">"Survived"</span>].astype(<span class="hljs-string">"bool"</span>)
 </code></pre>
 <p>Ersetzen von Werten:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"alive"</span>] = titanic[<span class="hljs-string">"alive"</span>].replace(
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Alive"</span>] = titanic[<span class="hljs-string">"Alive"</span>].replace(
     {<span class="hljs-string">"yes"</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">"no"</span>: <span class="hljs-literal">False</span>}
 )
 </code></pre>
@@ -2494,36 +2494,26 @@ iris_setosa = iris.loc[
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].mean()
 iris_setosa[<span class="hljs-string">"sepal_ratio"</span>].std()
 </code></pre>
-</section><section class="slide"><h2>Abgeleitete Werte berechnen mittels NumPy</h2>
+</section><section class="slide"><h2>Abgeleitete Werte berechnen</h2>
 <p>Aufgabe:</p>
-<ul>
-<li>Analysiere die monatlichen S&#x26;P 500 Daten und berechne den monatlichen Gewinn / Verlust</li>
-</ul>
-</section><section class="slide"><h2>Abgeleitete Werte berechnen mittels NumPy</h2>
-<p>Umwandeln in ein NumPy-Array:</p>
-<pre><code class="hljs language-py">values_np = sp500[<span class="hljs-string">"SP500"</span>].to_numpy()
-</code></pre>
-<p>Differenz aufeinanderfolgender Monate:</p>
-<pre><code class="hljs language-py">diffs = values_np[<span class="hljs-number">1</span>:] - values_np[:-<span class="hljs-number">1</span>]
-<span class="hljs-comment"># add a single NaN to the front</span>
-diffs = np.concatenate([
-    np.array([<span class="hljs-built_in">float</span>(<span class="hljs-string">'nan'</span>)]), diffs])
-</code></pre>
-<p>Hinzufügen zu Daten:</p>
-<pre><code class="hljs language-py">sp500[<span class="hljs-string">"Diff"</span>] = diffs
+<p>Analysiere die monatlichen S&#x26;P 500 Daten und berechne den monatlichen Gewinn / Verlust</p>
+<p>Hinweis: Verwende die Methode <code>.diff()</code>, um die Differenz zwischen der vorherigen und der aktuellen Zeile zu berechnen</p>
+</section><section class="slide"><h2>Abgeleitete Werte berechnen</h2>
+<pre><code class="hljs language-py">sp500[<span class="hljs-string">"Diff"</span>] = sp500[<span class="hljs-string">"SP500"</span>].diff()
 sp500[<span class="hljs-string">"Gain"</span>] = sp500[<span class="hljs-string">"Diff"</span>] / sp500[<span class="hljs-string">"SP500"</span>]
 </code></pre>
 </section><section class="slide"><h2>Abgeleitete Werte berechnen mittels eigenen Funktionen</h2>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classifier</span>(<span class="hljs-params">value</span>):</span>
-    <span class="hljs-keyword">if</span> value &#x3C; <span class="hljs-number">2</span>:
-        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
-    <span class="hljs-keyword">elif</span> value &#x3C; <span class="hljs-number">10</span>:
-        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classifier</span>(<span class="hljs-params">age</span>):</span>
+    <span class="hljs-keyword">if</span> age &#x3C; <span class="hljs-number">18</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"youth"</span>
+    <span class="hljs-keyword">elif</span> age &#x3C; <span class="hljs-number">60</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"adult"</span>
     <span class="hljs-keyword">else</span>:
-        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"senior"</span>
 
-df[<span class="hljs-string">"class"</span>] = df[<span class="hljs-string">"value"</span>].apply(classifier)
+titanic[<span class="hljs-string">"AgeCls"</span>] = titanic[<span class="hljs-string">"Age"</span>].apply(classifier)
 </code></pre>
+<p>(effizientere Alternative: <code>pd.cut()</code>)</p>
 </section><section class="slide"><h2>Einzelne Daten setzen</h2>
 <pre><code class="hljs language-py">iris.iloc[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>] = <span class="hljs-number">6</span>
 
@@ -2537,32 +2527,32 @@ iris.loc[:, <span class="hljs-string">"sepal_ratio"</span>] = <span class="hljs-
 <li>für andere Datentypen: <code>NA</code> (aus dem Pandas-Paket)</li>
 </ul>
 </section><section class="slide"><h2>Fehlende Daten</h2>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].shape
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>].shape
 <span class="hljs-comment"># (891,)</span>
 </code></pre>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>].count()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>].count()
 <span class="hljs-comment"># 714</span>
 </code></pre>
 </section><section class="slide"><h2>Fehlende Daten</h2>
 <p>Anzeigen aller Zeilen mit fehlenden <em>age</em>-Einträgen:</p>
-<pre><code class="hljs language-py">titanic.loc[titanic[<span class="hljs-string">"age"</span>].isna()]
+<pre><code class="hljs language-py">titanic.loc[titanic[<span class="hljs-string">"Age"</span>].isna()]
 </code></pre>
 </section><section class="slide"><h2>Fehlende Daten</h2>
 <p>Entfernen aller Zeilen mit fehlenden Daten:</p>
 <pre><code class="hljs language-py">titanic = titanic.dropna()
 </code></pre>
 <p>Entfernen aller Zeilen mit fehlenden Daten in der Spalte <em>age</em>:</p>
-<pre><code class="hljs language-py">titanic = titanic.dropna(subset=[<span class="hljs-string">"age"</span>])
+<pre><code class="hljs language-py">titanic = titanic.dropna(subset=[<span class="hljs-string">"Age"</span>])
 </code></pre>
 </section><section class="slide"><h2>Ersetzen fehlender Daten</h2>
 <p>Ersetzen fehlender Daten durch Nullen:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>] = titanic[<span class="hljs-string">"age"</span>].fillna(<span class="hljs-number">0</span>)
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>] = titanic[<span class="hljs-string">"Age"</span>].fillna(<span class="hljs-number">0</span>)
 </code></pre>
 <p>Ersetzen fehlender Daten durch den <em>letzten</em> gültigen Wert:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>] = titanic[<span class="hljs-string">"age"</span>].fillna(method=<span class="hljs-string">"ffill"</span>)
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>] = titanic[<span class="hljs-string">"Age"</span>].fillna(method=<span class="hljs-string">"ffill"</span>)
 </code></pre>
 <p>Ersetzen fehlender Daten durch den <em>nächsten</em> gültigen Wert:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"age"</span>] = titanic[<span class="hljs-string">"age"</span>].fillna(method=<span class="hljs-string">"bfill"</span>)
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>] = titanic[<span class="hljs-string">"Age"</span>].fillna(method=<span class="hljs-string">"bfill"</span>)
 </code></pre>
 </section><section class="slide"><h2>Interpolieren von Werten</h2>
 <pre><code class="hljs language-py">data = pd.Series(
@@ -2723,7 +2713,7 @@ every_10_days = pd.date_range(
 </ul>
 </section><section class="slide"><h2>Gruppierung und Aggregation</h2>
 <p>Anzahl von Passagieren pro Klasse:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"pclass"</span>].value_counts()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Pclass"</span>].value_counts()
 
 <span class="hljs-comment"># 3    491</span>
 <span class="hljs-comment"># 1    216</span>
@@ -2731,10 +2721,10 @@ every_10_days = pd.date_range(
 </code></pre>
 </section><section class="slide"><h2>Gruppierung und Aggregation</h2>
 <p>Mediane aller numerischen Werte der Passagiere je Klasse:</p>
-<pre><code class="hljs language-py">titanic.groupby(<span class="hljs-string">"pclass"</span>).median()
+<pre><code class="hljs language-py">titanic.groupby(<span class="hljs-string">"Pclass"</span>).median()
 </code></pre>
 <p>Median der Alter pro Klasse:</p>
-<pre><code class="hljs language-py">titanic.groupby(<span class="hljs-string">"pclass"</span>)[<span class="hljs-string">"age"</span>].median()
+<pre><code class="hljs language-py">titanic.groupby(<span class="hljs-string">"Pclass"</span>)[<span class="hljs-string">"Age"</span>].median()
 
 <span class="hljs-comment"># 1    37.0</span>
 <span class="hljs-comment"># 2    29.0</span>
@@ -2742,7 +2732,7 @@ every_10_days = pd.date_range(
 </code></pre>
 </section><section class="slide"><h2>Gruppierung und Aggregation</h2>
 <p>Anzahl der Passagiere nach Klasse und Geschlecht (<em>Kontingenztabelle</em> oder <em>Kreuztabelle</em>)</p>
-<pre><code class="hljs language-py">pd.crosstab(titanic[<span class="hljs-string">"pclass"</span>], titanic[<span class="hljs-string">"sex"</span>])
+<pre><code class="hljs language-py">pd.crosstab(titanic[<span class="hljs-string">"Pclass"</span>], titanic[<span class="hljs-string">"Sex"</span>])
 </code></pre>
 <pre><code class="hljs language-txt">sex     female  male
 pclass
@@ -2753,16 +2743,16 @@ pclass
 </section><section class="slide"><h2>Gruppierung und Aggregation</h2>
 <p>Durchschnittliches Alter nach Geschlecht und Klasse:</p>
 <pre><code class="hljs language-py">pd.crosstab(
-    index=titanic[<span class="hljs-string">"pclass"</span>],
-    columns=titanic[<span class="hljs-string">"sex"</span>],
-    values=titanic[<span class="hljs-string">"age"</span>],
+    index=titanic[<span class="hljs-string">"Pclass"</span>],
+    columns=titanic[<span class="hljs-string">"Sex"</span>],
+    values=titanic[<span class="hljs-string">"Age"</span>],
     aggfunc=np.mean)
 </code></pre>
 <pre><code class="hljs language-py">pd.pivot_table(
     data=titanic,
-    values=<span class="hljs-string">"age"</span>,
-    index=[<span class="hljs-string">"pclass"</span>],
-    columns=[<span class="hljs-string">"sex"</span>],
+    values=<span class="hljs-string">"Age"</span>,
+    index=[<span class="hljs-string">"Pclass"</span>],
+    columns=[<span class="hljs-string">"Sex"</span>],
     aggfunc=np.mean)
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>

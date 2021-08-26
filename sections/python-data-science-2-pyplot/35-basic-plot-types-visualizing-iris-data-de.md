@@ -71,6 +71,7 @@ plt.hist(
 plt.boxplot(
     [petal_length, petal_width, sepal_length, sepal_width],
     labels=["petal length", "petal width", "sepal length",
-            "sepal width"]
+            "sepal width"],
+    whis=(0, 100)
 )
 ```
