@@ -23,10 +23,10 @@ model.fit(passenger_data, survived)
 
 ## Scikit-learn: Überblick und Demo
 
-Voraussagen der Überlebenschance für:
+Voraussagen eines Wertes für das Überleben von:
 
 - 40 Jahre alte Frau in der ersten Klasse (ohne Begleitung)
-- 40 Jahre alter Mann in der dritten Klasse (ohne Begleitung)
+- 40 Jahre alter Mann in der zweiten Klasse (ohne Begleitung)
 
 ```py
 model.predict(
@@ -35,5 +35,5 @@ model.predict(
         [0, 3, 40, 0, 0],
     ])
 )
-# [0.93, 0.03]
+# [0.93, 0.23]
 ```

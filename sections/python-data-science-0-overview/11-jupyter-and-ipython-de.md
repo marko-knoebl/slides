@@ -20,10 +20,10 @@ IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervo
 
 kostenlose online Jupyter Notebooks:
 
-- _Google Colab_: https://colab.research.google.com (Login erforderlich)
-- _kaggle_ (Login zum Ändern / Erstellen erforderlich): https://www.kaggle.com
-  - populäre öffentliche Notebooks auf _kaggle_: https://www.kaggle.com/notebooks?sortBy=voteCount
-- _Binder_ (begrenzte Sessions): https://jupyter.org/try
+- _Google Colab_: <a href="https://colab.research.google.com" target="_blank">https://colab.research.google.com</a> (Login erforderlich)
+- _kaggle_ (Login zum Ändern / Erstellen erforderlich): <a href="https://www.kaggle.com" target="_blank">https://www.kaggle.com</a>
+  - populäre öffentliche Notebooks auf _kaggle_: <a href="https://www.kaggle.com/code?sortBy=voteCount" target="_blank">https://www.kaggle.com/code?sortBy=voteCount</a>
+- _Binder_ (begrenzte Sessions): <a href="https://jupyter.org/try" target="_blank">https://jupyter.org/try</a>
 
 ## Jupyter Pakete
 
@@ -56,7 +56,7 @@ Code in eine Zelle schreiben, z.B.
 ```py
 import time
 time.sleep(3)
-"hello"
+1 + 1
 ```
 
 dann _Shift_ + _Enter_ drücken
@@ -65,13 +65,11 @@ dann _Shift_ + _Enter_ drücken
 
 In IPython gibt es nummerierte Eingaben, z.B. `[1]`
 
-Während eine Eingabe ausgewertet wird, wird `[*]` angezeigt
-
 ## Code schreiben und ausführen
 
 Wenn das letzte Statement in einer Zelle einen Wert ergibt, wird dies als Ausgabe angezeigt
 
-(Um dies zu unterdrücken, schließe das letzte Statement mit einem Semikolon ab)
+Um dies zu unterdrücken, schließe das letzte Statement mit einem Semikolon ab
 
 ## Code schreiben und ausführen
 
@@ -95,9 +93,9 @@ Wechsle von _Code_ auf _Markdown_ und versuche den folgenden Code:
 - item 2
 ```
 
-Zelle ausführen oder verlassen, um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren
+Zelle ausführen (oder verlassen), um das Resultat anzuzeigen, doppelklicken zum erneuten Editieren
 
-[Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatshee" target="_blank">Markdown Cheatsheet</a>
 
 ## Dokumentation
 

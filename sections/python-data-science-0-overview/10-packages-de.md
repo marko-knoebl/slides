@@ -2,12 +2,12 @@
 
 ## Python Pakete für Data Science
 
-- _Jupyter_ & _IPython_: interaktive Python Umgebungen
+- _Jupyter_ und _IPython_: interaktive Python Umgebungen
 - _NumPy_: Bibliothek zum effizienten Verarbeiten numerischer Daten
 - _Pandas_: Bibliothek zur Datenanalyse, basiert auf NumPy
 - _Matplotlib_ und _Pyplot_: Bibliothek zur Datenvisualisierung
 - _Scikit-Learn_: Bibliothek für Machine Learning, basiert auf NumPy
-- _Keras_: Bibliothek für Deep Learning
+- _Tensorflow_ / _Keras_: Bibliothek für Deep Learning
 
 ## Kompilierte Pakete und Python-Versionen
 

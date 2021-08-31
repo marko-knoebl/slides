@@ -2,12 +2,12 @@
 
 ## Python packages for data science
 
-- _Jupyter_ & _IPython_: interactive Python environments
+- _Jupyter_ and _IPython_: interactive Python environments
 - _NumPy_: library for efficient processing of numerical data
 - _Pandas_: library for data analysis, based on NumPy
 - _Matplotlib_ and _Pyplot_: library for data visualization
 - _Scikit-Learn_: library for machine learning, based on NumPy
-- _Keras_: library for deep learning (based on _TensorFlow_)
+- _Tensorflow_ / _Keras_: library for deep learning
 
 ## Compiled packages and Python versions
 

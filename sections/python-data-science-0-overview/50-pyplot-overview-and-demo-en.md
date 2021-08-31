@@ -2,7 +2,7 @@
 
 ## Pyplot: overview and demo
 
-_Pyplot_: data plotting interface - included in matplotlib, accesible from _pandas_
+_Pyplot_: data plotting interface - included in matplotlib, accessible from _pandas_
 
 ## Pyplot: overview and demo
 
@@ -16,7 +16,7 @@ plt.hist(
     bins=[1, 2, 3, 4],
     align="left",
 )
-plt.xticks([1, 2, 3])
+plt.xticks([1, 2, 3]);
 ```
 
 using pyplot from pandas:
@@ -26,7 +26,7 @@ titanic["Pclass"].plot.hist(
     bins=[1, 2, 3, 4],
     align="left",
     xticks=[1, 2, 3],
-)
+);
 ```
 
 ## Pyplot: overview and demo
@@ -34,9 +34,9 @@ titanic["Pclass"].plot.hist(
 ```py
 plt.boxplot(
     titanic["Age"].dropna(),
-    whis=[0, 100],
+    whis=(0, 100),
     labels=["Age"]
-)
+);
 ```
 
 ## Pyplot: overview and demo
@@ -45,6 +45,5 @@ plt.boxplot(
 plt.hist(
     titanic["Age"],
     bins=[0, 10, 20, 30, 40, 50, 60, 70, 80],
-    color="C1",
-)
+);
 ```

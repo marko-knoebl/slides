@@ -68,7 +68,7 @@ titanic[titanic["Age"] < 1]
 
 ## Pandas: overview and demo
 
-preparing data for machine learning exercise:
+preparing data for a machine learning exercise:
 
 ```py
 # column with a numeric value
@@ -76,6 +76,6 @@ titanic["Female"] = titanic["Sex"].replace(
     {"female": 1, "male": 0}
 )
 
-# remove rows with missing data
-titanic_ml = titanic_ml.dropna()
+# remove rows with missing age
+titanic = titanic.dropna(subset=["Age"])
 ```

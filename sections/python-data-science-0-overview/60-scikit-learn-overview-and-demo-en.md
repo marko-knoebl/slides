@@ -23,10 +23,10 @@ model.fit(passenger_data, survived)
 
 ## Scikit-learn: overview and demo
 
-predicting chance of survival for:
+predicting a value for the survival of:
 
 - 40-year-old woman in first class (without companions)
-- 40-year-old man in third class (without companions)
+- 40-year-old man in second class (without companions)
 
 ```py
 model.predict(
@@ -35,5 +35,5 @@ model.predict(
         [0, 3, 40, 0, 0],
     ])
 )
-# [0.93, 0.03]
+# [0.93, 0.23]
 ```

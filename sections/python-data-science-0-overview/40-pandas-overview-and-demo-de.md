@@ -76,6 +76,6 @@ titanic["Female"] = titanic["Sex"].replace(
     {"female": 1, "male": 0}
 )
 
-# remove rows with missing data
-titanic_ml = titanic_ml.dropna()
+# remove rows with missing age
+titanic = titanic.dropna(subset=["Age"])
 ```

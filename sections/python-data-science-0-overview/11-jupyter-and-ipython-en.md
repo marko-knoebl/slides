@@ -20,10 +20,10 @@ IPython = advanced interactive Python console, supports features like autocomple
 
 free online Jupyter environments:
 
-- _Google Colab_: https://colab.research.google.com (login required)
-- _kaggle_ (login required to edit / create notebooks): https://www.kaggle.com
-  - popular public notebooks on _kaggle_: https://www.kaggle.com/notebooks?sortBy=voteCount (login required to edit / create)
-- _Binder_ (limited sessions): https://jupyter.org/try
+- _Google Colab_: <a href="https://colab.research.google.com" target="_blank">https://colab.research.google.com</a> (login required)
+- _kaggle_ (login required to edit / create notebooks): <a href="https://www.kaggle.com" target="_blank">https://www.kaggle.com</a>
+  - popular public notebooks on _kaggle_: <a href="https://www.kaggle.com/code?sortBy=voteCount" target="_blank">https://www.kaggle.com/code?sortBy=voteCount</a>
+- _Binder_ (limited sessions): <a href="https://jupyter.org/try" target="_blank">https://jupyter.org/try</a>
 
 ## Jupyter packages
 
@@ -56,22 +56,20 @@ Write code into a cell, e.g.
 ```py
 import time
 time.sleep(3)
-"hello"
+1 + 1
 ```
 
 and press _Shift_ + _Enter_
 
 ## Writing and evaluating code
 
-IPython has numbered inputs, e.g. `[1]`
-
-When a computation is ongoing it will display `[*]`
+IPython has numbered inputs / outputs, e.g. `[1]`
 
 ## Writing and evaluating code
 
 If the last statement in a cell evaluates to something it will be considered the output and be displayed
 
-(To supress this behavior, end the statement with a semicolon)
+To supress this behavior, end the statement with a semicolon
 
 ## Writing and evaluating code
 
@@ -95,9 +93,9 @@ Switch from _Code_ to _Markdown_ and try the following code:
 - item 2
 ```
 
-Run or leave the cell to display the result, double click to edit again
+Run (or leave) the cell to display the result, double click to edit again
 
-[markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatshee" target="_blank">markdown cheatsheet</a>
 
 ## Documentation
 
