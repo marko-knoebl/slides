@@ -3477,6 +3477,73 @@ function Video() {
 <p>The resulting HOC receives a regular component and returns a component that is connected to the Redux store:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> RatingContainer = connector(Rating);
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Internationalization</h1>
+</section><section class="slide"><h2>Internationalization</h2>
+<p>libraries:</p>
+<ul>
+<li><em>react-i18next</em> (based on <em>i18next</em>)</li>
+<li><em>react-intl</em></li>
+</ul>
+</section><section class="slide"><h2>i18next - basics</h2>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// src/i18n.ts</span>
+
+<span class="hljs-keyword">import</span> i18next <span class="hljs-keyword">from</span> <span class="hljs-string">'i18next'</span>;
+<span class="hljs-keyword">import</span> { initReactI18next } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-i18next'</span>;
+</code></pre>
+</section><section class="slide"><h2>i18next - basics</h2>
+<p>setup with inline data:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// src/i18n.ts</span>
+
+i18next.use(initReactI18next).init({
+  <span class="hljs-attr">debug</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">lng</span>: <span class="hljs-string">'en'</span>,
+  <span class="hljs-attr">resources</span>: {
+    <span class="hljs-attr">en</span>: {
+      <span class="hljs-attr">translation</span>: { <span class="hljs-attr">hello</span>: <span class="hljs-string">'Hello!'</span>, <span class="hljs-attr">sign_in</span>: <span class="hljs-string">'Sign in'</span> },
+    },
+    <span class="hljs-attr">de</span>: {
+      <span class="hljs-attr">translation</span>: { <span class="hljs-attr">hello</span>: <span class="hljs-string">'Hallo!'</span>, <span class="hljs-attr">sign_in</span>: <span class="hljs-string">'Anmelden'</span> },
+    },
+  },
+});
+</code></pre>
+</section><section class="slide"><h2>i18next - basics</h2>
+<p>including in the project in <em>src/index.tsx</em>:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./i18n'</span>;
+<span class="hljs-comment">// ...</span>
+</code></pre>
+<p>testing its functionality:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> i18next <span class="hljs-keyword">from</span> <span class="hljs-string">'i18next'</span>;
+
+<span class="hljs-built_in">console</span>.log(i18next.t(<span class="hljs-string">'hello'</span>));
+<span class="hljs-built_in">console</span>.log(i18next.t(<span class="hljs-string">'sign_in'</span>, { <span class="hljs-attr">lng</span>: <span class="hljs-string">'de'</span> }));
+</code></pre>
+</section><section class="slide"><h2>i18next - basics</h2>
+<p>accessing the translation function via a hook:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SignInButton</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> { t } = useTranslation();
+
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>{t('sign_in')}<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>;
+}
+</code></pre>
+</section><section class="slide"><h2>i18next - topics in depth</h2>
+<ul>
+<li>translation files hosted on the server
+<ul>
+<li>loading via <em>suspense</em></li>
+</ul>
+</li>
+<li>namespaces</li>
+<li>interpolation</li>
+<li>plural</li>
+<li>changing languages</li>
+</ul>
+<p>resources:</p>
+<ul>
+<li><a href="https://www.robinwieruch.de/react-internationalization" target="_blank">Robin Wieruch: "React Internationalization with i18n"</a></li>
+<li><a href="https://www.i18next.com/translation-function/essentials" target="_blank">i18next.com: Translation function</a></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>File Structure</h1>
 </section><section class="slide"><h2>File Structure</h2>
 <p><a href="https://reactjs.org/docs/faq-structure.html">https://reactjs.org/docs/faq-structure.html</a></p>
