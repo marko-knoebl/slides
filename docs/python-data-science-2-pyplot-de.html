@@ -2107,7 +2107,7 @@ plt.plot(x, np.cos(x))
 <p>Vorgefertigte Stylesheets verwendbar mittels:</p>
 <pre><code class="hljs language-py">plt.style.use(<span class="hljs-string">"stylename"</span>)
 </code></pre>
-<p><a href="https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html">Referenz verfügbarer Stile</a></p>
+<p>siehe <code>plt.style.available</code> für eine Liste von verfügbaren Stilen (<a href="https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html" target="_blank">online Referenz</a>)</p>
 </section><section class="slide"><h2>Stile von Graphen</h2>
 <p>Beispiel zum Styling eines Graphen:</p>
 <pre><code class="hljs language-py">plt.plot(x, y, color=<span class="hljs-string">"C0"</span>, marker=<span class="hljs-string">"X"</span>, linestyle=<span class="hljs-string">"dashed"</span>)
@@ -2228,6 +2228,24 @@ plt.xlabel(<span class="hljs-string">"x (radians)"</span>)
 plt.xticks(np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*np.pi, <span class="hljs-number">5</span>))
 plt.legend()
 plt.axis(<span class="hljs-string">"scaled"</span>)
+</code></pre>
+</section><section class="slide"><h2>Eigene Stylesheets</h2>
+<pre><code class="hljs language-py">plt.style.use(<span class="hljs-string">"./mystyle.mplstyle"</span>)
+</code></pre>
+<pre><code class="hljs language-txt"># general configuration
+axes.facecolor: EAEAF2
+
+# line plot configuration
+lines.linewidth: 1.5
+lines.marker: o
+lines.markersize: 4
+
+# box plot configuration
+boxplot.whiskers: 0, 100
+</code></pre>
+</section><section class="slide"><h2>Eigene Stylesheets</h2>
+<p>eigene Theme-Farben (C0 - C10):</p>
+<pre><code class="hljs language-txt">axes.prop_cycle: cycler('color', ['4C72B0', '55A868', 'C44E52', '8172B2', 'CCB974', '64B5CD'])
 </code></pre>
 </section><section class="slide"><h2>Ressourcen</h2>
 <ul>
@@ -2463,12 +2481,16 @@ ax.add_artist(r)
 </code></pre>
 </section><section class="slide"><h2>Artists</h2>
 <p>Beispiele: Erstellen einfacher Artists</p>
-<pre><code class="hljs language-py">l = plt.Line2D((<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>), (<span class="hljs-number">0.25</span>, <span class="hljs-number">0.75</span>), color=<span class="hljs-string">"C0"</span>)
-r = plt.Rectangle((<span class="hljs-number">0.25</span>, <span class="hljs-number">0.75</span>), <span class="hljs-number">0.1</span>, <span class="hljs-number">0.1</span>, color=<span class="hljs-string">"C1"</span>)
-c = plt.Circle((<span class="hljs-number">0.75</span>, <span class="hljs-number">0.75</span>), <span class="hljs-number">0.1</span>, color=<span class="hljs-string">"C2"</span>)
+<pre><code class="hljs language-py">r = plt.Rectangle((<span class="hljs-number">0.25</span>, <span class="hljs-number">0.75</span>), <span class="hljs-number">0.1</span>, <span class="hljs-number">0.1</span>, color=<span class="hljs-string">"C0"</span>)
+c = plt.Circle((<span class="hljs-number">0.75</span>, <span class="hljs-number">0.75</span>), <span class="hljs-number">0.1</span>, color=<span class="hljs-string">"C1"</span>)
 p = plt.Polygon(
     [[<span class="hljs-number">0.2</span>, <span class="hljs-number">0.2</span>], [<span class="hljs-number">0.5</span>, <span class="hljs-number">0.1</span>], [<span class="hljs-number">0.8</span>, <span class="hljs-number">0.2</span>]],
-    color=<span class="hljs-string">"C3"</span>
+    color=<span class="hljs-string">"C2"</span>,
+)
+l = plt.Line2D(
+    (<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>), <span class="hljs-comment"># x coordinates</span>
+    (<span class="hljs-number">0.25</span>, <span class="hljs-number">0.75</span>), <span class="hljs-comment"># y coordinates</span>
+    color=<span class="hljs-string">"C3"</span>,
 )
 t = plt.Text(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-string">"Hello!"</span>, size=<span class="hljs-number">40</span>, color=<span class="hljs-string">"C4"</span>)
 </code></pre></section></section></div>

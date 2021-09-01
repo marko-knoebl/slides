@@ -8,7 +8,7 @@ Predefined stylesheets are available via:
 plt.style.use("stylename")
 ```
 
-[Reference of available styles](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html)
+see `plt.style.available` for a list of available styles (<a href="https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html" target="_blank">online reference</a>)
 
 ## Styling graphs
 
@@ -178,6 +178,33 @@ plt.xlabel("x (radians)")
 plt.xticks(np.linspace(0, 2*np.pi, 5))
 plt.legend()
 plt.axis("scaled")
+```
+
+## Custom stylesheets
+
+```py
+plt.style.use("./mystyle.mplstyle")
+```
+
+```txt
+# general configuration
+axes.facecolor: EAEAF2
+
+# line plot configuration
+lines.linewidth: 1.5
+lines.marker: o
+lines.markersize: 4
+
+# box plot configuration
+boxplot.whiskers: 0, 100
+```
+
+## Custom stylesheets
+
+custom theme colors (C0 - C10):
+
+```txt
+axes.prop_cycle: cycler('color', ['4C72B0', '55A868', 'C44E52', '8172B2', 'CCB974', '64B5CD'])
 ```
 
 ## Resources
