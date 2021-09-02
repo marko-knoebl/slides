@@ -6,4 +6,4 @@
 
 ## Other free resources
 
-- <a href="https://fullstackopen.com" target="blank_">fullstackopen.com</a>
+- <https://fullstackopen.com>
