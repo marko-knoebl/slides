@@ -2073,8 +2073,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 <p>Gründe für die Verwendung von Klassenkomponenten:</p>
 <ul>
-<li>Konzepte sind zu Beginn wohl vertrauter</li>
-<li>einfachere Memoisation</li>
+<li>Klassenmethoden (in Klassenkomponenten) können einfacher sein als verschachtelte Funktionsdefinitionen (in Funktionskomponenten)</li>
 <li>Instanzvariablen (in Klassenkomponenten) sind einfacher als Refs (in Funktionskomponenten)</li>
 </ul>
 </section><section class="slide"><h2>Einfaches Beispiel</h2>
@@ -2204,13 +2203,6 @@ greet(); <span class="hljs-comment">// ok</span>
 <pre><code class="hljs language-js"><span class="hljs-built_in">this</span>.setState({ <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">false</span> });
 </code></pre>
 <p>setState überschreibt alle angegebenen Einträge im state-Objekt und lässt den Rest unverändert</p>
-</section><section class="slide"><h2>Wiederholtes Aufrufen von this.setState</h2>
-<p>Rat: in einem Event-Handler nur 1x <code>setState</code> aufrufen.</p>
-<p>Wenn doch mehrere Aufrufe von <code>setState</code> erfolgen und ein Aufruf auf der vorhergehenden Zustandsänderung basiert:</p>
-<pre><code class="hljs language-js"><span class="hljs-built_in">this</span>.setState(<span class="hljs-function"><span class="hljs-params">oldState</span> =></span> ({ <span class="hljs-attr">count</span>: oldState.count + <span class="hljs-number">1</span> }));
-<span class="hljs-built_in">this</span>.setState(<span class="hljs-function"><span class="hljs-params">oldState</span> =></span> ({ <span class="hljs-attr">count</span>: oldState.count + <span class="hljs-number">1</span> }));
-</code></pre>
-<p>Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Klassenkomponenten mit TypeScript</h1>
 </section><section class="slide"><h2>Klassenkomponenten mit TypeScript</h2>
 <pre><code class="hljs language-tsx">type TodoItemProps = {

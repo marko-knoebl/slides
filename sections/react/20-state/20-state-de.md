@@ -66,3 +66,4 @@ Zusatz:
 
 - verhindere, dass ins negative gezählt wird
 - Button für zufälliges Bild
+- Buttons zum Wechseln zwischen verschiedenen Auflösungen

@@ -106,7 +106,7 @@ const greeting = `Hello, ${name}!
 
 ## The semicolon in JavaScript
 
-The semicolon for ending statements is mostly optional in JavaScript (_automatic semicolon insertion_)
+The semicolon for terminating statements is mostly optional in JavaScript (_automatic semicolon insertion_)
 
 <!-- prettier-ignore -->
 ```js

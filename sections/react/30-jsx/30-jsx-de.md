@@ -4,8 +4,8 @@
 
 JSX = Templatesprache von React
 
-- **<** wechselt von JS zu XML/HTML
-- **{** wechselt zurück zu JS
+- ein XML-Tag wechselt von JS zu XML/HTML
+- geschweifte Klammern wechseln zurück zu JS
 
 ## JSX verwenden
 

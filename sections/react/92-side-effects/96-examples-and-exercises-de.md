@@ -38,10 +38,6 @@ function PersistentCounter() {
 
 Übung: Speichere den state einer der vorigen Anwendungen, (z.B. slideshow) in _localStorage_
 
-## Exercises
-
-Exercise: save the state of one of the previous applications (e.g. slideshow) to _localStorage_
-
 ## Beispiel: DocumentTitle-Komponente
 
 Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:
@@ -104,4 +100,30 @@ Teil der Implementierung einer Clock-Komponente als Klassenkomponente:
   componentWillUnmount() {
     clearInterval(this.intervalId);
   }
+```
+
+## Beispiel: Logout-timer
+
+Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt:
+
+```jsx
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [lastInteraction, setLastInteraction] = useState(
+    new Date()
+  );
+  // restart the logout timer on user interaction
+  useEffect(() => {
+    const logout = () => setLoggedIn(false);
+    const timeoutId = setTimeout(logout, 10000);
+    return () => clearTimeout(timeoutId);
+  }, [lastInteraction]);
+  return (
+    <button onClick={() => setLastInteraction(new Date())}>
+      {loggedIn
+        ? 'click to stay logged in'
+        : 'logged out automatically'}
+    </button>
+  );
+};
 ```

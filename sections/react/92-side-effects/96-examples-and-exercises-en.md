@@ -101,3 +101,29 @@ partial implementation of a clock component as a class component:
     clearInterval(this.intervalId);
   }
 ```
+
+## Example: Logout timer
+
+user will be logged out after 10 seconds of inactivity
+
+```jsx
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [lastInteraction, setLastInteraction] = useState(
+    new Date()
+  );
+  // restart the logout timer on user interaction
+  useEffect(() => {
+    const logout = () => setLoggedIn(false);
+    const timeoutId = setTimeout(logout, 10000);
+    return () => clearTimeout(timeoutId);
+  }, [lastInteraction]);
+  return (
+    <button onClick={() => setLastInteraction(new Date())}>
+      {loggedIn
+        ? 'click to stay logged in'
+        : 'logged out automatically'}
+    </button>
+  );
+};
+```

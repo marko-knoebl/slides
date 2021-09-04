@@ -2,7 +2,7 @@
 
 ## The effect hook and outdated state
 
-As we've seen before, asynchronous functions may reference outdated state / data
+As we've seen before, functions may reference outdated state / data
 
 ## The effect hook and outdated state
 

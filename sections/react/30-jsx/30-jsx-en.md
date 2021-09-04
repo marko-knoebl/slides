@@ -4,8 +4,8 @@
 
 JSX = template language of React
 
-- **<** switches from JS to XML/HTML
-- **{** switches back to JS
+- an XML tag switches from JS to XML/HTML
+- curly braces switch back to JS
 
 ## Using JSX
 

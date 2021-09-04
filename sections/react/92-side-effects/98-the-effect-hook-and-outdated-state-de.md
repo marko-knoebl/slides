@@ -2,7 +2,7 @@
 
 ## Der effect-Hook und veralteter State
 
-Wie wir zuvor gsehen haben, können asynchrone Funktionen auf alten State / alte Daten verweisen
+Wie wir zuvor gsehen haben, können Funktionen auf alten State / alte Daten verweisen
 
 ## Der effect-Hook und veralteter State
 

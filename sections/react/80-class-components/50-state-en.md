@@ -52,16 +52,3 @@ this.setState({ loggedIn: false });
 ```
 
 `setState` will change all specified entries and leave the rest unchanged
-
-## Repeated calls to this.setState
-
-Advice: In an event handler `setState` should only be called once.
-
-If you do want to call `setState` multiple times and one call depends on the modifications of the previous call:
-
-```js
-this.setState(oldState => ({ count: oldState.count + 1 }));
-this.setState(oldState => ({ count: oldState.count + 1 }));
-```
-
-Pass a function to `setState`. This function will transform the old state into the new state.

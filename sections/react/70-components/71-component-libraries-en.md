@@ -3,8 +3,8 @@
 ## Component libraries
 
 - Material UI: React components in material design
-- React Native & React Native Web: React components & framework for mobile & web apps
 - React Bootstrap
+- React Native & React Native Web: React components & framework for mobile & web apps
 - Blueprint
 - Ant Design
 - ...

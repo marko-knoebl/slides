@@ -26,84 +26,15 @@ function App() {
     const initiateQuery = async () => {
       // ...
     };
-    const cancelPreviousQuery = () => {
+    const cancelThisQuery = () => {
       // ...
     };
     initiateQuery();
-    return cancelPreviousQuery;
+    return cancelThisQuery;
   }, [query]);
 
   // ...
 }
-```
-
-## Cleanup-Funktionen
-
-vollständiges Beispiel: Hacker News - Suche
-
-```js
-function App() {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  useEffect(() => {
-    let isCancelled = false;
-    const initiateQuery = async () => {
-      const res = await fetch(
-        `https://hn.algolia.com/api/v1/search?query=${query}`
-      );
-      const data = await res.json();
-      if (!isCancelled) {
-        setResults(data.hits);
-      }
-    };
-    const cancelPreviousQuery = () => {
-      isCancelled = true;
-    };
-    initiateQuery();
-    return cancelPreviousQuery;
-  }, [query]);
-  return (
-    <div className="App">
-      <input
-        value={query}
-        onChange={(event) => {
-          setQuery(event.target.value);
-        }}
-      />
-      <ul>
-        {results.map((article) => (
-          <li key={article.objectId}>{article.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-```
-
-## Cleanup-Funktionen
-
-Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt
-
-```jsx
-const App = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
-  const [lastInteraction, setLastInteraction] = useState(
-    new Date()
-  );
-  // restart the logout timer on user interaction
-  useEffect(() => {
-    const logout = () => setLoggedIn(false);
-    const timeoutId = setTimeout(logout, 10000);
-    return () => clearTimeout(timeoutId);
-  }, [lastInteraction]);
-  return (
-    <button onClick={() => setLastInteraction(new Date())}>
-      {loggedIn
-        ? 'click to stay logged in'
-        : 'logged out automatically'}
-    </button>
-  );
-};
 ```
 
 ## Asynchrone Effects und Cleanup-Funktionen

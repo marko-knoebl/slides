@@ -70,19 +70,3 @@ function App() {
   );
 }
 ```
-
-## Input state
-
-Exercise:
-
-Show two inputs where the user should input matching passwords that are at least 4 characters long.
-
-If the password combination is invalid, display an error message underneath, e.g.:
-
-_Password must be at least 4 characters long_
-
-or
-
-_Passwords don't match_
-
-Make sure you store the minimal state

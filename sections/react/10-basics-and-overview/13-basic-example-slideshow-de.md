@@ -49,12 +49,20 @@ Die Funktion wird jedes Mal aufgerufen, wenn die Komponente (neu) gerendert werd
 <!-- prettier-ignore -->
 ```jsx
   const [img, setImg] = useState(0);
-  const imgUrl = baseUrl + img.toString();
 ```
 
 Eine Komponente kann interne State-Einträge haben
 
 `useState` gibt bei jedem Rendering den aktuellen State-Eintrag und einen zugehörigen Setter zurück
+
+## Grundlegendes Beispiel: Slideshow
+
+<!-- prettier-ignore -->
+```jsx
+  const imgUrl = baseUrl + img.toString();
+```
+
+Üblicherweise wird der _minimale_ State gespeichert
 
 Weitere Werte (z.B. `imgUrl`) können aus dem State abgeleitet werden
 

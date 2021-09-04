@@ -2072,7 +2072,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p><code>useState</code> may be called (repeatedly) inside the component function</p>
 <ul>
 <li><code>useState</code> takes one parameter - the initial state value</li>
-<li>on each call <code>useState</code> returns an array with two entries: the current state and a function to set the state to a new value</li>
+<li>on each call <code>useState</code> returns an array with two entries: the current state and a function that lets us set the state to a new value</li>
 </ul>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
@@ -2107,6 +2107,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <ul>
 <li>prevent the index from becoming negative</li>
 <li>button for <em>random image</em></li>
+<li>buttons that let the user select different resolutions</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Input state</h1>
 </section><section class="slide"><h2>Input state</h2>
@@ -2155,14 +2156,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 }
 </code></pre>
-</section><section class="slide"><h2>Input state</h2>
-<p>Exercise:</p>
-<p>Show two inputs where the user should input matching passwords that are at least 4 characters long.</p>
-<p>If the password combination is invalid, display an error message underneath, e.g.:</p>
-<p><em>Password must be at least 4 characters long</em></p>
-<p>or</p>
-<p><em>Passwords don't match</em></p>
-<p>Make sure you store the minimal state</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
 </section><section class="slide"><h2>Immutable state</h2>
 <p><strong>Immutability</strong>: important concept in functional programing and with React / Redux</p>
@@ -2354,7 +2347,26 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>solution 3:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> withCompletedTodosRemoved = <span class="hljs-function">(<span class="hljs-params">todos</span>) =></span>
   todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed);
-</code></pre></section></section></div>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Exercise: registration form</h1>
+</section><section class="slide"><h2>Exercise: registration form</h2>
+<p>Create a user registration form</p>
+<p>Values should be stored in a single JS object with different keys:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [userData, setUserData] = useState({
+  <span class="hljs-attr">firstName</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-attr">lastName</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-attr">password</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-attr">repeatPassword</span>: <span class="hljs-string">""</span>,
+})
+</code></pre>
+</section><section class="slide"><h2>Exercise: registration form</h2>
+<p>Underneath the form, display a potential error message for the <em>first</em> invalid input (if there is one)</p>
+<p>possible error messages:</p>
+<ul>
+<li><em>First name must not be empty</em></li>
+<li><em>Password must be at least 4 characters long</em></li>
+<li><em>Passwords don't match</em></li>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

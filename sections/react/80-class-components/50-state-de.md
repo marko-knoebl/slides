@@ -52,16 +52,3 @@ this.setState({ loggedIn: false });
 ```
 
 setState überschreibt alle angegebenen Einträge im state-Objekt und lässt den Rest unverändert
-
-## Wiederholtes Aufrufen von this.setState
-
-Rat: in einem Event-Handler nur 1x `setState` aufrufen.
-
-Wenn doch mehrere Aufrufe von `setState` erfolgen und ein Aufruf auf der vorhergehenden Zustandsänderung basiert:
-
-```js
-this.setState(oldState => ({ count: oldState.count + 1 }));
-this.setState(oldState => ({ count: oldState.count + 1 }));
-```
-
-Wir übergeben setState eine Funktion, die den alten in den neuen Zustand überführt.

@@ -2198,76 +2198,15 @@ useEffect(<span class="hljs-function">() =></span> {
     <span class="hljs-keyword">const</span> initiateQuery = <span class="hljs-keyword">async</span> () => {
       <span class="hljs-comment">// ...</span>
     };
-    <span class="hljs-keyword">const</span> cancelPreviousQuery = <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> cancelThisQuery = <span class="hljs-function">() =></span> {
       <span class="hljs-comment">// ...</span>
     };
     initiateQuery();
-    <span class="hljs-keyword">return</span> cancelPreviousQuery;
+    <span class="hljs-keyword">return</span> cancelThisQuery;
   }, [query]);
 
   <span class="hljs-comment">// ...</span>
 }
-</code></pre>
-</section><section class="slide"><h2>Cleanup-Funktionen</h2>
-<p>vollständiges Beispiel: Hacker News - Suche</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [query, setQuery] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> [results, setResults] = useState([]);
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">let</span> isCancelled = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">const</span> initiateQuery = <span class="hljs-keyword">async</span> () => {
-      <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-        <span class="hljs-string">`https://hn.algolia.com/api/v1/search?query=<span class="hljs-subst">${query}</span>`</span>
-      );
-      <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-      <span class="hljs-keyword">if</span> (!isCancelled) {
-        setResults(data.hits);
-      }
-    };
-    <span class="hljs-keyword">const</span> cancelPreviousQuery = <span class="hljs-function">() =></span> {
-      isCancelled = <span class="hljs-literal">true</span>;
-    };
-    initiateQuery();
-    <span class="hljs-keyword">return</span> cancelPreviousQuery;
-  }, [query]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"App"</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{query}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> {
-          setQuery(event.target.value);
-        }}
-      />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-        {results.map((article) => (
-          <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{article.objectId}</span>></span>{article.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-        ))}
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Cleanup-Funktionen</h2>
-<p>Beispiel: Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
-  <span class="hljs-keyword">const</span> [lastInteraction, setLastInteraction] = useState(
-    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
-  );
-  <span class="hljs-comment">// restart the logout timer on user interaction</span>
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">const</span> logout = <span class="hljs-function">() =></span> setLoggedIn(<span class="hljs-literal">false</span>);
-    <span class="hljs-keyword">const</span> timeoutId = <span class="hljs-built_in">setTimeout</span>(logout, <span class="hljs-number">10000</span>);
-    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearTimeout</span>(timeoutId);
-  }, [lastInteraction]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLastInteraction(new Date())}>
-      {loggedIn
-        ? 'click to stay logged in'
-        : 'logged out automatically'}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  );
-};
 </code></pre>
 </section><section class="slide"><h2>Asynchrone Effects und Cleanup-Funktionen</h2>
 <p>Eine Effect-Funktion <strong>darf keine asynchrone Funktion sein</strong></p>
@@ -2314,8 +2253,6 @@ useEffect(<span class="hljs-function">() =></span> {
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Übung: Speichere den state einer der vorigen Anwendungen, (z.B. slideshow) in <em>localStorage</em></p>
-</section><section class="slide"><h2>Exercises</h2>
-<p>Exercise: save the state of one of the previous applications (e.g. slideshow) to <em>localStorage</em></p>
 </section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
 <p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
@@ -2362,6 +2299,28 @@ useEffect(<span class="hljs-function">() =></span> {
     <span class="hljs-built_in">clearInterval</span>(<span class="hljs-built_in">this</span>.intervalId);
   }
 </code></pre>
+</section><section class="slide"><h2>Beispiel: Logout-timer</h2>
+<p>Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> [lastInteraction, setLastInteraction] = useState(
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+  );
+  <span class="hljs-comment">// restart the logout timer on user interaction</span>
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> logout = <span class="hljs-function">() =></span> setLoggedIn(<span class="hljs-literal">false</span>);
+    <span class="hljs-keyword">const</span> timeoutId = <span class="hljs-built_in">setTimeout</span>(logout, <span class="hljs-number">10000</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearTimeout</span>(timeoutId);
+  }, [lastInteraction]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLastInteraction(new Date())}>
+      {loggedIn
+        ? 'click to stay logged in'
+        : 'logged out automatically'}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+};
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Beispiele und Übungen: APIs</h1>
 </section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
 <p>Beispiel: Laden von Wechselkursen von einem API, wenn sich die ausgewählten Währungen ändern:</p>
@@ -2397,9 +2356,34 @@ useEffect(<span class="hljs-function">() =></span> {
   <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
 }
 </code></pre>
-</section><section class="slide"><h2>Example: loading exchange rate data</h2>
+</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
 <p>vollständiger Code (Klassenkomponenten und Funktionskomponenten):</p>
 <p><a href="https://codesandbox.io/s/side-effects-exchange-rate-2z42d">https://codesandbox.io/s/side-effects-exchange-rate-2z42d</a></p>
+</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
+<p>mit Einfachem Cleanup: Abbrechen einer früheren Query durch setzen einer Variable in einer Closure</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
+  <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
+  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">let</span> isCancelled = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+      setRate(<span class="hljs-literal">null</span>);
+      <span class="hljs-keyword">const</span> rate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-keyword">from</span>, to);
+      <span class="hljs-keyword">if</span> (!isCancelled) {
+        setRate(rate);
+      }
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cancelThisQuery</span>(<span class="hljs-params"></span>) </span>{
+      isCancelled = <span class="hljs-literal">true</span>;
+    }
+    loadExchangeRate();
+    <span class="hljs-keyword">return</span> cancelThisQuery;
+  }, [<span class="hljs-keyword">from</span>, to]);
+  <span class="hljs-comment">// render two dropdowns for selecting currencies</span>
+  <span class="hljs-comment">// and show the exchange rate</span>
+}
+</code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Beispiele für abfragbare APIs:</p>
 <ul>
@@ -2418,7 +2402,7 @@ useEffect(<span class="hljs-function">() =></span> {
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Der effect-Hook und veralteter State</h1>
 </section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
-<p>Wie wir zuvor gsehen haben, können asynchrone Funktionen auf alten State / alte Daten verweisen</p>
+<p>Wie wir zuvor gsehen haben, können Funktionen auf alten State / alte Daten verweisen</p>
 </section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
 <p>Beispiel: fehlerhafter Code, der in einer Closure weiter auf einen veralteten State-Eintrag verweist</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterWithLogging</span>(<span class="hljs-params"></span>) </span>{

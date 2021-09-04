@@ -16,8 +16,7 @@ Gründe für die Verwendung von Hooks:
 
 Gründe für die Verwendung von Klassenkomponenten:
 
-- Konzepte sind zu Beginn wohl vertrauter
-- einfachere Memoisation
+- Klassenmethoden (in Klassenkomponenten) können einfacher sein als verschachtelte Funktionsdefinitionen (in Funktionskomponenten)
 - Instanzvariablen (in Klassenkomponenten) sind einfacher als Refs (in Funktionskomponenten)
 
 ## Einfaches Beispiel

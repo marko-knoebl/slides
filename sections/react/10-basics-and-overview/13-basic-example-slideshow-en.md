@@ -49,12 +49,20 @@ The function is called every time the component needs to be (re-)rendered
 <!-- prettier-ignore -->
 ```jsx
   const [img, setImg] = useState(0);
-  const imgUrl = baseUrl + img.toString();
 ```
 
 A component can have internal state entries
 
 `useState` returns the current state entry and a corresponding setter on every render
+
+## Basic example: slideshow
+
+<!-- prettier-ignore -->
+```jsx
+  const imgUrl = baseUrl + img.toString();
+```
+
+We should usually store the _minimal_ state
 
 Other values (like `imgUrl`) can be derived from the state values
 

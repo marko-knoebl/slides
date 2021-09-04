@@ -23,7 +23,7 @@ type Props = {
 };
 
 const Notification = (props: Props) => {
-  let style = {
+  const style = {
     backgroundColor:
       props.type === 'error' ? 'salmon' : 'lightblue',
   };

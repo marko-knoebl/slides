@@ -140,15 +140,6 @@ const TodoDetailView = () => {
 };
 ```
 
-## Styling von Links
-
-Übergeben eines Klassennamens, der auf aktive Links angewendet wird:
-
-```xml
-<NavLink to="/" activeClassName="active-link">Home</NavLink>
-<NavLink to="/add" activeClassName="active-link">Add</NavLink>
-```
-
 ## Navigation aus React
 
 in v6:
@@ -181,4 +172,13 @@ const AddTodoView = () => {
   };
   // ...
 };
+```
+
+## Styling von Links
+
+Übergeben eines Klassennamens, der auf aktive Links angewendet wird:
+
+```xml
+<NavLink to="/" activeClassName="active-link">Home</NavLink>
+<NavLink to="/add" activeClassName="active-link">Add</NavLink>
 ```

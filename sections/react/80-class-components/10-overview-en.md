@@ -16,8 +16,7 @@ reasons for using hooks:
 
 reasons for using class components:
 
-- concepts are probably more familiar in the beginning
-- simpler memoization
+- class methods (in class components) can be simpler than defining nested functions (in function components)
 - instance variables (in class components) are simpler than refs (in function components)
 
 ## Class component example

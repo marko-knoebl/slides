@@ -19,7 +19,7 @@ import { useState } from 'react';
 `useState` may be called (repeatedly) inside the component function
 
 - `useState` takes one parameter - the initial state value
-- on each call `useState` returns an array with two entries: the current state and a function to set the state to a new value
+- on each call `useState` returns an array with two entries: the current state and a function that lets us set the state to a new value
 
 ```js
 const App = () => {
@@ -66,3 +66,4 @@ optional:
 
 - prevent the index from becoming negative
 - button for _random image_
+- buttons that let the user select different resolutions
