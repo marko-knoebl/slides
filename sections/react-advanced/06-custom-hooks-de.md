@@ -2,9 +2,21 @@
 
 ## Eigene Hooks
 
-können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren
+Bausteine einer React-Anwendung:
 
-werden als Funktionen definiert, die wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurückgreifen
+- *Komponenten*: für das _View_
+- *Hooks* für das _Modell_ / die _Logik_ hinter dem _View_
+
+Zwecke:
+
+- Strukturierung von Code
+- Wiederverwendung von Code
+
+## Eigene Hooks
+
+Eigene Hooks können als Funktionen definiert werden, deren Name mit `use` beginnt
+
+Eigene Hooks greifen wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurück
 
 ## Eigene Hooks - useExchangeRate
 
@@ -133,37 +145,11 @@ Einfache Implementierung von `useDate`:
 const useDate = (interval) => {
   const [date, setDate] = useState(new Date());
   useEffect(() => {
-    setInterval(() => {
+    const id = setInterval(() => {
       setDate(new Date());
     }, interval);
+    return () => clearInterval(id);
   }, []);
   return date;
 };
 ```
-
-## Eigene Hooks - Übung
-
-Erstellen eines `useWeather`-Hooks zum Abfragen von Wetterdaten - zusammen mit einem zugehörigen Context, der die Daten Anwendungsweit cached
-
-```js
-const { weather, status, reload } = useWeather('vienna', {
-  autoReloadInterval: 60,
-});
-```
-
-Für die Datenquelle siehe nächste Slide
-
-## Eigene Hooks - Übung
-
-OpenWeatherMap-API
-
-Beispiel-URL: <http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&units=metric&q=vienna>
-
-(bitte diese appid / API-Key nur für einfache Übungen verwenden)
-
-Einträge in den API-Daten:
-
-- `.weather[0].main` (z.B. _Rain_)
-- `.main.temp` (z.B. 24.5)
-- `.wind.speed` (z.B. 2.5)
-- `.name` (z.B. _Vienna_)

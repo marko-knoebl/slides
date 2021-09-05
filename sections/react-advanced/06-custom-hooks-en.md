@@ -2,9 +2,21 @@
 
 ## Custom hooks
 
-Custom hooks can be used to extract logic from function components
+Building blocks in React:
 
-They are functions which in turn use existing hooks like `useState` or `useEffect`
+- *components*: handle the _view_
+- *hooks*: handle the _model_ / _logic_ behind the view
+
+purposes:
+
+- structuring code
+- code re-use
+
+## Custom hooks
+
+Custom hooks can be defined as functions whose name starts with `use`
+
+They will in turn rely on existing hooks, like `useState` or `useEffect`
 
 ## Custom hooks - useExchangeRate
 
@@ -133,37 +145,11 @@ basic implementation of `useDate`:
 const useDate = (interval) => {
   const [date, setDate] = useState(new Date());
   useEffect(() => {
-    setInterval(() => {
+    const id = setInterval(() => {
       setDate(new Date());
     }, interval);
+    return () => clearInterval(id);
   }, []);
   return date;
 };
 ```
-
-## Custom hooks - exercise
-
-Create a hook named `useWeather` that can be used to query Weather data - together with an associated context that enables application-wide caching of the data
-
-```js
-const { weather, status, reload } = useWeather('vienna', {
-  autoReloadInterval: 60,
-});
-```
-
-For the data source (API) see the next slide
-
-## Custom hooks - exercise
-
-OpenWeatherMap-API
-
-example URL: <http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&units=metric&q=vienna>
-
-(please only use this appid / API key for simple exercises)
-
-entries in the API data:
-
-- `.weather[0].main` (e.g. _Rain_)
-- `.main.temp` (e.g. 24.5)
-- `.wind.speed` (e.g. 2.5)
-- `.name` (e.g. _Vienna_)

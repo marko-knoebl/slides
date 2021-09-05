@@ -2099,8 +2099,19 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p><a href="https://reactjs.org/docs/hooks-rules.html">Rules of Hooks on reactjs.org</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Custom hooks</h1>
 </section><section class="slide"><h2>Custom hooks</h2>
-<p>Custom hooks can be used to extract logic from function components</p>
-<p>They are functions which in turn use existing hooks like <code>useState</code> or <code>useEffect</code></p>
+<p>Building blocks in React:</p>
+<ul>
+<li><em>components</em>: handle the <em>view</em></li>
+<li><em>hooks</em>: handle the <em>model</em> / <em>logic</em> behind the view</li>
+</ul>
+<p>purposes:</p>
+<ul>
+<li>structuring code</li>
+<li>code re-use</li>
+</ul>
+</section><section class="slide"><h2>Custom hooks</h2>
+<p>Custom hooks can be defined as functions whose name starts with <code>use</code></p>
+<p>They will in turn rely on existing hooks, like <code>useState</code> or <code>useEffect</code></p>
 </section><section class="slide"><h2>Custom hooks - useExchangeRate</h2>
 <p>hook that provides the exchange rate for selected currencies (see earlier example):</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
@@ -2205,31 +2216,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useDate = <span class="hljs-function">(<span class="hljs-params">interval</span>) =></span> {
   <span class="hljs-keyword">const</span> [date, setDate] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
   useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
       setDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
     }, interval);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(id);
   }, []);
   <span class="hljs-keyword">return</span> date;
 };
 </code></pre>
-</section><section class="slide"><h2>Custom hooks - exercise</h2>
-<p>Create a hook named <code>useWeather</code> that can be used to query Weather data - together with an associated context that enables application-wide caching of the data</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { weather, status, reload } = useWeather(<span class="hljs-string">'vienna'</span>, {
-  <span class="hljs-attr">autoReloadInterval</span>: <span class="hljs-number">60</span>,
-});
-</code></pre>
-<p>For the data source (API) see the next slide</p>
-</section><section class="slide"><h2>Custom hooks - exercise</h2>
-<p>OpenWeatherMap-API</p>
-<p>example URL: <a href="http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&#x26;units=metric&#x26;q=vienna">http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&#x26;units=metric&#x26;q=vienna</a></p>
-<p>(please only use this appid / API key for simple exercises)</p>
-<p>entries in the API data:</p>
-<ul>
-<li><code>.weather[0].main</code> (e.g. <em>Rain</em>)</li>
-<li><code>.main.temp</code> (e.g. 24.5)</li>
-<li><code>.wind.speed</code> (e.g. 2.5)</li>
-<li><code>.name</code> (e.g. <em>Vienna</em>)</li>
-</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>External hooks</h1>
 </section><section class="slide"><h2>External hooks</h2>
 <p>Many additional hooks are provided by the React community</p>

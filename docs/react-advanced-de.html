@@ -2099,8 +2099,19 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p><a href="https://reactjs.org/docs/hooks-rules.html">Rules of Hooks auf reactjs.org</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Eigene Hooks</h1>
 </section><section class="slide"><h2>Eigene Hooks</h2>
-<p>können verwendet werden, um bestimmte Aspekte aus der Komponentendefinition zu extrahieren</p>
-<p>werden als Funktionen definiert, die wiederum auf bestehende Hooks, wie <code>useState</code> oder <code>useEffect</code> zurückgreifen</p>
+<p>Bausteine einer React-Anwendung:</p>
+<ul>
+<li><em>Komponenten</em>: für das <em>View</em></li>
+<li><em>Hooks</em> für das <em>Modell</em> / die <em>Logik</em> hinter dem <em>View</em></li>
+</ul>
+<p>Zwecke:</p>
+<ul>
+<li>Strukturierung von Code</li>
+<li>Wiederverwendung von Code</li>
+</ul>
+</section><section class="slide"><h2>Eigene Hooks</h2>
+<p>Eigene Hooks können als Funktionen definiert werden, deren Name mit <code>use</code> beginnt</p>
+<p>Eigene Hooks greifen wiederum auf bestehende Hooks, wie <code>useState</code> oder <code>useEffect</code> zurück</p>
 </section><section class="slide"><h2>Eigene Hooks - useExchangeRate</h2>
 <p>Hook, der den Wechselkurs zwischen ausgewählten Währungen bereitstellt (siehe früheres Beispiel):</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
@@ -2205,31 +2216,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> useDate = <span class="hljs-function">(<span class="hljs-params">interval</span>) =></span> {
   <span class="hljs-keyword">const</span> [date, setDate] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
   useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
       setDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
     }, interval);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(id);
   }, []);
   <span class="hljs-keyword">return</span> date;
 };
 </code></pre>
-</section><section class="slide"><h2>Eigene Hooks - Übung</h2>
-<p>Erstellen eines <code>useWeather</code>-Hooks zum Abfragen von Wetterdaten - zusammen mit einem zugehörigen Context, der die Daten Anwendungsweit cached</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { weather, status, reload } = useWeather(<span class="hljs-string">'vienna'</span>, {
-  <span class="hljs-attr">autoReloadInterval</span>: <span class="hljs-number">60</span>,
-});
-</code></pre>
-<p>Für die Datenquelle siehe nächste Slide</p>
-</section><section class="slide"><h2>Eigene Hooks - Übung</h2>
-<p>OpenWeatherMap-API</p>
-<p>Beispiel-URL: <a href="http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&#x26;units=metric&#x26;q=vienna">http://api.openweathermap.org/data/2.5/weather?appid=66445a4269dd911a5bbe214fadb768d6&#x26;units=metric&#x26;q=vienna</a></p>
-<p>(bitte diese appid / API-Key nur für einfache Übungen verwenden)</p>
-<p>Einträge in den API-Daten:</p>
-<ul>
-<li><code>.weather[0].main</code> (z.B. <em>Rain</em>)</li>
-<li><code>.main.temp</code> (z.B. 24.5)</li>
-<li><code>.wind.speed</code> (z.B. 2.5)</li>
-<li><code>.name</code> (z.B. <em>Vienna</em>)</li>
-</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Externe Hooks</h1>
 </section><section class="slide"><h2>Externe Hooks</h2>
 <p>Viele zusätzliche Hooks werden von der React-Community entwickelt</p>
