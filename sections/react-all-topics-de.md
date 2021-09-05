@@ -73,9 +73,9 @@
 ### React Tools und Libraries
 
 - React Router
+- externe und eigene Hooks (z.B. react-query)
 - Context: Teilen von Daten über einen Komponentenbaum hinweg
 - der Effect-Hook im Detail
-- externe und eigene Hooks (z.B. react-query)
 - Styling Libraries
 - Formular-Libraries
 

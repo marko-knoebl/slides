@@ -2,13 +2,11 @@
 
 ## Topics
 
-- context
-- effect hook in detail
-- external and custom hooks
 - reducer hook and state management with reducers
-- styling libraries
-- form libraries
-- app development
+- immutability helper libraries
+- user authentication with an identity provider
+- progressive web apps
+- React Native
 - refs
 - HOCs
-- manual setup
+- internationalization

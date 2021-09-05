@@ -1,14 +1,12 @@
-# React Fortgeschritten
+# React Advanced
 
-## Themen
+## Topics
 
-- Context
-- effect Hook im Detail
-- externe Hooks und eigene Hooks
-- reducer Hook und State Management mit Reducern
-- Styling-Libraries
-- Formular-Libraries
-- App-Entwicklung mit React
+- Reducer Hook und State Management mit Reducern
+- Immutability-Hilfslibraries
+- Benutzerauthentifizierung mit einem Identity Provider
+- Progressive Web Apps
+- React Native
 - Refs
 - HOCs
-- Manuelles Setup
+- Internationalisierung

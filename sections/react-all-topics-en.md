@@ -73,9 +73,9 @@ usually 1 day
 ### React tools and libraries
 
 - React router
+- external and custom hooks (e.g. react-query)
 - context: sharing values across a component tree
 - effect hook in detail
-- external and custom hooks (e.g. react-query)
 - styling libraries
 - form libraries
 
