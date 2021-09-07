@@ -8,8 +8,7 @@ Werte sollten in einem einzigen JS-Objekt mit verschiedenen Keys gespeichert wer
 
 ```js
 const [userData, setUserData] = useState({
-  firstName: "",
-  lastName: "",
+  username: "",
   password: "",
   repeatPassword: "",
 })
@@ -21,6 +20,6 @@ Zeige unterhalb des Formulars eventuelle Fehlermeldungen für das _erste_ ungül
 
 mögliche Meldungen:
 
-- _First name must not be empty_
+- _Username must not be empty_
 - _Password must be at least 4 characters long_
 - _Passwords don't match_

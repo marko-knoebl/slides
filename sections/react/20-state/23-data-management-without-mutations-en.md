@@ -111,34 +111,37 @@ mechanisms:
 
 ## Exercises
 
-exercise: create the following _pure_ functions that handle a todo item (an object):
+We will create _pure_ functions that deal with todos
 
-```js
-const todo1 = { id: 1, title: 'foo', completed: false };
+TypeScript declaration to represent a todo:
 
-const todo2 = withCompletedToggled(todo1);
-// { id: 1, title: 'foo', completed: true }
-
-const todo3 = withTitleChanged(todo2, 'bar');
-// { id: 1, title: 'bar', completed: true}
+```ts
+type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
 ```
 
 ## Exercises
 
-solutions:
+exercise: create the following _pure_ function that handles a todo item:
 
 ```js
-const withCompletedToggled = (todo) => ({
-  ...todo,
-  completed: !todo.completed,
-});
+const todo1 = { id: 1, title: 'foo', completed: false };
+
+const todo2 = changeTitle(todo1, 'bar');
+// { id: 1, title: 'bar', completed: false}
 ```
 
+## Exercises
+
+solution:
+
 ```js
-const withTitleChanged = (todo, newTitle) => ({
-  ...todo,
-  title: newTitle,
-});
+function changeTitle(todo: Todo, newTitle: string): Todo {
+  return { ...todo, title: newTitle };
+}
 ```
 
 ## Exercises
@@ -151,20 +154,22 @@ const todos1 = [
   { id: 2, title: 'bar', completed: true },
 ];
 
-const todos2 = withNewTodoAdded(todos1, 'baz');
-const todos3 = withTodoToggled(todos2, 1);
-const todos4 = withCompletedTodosRemoved(todos3);
-console.log(todos4);
-
+// add a todo with title 'baz'
+const todos2 = addTodo(todos1, 'baz');
+// set the completed status of the first todo to 'true'
+const todos3 = changeTodoStatus(todos2, 1, true);
+// remove all completed todos
+const todos4 = removeCompleted(todos3);
 // [{ id: 3, title: 'baz', completed: false }]
 ```
 
 ## Exercises
 
-solution 1:
-
 ```js
-const withNewTodoAdded = (todos, newTitle) => {
+function addTodo(
+  todos: Array<Todo>,
+  newTitle: string
+): Array<Todo> {
   let maxId = 0;
   for (let todo of todos) {
     maxId = Math.max(maxId, todo.id);
@@ -173,36 +178,29 @@ const withNewTodoAdded = (todos, newTitle) => {
     ...todos,
     { id: maxId + 1, title: newTitle, completed: false },
   ];
-};
+}
 ```
 
 ## Exercises
 
-solution 2:
-
 ```js
-const withTodoToggled = (todos, id) =>
-  todos.map((todo) =>
+function changeTodoStatus(
+  todos: Array<Todo>,
+  id: number,
+  newStatus: boolean
+): Array<Todo> {
+  return todos.map((todo) =>
     todo.id === id
-      ? { ...todo, completed: !todo.completed }
+      ? { ...todo, completed: newStatus }
       : todo
   );
-```
-
-or - with the help of `withCompletedToggled`:
-
-```js
-const withTodoToggled = (todos, id) =>
-  todos.map((todo) =>
-    todo.id === id ? withCompletedToggled(todo) : todo
-  );
+}
 ```
 
 ## Exercises
 
-solution 3:
-
 ```js
-const withCompletedTodosRemoved = (todos) =>
-  todos.filter((todo) => !todo.completed);
+function removeCompleted(todos: Array<Todo>): Array<Todo> {
+  return todos.filter((todo) => !todo.completed);
+}
 ```

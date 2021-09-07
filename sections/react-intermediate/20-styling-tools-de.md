@@ -24,14 +24,14 @@ import classNames from 'classnames';
 <div
   className={classNames({
     todoitem: true,
-    completed: isCompleted,
+    completed: props.completed,
   })}
 >
   [...]
 </div>;
 ```
 
-## CSS-Module
+## CSS Module
 
 Bei create-react-app sind CSS-Module vorkonfiguriert; Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.
 
@@ -43,6 +43,15 @@ import styles from './TodoItem.module.css';
 <div className={`${styles.todoItem} ${styles.completed}`}>
   ...
 </div>;
+```
+
+## CSS Module und classnames
+
+```ts
+<div className={classNames({
+  [styles.todoitem]: true,
+  [styles.completed]: props.completed
+})}>
 ```
 
 ## SCSS

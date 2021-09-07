@@ -24,7 +24,7 @@ import classNames from 'classnames';
 <div
   className={classNames({
     todoitem: true,
-    completed: isCompleted,
+    completed: props.completed,
   })}
 >
   [...]
@@ -43,6 +43,15 @@ import styles from './TodoItem.module.css';
 <div className={`${styles.todoItem} ${styles.completed}`}>
   ...
 </div>;
+```
+
+## CSS modules and classnames
+
+```ts
+<div className={classNames({
+  [styles.todoitem]: true,
+  [styles.completed]: props.completed
+})}>
 ```
 
 ## SCSS

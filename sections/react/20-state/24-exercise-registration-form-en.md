@@ -8,8 +8,7 @@ Values should be stored in a single JS object with different keys:
 
 ```js
 const [userData, setUserData] = useState({
-  firstName: "",
-  lastName: "",
+  username: "",
   password: "",
   repeatPassword: "",
 })
@@ -21,6 +20,6 @@ Underneath the form, display a potential error message for the _first_ invalid i
 
 possible error messages:
 
-- _First name must not be empty_
+- _Username must not be empty_
 - _Password must be at least 4 characters long_
 - _Passwords don't match_

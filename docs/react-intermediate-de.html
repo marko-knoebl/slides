@@ -2287,66 +2287,93 @@ ReactDOM.render(
 </section><section class="slide"><h2>Context</h2>
 <p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen</p>
 <p>Das Interface von Context kann sowohl Daten (aus dem State) als auch Eventhandler übergeben.</p>
+</section><section class="slide"><h2>Context</h2>
+<p>mögliche Komponentenstruktur:</p>
+<ul>
+<li>LanguageProvider (Verwalten / Bereitstellen von Language State)
+<ul>
+<li>ThemeProvider (Verwalten / Bereitstellen von Theme State)
+<ul>
+<li>TodosProvider
+<ul>
+<li>App
+<ul>
+<li>TodoList</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>(Andere Zugänge sind möglich)</p>
+</section><section class="slide"><h2>Context</h2>
+<p>Schritte, um Context zur Verfügung zu stellen:</p>
+<ul>
+<li>Context definieren (Typ und Standardwerte)</li>
+<li>Provider-Komponente erstellen</li>
+<li>Provider-Komponente in der Komponentenhierarchie einbinden</li>
+</ul>
+<p>Schritte, um Context abzufragen:</p>
+<ul>
+<li>Aufrufen von <code>useContext</code> in einer Komponente</li>
+<li>optional: Verwenden eines eigenen Hooks für die Abfrage</li>
+</ul>
 </section><section class="slide"><h2>Context - Beispiel</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// TodosContext.js</span>
+<p>Definieren des Contexts:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// ThemeContext.tsx</span>
 <span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-keyword">const</span> TodosContext = createContext();
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodosContext;
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<p>mit TypeScript:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// TodosContext.ts</span>
-<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-keyword">type</span> TodosContextType = {
-  <span class="hljs-attr">todos</span>: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
-  onToggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
+type ThemeContextType = {
+  <span class="hljs-attr">theme</span>: string,
+  <span class="hljs-attr">changeTheme</span>: <span class="hljs-function">(<span class="hljs-params">theme: string</span>) =></span> <span class="hljs-keyword">void</span>,
 };
 
-<span class="hljs-keyword">const</span> TodosContext = createContext&#x3C;
-  TodosContextType | <span class="hljs-literal">undefined</span>
->(<span class="hljs-literal">undefined</span>);
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodosContext;
+<span class="hljs-keyword">const</span> ThemeContext =
+  (createContext &#x3C; ThemeContextType) |
+  (<span class="hljs-literal">undefined</span> > <span class="hljs-literal">undefined</span>);
 </code></pre>
 </section><section class="slide"><h2>Context - Beispiel</h2>
-<p>Der <em>Provider</em> stellt Werte allen Unterkomponenten zur Verfügung</p>
-<pre><code class="hljs language-jsx">&#x3C;TodosContext.Provider
-  value={{
-    <span class="hljs-attr">todos</span>: todos,
-    <span class="hljs-attr">onToggle</span>: <span class="hljs-function">() =></span> {
-      <span class="hljs-comment">// ...</span>
-    },
-  }}
->
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> /></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> /></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoStats</span> /></span></span>
-&#x3C;/TodosContext.Provider>
+<p>Erstellen eines Providers, der State verwaltet und bereit stellt:</p>
+<pre><code class="hljs language-tsx">// ThemeContext.tsx
+function ThemeProvider(props: { children: ReactNode }) {
+  const [theme, setTheme] = useState('light');
+  return (
+    &#x3C;ThemeContext.Provider
+      value={{ theme: theme, changeTheme: setTheme }}
+    >
+      {props.children}
+    &#x3C;/ThemeContext.Provider>
+  );
+}
 </code></pre>
 </section><section class="slide"><h2>Context - Beispiel</h2>
-<p>Verwendung des <em>Context Hooks</em>, um Werte eines bestimmten Contexts abzufragen:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoStats = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>There are {context.todos.length} todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
+<p>Einbinden des Providers:</p>
+<pre><code class="hljs language-tsx">// index.tsx
+...
+  &#x3C;ThemeProvider>
+    &#x3C;App />
+  &#x3C;/ThemeProvider>
+...
 </code></pre>
 </section><section class="slide"><h2>Context - Beispiel</h2>
-<p>als eigener Hook:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// todosContext.ts</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodosContext</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> context = useContext(TodosContext);
-  <span class="hljs-keyword">if</span> (context === <span class="hljs-literal">undefined</span>) {
+<p>Abfragen eines Context in einer Komponente:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> { theme, changeTheme } = useContext(ThemeContext);
+</code></pre>
+</section><section class="slide"><h2>Context - Beispiel</h2>
+<p>optional: erstellen eines eigenen Hooks:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTheme</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> themeContext = useContext(ThemeContext);
+  <span class="hljs-keyword">if</span> (themeContext === <span class="hljs-literal">undefined</span>) {
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'No matching provider found'</span>);
   }
-  <span class="hljs-keyword">return</span> context;
+  <span class="hljs-keyword">return</span> themeContext;
 }
-
-<span class="hljs-keyword">export</span> { TodosContext, useTodosContext };
 </code></pre>
+</section><section class="slide"><h2>Übungen</h2>
+<p>füge weitere Contexte hinzu - z.B. einen <code>LanguageContext</code></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Styling Tools</h1>
 </section><section class="slide"><h2>Styling Tools</h2>
 <p>Tools für externe Stylesheets:</p>
@@ -2368,13 +2395,13 @@ ReactDOM.render(
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>
   <span class="hljs-attr">className</span>=<span class="hljs-string">{classNames({</span>
     <span class="hljs-attr">todoitem:</span> <span class="hljs-attr">true</span>,
-    <span class="hljs-attr">completed:</span> <span class="hljs-attr">isCompleted</span>,
+    <span class="hljs-attr">completed:</span> <span class="hljs-attr">props.completed</span>,
   })}
 ></span>
   [...]
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 </code></pre>
-</section><section class="slide"><h2>CSS-Module</h2>
+</section><section class="slide"><h2>CSS Module</h2>
 <p>Bei create-react-app sind CSS-Module vorkonfiguriert; Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.css'</span>;
 
@@ -2383,6 +2410,12 @@ ReactDOM.render(
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{</span>`${<span class="hljs-attr">styles.todoItem</span>} ${<span class="hljs-attr">styles.completed</span>}`}></span>
   ...
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+</section><section class="slide"><h2>CSS Module und classnames</h2>
+<pre><code class="hljs language-ts">&#x3C;div className={classNames({
+  [styles.todoitem]: <span class="hljs-literal">true</span>,
+  [styles.completed]: props.completed
+})}>
 </code></pre>
 </section><section class="slide"><h2>SCSS</h2>
 <p>SCSS in einem create-react-app Projekt einbinden:</p>

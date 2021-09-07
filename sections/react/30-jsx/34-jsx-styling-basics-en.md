@@ -44,8 +44,8 @@ const imageStyle = {
 ```
 
 ```jsx
+<h1>Slideshow image {img}</h1>
 <div style={containerStyle}>
-  <h1>Slideshow image {img}</h1>
   <button>prev</button>
   <img style={imageStyle} src="..." alt="..." />
   <button>next</button>
