@@ -15,7 +15,7 @@ code may be tested automatically to ensure it behaves as expected
 
 popularity:
 
-- [State of JS 2019: survey on test tools](https://2019.stateofjs.com/testing/)
+- [State of JS 2020: survey on test tools](https://2020.stateofjs.com/en-US/technologies/testing/)
 - [npmtrends](https://www.npmtrends.com/jest-vs-mocha-vs-chai-vs-jasmine)
 
 ## Example: shorten

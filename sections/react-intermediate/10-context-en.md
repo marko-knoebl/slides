@@ -85,7 +85,7 @@ including the provider:
 querying context from within a component:
 
 ```ts
-const { theme, changeTheme } = useContext(ThemeContext);
+const themeContext = useContext(ThemeContext);
 ```
 
 ## Context - example

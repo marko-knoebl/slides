@@ -44,9 +44,9 @@ type ThemeContextType = {
   changeTheme: (theme: string) => void,
 };
 
-const ThemeContext =
-  (createContext < ThemeContextType) |
-  (undefined > undefined);
+const ThemeContext = createContext<
+  ThemeContextType | undefined
+>(undefined);
 ```
 
 ## Context - Beispiel
@@ -85,7 +85,7 @@ Einbinden des Providers:
 Abfragen eines Context in einer Komponente:
 
 ```ts
-const { theme, changeTheme } = useContext(ThemeContext);
+const themeContext = useContext(ThemeContext);
 ```
 
 ## Context - Beispiel

@@ -2331,9 +2331,9 @@ type ThemeContextType = {
   <span class="hljs-attr">changeTheme</span>: <span class="hljs-function">(<span class="hljs-params">theme: string</span>) =></span> <span class="hljs-keyword">void</span>,
 };
 
-<span class="hljs-keyword">const</span> ThemeContext =
-  (createContext &#x3C; ThemeContextType) |
-  (<span class="hljs-literal">undefined</span> > <span class="hljs-literal">undefined</span>);
+<span class="hljs-keyword">const</span> ThemeContext = createContext&#x3C;
+  ThemeContextType | <span class="hljs-literal">undefined</span>
+>(<span class="hljs-literal">undefined</span>);
 </code></pre>
 </section><section class="slide"><h2>Context - Beispiel</h2>
 <p>Erstellen eines Providers, der State verwaltet und bereit stellt:</p>
@@ -2360,7 +2360,7 @@ function ThemeProvider(props: { children: ReactNode }) {
 </code></pre>
 </section><section class="slide"><h2>Context - Beispiel</h2>
 <p>Abfragen eines Context in einer Komponente:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> { theme, changeTheme } = useContext(ThemeContext);
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> themeContext = useContext(ThemeContext);
 </code></pre>
 </section><section class="slide"><h2>Context - Beispiel</h2>
 <p>optional: erstellen eines eigenen Hooks:</p>

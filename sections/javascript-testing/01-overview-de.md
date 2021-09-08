@@ -15,7 +15,7 @@ Code kann automatisch getestet werden, um sicherzustellen, dass er wie erwartet 
 
 Popularität:
 
-- [State of JS 2019: Umfrage zu Test-Tools](https://2019.stateofjs.com/testing/)
+- [State of JS 2020: Umfrage zu Test-Tools](https://2020.stateofjs.com/en-US/technologies/testing/)
 - [npmtrends](https://www.npmtrends.com/jest-vs-mocha-vs-chai-vs-jasmine)
 
 ## Einfaches Beispiel: shorten

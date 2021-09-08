@@ -53,7 +53,7 @@ Beispiele für _Role_ (implizit oder explizit gesetzt):
 - _menuitem_
 - _presentation_
 - _textbox_
-- ... (see [role definitions from W3C](https://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#role_definitions))
+- ... (siehe [role Definitionen von W3C](https://www.w3.org/TR/wai-aria-1.2/#role_definitions))
 
 ## Unterelemente abfragen
 
