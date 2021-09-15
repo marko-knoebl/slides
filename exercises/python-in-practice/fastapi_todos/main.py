@@ -1,3 +1,6 @@
+# start with:
+# uvicorn main:app --reload
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import json
@@ -22,18 +25,8 @@ def load_todos():
 
 def save_todos(todos):
     data_file = open("./data.json", "w", encoding="utf-8")
-    content = json.dump({"todos": todos}, data_file, indent=2)
+    json.dump({"todos": todos}, data_file, indent=2)
     data_file.close()
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
 
 
 @app.get("/todos/")
@@ -45,10 +38,10 @@ def read_todos():
 @app.get("/todos/{todo_id}")
 def read_todo(todo_id: int):
     todos = load_todos()
-    filtered_todos = [todo for todo in todos if todo["id"] == todo_id]
-    if len(filtered_todos) == 0:
-        raise HTTPException(status_code=404, detail="Item not found")
-    return filtered_todos[0]
+    for todo in todos:
+        if todo["id"] == todo_id:
+            return todo
+    raise HTTPException(status_code=404, detail="Item not found")
 
 
 @app.post("/todos")
@@ -63,16 +56,16 @@ def add_todo(title: str):
     save_todos(todos)
 
 
-@app.put("/todos/{todo_id}")
-def modify_todo(todo_id: int, todo: Todo):
+@app.delete("/todos/{todo_id}")
+def delete_todo(todo_id: int):
     todos = load_todos()
-    filtered_todos = [todo for todo in todos if todo["id"] == todo_id]
-    if len(filtered_todos) == 0:
+    found_index = None
+    for index, todo in enumerate(todos):
+        if todo_id == todo["id"]:
+            found_index = index
+    if found_index is None:
         raise HTTPException(status_code=404, detail="todo not found")
-    t = filtered_todos[0]
-    t["id"] = todo.id
-    t["title"] = todo.title
-    t["completed"] = todo.completed
+    todos.pop(found_index)
     save_todos(todos)
 
 
@@ -90,14 +83,21 @@ def modify_todo(todo_id: int, title: str = None, completed: bool = None):
     save_todos(todos)
 
 
-@app.delete("/todos/{todo_id}")
-def delete_todo(todo_id: int):
+@app.put("/todos/{todo_id}")
+def modify_todo(todo_id: int, todo: Todo):
     todos = load_todos()
-    found_index = None
-    for index, todo in enumerate(todos):
-        if todo_id == todo["id"]:
-            found_index = index
-    if found_index is None:
+    filtered_todos = [todo for todo in todos if todo["id"] == todo_id]
+    if len(filtered_todos) == 0:
         raise HTTPException(status_code=404, detail="todo not found")
-    todos.pop(found_index)
+    t = filtered_todos[0]
+    t["id"] = todo.id
+    t["title"] = todo.title
+    t["completed"] = todo.completed
     save_todos(todos)
+
+
+@app.post("delete_completed_todos")
+def delete_completed_todos():
+    todos = load_todos()
+    filtered_todos = [t for t in todos if not t["completed"]]
+    save_todos(filtered_todos)

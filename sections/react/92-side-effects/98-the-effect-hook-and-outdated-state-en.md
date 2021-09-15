@@ -4,6 +4,17 @@
 
 As we've seen before, functions may reference outdated state / data
 
+## The effect hook and obsolete data
+
+explanation: difference between state / props in function components and class components:
+
+when props / state change:
+
+- in class components, `this.props` and `this.state` will be replaced with new objects
+- in function components, the component function is called again, and a new _closure_ is created that contains the new props / state values
+
+note: in function components, old / obsolete data may still live on inside older closures
+
 ## The effect hook and outdated state
 
 example: buggy code that will keep referencing obsolete state in a closure
@@ -53,14 +64,3 @@ see:
 
 - [Dan Abramov: Making setInterval Declarative with React Hooks](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
 - [use-interval on GitHub](https://github.com/donavon/use-interval)
-
-## The effect hook and obsolete data
-
-explanation: difference between state / props in function components and class components:
-
-when props / state change:
-
-- in class components, `this.props` and `this.state` will be replaced with new objects
-- in function components, the component function is called again, and a new _closure_ is created that contains the new props / state values
-
-note: in function components, old / obsolete data may still live on inside older closures

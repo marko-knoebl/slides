@@ -1,30 +1,61 @@
-# Iterators
+# Iterables und Iterators
 
 ## Iterables und Iterators
 
 _Iterable_: ein Objekt, über das mittels `for element in my_iterable` iteriert werden kann
 
-_Iterator_: ein leichtgewichtiges Iterable
+- "statisches _Iterable_": Elementenabfolge ist vordefiniert (z.B. _list_)
+- "dynamisches _Iterable_": Elemente werden während des Durchlaufs erzeugt (z.B. _range_)
 
 ## Iterables und Iterators
 
-Beispiele für Iterables:
+Hierarchie von Iterables:
 
-- lists
-- dicts
-- range-Objekte
-- iterators
+- "statische Iterables" (z.B. _list_, _dict_)
+- "dynamische Iterables" (z.B. _range_)
+  - Iterators (z.B. _enumerate_, _os.scandir_)
+    - Generators (selbst-definiert)
 
-## Iterators
+## Iterables und Iterators
 
-Ein _Iterator_ ist ein ressourcensparendes Iterable
-
-Mögliche Vorteile eines Iterators gegenüber Listen:
+Vorteile von "dynamischen Iterables" / Iterators:
 
 - Ressourcen werden nur bei Bedarf erstellt / abgefragt
 - Speicherverbrauch bleibt niedrig (nur je ein Element ist jeweils im Speicher)
 
-## Iterators
+## Iterables und Iterators
+
+Beispiele für "statische Iterables":
+
+- list
+- tuple
+- dict
+- string
+
+## Iterables und Iterators
+
+Beispiele für "dynamische Iterables":
+
+- range-Objekte
+- iterators
+
+## Iterables und Iterators
+
+Aufrufe, die Iterators zurückgeben:
+
+- `enumerate()`
+- `reversed()`
+- `open()`
+- `os.walk()`
+- `os.scandir()`
+- `map()`
+- `filter()`
+- Funktionen in _itertools_
+- üblicherweise Datenbankcursor (PEP 249)
+- Generators
+- ...
+
+## Iterables und Iterators
 
 Beispiel: `open()` gibt einen Iterator von Zeilen einer Datei zurück
 
@@ -34,9 +65,9 @@ with open("./foo.txt", encoding="utf-8") as f:
         print line
 ```
 
-Die Datei könnte mehrere GB oder größer sein und dieser Code würde problemlos laufen
+Die Datei könnte mehrere GB groß sein und dieser Code würde problemlos laufen
 
-## Iterators
+## Iterators und Iterators
 
 Beispielfunktionen:
 
@@ -53,23 +84,6 @@ Lädt Textdateien nacheinander, wodurch der Speicherverbrauch niedrig gehalten w
 for text in read_textfiles_as_iterator("./foo/"):
     print(text[:5])
 ```
-
-## Iterators
-
-Aufrufe, die Iterators zurückgeben:
-
-- `enumerate()`
-- `reversed()`
-- `open()`
-- `os.walk()`
-- `os.scandir()`
-- `map()`
-- `filter()`
-- Funktionen in _itertools_
-- üblicherweise Datenbankcursor (PEP 249)
-- ...
-
-Bemerkung: `range` gibt keinen Iterator zurück (aber ein ähnliches Objekt)
 
 ## Itertools
 

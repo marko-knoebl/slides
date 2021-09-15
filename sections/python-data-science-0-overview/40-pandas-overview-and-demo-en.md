@@ -12,7 +12,8 @@ load a data table (_DataFrame_) from a CSV file:
 import pandas as pd
 
 titanic = pd.read_csv(
-    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv",
+    index_col="PassengerId",
 )
 ```
 

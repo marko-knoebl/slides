@@ -26,25 +26,26 @@ disadvantages: deviates from standard React concepts (uses _refs_ instead of _st
 ```js
 import { useForm } from 'react-hook-form';
 
-const NewsletterSignup = () => {
-  const { register, errors, handleSubmit } = useForm();
+function NewsletterSignup() {
+  const { register, handleSubmit, formState } = useForm();
   return (
     <form onSubmit={handleSubmit(console.log)}>
       <input
-        name="email"
-        ref={register({
+        {...register('email', {
           required: true,
           pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
         })}
       />
-      <button>sign up for newsletter</button>
-      {errors.email ? <div>invalid email</div> : null}
+      {formState.errors.email ? (
+        <div>invalid email</div>
+      ) : null}
+      <button type="submit">sign up for newsletter</button>
     </form>
   );
-};
+}
 ```
 
-Note: `register()` uses a [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) to access the input
+Note: react-hook-form uses a [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) to access the input
 
 ## react-hook-form: register
 
@@ -58,14 +59,14 @@ The `register` function can take some parameters that specify field validation:
 
 ## react-hook-form: errors
 
-The `errors` object indicates errors for any registered input that has a name
+`formState.errors` indicates errors for any registered input
 
 ```jsx
-<input name="email" ref={register(/*...*/)}>
+<input {...register("email")} />
 ```
 
 ```jsx
-errors.email ? <div>invalid email</div> : null;
+formState.errors.email ? <div>invalid email</div> : null;
 ```
 
 ## react-hook-form: handleSubmit
@@ -112,19 +113,6 @@ const { register, errors, handleSubmit, reset } = useForm();
 reset();
 ```
 
-## react-hook-form: testing
-
-component tests related to _react-hook-form_ require a setup:
-
-```bash
-npm install mutationobserver-shim
-```
-
-```js
-// setupTests.js
-import 'mutationobserver-shim';
-```
-
 ## formik
 
 ```js
@@ -145,7 +133,9 @@ const NewsletterRegistration = () => (
     {(props) => (
       <Form>
         <Field type="email" name="email" />
-        <button disabled={!props.isValid}>subscribe</button>
+        <button type="submit" disabled={!props.isValid}>
+          subscribe
+        </button>
         <ErrorMessage name="email" component="div" />
       </Form>
     )}

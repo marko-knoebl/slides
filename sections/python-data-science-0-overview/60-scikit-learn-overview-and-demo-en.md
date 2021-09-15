@@ -8,13 +8,21 @@ simple algorithms can be trained to predict survival with 80% accuracy (based on
 
 ## Scikit-learn: overview and demo
 
+defining input data and output data:
+
+```py
+passenger_data = titanic[
+    ["Female", "Pclass", "Age", "SibSp", "Parch"]
+]
+survived = titanic["Survived"]
+```
+
+## Scikit-learn: overview and demo
+
 "training" a model:
 
 ```py
 from sklearn.linear_model import LinearRegression
-
-passenger_data = titanic[["Female", "Pclass", "Age", "SibSp", "Parch"]]
-survived = titanic["Survived"]
 
 model = LinearRegression()
 
@@ -32,7 +40,7 @@ predicting a value for the survival of:
 model.predict(
     np.array([
         [1, 1, 40, 0, 0],
-        [0, 3, 40, 0, 0],
+        [0, 2, 40, 0, 0],
     ])
 )
 # [0.93, 0.23]

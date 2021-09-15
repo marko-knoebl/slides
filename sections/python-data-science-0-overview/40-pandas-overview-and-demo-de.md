@@ -12,7 +12,8 @@ Laden einer Tabelle (_DataFrame_) aus einer CSV-Datei:
 import pandas as pd
 
 titanic = pd.read_csv(
-    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv",
+    index_col="PassengerId",
 )
 ```
 

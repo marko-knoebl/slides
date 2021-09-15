@@ -15,22 +15,26 @@
 
 ## Metriken, die auf true/false positives/negatives basieren
 
-Binäre Klassifizierung: ist eine Frucht ein Apfel oder ist sie kein Apfel?
+Binäre Klassifizierung: Spam-Erkennung
 
-- true positive: ein Apfel wird als Apfel klassifiziert
-- true negative: ein Pfirsich wird als _kein_ Apfel klassifiziert
-- false positive: ein Pfirsich wird als Apfel klassifiziert (Fehler erster Art)
-- false negative: ein Apfel wird als _kein_ Apfel klassifiziert (Fehler zweiter Art)
+- true positive: eine Spam-Nachricht wird als _Spam_ klassifiziert
+- true negative: eine normale Nachricht wird als _kein Spam_ klassifiziert
+- false positive: eine normale Nachricht wird als _Spam_ klassifiziert (Fehler erster Art)
+- false negative: eine Spam-Nachricht wird als _kein Spam_ klassifiziert (Fehler zweiter Art)
 
 ## Metriken, die auf true/false positives/negatives basieren
 
-**precision** (Genauigkeit) = 8/9=0.889 (8 von 9 Früchten, die als Äpfel klassifiziert wurden, sind tatsächlich Äpfel)
+Beispiele:
 
-**recall** (Trefferquote) = 8/10=0.8 (8 von 10 Äpfeln wurden als Äpfel erkannt)
+60 normale Nachrichten, 40 Spam-Nachrichten
 
-precision = true positives / predicted positives
+1 normale Nachricht wird als Spam klassifiziert
 
-recall = true positives / condition positives
+5 Spam-Nachrichten werden als normal klassifiziert
+
+**precision** (Genauigkeit) = 36/36=0.97 (35 von 36 Nachrichten, die als Spam Klassifiziert wuerden, sind tatsächlich Spam)
+
+**recall** (Trefferquote) = 35/40 = 0.88 (35 von 40 Spam-Nachrichten wurden als solche erkannt)
 
 siehe auch: [Precision and recall auf der englischsprachigen Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall)
 

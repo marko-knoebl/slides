@@ -26,25 +26,26 @@ Nachteile: weicht von üblichen React-Konzepten ab (benutzt _refs_ anstatt _stat
 ```js
 import { useForm } from 'react-hook-form';
 
-const NewsletterSignup = () => {
-  const { register, errors, handleSubmit } = useForm();
+function NewsletterSignup() {
+  const { register, handleSubmit, formState } = useForm();
   return (
     <form onSubmit={handleSubmit(console.log)}>
       <input
-        name="email"
-        ref={register({
+        {...register('email', {
           required: true,
           pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
         })}
       />
-      <button>sign up for newsletter</button>
-      {errors.email ? <div>invalid email</div> : null}
+      {formState.errors.email ? (
+        <div>invalid email</div>
+      ) : null}
+      <button type="submit">sign up for newsletter</button>
     </form>
   );
-};
+}
 ```
 
-Bemerkung: `register()` verwendet eine [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs), um auf das input-Element zuzugreifen
+Bemerkung: react-hook-form verwendet eine [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs), um auf das input-Element zuzugreifen
 
 ## react-hook-form: register
 
@@ -58,14 +59,14 @@ Die `register`-Funktion kann Parameter für die Validierung erhalten:
 
 ## react-hook-form: errors
 
-Das Objekt `errors` gibt Fehler für registrierte Inputs mit einer _name_-Property aus
+Das Objekt `formState.errors` gibt Fehler für registrierte Inputs an
 
 ```jsx
-<input name="email" ref={register(/*...*/)}>
+<input {...register('email')} />
 ```
 
 ```jsx
-errors.email ? <div>invalid email</div> : null;
+formState.errors.email ? <div>invalid email</div> : null;
 ```
 
 ## react-hook-form: handleSubmit
@@ -112,19 +113,6 @@ const { register, errors, handleSubmit, reset } = useForm();
 reset();
 ```
 
-## react-hook-form: Tests
-
-Beim Testen im Zusammenhang mit _react-hook-form_ muss ein entsprechendes Setup erfolgen:
-
-```bash
-npm install mutationobserver-shim
-```
-
-```js
-// setupTests.js
-import 'mutationobserver-shim';
-```
-
 ## formik
 
 ```js
@@ -145,7 +133,9 @@ const NewsletterRegistration = () => (
     {(props) => (
       <Form>
         <Field type="email" name="email" />
-        <button disabled={!props.isValid}>subscribe</button>
+        <button type="submit" disabled={!props.isValid}>
+          subscribe
+        </button>
         <ErrorMessage name="email" component="div" />
       </Form>
     )}

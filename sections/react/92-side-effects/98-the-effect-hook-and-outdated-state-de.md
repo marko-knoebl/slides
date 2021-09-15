@@ -6,6 +6,17 @@ Wie wir zuvor gsehen haben, können Funktionen auf alten State / alte Daten verw
 
 ## Der effect-Hook und veralteter State
 
+Erklärung: Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:
+
+wenn sich State / Props ändern:
+
+- in Klassenkomponenten werden `this.props` und `this.state` durch neue Objekte ersetzt
+- in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue _Closure_ entsteht, welche die neuen Props / State-Werte enthält
+
+Achtung: in Funktionskomponenten können alte / obsolete Daten in alten _Closures_ weiterbestehen
+
+## Der effect-Hook und veralteter State
+
 Beispiel: fehlerhafter Code, der in einer Closure weiter auf einen veralteten State-Eintrag verweist
 
 ```js
@@ -53,14 +64,3 @@ siehe:
 
 - [Dan Abramov: Making setInterval Declarative with React Hooks](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
 - [use-interval on GitHub](https://github.com/donavon/use-interval)
-
-## Der effect-Hook und veralteter State
-
-Erklärung: Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:
-
-wenn sich State / Props ändern:
-
-- in Klassenkomponenten werden `this.props` und `this.state` durch neue Objekte ersetzt
-- in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue _Closure_ entsteht, welche die neuen Props / State-Werte enthält
-
-Achtung: in Funktionskomponenten können alte / obsolete Daten in alten _Closures_ weiterbestehen

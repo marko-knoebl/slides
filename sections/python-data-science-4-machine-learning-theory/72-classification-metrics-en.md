@@ -15,22 +15,26 @@
 
 ## Metrics based on true/false positives/negatives
 
-binary classification: is a fruit an apple or is it not an apple?
+binary classification: spam detection
 
-- true positive: an apple is classified as an apple
-- true negative: a peach is classified as _not_ an apple
-- false positive: a peach is classified as an apple (type I error)
-- false negative: an apple is classified as _not_ an apple (type II error)
+- true positive: a spam message is classified as _spam_
+- true negative: a regular message is classified as _no spam_
+- false positive: a regular message is classified as _spam_ (type I error)
+- false negative: a spam message is classified as _no spam_ (type II error)
 
 ## Metrics based on true/false positives/negatives
 
-**precision** = 8/9=0.889 (8 out of 9 fruits that were classified as apples are _actually_ apples)
+example:
 
-**recall** = 8/10=0.8 (8 out of 10 apples were recognized as apples)
+60 regular messages, 40 spam messages
 
-precision = true positives / predicted positives
+1 regular message is misclassified as spam
 
-recall = true positives / condition positives
+5 spam messages are misclassified as regular messages
+
+**precision** = 35/36 = 0.97 (35 out of 36 messages that were classified as spam are _actually_ spam)
+
+**recall** = 35/40 = 0.88 (35 out of 40 spam messages were recognized as spam)
 
 see also: [precision and recall on Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall)
 
