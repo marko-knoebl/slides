@@ -2621,44 +2621,49 @@ f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "s
 <li>class "BankAccount"</li>
 <li>class "Dictionary" (thesaurus)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Iterators</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Iterables and iterators</h1>
 </section><section class="slide"><h2>Iterables and iterators</h2>
 <p><em>iterable</em>: an object that can be iterated over via <code>for element in my_iterable</code></p>
-<p><em>iterator</em>: an lightweight iterable</p>
-</section><section class="slide"><h2>Iterables and iterators</h2>
-<p>examples of iterables:</p>
 <ul>
-<li>lists</li>
-<li>dicts</li>
+<li>"static iterable": item sequence is pre-defined (e.g. <em>list</em>)</li>
+<li>"dynamic iterable": items are generated on the fly (e.g. <em>range</em>)</li>
+</ul>
+</section><section class="slide"><h2>Iterables and iterators</h2>
+<p>hierarchy of iterables:</p>
+<ul>
+<li>"static iterables" (e.g. <em>list</em>, <em>dict</em>)</li>
+<li>"dynamic iterables" (e.g. <em>range</em>)
+<ul>
+<li>iterators (e.g. <em>enumerate</em>, <em>os.scandir</em>)
+<ul>
+<li>generators (custom-defined)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Iterables and iterators</h2>
+<p>advantages of "dynamic iterables" / iterators:</p>
+<ul>
+<li>only create / access resources on demand</li>
+<li>keep memory consumption low (only one generated object is ever in memory at a time)</li>
+</ul>
+</section><section class="slide"><h2>Iterables and iterators</h2>
+<p>examples of "static iterables":</p>
+<ul>
+<li>list</li>
+<li>tuple</li>
+<li>dict</li>
+<li>string</li>
+</ul>
+</section><section class="slide"><h2>Iterables and iterators</h2>
+<p>examples of "dynamic iterables":</p>
+<ul>
 <li>range objects</li>
 <li>iterators</li>
 </ul>
-</section><section class="slide"><h2>Iterators</h2>
-<p>An <em>iterator</em> is a lightweight iterable</p>
-<p>possible advantages of iterators over lists:</p>
-<ul>
-<li>only create / access resources on demand</li>
-<li>keep memory consumption low (only one generated object is ever in memory)</li>
-</ul>
-</section><section class="slide"><h2>Iterators</h2>
-<p>example: <code>open()</code> returns an iterator of lines in a file</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"./wikipedia_complete.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> f:
-    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f:
-        <span class="hljs-built_in">print</span> line
-</code></pre>
-<p>The file could be gigabytes in size and this would still work</p>
-</section><section class="slide"><h2>Iterators</h2>
-<p>example functions:</p>
-<p>Loads all files in <em>foo/</em> at the same time, then iterates over them:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> text <span class="hljs-keyword">in</span> read_textfiles_as_list(<span class="hljs-string">"./foo/"</span>):
-    print(text[:<span class="hljs-number">5</span>])
-</code></pre>
-<p>Loads and prints text files individually - keeping memory consumption low:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> text <span class="hljs-keyword">in</span> read_textfiles_as_iterator(<span class="hljs-string">"./foo/"</span>):
-    print(text[:<span class="hljs-number">5</span>])
-</code></pre>
-</section><section class="slide"><h2>Iterators</h2>
-<p>calls that return iterators:</p>
+</section><section class="slide"><h2>Iterables and iterators</h2>
+<p>examples of iterators:</p>
 <ul>
 <li><code>enumerate()</code></li>
 <li><code>reversed()</code></li>
@@ -2669,10 +2674,27 @@ f.b = <span class="hljs-number">3</span> <span class="hljs-comment"># prints: "s
 <li><code>filter()</code></li>
 <li>functions in <em>itertools</em></li>
 <li>most database cursors (PEP 249)</li>
+<li>generators</li>
 <li>...</li>
 </ul>
-<p>note: <code>range</code> does not return an iterator (but a similar object)</p>
-</section><section class="slide"><h2>Itertools</h2>
+</section><section class="slide"><h2>Iterables and iterators</h2>
+<p>example: <code>open()</code> returns an iterator of lines in a file</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"./wikipedia_complete.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> f:
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f:
+        <span class="hljs-built_in">print</span> line
+</code></pre>
+<p>The file could be gigabytes in size and this would still work</p>
+</section><section class="slide"><h2>Iterables and iterators</h2>
+<p>example functions:</p>
+<p>Loads all files in <em>foo/</em> at the same time, then iterates over them:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> text <span class="hljs-keyword">in</span> read_textfiles_as_list(<span class="hljs-string">"./foo/"</span>):
+    print(text[:<span class="hljs-number">5</span>])
+</code></pre>
+<p>Loads and prints text files individually - keeping memory consumption low:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> text <span class="hljs-keyword">in</span> read_textfiles_as_iterator(<span class="hljs-string">"./foo/"</span>):
+    print(text[:<span class="hljs-number">5</span>])
+</code></pre>
+</section><section class="slide"><h2>Iterables and iterators</h2>
 <p><a href="https://docs.python.org/3/library/itertools.html">itertools</a>: module for creating iterators</p>
 <ul>
 <li><code>itertools.count</code></li>

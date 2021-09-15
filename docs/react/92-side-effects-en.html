@@ -2404,6 +2404,14 @@ useEffect(<span class="hljs-function">() =></span> {
 </section></section><section class="slides-section"><section class="slide"><h1>The effect hook and outdated state</h1>
 </section><section class="slide"><h2>The effect hook and outdated state</h2>
 <p>As we've seen before, functions may reference outdated state / data</p>
+</section><section class="slide"><h2>The effect hook and obsolete data</h2>
+<p>explanation: difference between state / props in function components and class components:</p>
+<p>when props / state change:</p>
+<ul>
+<li>in class components, <code>this.props</code> and <code>this.state</code> will be replaced with new objects</li>
+<li>in function components, the component function is called again, and a new <em>closure</em> is created that contains the new props / state values</li>
+</ul>
+<p>note: in function components, old / obsolete data may still live on inside older closures</p>
 </section><section class="slide"><h2>The effect hook and outdated state</h2>
 <p>example: buggy code that will keep referencing obsolete state in a closure</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterWithLogging</span>(<span class="hljs-params"></span>) </span>{
@@ -2446,15 +2454,7 @@ useEffect(<span class="hljs-function">() =></span> {
 <ul>
 <li><a href="https://overreacted.io/making-setinterval-declarative-with-react-hooks/">Dan Abramov: Making setInterval Declarative with React Hooks</a></li>
 <li><a href="https://github.com/donavon/use-interval">use-interval on GitHub</a></li>
-</ul>
-</section><section class="slide"><h2>The effect hook and obsolete data</h2>
-<p>explanation: difference between state / props in function components and class components:</p>
-<p>when props / state change:</p>
-<ul>
-<li>in class components, <code>this.props</code> and <code>this.state</code> will be replaced with new objects</li>
-<li>in function components, the component function is called again, and a new <em>closure</em> is created that contains the new props / state values</li>
-</ul>
-<p>note: in function components, old / obsolete data may still live on inside older closures</p></section></section></div>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

@@ -2206,7 +2206,8 @@ iris[:, <span class="hljs-number">0</span>] / iris[:, <span class="hljs-number">
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
 titanic = pd.read_csv(
-    <span class="hljs-string">"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"</span>
+    <span class="hljs-string">"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"</span>,
+    index_col=<span class="hljs-string">"PassengerId"</span>,
 )
 </code></pre>
 </section><section class="slide"><h2>Pandas: Überblick und Demo</h2>
@@ -2283,11 +2284,15 @@ plt.xticks([<span class="hljs-number">1</span>, <span class="hljs-number">2</spa
 <p>Übung: Voraussagen von Überleben auf der Titanic basierend auf einer linearen Regression</p>
 <p>Einfache Algorithmen können trainiert werden, um mit ca 80%-iger Sicherheit vorauszusagen, ob ein Passagier überlebt hat (basierend auf <em>Geschlecht</em>, <em>Passagierklasse</em>, <em>Alter</em>, <em>Anzahl an Geschwistern bzw Eheleuten</em>, <em>Anzahl an Eltern bzw Kindern</em>)</p>
 </section><section class="slide"><h2>Scikit-learn: Überblick und Demo</h2>
+<p>Definieren von Eingangsdaten und vorherzusagenden Ausgangsdaten:</p>
+<pre><code class="hljs language-py">passenger_data = titanic[
+    [<span class="hljs-string">"Female"</span>, <span class="hljs-string">"Pclass"</span>, <span class="hljs-string">"Age"</span>, <span class="hljs-string">"SibSp"</span>, <span class="hljs-string">"Parch"</span>]
+]
+survived = titanic[<span class="hljs-string">"Survived"</span>]
+</code></pre>
+</section><section class="slide"><h2>Scikit-learn: Überblick und Demo</h2>
 <p>"Trainieren" eines Modells:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
-
-passenger_data = titanic[[<span class="hljs-string">"Female"</span>, <span class="hljs-string">"Pclass"</span>, <span class="hljs-string">"Age"</span>, <span class="hljs-string">"SibSp"</span>, <span class="hljs-string">"Parch"</span>]]
-survived = titanic[<span class="hljs-string">"Survived"</span>]
 
 model = LinearRegression()
 
@@ -2302,7 +2307,7 @@ model.fit(passenger_data, survived)
 <pre><code class="hljs language-py">model.predict(
     np.array([
         [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
-        [<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
     ])
 )
 <span class="hljs-comment"># [0.93, 0.23]</span>

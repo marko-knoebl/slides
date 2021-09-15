@@ -2219,27 +2219,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 6.3,3.3,6.0,2.5,Iris-virginica
 ...
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Supervised learning in Python</h1>
-</section><section class="slide"><h2>Supervised learning in Python</h2>
-<p>overview of the basic process for <em>scikit-learn</em> / <em>keras</em></p>
-</section><section class="slide"><h2>Training a model</h2>
-<p>create and train a model:</p>
-<pre><code class="hljs language-py">model = MyClassifier()
-
-model.fit(train_input, train_target)
-</code></pre>
-<p>example:</p>
-<p><code>train_input</code>: measurements of iris flowers</p>
-<p><code>train_target</code>: corresponding species of flowers</p>
-</section><section class="slide"><h2>Predicting new results</h2>
-<p>predict results for new inputs:</p>
-<pre><code class="hljs language-py">model.predict(new_inputs)
-</code></pre>
-</section><section class="slide"><h2>Evaluating the model</h2>
-<p>before using a trained model to predict new results, it should be evaluated with separate test data:</p>
-<pre><code class="hljs language-py">model.score(test_input, test_target)
-<span class="hljs-comment"># e.g. 0.95 = 95%</span>
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Example: Iris classification</h1>
 </section><section class="slide"><h2>Example: Iris classification</h2>
 <p>Task: Train an algorithm to classify iris plants based on their measurements</p>
@@ -2717,18 +2696,20 @@ y = iris_species_one_hot
 </li>
 </ul>
 </section><section class="slide"><h2>Metrics based on true/false positives/negatives</h2>
-<p>binary classification: is a fruit an apple or is it not an apple?</p>
+<p>binary classification: spam detection</p>
 <ul>
-<li>true positive: an apple is classified as an apple</li>
-<li>true negative: a peach is classified as <em>not</em> an apple</li>
-<li>false positive: a peach is classified as an apple (type I error)</li>
-<li>false negative: an apple is classified as <em>not</em> an apple (type II error)</li>
+<li>true positive: a spam message is classified as <em>spam</em></li>
+<li>true negative: a regular message is classified as <em>no spam</em></li>
+<li>false positive: a regular message is classified as <em>spam</em> (type I error)</li>
+<li>false negative: a spam message is classified as <em>no spam</em> (type II error)</li>
 </ul>
 </section><section class="slide"><h2>Metrics based on true/false positives/negatives</h2>
-<p><strong>precision</strong> = 8/9=0.889 (8 out of 9 fruits that were classified as apples are <em>actually</em> apples)</p>
-<p><strong>recall</strong> = 8/10=0.8 (8 out of 10 apples were recognized as apples)</p>
-<p>precision = true positives / predicted positives</p>
-<p>recall = true positives / condition positives</p>
+<p>example:</p>
+<p>60 regular messages, 40 spam messages</p>
+<p>1 regular message is misclassified as spam</p>
+<p>5 spam messages are misclassified as regular messages</p>
+<p><strong>precision</strong> = 35/36 = 0.97 (35 out of 36 messages that were classified as spam are <em>actually</em> spam)</p>
+<p><strong>recall</strong> = 35/40 = 0.88 (35 out of 40 spam messages were recognized as spam)</p>
 <p>see also: <a href="https://en.wikipedia.org/wiki/Precision_and_recall">precision and recall on Wikipedia</a></p>
 </section><section class="slide"><h2>Metrics based on true/false positives/negatives</h2>
 <p><em>precision</em> and <em>recall</em> have different relevance in different scenarios</p>

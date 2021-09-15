@@ -2404,6 +2404,14 @@ useEffect(<span class="hljs-function">() =></span> {
 </section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
 <p>Wie wir zuvor gsehen haben, können Funktionen auf alten State / alte Daten verweisen</p>
 </section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
+<p>Erklärung: Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:</p>
+<p>wenn sich State / Props ändern:</p>
+<ul>
+<li>in Klassenkomponenten werden <code>this.props</code> und <code>this.state</code> durch neue Objekte ersetzt</li>
+<li>in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue <em>Closure</em> entsteht, welche die neuen Props / State-Werte enthält</li>
+</ul>
+<p>Achtung: in Funktionskomponenten können alte / obsolete Daten in alten <em>Closures</em> weiterbestehen</p>
+</section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
 <p>Beispiel: fehlerhafter Code, der in einer Closure weiter auf einen veralteten State-Eintrag verweist</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterWithLogging</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
@@ -2445,15 +2453,7 @@ useEffect(<span class="hljs-function">() =></span> {
 <ul>
 <li><a href="https://overreacted.io/making-setinterval-declarative-with-react-hooks/">Dan Abramov: Making setInterval Declarative with React Hooks</a></li>
 <li><a href="https://github.com/donavon/use-interval">use-interval on GitHub</a></li>
-</ul>
-</section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
-<p>Erklärung: Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:</p>
-<p>wenn sich State / Props ändern:</p>
-<ul>
-<li>in Klassenkomponenten werden <code>this.props</code> und <code>this.state</code> durch neue Objekte ersetzt</li>
-<li>in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue <em>Closure</em> entsteht, welche die neuen Props / State-Werte enthält</li>
-</ul>
-<p>Achtung: in Funktionskomponenten können alte / obsolete Daten in alten <em>Closures</em> weiterbestehen</p></section></section></div>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

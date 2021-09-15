@@ -2219,27 +2219,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 6.3,3.3,6.0,2.5,Iris-virginica
 ...
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Überwachtes Lernen in Python</h1>
-</section><section class="slide"><h2>Überwachtes Lernen in Python</h2>
-<p>Überblick über den grundlegenden Prozess in <em>scikit-learn</em> / <em>keras</em></p>
-</section><section class="slide"><h2>Trainieren des Modells</h2>
-<p>Erstelle und Trainiere ein Modell:</p>
-<pre><code class="hljs language-py">model = MyClassifier()
-
-model.fit(train_input, train_target)
-</code></pre>
-<p>Beispiel:</p>
-<p><code>train_input</code>: Abmessungen von Iris-Blüten</p>
-<p><code>train_target</code>: Zugehörige Spezies der Pflanzen</p>
-</section><section class="slide"><h2>Vorhersagen neuer Resultate</h2>
-<p>Vorhersagen von Resultaten für neue Inputs:</p>
-<pre><code class="hljs language-py">model.predict(new_inputs)
-</code></pre>
-</section><section class="slide"><h2>Evaluieren des Modells</h2>
-<p>Bevor wir ein trainiertes Modell zum Vorhersagen neuer Resultate nutzen, sollten wir es mit separaten Testdaten evaluieren:</p>
-<pre><code class="hljs language-py">model.score(test_input, test_target)
-<span class="hljs-comment"># e.g. 0.95 = 95%</span>
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Beispiel: Iris-Klassifikation</h1>
 </section><section class="slide"><h2>Beispiel: Iris-Klassifikation</h2>
 <p>Aufgabe: trainiere einen Algorithmus, um Iris-Pflanzen basierend auf ihren Abmessungen zu klassifizieren</p>
@@ -2717,18 +2696,20 @@ y = iris_species_one_hot
 </li>
 </ul>
 </section><section class="slide"><h2>Metriken, die auf true/false positives/negatives basieren</h2>
-<p>Binäre Klassifizierung: ist eine Frucht ein Apfel oder ist sie kein Apfel?</p>
+<p>Binäre Klassifizierung: Spam-Erkennung</p>
 <ul>
-<li>true positive: ein Apfel wird als Apfel klassifiziert</li>
-<li>true negative: ein Pfirsich wird als <em>kein</em> Apfel klassifiziert</li>
-<li>false positive: ein Pfirsich wird als Apfel klassifiziert (Fehler erster Art)</li>
-<li>false negative: ein Apfel wird als <em>kein</em> Apfel klassifiziert (Fehler zweiter Art)</li>
+<li>true positive: eine Spam-Nachricht wird als <em>Spam</em> klassifiziert</li>
+<li>true negative: eine normale Nachricht wird als <em>kein Spam</em> klassifiziert</li>
+<li>false positive: eine normale Nachricht wird als <em>Spam</em> klassifiziert (Fehler erster Art)</li>
+<li>false negative: eine Spam-Nachricht wird als <em>kein Spam</em> klassifiziert (Fehler zweiter Art)</li>
 </ul>
 </section><section class="slide"><h2>Metriken, die auf true/false positives/negatives basieren</h2>
-<p><strong>precision</strong> (Genauigkeit) = 8/9=0.889 (8 von 9 Früchten, die als Äpfel klassifiziert wurden, sind tatsächlich Äpfel)</p>
-<p><strong>recall</strong> (Trefferquote) = 8/10=0.8 (8 von 10 Äpfeln wurden als Äpfel erkannt)</p>
-<p>precision = true positives / predicted positives</p>
-<p>recall = true positives / condition positives</p>
+<p>Beispiele:</p>
+<p>60 normale Nachrichten, 40 Spam-Nachrichten</p>
+<p>1 normale Nachricht wird als Spam klassifiziert</p>
+<p>5 Spam-Nachrichten werden als normal klassifiziert</p>
+<p><strong>precision</strong> (Genauigkeit) = 36/36=0.97 (35 von 36 Nachrichten, die als Spam Klassifiziert wuerden, sind tatsächlich Spam)</p>
+<p><strong>recall</strong> (Trefferquote) = 35/40 = 0.88 (35 von 40 Spam-Nachrichten wurden als solche erkannt)</p>
 <p>siehe auch: <a href="https://en.wikipedia.org/wiki/Precision_and_recall">Precision and recall auf der englischsprachigen Wikipedia</a></p>
 </section><section class="slide"><h2>Metriken, die auf true/false positives/negatives basieren</h2>
 <p><em>precision</em> und <em>recall</em> haben unterschiedliche Relevanz in verschiedenen Szenarien</p>

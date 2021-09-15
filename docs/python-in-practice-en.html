@@ -2864,6 +2864,30 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li><code>POST /delete_completed_todos</code></li>
 </ul>
 <p>The todos can be stored in a simple JSON file - or in an actual database</p>
+</section></section><section class="slides-section"><section class="slide"><h1>API development with FastAPI</h1>
+</section><section class="slide"><h2>FastAPI</h2>
+<p><em>FastAPI</em>: library for API development that relies on type annotations</p>
+</section><section class="slide"><h2>FastAPI</h2>
+<p>basic example:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># main.py</span>
+<span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI
+
+app = FastAPI()
+
+<span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">"/"</span></span>)</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">root</span>():</span>
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">"message"</span>: <span class="hljs-string">"Hello World"</span>}
+
+<span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">"/double"</span></span>)</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">double</span>(<span class="hljs-params">number: <span class="hljs-built_in">int</span></span>):</span>
+    <span class="hljs-keyword">return</span> number * <span class="hljs-number">2</span>
+</code></pre>
+</section><section class="slide"><h2>FastAPI</h2>
+<p>run the example via:</p>
+<pre><code class="hljs language-bash">uvicorn main:app --reload
+</code></pre>
+</section><section class="slide"><h2>FastAPI</h2>
+<p>view documentation and testing environment (Swagger) at: <em>http://localhost:8000/docs</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Databases</h1>
 <p>For basics see presentation <em>databases and data store</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>SQL with Python</h1>

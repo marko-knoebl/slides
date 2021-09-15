@@ -2863,6 +2863,30 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li><code>POST /delete_completed_todos</code></li>
 </ul>
 <p>Die Todos können in einer einfachen JSON-Datei gespeichert werden - oder auch in einer tatsächlichen Datenbank</p>
+</section></section><section class="slides-section"><section class="slide"><h1>API-Entwicklung mit FastAPI</h1>
+</section><section class="slide"><h2>FastAPI</h2>
+<p><em>FastAPI</em>: Library für API-Entwicklung, die auf Typenannotationen beruht</p>
+</section><section class="slide"><h2>FastAPI</h2>
+<p>grundlegendes Beispiel:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># main.py</span>
+<span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI
+
+app = FastAPI()
+
+<span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">"/"</span></span>)</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">root</span>():</span>
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">"message"</span>: <span class="hljs-string">"Hello World"</span>}
+
+<span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">"/double"</span></span>)</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">double</span>(<span class="hljs-params">number: <span class="hljs-built_in">int</span></span>):</span>
+    <span class="hljs-keyword">return</span> number * <span class="hljs-number">2</span>
+</code></pre>
+</section><section class="slide"><h2>FastAPI</h2>
+<p>ausführen des Beispiels via:</p>
+<pre><code class="hljs language-bash">uvicorn main:app --reload
+</code></pre>
+</section><section class="slide"><h2>FastAPI</h2>
+<p>Anzeigen der Dokumentation und Testumgebung (Swagger) auf: <em>http://localhost:8000/docs</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Datenbanken</h1>
 <p>Zu Grundlagen siehe Präsentation <em>Datenbanken und Datenspeicherung</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>SQL mit Python</h1>
