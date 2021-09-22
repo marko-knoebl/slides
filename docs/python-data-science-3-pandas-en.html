@@ -2156,6 +2156,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li><code>sep</code>: for specifying other separators than a comma</li>
 <li><code>usecols</code>: for importing only specific columns</li>
 <li><code>parse_dates</code>: expects a list of column names</li>
+<li><code>dtype</code>: may be a dictionary that specifies data types for certain columns</li>
 <li>...</li>
 </ul>
 <p>See also: <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html</a></p>
@@ -2231,6 +2232,7 @@ euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class=
 <li><a href="https://github.com/mwaskom/seaborn-data">seaborn data sets</a> (click on a file and then on the <em>raw</em> button)</li>
 <li><a href="https://pydata.github.io/pandas-datareader">pandas-datareader</a></li>
 <li><a href="http://lib.stat.cmu.edu/datasets/">http://lib.stat.cmu.edu/datasets/</a></li>
+<li><em>Our world in data</em>: <a href="https://github.com/owid/owid-datasets">general datasets</a>, <a href="https://github.com/owid/covid-19-data">COVID-19 datasets</a></li>
 </ul>
 </section><section class="slide"><h2>Example data sets</h2>
 <ul>
@@ -2574,7 +2576,7 @@ data.interpolate(<span class="hljs-string">"cubic"</span>)
     <span class="hljs-string">"eu"</span>: euribor[<span class="hljs-string">"rate"</span>]
 })
 
-interest = interest.interpolate(<span class="hljs-string">"slinear"</span>)
+interest[<span class="hljs-string">"eu"</span>] = interest[<span class="hljs-string">"eu"</span>].interpolate(<span class="hljs-string">"slinear"</span>)
 interest = interest.dropna()
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Plotting</h1>
@@ -2659,36 +2661,166 @@ surface.plot.pie(ylabel=<span class="hljs-string">"Surface of the earth"</span>)
 
 scatter_matrix(iris)
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Time series</h1>
-</section><section class="slide"><h2>Time series</h2>
-<p>creating date ranges (as index objects):</p>
-<pre><code class="hljs language-py">every_day = pd.date_range(<span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>)
-last_of_each_month = pd.date_range(
-    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"M"</span>
-)
-first_of_each_month = pd.date_range(
-    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"MS"</span>
-)
-every_10_days = pd.date_range(
-    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"10d"</span>
-)
+</section></section><section class="slides-section"><section class="slide"><h1>Multi index</h1>
+</section><section class="slide"><h2>Multi index</h2>
+<p><strong>index column</strong>: column that uniquely identifies a row in a DataFrame</p>
+<p><strong>multi index</strong>: combination of multiple columns for unique identification</p>
+</section><section class="slide"><h2>Multi index</h2>
+<p>example: exchange rates</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Date</th><th>Country</th><th>Exchange rate</th></tr></thead><tbody><tr><td>1971-01-01</td><td>Australia</td><td>0.894</td></tr><tr><td>1971-02-01</td><td>Australia</td><td>0.890</td></tr><tr><td>1971-03-01</td><td>Australia</td><td>0.890</td></tr></tbody></table>
+<p>A row can be uniquely identified by a combination of <em>date</em> and <em>country</em></p>
+</section><section class="slide"><h2>Multi index</h2>
+<p>Importing with a multi index:</p>
+<pre><code class="hljs language-py">exchange_rates = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
+    index_col=[<span class="hljs-string">"Country"</span>, <span class="hljs-string">"Date"</span>],
+    parse_dates=[<span class="hljs-string">"Date"</span>])
 </code></pre>
-</section><section class="slide"><h2>Time series</h2>
-<p>Checking if the first day of each month is present in the S&#x26;P 500 data:</p>
-<pre><code class="hljs language-py">sp500.index.equals(
-    pd.date_range(
-        sp500.index[<span class="hljs-number">0</span>], sp500.index[-<span class="hljs-number">1</span>], freq=<span class="hljs-string">"MS"</span>
-    )
+</section><section class="slide"><h2>Multi index</h2>
+<p>in some cases, a multi index may allow for using a <em>Series</em> instead of a <em>DataFrame</em>:</p>
+<pre><code class="hljs language-py">exchange_rates_series = exchange_rates[<span class="hljs-string">"Exchange rate"</span>]
+</code></pre>
+</section><section class="slide"><h2>Multi index</h2>
+<p>querying the first part of a multi index (will return a Series with only the remainder of the index):</p>
+<pre><code class="hljs language-py">exchange_rates_series.loc[<span class="hljs-string">"France"</span>]
+</code></pre>
+<p>querying multiple parts of the index:</p>
+<pre><code class="hljs language-py">exchange_rates_series.loc[<span class="hljs-string">"France"</span>, <span class="hljs-string">"1971-01-01"</span>:<span class="hljs-string">"1971-12-31"</span>]
+</code></pre>
+</section><section class="slide"><h2>Multi index</h2>
+<p>Querying in a DataFrame:</p>
+<pre><code class="hljs language-py">exchange_rates.loc[(<span class="hljs-string">"France"</span>, <span class="hljs-string">"1990"</span>), :]
+exchange_rates.loc[(<span class="hljs-built_in">slice</span>(<span class="hljs-literal">None</span>, <span class="hljs-literal">None</span>), <span class="hljs-string">"1990-01"</span>), :]
+</code></pre>
+<p>Note: in Python <code>x[a:b]</code> is equivalent to <code>x[slice(a, b)]</code></p>
+<p>Note: the <em>Date</em> column could be removed from the index via <code>reset_index</code></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Joins</h1>
+</section><section class="slide"><h2>Joins</h2>
+<p><strong>Join</strong>: Combining multiple <code>DataFrame</code>s or <code>Series</code> into a single <code>DataFrame</code></p>
+</section><section class="slide"><h2>Joins</h2>
+<p>types:</p>
+<ul>
+<li>inner join</li>
+<li>outer join</li>
+<li>left join</li>
+<li>right join</li>
+</ul>
+</section><section class="slide"><h2>Joins</h2>
+<p>Joining <code>Series</code> objects by their indices:</p>
+<p>outer join:</p>
+<pre><code class="hljs language-py">interest_rates = pd.DataFrame({
+    <span class="hljs-string">"usd"</span>: sp500[<span class="hljs-string">"Long Interest Rate"</span>],
+    <span class="hljs-string">"eur"</span>: euribor[<span class="hljs-string">"rate"</span>]
+})
+</code></pre>
+<p>inner join:</p>
+<pre><code class="hljs language-py">interest_rates = pd.DataFrame({
+    <span class="hljs-string">"usd"</span>: sp500[<span class="hljs-string">"Long Interest Rate"</span>],
+    <span class="hljs-string">"eur"</span>: euribor[<span class="hljs-string">"rate"</span>]
+}).dropna()
+</code></pre>
+</section><section class="slide"><h2>Joins</h2>
+<p>joining <code>DataFrame</code> objects by their indices:</p>
+<p>inner join:</p>
+<pre><code class="hljs language-py">pd.merge(sp500, euribor, left_index=<span class="hljs-literal">True</span>, right_index=<span class="hljs-literal">True</span>)
+</code></pre>
+<p>outer join:</p>
+<pre><code class="hljs language-py">pd.merge(sp500, euribor, left_index=<span class="hljs-literal">True</span>, right_index=<span class="hljs-literal">True</span>,
+         how=<span class="hljs-string">"outer"</span>)
+</code></pre>
+</section><section class="slide"><h2>Joins</h2>
+<p>joining on specific columns (not on the index):</p>
+<pre><code class="hljs language-py">sp500_no_index = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
+    parse_dates=[<span class="hljs-string">"Date"</span>],
 )
-<span class="hljs-comment"># True</span>
+euribor_no_index = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>,
+    parse_dates=[<span class="hljs-string">"date"</span>],
+    usecols=[<span class="hljs-string">"date"</span>, <span class="hljs-string">"rate"</span>]
+)
+
+pd.merge(sp500_no_index, euribor_no_index, left_on=<span class="hljs-string">"Date"</span>,
+         right_on=<span class="hljs-string">"date"</span>)
 </code></pre>
-</section><section class="slide"><h2>Resampling</h2>
-<p>resampling to get values for the start of each year:</p>
-<pre><code class="hljs language-py">sp500.resample(<span class="hljs-string">"1ys"</span>).interpolate()
+</section><section class="slide"><h2>Joins</h2>
+<p>short form if the corresponding columns have the same name:</p>
+<pre><code class="hljs language-py">pd.merge(sp500_no_index, euribor_no_index, on=<span class="hljs-string">"date"</span>)
 </code></pre>
-<p>resampling to get values for each day:</p>
-<pre><code class="hljs language-py">sp500.resample(<span class="hljs-string">"1d"</span>).interpolate()
+<p>will result in one <code>date</code> column instead of two</p>
+</section><section class="slide"><h2>Exercise</h2>
+<p>Exercise: country comparisons:</p>
+<ul>
+<li>GDP per capita from 2018</li>
+<li>COVID-19 vaccination rates from 2021-08</li>
+</ul>
+<p>data sources:</p>
+<ul>
+<li><a href="https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv">https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv</a></li>
+<li><a href="https://raw.githubusercontent.com/owid/owid-datasets/master/datasets/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020))/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020)).csv">https://raw.githubusercontent.com/owid/owid-datasets/master/datasets/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020))/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020)).csv</a></li>
+</ul>
+</section><section class="slide"><h2>Exercise</h2>
+<p>solution:</p>
+<pre><code class="hljs language-py">gdp = pd.read_csv(
+    <span class="hljs-string">"https://raw.githubusercontent.com/owid/owid-datasets/master/datasets/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020))/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020)).csv"</span>,
+    index_col=[<span class="hljs-string">"Entity"</span>, <span class="hljs-string">"Year"</span>]
+)
+gdp_series = gdp[<span class="hljs-string">"GDP per capita"</span>]
+gdp_2018 = gdp_series[:, <span class="hljs-number">2018</span>]
+
+vac = pd.read_csv(
+    <span class="hljs-string">"https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv"</span>,
+    index_col=[<span class="hljs-string">"location"</span>, <span class="hljs-string">"date"</span>]
+)
+vac_series = vac[<span class="hljs-string">"total_vaccinations_per_hundred"</span>]
+vac_2021_08 = vac_series[:, <span class="hljs-string">"2021-08-01"</span>]
+
+data = pd.DataFrame({<span class="hljs-string">"gdp"</span>: gdp_2018, <span class="hljs-string">"vaccinations"</span>: vac_2021_08}).dropna()
+data.plot.scatter(x=<span class="hljs-string">"gdp"</span>, y=<span class="hljs-string">"vaccinations"</span>)
 </code></pre>
+</section><section class="slide"><h2>Exercise</h2>
+<p>Exercise: try some join operations on the following data:</p>
+<pre><code class="hljs language-py">artists = pd.DataFrame({
+    <span class="hljs-string">"name"</span>: [<span class="hljs-string">"The Beatles"</span>, <span class="hljs-string">"Elvis Presley"</span>,
+             <span class="hljs-string">"Michael Jackson"</span>, <span class="hljs-string">"Elton John"</span>],
+    <span class="hljs-string">"country"</span>: [<span class="hljs-string">"UK"</span>, <span class="hljs-string">"US"</span>, <span class="hljs-string">"US"</span>, <span class="hljs-string">"UK"</span>]
+})
+</code></pre>
+<pre><code class="hljs language-py">songs = pd.DataFrame({
+    <span class="hljs-string">"title"</span>: [<span class="hljs-string">"White Christmas"</span>, <span class="hljs-string">"Candle in the Wind"</span>,
+              <span class="hljs-string">"It's Now or Never"</span>],
+    <span class="hljs-string">"artist"</span>: [<span class="hljs-string">"Bing Crosby"</span>, <span class="hljs-string">"Elton John"</span>,
+               <span class="hljs-string">"Elvis Presley"</span>],
+    <span class="hljs-string">"sales_millions"</span>: [<span class="hljs-number">50</span>, <span class="hljs-number">33</span>, <span class="hljs-number">20</span>]
+})
+</code></pre>
+</section><section class="slide"><h2>Joins</h2>
+<p>see also: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html">https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Grouping and aggregation</h1>
 </section><section class="slide"><h2>Grouping and aggregation</h2>
 <p>examples related to Titanic passenger data:</p>
@@ -2767,118 +2899,57 @@ pclass
 
 er_90s_means = er_90s.groupby(<span class="hljs-string">"Country"</span>).mean()
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Multi index</h1>
-</section><section class="slide"><h2>Multi index</h2>
-<p><strong>index column</strong>: column that uniquely identifies a row in a DataFrame</p>
-<p><strong>multi index</strong>: combination of multiple columns for unique identification</p>
-</section><section class="slide"><h2>Multi index</h2>
-<p>example: exchange rates</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>Date</th><th>Country</th><th>Exchange rate</th></tr></thead><tbody><tr><td>1971-01-01</td><td>Australia</td><td>0.894</td></tr><tr><td>1971-02-01</td><td>Australia</td><td>0.890</td></tr><tr><td>1971-03-01</td><td>Australia</td><td>0.890</td></tr></tbody></table>
-<p>A row can be uniquely identified by a combination of <em>date</em> and <em>country</em></p>
-</section><section class="slide"><h2>Multi index</h2>
-<p>Importing with a multi-index:</p>
-<pre><code class="hljs language-py">exchange_rates = pd.read_csv(
-    <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
-    index_col=[<span class="hljs-string">"Country"</span>, <span class="hljs-string">"Date"</span>]
-    parse_dates=[<span class="hljs-string">"Date"</span>])
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Joins</h1>
-</section><section class="slide"><h2>Joins</h2>
-<p><strong>Join</strong>: Combining multiple <code>DataFrame</code>s or <code>Series</code> into a single <code>DataFrame</code></p>
-</section><section class="slide"><h2>Joins</h2>
-<p>types:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Time series</h1>
+</section><section class="slide"><h2>Time series</h2>
+<p>data types:</p>
 <ul>
-<li>inner join</li>
-<li>outer join</li>
-<li>left join</li>
-<li>right join</li>
+<li><em>time stamp</em>: a specific moment in time (e.g. 1955-11-12, 10:04)</li>
+<li><em>time period</em>: a specific period in time (e.g. November 1955)</li>
+<li><em>time delta</em>: a difference in time (e.g. 1 hour)</li>
 </ul>
-</section><section class="slide"><h2>Joins</h2>
-<p>Joining <code>Series</code> objects by their indices:</p>
-<p>outer join:</p>
-<pre><code class="hljs language-py">interest_rates = pd.DataFrame({
-    <span class="hljs-string">"usd"</span>: sp500[<span class="hljs-string">"Long Interest Rate"</span>],
-    <span class="hljs-string">"eur"</span>: euribor[<span class="hljs-string">"rate"</span>]
-})
-</code></pre>
-<p>inner join:</p>
-<pre><code class="hljs language-py">interest_rates = pd.DataFrame({
-    <span class="hljs-string">"usd"</span>: sp500[<span class="hljs-string">"Long Interest Rate"</span>],
-    <span class="hljs-string">"eur"</span>: euribor[<span class="hljs-string">"rate"</span>]
-}).dropna()
-</code></pre>
-</section><section class="slide"><h2>Joins</h2>
-<p>joining <code>DataFrame</code> objects by their indices:</p>
-<p>inner join:</p>
-<pre><code class="hljs language-py">pd.merge(sp500, euribor, left_index=<span class="hljs-literal">True</span>, right_index=<span class="hljs-literal">True</span>)
-</code></pre>
-<p>outer join:</p>
-<pre><code class="hljs language-py">pd.merge(sp500, euribor, left_index=<span class="hljs-literal">True</span>, right_index=<span class="hljs-literal">True</span>,
-         how=<span class="hljs-string">"outer"</span>)
-</code></pre>
-</section><section class="slide"><h2>Joins</h2>
-<p>joining on specific columns (not on the index):</p>
-<pre><code class="hljs language-py">sp500_no_index = pd.read_csv(
-    <span class="hljs-string">"https://datahub.io/core/s-and-p-500/r/data.csv"</span>,
-    parse_dates=[<span class="hljs-string">"Date"</span>],
+</section><section class="slide"><h2>Time series</h2>
+<p>creating date ranges (as index objects):</p>
+<pre><code class="hljs language-py">every_day = pd.date_range(<span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>)
+last_of_each_month = pd.date_range(
+    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"M"</span>
 )
-euribor_no_index = pd.read_csv(
-    <span class="hljs-string">"https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"</span>,
-    parse_dates=[<span class="hljs-string">"date"</span>],
-    usecols=[<span class="hljs-string">"date"</span>, <span class="hljs-string">"rate"</span>]
+first_of_each_month = pd.date_range(
+    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"MS"</span>
 )
-
-pd.merge(sp500_no_index, euribor_no_index, left_on=<span class="hljs-string">"Date"</span>,
-         right_on=<span class="hljs-string">"date"</span>)
+every_10_days = pd.date_range(
+    <span class="hljs-string">"2000-01-01"</span>, <span class="hljs-string">"2000-12-31"</span>, freq=<span class="hljs-string">"10d"</span>
+)
 </code></pre>
-</section><section class="slide"><h2>Joins</h2>
-<p>short form if the corresponding columns have the same name:</p>
-<pre><code class="hljs language-py">pd.merge(sp500_no_index, euribor_no_index, on=<span class="hljs-string">"date"</span>)
+</section><section class="slide"><h2>Time series</h2>
+<p>converting between <em>time stamps</em> and <em>time periods</em>:</p>
+<ul>
+<li><code>.to_period()</code></li>
+<li><code>.to_timestamp()</code></li>
+</ul>
+<p>(works on index objects and on Series / DataFrame objects)</p>
+</section><section class="slide"><h2>Resampling</h2>
+<p>resampling: getting derived data for different time intervals</p>
+<p>example: based on <strong>monthly</strong> data:</p>
+<ul>
+<li>get <strong>yearly</strong> data (e.g. average over months)</li>
+<li>get <strong>daily</strong> data (e.g. via interpolation)</li>
+</ul>
+</section><section class="slide"><h2>Resampling</h2>
+<pre><code class="hljs language-py">sp500.resample(<span class="hljs-string">"Y"</span>).mean()
+sp500.resample(<span class="hljs-string">"D"</span>).interpolate()
 </code></pre>
-<p>will result in one <code>date</code> column instead of two</p>
-</section><section class="slide"><h2>Exercise</h2>
-<p>Exercise: try some join operations on the following data:</p>
-<pre><code class="hljs language-py">artists = pd.DataFrame({
-    <span class="hljs-string">"name"</span>: [<span class="hljs-string">"The Beatles"</span>, <span class="hljs-string">"Elvis Presley"</span>,
-             <span class="hljs-string">"Michael Jackson"</span>, <span class="hljs-string">"Elton John"</span>],
-    <span class="hljs-string">"country"</span>: [<span class="hljs-string">"UK"</span>, <span class="hljs-string">"US"</span>, <span class="hljs-string">"US"</span>, <span class="hljs-string">"UK"</span>]
-})
+</section><section class="slide"><h2>Time series</h2>
+<p>Checking if the first day of each month is present in the S&#x26;P 500 data:</p>
+<pre><code class="hljs language-py">sp500.index.equals(
+    pd.date_range(
+        sp500.index[<span class="hljs-number">0</span>], sp500.index[-<span class="hljs-number">1</span>], freq=<span class="hljs-string">"MS"</span>
+    )
+)
+<span class="hljs-comment"># True</span>
 </code></pre>
-<pre><code class="hljs language-py">songs = pd.DataFrame({
-    <span class="hljs-string">"title"</span>: [<span class="hljs-string">"White Christmas"</span>, <span class="hljs-string">"Candle in the Wind"</span>,
-              <span class="hljs-string">"It's Now or Never"</span>],
-    <span class="hljs-string">"artist"</span>: [<span class="hljs-string">"Bing Crosby"</span>, <span class="hljs-string">"Elton John"</span>,
-               <span class="hljs-string">"Elvis Presley"</span>],
-    <span class="hljs-string">"sales_millions"</span>: [<span class="hljs-number">50</span>, <span class="hljs-number">33</span>, <span class="hljs-number">20</span>]
-})
-</code></pre>
-</section><section class="slide"><h2>Joins</h2>
-<p>see also: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html">https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html</a></p></section></section></div>
+</section></section><section class="slides-section"><section class="slide"><h1>Cheat sheet</h1>
+</section><section class="slide"><h2>Cheat sheet</h2>
+<p>pandas cheat sheet: <a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf</a></p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

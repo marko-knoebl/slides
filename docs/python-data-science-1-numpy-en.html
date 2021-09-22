@@ -2487,12 +2487,26 @@ a_with_nans[a_invalid] = np.nan
 </section><section class="slide"><h2>Boolean indexing (short form)</h2>
 <pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">3.8</span>, -<span class="hljs-number">1</span>])
 
-a_filtered = a[a > <span class="hljs-number">0</span>]
+a_filtered = a[a >= <span class="hljs-number">0</span>]
 
 a_with_nans = np.copy(a)
 a_with_nans[a_with_nans &#x3C; <span class="hljs-number">0</span>] = np.nan
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>NumPy advanced</h1>
+</section><section class="slide"><h2>Views</h2>
+<p>Several operations in numpy will produce <em>views</em> of the data - multiple numpy arrays can refer to the same data in the background (for efficiency)</p>
+</section><section class="slide"><h2>Views</h2>
+<p>comparison: creating a <em>copy</em> of a list, creating a <em>view</em> of an array</p>
+<pre><code class="hljs language-py"><span class="hljs-built_in">list</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list_copy = <span class="hljs-built_in">list</span>[:]
+list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
+
+array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+array_view = array[:]
+array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
+</code></pre>
+</section><section class="slide"><h2>Copying arrays</h2>
+<p>Arrays can be copied via <code>np.copy()</code></p>
 </section><section class="slide"><h2>Reshaping arrays</h2>
 <pre><code class="hljs language-py">np.reshape(a3d, (<span class="hljs-number">8</span>, )) <span class="hljs-comment"># 1d array</span>
 np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)) <span class="hljs-comment"># 2d array</span>
@@ -2502,6 +2516,7 @@ np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">4
 np.reshape(a3d, (-<span class="hljs-number">1</span>, )) <span class="hljs-comment"># 1d array</span>
 np.reshape(a3d, (<span class="hljs-number">2</span>, -<span class="hljs-number">1</span>)) <span class="hljs-comment"># 2d array</span>
 </code></pre>
+<p>these operations will create <em>views</em></p>
 </section><section class="slide"><h2>Adding an extra dimension</h2>
 <p>Adding an extra dimension of length 1: turning a 2 x 2 array into a 2 x 2 x 1 array:</p>
 <pre><code class="hljs language-py">np.expand_dims(a2d, <span class="hljs-number">2</span>)
@@ -2518,18 +2533,6 @@ np.reshape(a3d, (<span class="hljs-number">2</span>, -<span class="hljs-number">
 
 a2d.T
 </code></pre>
-</section><section class="slide"><h2>Slices as views</h2>
-<p>In ordinary Python we can make a shallow copy of a list by slicing it - this works differently in NumPy (in order to improve efficiency):</p>
-<pre><code class="hljs language-py"><span class="hljs-built_in">list</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
-list_copy = <span class="hljs-built_in">list</span>[:]
-list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
-
-array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-array_view = array[:]
-array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
-</code></pre>
-</section><section class="slide"><h2>Copying arrays</h2>
-<p>Arrays can be copied via <code>np.copy()</code></p>
 </section><section class="slide"><h2>Concatenating arrays</h2>
 <p>concatenating along an existing axis (axis 0 by default):</p>
 <pre><code class="hljs language-py">np.concatenate([a1d, a1d])
@@ -2546,7 +2549,7 @@ np.linalg.inv(m)
 np.eye(<span class="hljs-number">2</span>) <span class="hljs-comment"># unit matrix</span>
 </code></pre>
 </section><section class="slide"><h2>Array multiplication</h2>
-<p>via the binary Operator <code>@</code></p>
+<p>via the binary operator <code>@</code></p>
 <p>example: rotating several points by 45° / 90° (counterclockwise):</p>
 <pre><code class="hljs language-py">points = np.array([[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]])
 

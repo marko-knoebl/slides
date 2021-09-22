@@ -6,6 +6,7 @@
 - [seaborn data sets](https://github.com/mwaskom/seaborn-data) (klicke auf eine Datei und dann auf den _raw_ Button)
 - [pandas-datareader](https://pydata.github.io/pandas-datareader)
 - <http://lib.stat.cmu.edu/datasets/>
+- _Our world in data_: [allgemeine Datensätze](https://github.com/owid/owid-datasets), [COVID-19 Datensätze](https://github.com/owid/covid-19-data)
 
 ## Beispieldaten
 

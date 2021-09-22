@@ -2488,12 +2488,26 @@ a_with_nans[a_invalid] = np.nan
 </section><section class="slide"><h2>Boolean Indexing (Kurzform)</h2>
 <pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">3.8</span>, -<span class="hljs-number">1</span>])
 
-a_filtered = a[a > <span class="hljs-number">0</span>]
+a_filtered = a[a >= <span class="hljs-number">0</span>]
 
 a_with_nans = np.copy(a)
 a_with_nans[a_with_nans &#x3C; <span class="hljs-number">0</span>] = np.nan
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>NumPy Fortgeschritten</h1>
+</section><section class="slide"><h2>Views</h2>
+<p>Mehrere Operationen in NumPy erstellen <em>views</em> der Daten - mehrere arrays können im Hintergund auf die gleichen Daten verweisen (für bessere Effizienz)</p>
+</section><section class="slide"><h2>Views</h2>
+<p>Beispiel: Erstellen einer <em>Kopie</em> einer Liste, Erstellen eines <em>Views</em> eines Arrays</p>
+<pre><code class="hljs language-py"><span class="hljs-built_in">list</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+list_copy = <span class="hljs-built_in">list</span>[:]
+list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
+
+array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
+array_view = array[:]
+array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
+</code></pre>
+</section><section class="slide"><h2>Arrays kopieren</h2>
+<p>Arrays können via <code>np.copy()</code> kopiert werden</p>
 </section><section class="slide"><h2>Form von Arrays ändern</h2>
 <pre><code class="hljs language-py">np.reshape(a3d, (<span class="hljs-number">8</span>, )) <span class="hljs-comment"># 1d array</span>
 np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)) <span class="hljs-comment"># 2d array</span>
@@ -2503,6 +2517,7 @@ np.reshape(a3d, (<span class="hljs-number">2</span>, <span class="hljs-number">4
 np.reshape(a3d, (-<span class="hljs-number">1</span>, )) <span class="hljs-comment"># 1d array</span>
 np.reshape(a3d, (<span class="hljs-number">2</span>, -<span class="hljs-number">1</span>)) <span class="hljs-comment"># 2d array</span>
 </code></pre>
+<p>diese Operationen erstellen <em>Views</em></p>
 </section><section class="slide"><h2>Dimensionalität erhöhen</h2>
 <p>Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:</p>
 <pre><code class="hljs language-py">np.expand_dims(a2d, <span class="hljs-number">2</span>)
@@ -2519,18 +2534,6 @@ np.reshape(a3d, (<span class="hljs-number">2</span>, -<span class="hljs-number">
 
 a2d.T
 </code></pre>
-</section><section class="slide"><h2>Slices als Views</h2>
-<p>In Python können wir eine flache Kopie einer Liste erstellen, indem wir sie slicen - dies ist in NumPy nicht so (um die Effizienz zu steigern):</p>
-<pre><code class="hljs language-py"><span class="hljs-built_in">list</span> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
-list_copy = <span class="hljs-built_in">list</span>[:]
-list_copy[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># does NOT change list</span>
-
-array = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])
-array_view = array[:]
-array_view[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span> <span class="hljs-comment"># DOES change array</span>
-</code></pre>
-</section><section class="slide"><h2>Arrays kopieren</h2>
-<p>Arrays können via <code>np.copy()</code> kopiert werden</p>
 </section><section class="slide"><h2>Arrays aneinanderfügen</h2>
 <p>entlang einer bestehenden Achse aneinanderfügen (standardmäßig Achse 0):</p>
 <pre><code class="hljs language-py">np.concatenate([a1d, a1d])

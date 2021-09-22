@@ -38,6 +38,7 @@ Mögliche Schlüsselwortargumente für `read_csv`:
 - `sep`: Angeben anderer Trennzeichen als ein Komma
 - `usecols`: um nur bestimmte Spalten zu importieren
 - `parse_dates`: erwartet eine Liste von Spaltennamen
+- `dtype`: kann ein Dictionary sein, das Datentypen für bestimmte Spalten spezifiziert
 - ...
 
 Siehe auch: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
@@ -96,8 +97,7 @@ iris = pd.read_csv(
            "petal_width", "species"],
 )
 titanic = pd.read_csv(
-    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv",
-    sep=";",
+    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
 )
 ```
 

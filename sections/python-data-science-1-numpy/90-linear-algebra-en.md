@@ -10,7 +10,7 @@ np.eye(2) # unit matrix
 
 ## Array multiplication
 
-via the binary Operator `@`
+via the binary operator `@`
 
 example: rotating several points by 45° / 90° (counterclockwise):
 

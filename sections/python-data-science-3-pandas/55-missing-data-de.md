@@ -97,6 +97,6 @@ interest = pd.DataFrame({
     "eu": euribor["rate"]
 })
 
-interest = interest.interpolate("slinear")
+interest["eu"] = interest["eu"].interpolate("slinear")
 interest = interest.dropna()
 ```

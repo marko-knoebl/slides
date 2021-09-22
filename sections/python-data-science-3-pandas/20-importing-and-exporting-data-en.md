@@ -38,6 +38,7 @@ Possible keyword arguments for `read_csv`:
 - `sep`: for specifying other separators than a comma
 - `usecols`: for importing only specific columns
 - `parse_dates`: expects a list of column names
+- `dtype`: may be a dictionary that specifies data types for certain columns
 - ...
 
 See also: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html

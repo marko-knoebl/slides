@@ -2,7 +2,7 @@
 
 ## Joins
 
-**Join**: Zusammenführen von mehreren Datenquellen
+**Join**: Zusammenführen von mehreren _DataFrames_ oder _Series zu einem \_DataFrame_
 
 ## Joins
 
@@ -81,7 +81,42 @@ pd.merge(sp500_no_index, euribor_no_index, on="date")
 
 Resultat hat eine `date`-Spalte statt zwei
 
-## Joins
+## Übung
+
+Übung: Ländervergleich:
+
+- BIP pro Kopf von 2018
+- COVID-19-Impfraten von 2021-08
+
+Datenquellen:
+
+- <https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv>
+- <https://raw.githubusercontent.com/owid/owid-datasets/master/datasets/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020))/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020)).csv>
+
+## Übung
+
+Lösung:
+
+```py
+gdp = pd.read_csv(
+    "https://raw.githubusercontent.com/owid/owid-datasets/master/datasets/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020))/Maddison%20Project%20Database%202020%20(Bolt%20and%20van%20Zanden%20(2020)).csv",
+    index_col=["Entity", "Year"]
+)
+gdp_series = gdp["GDP per capita"]
+gdp_2018 = gdp_series[:, 2018]
+
+vac = pd.read_csv(
+    "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv",
+    index_col=["location", "date"]
+)
+vac_series = vac["total_vaccinations_per_hundred"]
+vac_2021_08 = vac_series[:, "2021-08-01"]
+
+data = pd.DataFrame({"gdp": gdp_2018, "vaccinations": vac_2021_08}).dropna()
+data.plot.scatter(x="gdp", y="vaccinations")
+```
+
+## Übung
 
 Beispiel: Musiker und Lieder
 
