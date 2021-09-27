@@ -2,7 +2,7 @@
 
 use pandas to analyze and visualize aspects of this data on 891 individual Titanic passengers:
 
-<https://public.opendatasoft.com/explore/dataset/titanic-passengers/download>
+<https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv>
 
 possible tasks:
 

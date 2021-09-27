@@ -27,10 +27,10 @@ titanic[titanic["Age"] >= 70]
 
 ## Selecting rows: advanced
 
-male passengers in first class:
+male passengers in second or third class:
 
 ```py
-titanic[(titanic["Pclass"] > 1) & (titanic["Sex"] == "male")]
+titanic[(titanic["Pclass"] >= 2) & (titanic["Sex"] == "male")]
 ```
 
 passengers who embarked in Southampton or Queenstown:
@@ -42,7 +42,7 @@ titanic[titanic["Embarked"].isin(["S", "Q"])]
 ## Selecting rows: advanced
 
 ```py
-titanic.query("Pclass > 1 and Sex == 'male'")
+titanic.query("Pclass >= 2 and Sex == 'male'")
 ```
 
 ```py

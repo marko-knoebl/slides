@@ -39,23 +39,6 @@ np.reshape(a3d, (2, -1)) # 2d array
 
 diese Operationen erstellen _Views_
 
-## Dimensionalität erhöhen
-
-Hinzufügen einer extra Dimension der Länge 1: Verwandeln eines 2 x 2 Arrays in ein 2 x 2 x 1 Array:
-
-```py
-np.expand_dims(a2d, 2)
-# [[[1], [2], [3]],
-#  [[4], [5], [6]],
-#  [[7], [8], [9]]]
-```
-
-Alternative:
-
-```
-a2d[:, :, np.newaxis]
-```
-
 ## Transponieren
 
 Umkehren der Achsenreihenfolge:

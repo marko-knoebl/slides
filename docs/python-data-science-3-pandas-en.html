@@ -2387,7 +2387,7 @@ df[<span class="hljs-string">"mean"</span>]        <span class="hljs-comment"># 
 </ul>
 </section><section class="slide"><h2>Solution: Exchange rates</h2>
 <pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
-    exchange_rates.Country == <span class="hljs-string">"Euro"</span>
+    exchange_rates[<span class="hljs-string">"Country"</span>] == <span class="hljs-string">"Euro"</span>
 ]
 euro_exchange_rates[[<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
 </code></pre>
@@ -2422,14 +2422,14 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 <pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"Age"</span>] >= <span class="hljs-number">70</span>]
 </code></pre>
 </section><section class="slide"><h2>Selecting rows: advanced</h2>
-<p>male passengers in first class:</p>
-<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"Pclass"</span>] > <span class="hljs-number">1</span>) &#x26; (titanic[<span class="hljs-string">"Sex"</span>] == <span class="hljs-string">"male"</span>)]
+<p>male passengers in second or third class:</p>
+<pre><code class="hljs language-py">titanic[(titanic[<span class="hljs-string">"Pclass"</span>] >= <span class="hljs-number">2</span>) &#x26; (titanic[<span class="hljs-string">"Sex"</span>] == <span class="hljs-string">"male"</span>)]
 </code></pre>
 <p>passengers who embarked in Southampton or Queenstown:</p>
 <pre><code class="hljs language-py">titanic[titanic[<span class="hljs-string">"Embarked"</span>].isin([<span class="hljs-string">"S"</span>, <span class="hljs-string">"Q"</span>])]
 </code></pre>
 </section><section class="slide"><h2>Selecting rows: advanced</h2>
-<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"Pclass > 1 and Sex == 'male'"</span>)
+<pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"Pclass >= 2 and Sex == 'male'"</span>)
 </code></pre>
 <pre><code class="hljs language-py">titanic.query(<span class="hljs-string">"Embarked in ['S', 'Q']"</span>)
 </code></pre>

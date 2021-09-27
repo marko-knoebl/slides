@@ -116,7 +116,7 @@ titanic[titanic["Age"] >= 70]
 
 ```py
 euro_exchange_rates = exchange_rates[
-    exchange_rates.Country == "Euro"
+    exchange_rates["Country"] == "Euro"
 ]
 euro_exchange_rates[["Date", "Exchange rate"]]
 ```

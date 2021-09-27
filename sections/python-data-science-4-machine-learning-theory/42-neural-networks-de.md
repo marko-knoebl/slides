@@ -29,6 +29,10 @@ Machine Learning Verfahren, das in etwa die Interaktion von Neuronen im Gehirn n
 - Softmax - oft im letzen Layer für Klassifikation verwendet
 - Sigmoid - oft im letzen Layer für "Tagging" verwendet (Tags können sich überlappen)
 
+## Demo
+
+- <http://playground.tensorflow.org>
+
 ## Ressource
 
 - <https://victorzhou.com/blog/intro-to-neural-networks/>

@@ -39,23 +39,6 @@ np.reshape(a3d, (2, -1)) # 2d array
 
 these operations will create _views_
 
-## Adding an extra dimension
-
-Adding an extra dimension of length 1: turning a 2 x 2 array into a 2 x 2 x 1 array:
-
-```py
-np.expand_dims(a2d, 2)
-# [[[1], [2], [3]],
-#  [[4], [5], [6]],
-#  [[7], [8], [9]]]
-```
-
-alternative:
-
-```py
-a2d[:, :, np.newaxis]
-```
-
 ## Transposing
 
 reversing order of axes (flipping axes in 2D):

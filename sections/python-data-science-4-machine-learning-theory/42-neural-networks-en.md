@@ -29,6 +29,10 @@ Machine learning strategy that vaguely resembles how neurons in the brain intera
 - Softmax - often used in the last layer for classification
 - Sigmoid - often used in the last layer for "tagging" (tags may overlap)
 
+## Demo
+
+- <http://playground.tensorflow.org>
+
 ## Resource
 
 - <https://victorzhou.com/blog/intro-to-neural-networks/>
