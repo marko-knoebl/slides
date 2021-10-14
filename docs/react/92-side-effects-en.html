@@ -2419,6 +2419,7 @@ useEffect(<span class="hljs-function">() =></span> {
 
   useEffect(<span class="hljs-function">() =></span> {
     <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// this innermost function will only be created once</span>
       <span class="hljs-comment">// the variable "count" will always refer to the</span>
       <span class="hljs-comment">// value from the initial rendering (0)</span>
       <span class="hljs-built_in">console</span>.log(count);
@@ -2448,6 +2449,14 @@ useEffect(<span class="hljs-function">() =></span> {
 <li>pass a "transformer" function to a state setter (which can always access the most recent state)</li>
 <li>store the most recent version of a state entry in a ref as well (this will also be available in older closures)</li>
 </ul>
+</section><section class="slide"><h2>Exercise</h2>
+<p>Exercise:</p>
+<p>Component <code>TransitioningImage</code> (which may be used for the slideshow)</p>
+<p>Transition by fading out the previous value of <code>src</code>, then fading in the new value</p>
+<p>possible internal state:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> State = { <span class="hljs-attr">current</span>: <span class="hljs-built_in">string</span>; previous?: <span class="hljs-built_in">string</span> };
+</code></pre>
+<p>Hint: pre-load the upcoming image during the fade-out transformation (e.g. by including an additional, hidden <code>img</code> element)</p>
 </section><section class="slide"><h2>Fixing the problem of obsolete data</h2>
 <p>example solution to the closure problem with <em>setInterval</em>: use the <em>ref</em> hook and potentially a custom hook</p>
 <p>see:</p>

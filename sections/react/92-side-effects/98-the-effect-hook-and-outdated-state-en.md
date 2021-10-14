@@ -25,6 +25,7 @@ function CounterWithLogging() {
 
   useEffect(() => {
     setInterval(() => {
+      // this innermost function will only be created once
       // the variable "count" will always refer to the
       // value from the initial rendering (0)
       console.log(count);
@@ -55,6 +56,22 @@ varying solutions depending on the scenario:
   - `useCallback`
 - pass a "transformer" function to a state setter (which can always access the most recent state)
 - store the most recent version of a state entry in a ref as well (this will also be available in older closures)
+
+## Exercise
+
+Exercise:
+
+Component `TransitioningImage` (which may be used for the slideshow)
+
+Transition by fading out the previous value of `src`, then fading in the new value
+
+possible internal state:
+
+```ts
+type State = { current: string; previous?: string };
+```
+
+Hint: pre-load the upcoming image during the fade-out transformation (e.g. by including an additional, hidden `img` element)
 
 ## Fixing the problem of obsolete data
 

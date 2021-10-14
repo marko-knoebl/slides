@@ -67,9 +67,3 @@ const [prodRating, setProdRating] = useState(3);
   onChange={(newRating) => setProdRating(newRating)}
 />
 ```
-
-kürzere Schreibweise:
-
-```jsx
-<Rating value={prodRating} onChange={setProdRating} />
-```

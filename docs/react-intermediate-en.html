@@ -2541,6 +2541,97 @@ const Slideshow = (props) => (
   &#x3C;/Container>
 );
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Animations</h1>
+</section><section class="slide"><h2>Animations</h2>
+<ul>
+<li>basic animations: via CSS transitions</li>
+</ul>
+<p>animating appearance / disappearance of elements:</p>
+<ul>
+<li><em>react-transition-group</em> (based on CSS class names)</li>
+</ul>
+<p>advanced libraries:</p>
+<ul>
+<li><em>react-spring</em></li>
+<li><em>framer motion</em></li>
+</ul>
+</section><section class="slide"><h2>Animations</h2>
+<p>basic animations: via CSS transitions</p>
+<pre><code class="hljs language-js">&#x3C;li
+  style={{
+    <span class="hljs-attr">backgroundColor</span>: props.todo.completed
+      ? <span class="hljs-string">'lightgrey'</span>
+      : <span class="hljs-string">'salmon'</span>,
+    <span class="hljs-attr">transitionProperty</span>: <span class="hljs-string">'background-color'</span>,
+    <span class="hljs-attr">transitionDuration</span>: <span class="hljs-string">'0.5s'</span>,
+  }}
+>
+  ...
+&#x3C;/li>
+</code></pre>
+</section><section class="slide"><h2>Appearance / disappearance of elements</h2>
+<p>phases for appearance / disappearance of elements:</p>
+<ul>
+<li><strong>unmounted</strong></li>
+<li>before entering</li>
+<li>entering</li>
+<li><strong>displayed</strong></li>
+<li>before exiting</li>
+<li>exiting</li>
+</ul>
+</section><section class="slide"><h2>Appearance / disappearance of elements</h2>
+<p><em>react-transition-group</em>: based on CSS class names</p>
+</section><section class="slide"><h2>Appearance / disappearance of elements</h2>
+<p>example with <em>framer motion</em>:</p>
+<pre><code class="hljs language-js">&#x3C;AnimatePresence>
+  {hovered ? (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">motion.button</span>
+      <span class="hljs-attr">animate</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">opacity:</span> <span class="hljs-attr">1</span> }}
+      <span class="hljs-attr">initial</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">opacity:</span> <span class="hljs-attr">0</span> }}
+      <span class="hljs-attr">exit</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">opacity:</span> <span class="hljs-attr">0</span> }}
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> props.onDelete(props.todo.id)}
+    >
+      delete
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">motion.button</span>></span></span>
+  ) : <span class="hljs-literal">null</span>}
+&#x3C;/AnimatePresence>
+</code></pre>
+</section><section class="slide"><h2>Appearance / disappearance of elements</h2>
+<p>example with <em>framer motion</em>:</p>
+<pre><code class="hljs language-js">&#x3C;AnimatePresence>
+  {todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">motion.li</span>
+      <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>
+      <span class="hljs-attr">animate</span>=<span class="hljs-string">{visibleStyle}</span>
+      <span class="hljs-attr">initial</span>=<span class="hljs-string">{hiddenStyle}</span>
+      <span class="hljs-attr">exit</span>=<span class="hljs-string">{hiddenStyle}</span>
+    ></span>
+      {todo.title}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">motion.li</span>></span></span>
+  ))}
+&#x3C;/AnimatePresence>
+</code></pre>
+</section><section class="slide"><h2>Appearance / disappearance of elements</h2>
+<p>example with <em>react-spring</em>:</p>
+<pre><code class="hljs language-js">&#x3C;Transition
+  items={hovered}
+  <span class="hljs-keyword">from</span>={{ <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span> }}
+  enter={{ <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span> }}
+  leave={{ <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span> }}
+  reverse={hovered}
+>
+  {<span class="hljs-function">(<span class="hljs-params">style, hovered</span>) =></span>
+    hovered ? (
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">animated.button</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{style}</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> props.onDelete(props.todo.id)}
+      >
+        delete
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">animated.button</span>></span></span>
+    ) : <span class="hljs-literal">null</span>
+  }
+&#x3C;/Transition>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Forms and validation</h1>
 </section><section class="slide"><h2>Forms and validation</h2>
 <p>When can a form input be validated?</p>

@@ -2418,6 +2418,7 @@ useEffect(<span class="hljs-function">() =></span> {
 
   useEffect(<span class="hljs-function">() =></span> {
     <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// this innermost function will only be created once</span>
       <span class="hljs-comment">// the variable "count" will always refer to the</span>
       <span class="hljs-comment">// value from the initial rendering (0)</span>
       <span class="hljs-built_in">console</span>.log(count);
@@ -2447,6 +2448,14 @@ useEffect(<span class="hljs-function">() =></span> {
 <li>übergeben einer "Transformations-Funktion" an einen State Setter (die Funktion hat immer Zugriff auf den aktuellsten State)</li>
 <li>zusätzliches Speichern des aktuellsten States in einer <em>ref</em> (ist damit auch in älteren Closures verfügbar)</li>
 </ul>
+</section><section class="slide"><h2>Übung</h2>
+<p>Übung:</p>
+<p>Komponente <code>TransitioningImage</code>, die z.B. für die Slideshow verwendet werden kann</p>
+<p>Übergang mittels fade-out des vorherigen <code>src</code>-Wertes, dann fade-in des neuen <code>src</code>-Wertes</p>
+<p>möglicher interner State:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> State = { <span class="hljs-attr">current</span>: <span class="hljs-built_in">string</span>; previous?: <span class="hljs-built_in">string</span> };
+</code></pre>
+<p>Hinweis: lade das kommende Bild während der fade-out-Transformation vor (z.B. durch ein zusätzliches, verstecktes <code>img</code>-Element)</p>
 </section><section class="slide"><h2>Beheben des Problems mit veralteten Daten</h2>
 <p>Mögliche Lösung des Closure-Problems mit <em>setInterval</em>: Verwendung des <em>ref</em>-Hooks und eventuell eines selbst definierten Hooks</p>
 <p>siehe:</p>

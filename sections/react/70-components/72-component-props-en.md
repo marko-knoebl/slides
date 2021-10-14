@@ -26,13 +26,3 @@ const ProgressBar = (props: Props) => {
   // ...
 };
 ```
-
-## Component props
-
-component definition with object destructuring for props:
-
-```tsx
-const ProgressBar = ({ value, color }: Props) => {
-  // ...
-};
-```

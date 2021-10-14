@@ -2,28 +2,12 @@
 
 ## Component libraries
 
-- Material UI: React components in material design
 - React Bootstrap
+- Material UI: React components in material design
 - React Native & React Native Web: React components & framework for mobile & web apps
 - Blueprint
 - Ant Design
 - ...
-
-## Material-UI
-
-Predefined React components conforming to material design style (style of Google/Android)
-
-npm package: _@material-ui/core_
-
-```jsx
-import { Button } from '@material-ui/core';
-```
-
-```jsx
-<Button color="primary">Hello World</Button>
-```
-
-documentation: https://material-ui.com
 
 ## React-Bootstrap
 
@@ -43,3 +27,19 @@ import { Button } from 'react-bootstrap';
 ```
 
 documentation: https://react-bootstrap.github.io/
+
+## Material-UI
+
+Predefined React components conforming to material design style (style of Google/Android)
+
+npm package: _@material-ui/core_
+
+```jsx
+import { Button } from '@material-ui/core';
+```
+
+```jsx
+<Button color="primary">Hello World</Button>
+```
+
+documentation: https://material-ui.com

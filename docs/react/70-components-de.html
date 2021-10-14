@@ -2266,21 +2266,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>Komponentenlibraries</h1>
 </section><section class="slide"><h2>Komponentenlibraries</h2>
 <ul>
-<li>Material UI: React-Komponenten im <em>Material Design</em></li>
 <li>React Bootstrap</li>
+<li>Material UI: React-Komponenten im <em>Material Design</em></li>
 <li>React Native &#x26; React Native Web: React Komponenten &#x26; Framework für mobile Apps &#x26; Web Apps</li>
 <li>Blueprint</li>
 <li>Ant Design</li>
 <li>...</li>
 </ul>
-</section><section class="slide"><h2>Material-UI</h2>
-<p>Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)</p>
-<p>npm-Paket: <em>@material-ui/core</em></p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Button } <span class="hljs-keyword">from</span> <span class="hljs-string">'@material-ui/core'</span>;
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;Button color=<span class="hljs-string">"primary"</span>>Hello World&#x3C;/Button>
-</code></pre>
-<p>Dokumentation: <a href="https://material-ui.com">https://material-ui.com</a></p>
 </section><section class="slide"><h2>React-Bootstrap</h2>
 <p>npm-Pakete: <em>react-bootstrap</em>, <em>bootstrap</em></p>
 <pre><code class="hljs language-jsx"><span class="hljs-comment">// index.js</span>
@@ -2291,6 +2283,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-jsx">&#x3C;Button variant=<span class="hljs-string">"primary"</span>>Hello World&#x3C;/Button>
 </code></pre>
 <p>Dokumentation: <a href="https://react-bootstrap.github.io/">https://react-bootstrap.github.io/</a></p>
+</section><section class="slide"><h2>Material-UI</h2>
+<p>Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)</p>
+<p>npm-Paket: <em>@material-ui/core</em></p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Button } <span class="hljs-keyword">from</span> <span class="hljs-string">'@material-ui/core'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;Button color=<span class="hljs-string">"primary"</span>>Hello World&#x3C;/Button>
+</code></pre>
+<p>Dokumentation: <a href="https://material-ui.com">https://material-ui.com</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Komponenten-Props</h1>
 </section><section class="slide"><h2>State und Props</h2>
 <ul>
@@ -2307,12 +2307,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-tsx">type Props = { value: number; color?: string };
 
 const ProgressBar = (props: Props) => {
-  // ...
-};
-</code></pre>
-</section><section class="slide"><h2>Komponenten-Props</h2>
-<p>Komponentendefinition mit Objektdestrukturierung für Props:</p>
-<pre><code class="hljs language-tsx">const ProgressBar = ({ value, color }: Props) => {
   // ...
 };
 </code></pre>
@@ -2365,9 +2359,6 @@ const ProgressBar = (props: Props) => {
   onChange={<span class="hljs-function">(<span class="hljs-params">newRating</span>) =></span> setProdRating(newRating)}
 />
 </code></pre>
-<p>kürzere Schreibweise:</p>
-<pre><code class="hljs language-jsx">&#x3C;Rating value={prodRating} onChange={setProdRating} />
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Inhalte an Komponenten übergeben</h1>
 </section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
 <p>Eine Komponente kann anzuzeigende Inhalte via <code>props.children</code> übergeben bekommen</p>
@@ -2390,6 +2381,21 @@ const ProgressBar = (props: Props) => {
   };
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{style}</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 };
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>"Wrappper" für bestehende Elemente</h1>
+</section><section class="slide"><h2>"Wrappper" für bestehende Elemente</h2>
+<p>verbreiteter Use Case: "Wrapper" für bestehende Elemente zwecks Styling:</p>
+<pre><code class="hljs language-tsx">export default function Button(
+  props: React.ComponentPropsWithoutRef&#x3C;'button'>
+) {
+  // return a "button" element with one extra CSS class
+  return (
+    &#x3C;button
+      className={props.className + ' btn'}
+      {...props}
+    />
+  );
+}
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Übungen (Komponenten)</h1>
 </section><section class="slide"><h2>Übungen (Komponenten)</h2>

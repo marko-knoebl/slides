@@ -25,6 +25,7 @@ function CounterWithLogging() {
 
   useEffect(() => {
     setInterval(() => {
+      // this innermost function will only be created once
       // the variable "count" will always refer to the
       // value from the initial rendering (0)
       console.log(count);
@@ -55,6 +56,22 @@ verschiedene Lösungen, abhängig vom Szenario:
   - `useCallback`
 - übergeben einer "Transformations-Funktion" an einen State Setter (die Funktion hat immer Zugriff auf den aktuellsten State)
 - zusätzliches Speichern des aktuellsten States in einer _ref_ (ist damit auch in älteren Closures verfügbar)
+
+## Übung
+
+Übung:
+
+Komponente `TransitioningImage`, die z.B. für die Slideshow verwendet werden kann
+
+Übergang mittels fade-out des vorherigen `src`-Wertes, dann fade-in des neuen `src`-Wertes
+
+möglicher interner State:
+
+```ts
+type State = { current: string; previous?: string };
+```
+
+Hinweis: lade das kommende Bild während der fade-out-Transformation vor (z.B. durch ein zusätzliches, verstecktes `img`-Element)
 
 ## Beheben des Problems mit veralteten Daten
 
