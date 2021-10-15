@@ -14,9 +14,9 @@ use cases:
 
 Using the _ref_ property together with the _useRef_ hook:
 
-```jsx
+```tsx
 function RefDemo() {
-  const myRef = useRef();
+  const myRef = useRef<HTMLInputElement>(null);
   return (
     <input
       ref={myRef}
@@ -58,13 +58,13 @@ Many third-party libraries have wrappers for React where refs are not needed
 
 Managing focus with a ref:
 
-```js
+```tsx
 const App = () => {
-  const inputEl = useRef(null);
+  const inputEl = useRef<HTMLInputElement>(null);
   return (
     <div>
       <input ref={inputEl} />
-      <button onClick={() => inputEl.current.focus()}>
+      <button onClick={() => inputEl.current?.focus()}>
         focus
       </button>
     </div>
@@ -108,10 +108,10 @@ function Video() {
 
 Managing inputs: comparing `useState` and `useRef`:
 
-```js
+```tsx
 const App = () => {
   const [firstName, setFirstName] = useState('');
-  const lastNameInput = useRef(null);
+  const lastNameInput = useRef<HTMLInputElement>(null);
 
   return (
     <div>

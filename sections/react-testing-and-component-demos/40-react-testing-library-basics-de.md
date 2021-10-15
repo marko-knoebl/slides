@@ -6,6 +6,16 @@
 
 Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur oder Implementierungsdetails)
 
+## React-Testing-Library
+
+Ausführen von Tests in einer _create-react-app_-basierten Anwendung:
+
+```bash
+npm run test
+```
+
+Bemerkung: falls langsam, versuche `"test": "react-scripts test --maxWorkers=1"` in _package.json_
+
 ## Beispiel
 
 ```js

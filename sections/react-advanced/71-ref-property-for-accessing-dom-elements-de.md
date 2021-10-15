@@ -14,9 +14,9 @@ Anwendungsgebiete:
 
 Verwendung der _ref_-Property zusammen mit dem _useRef_-Hook:
 
-```jsx
+```tsx
 function RefDemo() {
-  const myRef = useRef();
+  const myRef = useRef<HTMLInputElement>(null);
   return (
     <input
       ref={myRef}
@@ -58,13 +58,13 @@ Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass
 
 Verwalten des Fokus mittels einer Ref:
 
-```js
+```tsx
 const App = () => {
-  const inputEl = useRef(null);
+  const inputEl = useRef<HTMLInputElement>(null);
   return (
     <div>
       <input ref={inputEl} />
-      <button onClick={() => inputEl.current.focus()}>
+      <button onClick={() => inputEl.current?.focus()}>
         focus
       </button>
     </div>
@@ -108,10 +108,10 @@ function Video() {
 
 Verwalten von Inputs: Vergleich von `useState` und `useRef`:
 
-```js
+```tsx
 const App = () => {
   const [firstName, setFirstName] = useState('');
-  const lastNameInput = useRef(null);
+  const lastNameInput = useRef<HTMLInputElement>(null);
 
   return (
     <div>

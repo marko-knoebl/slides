@@ -2680,19 +2680,19 @@ useEffect(getInstallPermission, []);
 <p>In function components, <em>refs</em> can be created / accessed via <code>useRef</code></p>
 <p>Values are stored in the reference's <code>.current</code> property</p>
 </section><section class="slide"><h2>Refs for storing object references</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> StopWatch = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-number">0</span>);
-  <span class="hljs-keyword">const</span> intervalRef = useRef();
-  <span class="hljs-keyword">const</span> start = <span class="hljs-function">() =></span> {
-    setTime(<span class="hljs-number">0</span>);
-    intervalRef.current = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
-      setTime(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t + <span class="hljs-number">1</span>);
-    }, <span class="hljs-number">1000</span>);
+<pre><code class="hljs language-tsx">const StopWatch = () => {
+  const [time, setTime] = useState(0);
+  const intervalRef = useRef&#x3C;number>(null);
+  const start = () => {
+    setTime(0);
+    intervalRef.current = setInterval(() => {
+      setTime((t) => t + 1);
+    }, 1000);
   };
-  <span class="hljs-keyword">const</span> stop = <span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">clearInterval</span>(intervalRef.current);
+  const stop = () => {
+    clearInterval(intervalRef.current);
   };
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  return &#x3C;div>...&#x3C;/div>;
 };
 </code></pre>
 <p>Note: this simple example could also be implemented without refs by using the effect hook</p>
@@ -2707,15 +2707,15 @@ useEffect(getInstallPermission, []);
 </ul>
 </section><section class="slide"><h2>Ref property for accessing DOM elements</h2>
 <p>Using the <em>ref</em> property together with the <em>useRef</em> hook:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RefDemo</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> myRef = useRef();
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-      <span class="hljs-attr">ref</span>=<span class="hljs-string">{myRef}</span>
-      <span class="hljs-attr">onChange</span>=<span class="hljs-string">{()</span> =></span> {
+<pre><code class="hljs language-tsx">function RefDemo() {
+  const myRef = useRef&#x3C;HTMLInputElement>(null);
+  return (
+    &#x3C;input
+      ref={myRef}
+      onChange={() => {
         console.log(myRef.current.value);
       }}
-    /></span>
+    />
   );
 }
 </code></pre>
@@ -2734,15 +2734,15 @@ useEffect(getInstallPermission, []);
 <p>Many third-party libraries have wrappers for React where refs are not needed</p>
 </section><section class="slide"><h2>Ref property for managing focus</h2>
 <p>Managing focus with a ref:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> inputEl = useRef(<span class="hljs-literal">null</span>);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{inputEl}</span> /></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> inputEl.current.focus()}>
+<pre><code class="hljs language-tsx">const App = () => {
+  const inputEl = useRef&#x3C;HTMLInputElement>(null);
+  return (
+    &#x3C;div>
+      &#x3C;input ref={inputEl} />
+      &#x3C;button onClick={() => inputEl.current?.focus()}>
         focus
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+      &#x3C;/button>
+    &#x3C;/div>
   );
 };
 </code></pre>
@@ -2777,29 +2777,29 @@ function Video() {
 </code></pre>
 </section><section class="slide"><h2>Ref property for managing inputs</h2>
 <p>Managing inputs: comparing <code>useState</code> and <code>useRef</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [firstName, setFirstName] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> lastNameInput = useRef(<span class="hljs-literal">null</span>);
+<pre><code class="hljs language-tsx">const App = () => {
+  const [firstName, setFirstName] = useState('');
+  const lastNameInput = useRef&#x3C;HTMLInputElement>(null);
 
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{firstName}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span>
+  return (
+    &#x3C;div>
+      &#x3C;input
+        value={firstName}
+        onChange={(event) =>
           setFirstName(event.target.value)
         }
       />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{lastNameInput}</span> /></span>
+      &#x3C;input ref={lastNameInput} />
 
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
-        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> {
+      &#x3C;button
+        onClick={() => {
           console.log(firstName);
           console.log(lastNameInput.current.value);
         }}
       >
         log values
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+      &#x3C;/button>
+    &#x3C;/div>
   );
 };
 </code></pre>

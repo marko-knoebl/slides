@@ -20,14 +20,14 @@ Objekte werden in der `.current`-Property der Ref abgelegt
 
 ## Refs zum Ablegen von Objektreferenzen
 
-```js
+```tsx
 const StopWatch = () => {
   const [time, setTime] = useState(0);
-  const intervalRef = useRef();
+  const intervalRef = useRef<number>(null);
   const start = () => {
     setTime(0);
     intervalRef.current = setInterval(() => {
-      setTime(t => t + 1);
+      setTime((t) => t + 1);
     }, 1000);
   };
   const stop = () => {

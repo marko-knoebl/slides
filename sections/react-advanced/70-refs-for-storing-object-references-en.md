@@ -20,10 +20,10 @@ Values are stored in the reference's `.current` property
 
 ## Refs for storing object references
 
-```js
+```tsx
 const StopWatch = () => {
   const [time, setTime] = useState(0);
-  const intervalRef = useRef();
+  const intervalRef = useRef<number>(null);
   const start = () => {
     setTime(0);
     intervalRef.current = setInterval(() => {
