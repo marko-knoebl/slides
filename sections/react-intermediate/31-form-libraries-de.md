@@ -69,6 +69,10 @@ Das Objekt `formState.errors` gibt Fehler für registrierte Inputs an
 formState.errors.email ? <div>invalid email</div> : null;
 ```
 
+```jsx
+!formState.isValid ? <div>invalid form entries</div> : null;
+```
+
 ## react-hook-form: handleSubmit
 
 `handleSubmit` validiert Formulardaten und gibt diese an eine Funktion weiter, wenn sie gültig sind
@@ -86,7 +90,7 @@ formState.errors.email ? <div>invalid email</div> : null;
 ## react-hook-form: mode
 
 ```js
-useForm({ mode: 'onSubmit' });
+useForm({ mode: 'onBlur' });
 ```
 
 `mode`: wann soll ein Wert zum ersten Mal validiert werden?
@@ -105,12 +109,16 @@ useForm({ mode: 'onSubmit' });
 - `onBlur`
 - `onChange` (Standard)
 
-## react-hook-form: reset
+## react-hook-form: reset, getValues
 
 ```js
-const { register, errors, handleSubmit, reset } = useForm();
-// ...
-reset();
+const {
+  register,
+  errors,
+  handleSubmit,
+  reset,
+  getValues,
+} = useForm();
 ```
 
 ## formik

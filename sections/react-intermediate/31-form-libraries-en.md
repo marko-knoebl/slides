@@ -62,16 +62,20 @@ The `register` function can take some parameters that specify field validation:
 `formState.errors` indicates errors for any registered input
 
 ```jsx
-<input {...register("email")} />
+<input {...register('email')} />
 ```
 
 ```jsx
 formState.errors.email ? <div>invalid email</div> : null;
 ```
 
+```jsx
+!formState.isValid ? <div>invalid form entries</div> : null;
+```
+
 ## react-hook-form: handleSubmit
 
-`handleSubmit` will validate form data and pass it to a function if it is valid
+`handleSubmit` will validate form data and pass them to a function if they are valid
 
 ```jsx
 <form
@@ -86,7 +90,7 @@ formState.errors.email ? <div>invalid email</div> : null;
 ## react-hook-form: mode
 
 ```js
-useForm({ mode: 'onTouched' });
+useForm({ mode: 'onBlur' });
 ```
 
 `mode`: when should the value be validated initially?
@@ -105,12 +109,16 @@ useForm({ mode: 'onTouched' });
 - `onBlur`
 - `onChange` (default)
 
-## react-hook-form: reset
+## react-hook-form: reset, getValues
 
 ```js
-const { register, errors, handleSubmit, reset } = useForm();
-// ...
-reset();
+const {
+  register,
+  errors,
+  handleSubmit,
+  reset,
+  getValues,
+} = useForm();
 ```
 
 ## formik

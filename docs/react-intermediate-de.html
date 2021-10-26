@@ -2758,6 +2758,8 @@ const Slideshow = (props) => (
 </code></pre>
 <pre><code class="hljs language-jsx">formState.errors.email ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>;
 </code></pre>
+<pre><code class="hljs language-jsx">!formState.isValid ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid form entries<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>;
+</code></pre>
 </section><section class="slide"><h2>react-hook-form: handleSubmit</h2>
 <p><code>handleSubmit</code> validiert Formulardaten und gibt diese an eine Funktion weiter, wenn sie gültig sind</p>
 <pre><code class="hljs language-jsx">&#x3C;form
@@ -2769,7 +2771,7 @@ const Slideshow = (props) => (
 &#x3C;/form>
 </code></pre>
 </section><section class="slide"><h2>react-hook-form: mode</h2>
-<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onSubmit'</span> });
+<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onBlur'</span> });
 </code></pre>
 <p><code>mode</code>: wann soll ein Wert zum ersten Mal validiert werden?</p>
 <ul>
@@ -2786,10 +2788,14 @@ const Slideshow = (props) => (
 <li><code>onBlur</code></li>
 <li><code>onChange</code> (Standard)</li>
 </ul>
-</section><section class="slide"><h2>react-hook-form: reset</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { register, errors, handleSubmit, reset } = useForm();
-<span class="hljs-comment">// ...</span>
-reset();
+</section><section class="slide"><h2>react-hook-form: reset, getValues</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> {
+  register,
+  errors,
+  handleSubmit,
+  reset,
+  getValues,
+} = useForm();
 </code></pre>
 </section><section class="slide"><h2>formik</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;

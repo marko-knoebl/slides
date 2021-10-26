@@ -2754,12 +2754,14 @@ const Slideshow = (props) => (
 </ul>
 </section><section class="slide"><h2>react-hook-form: errors</h2>
 <p><code>formState.errors</code> indicates errors for any registered input</p>
-<pre><code class="hljs language-jsx">&#x3C;input {...register(<span class="hljs-string">"email"</span>)} />
+<pre><code class="hljs language-jsx">&#x3C;input {...register(<span class="hljs-string">'email'</span>)} />
 </code></pre>
 <pre><code class="hljs language-jsx">formState.errors.email ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>;
 </code></pre>
+<pre><code class="hljs language-jsx">!formState.isValid ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid form entries<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>;
+</code></pre>
 </section><section class="slide"><h2>react-hook-form: handleSubmit</h2>
-<p><code>handleSubmit</code> will validate form data and pass it to a function if it is valid</p>
+<p><code>handleSubmit</code> will validate form data and pass them to a function if they are valid</p>
 <pre><code class="hljs language-jsx">&#x3C;form
   onSubmit={handleSubmit(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
     <span class="hljs-built_in">console</span>.log(data.email);
@@ -2769,7 +2771,7 @@ const Slideshow = (props) => (
 &#x3C;/form>
 </code></pre>
 </section><section class="slide"><h2>react-hook-form: mode</h2>
-<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onTouched'</span> });
+<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onBlur'</span> });
 </code></pre>
 <p><code>mode</code>: when should the value be validated initially?</p>
 <ul>
@@ -2786,10 +2788,14 @@ const Slideshow = (props) => (
 <li><code>onBlur</code></li>
 <li><code>onChange</code> (default)</li>
 </ul>
-</section><section class="slide"><h2>react-hook-form: reset</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { register, errors, handleSubmit, reset } = useForm();
-<span class="hljs-comment">// ...</span>
-reset();
+</section><section class="slide"><h2>react-hook-form: reset, getValues</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> {
+  register,
+  errors,
+  handleSubmit,
+  reset,
+  getValues,
+} = useForm();
 </code></pre>
 </section><section class="slide"><h2>formik</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
