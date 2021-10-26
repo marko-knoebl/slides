@@ -1,6 +1,6 @@
-# Apollo client and React
+# React mit GraphQL und Apollo
 
-## Apollo client and React
+## React mit GraphQL und Apollo
 
 [https://www.apollographql.com/docs/react/data/queries/](https://www.apollographql.com/docs/react/data/queries/)
 
@@ -41,7 +41,7 @@ function RecentLaunches() {
   return (
     <div>
       <h1>Launches</h1>
-      {data.launchesPast.map(launch => (
+      {data.launchesPast.map((launch) => (
         <div>{launch.mission_name}</div>
       ))}
     </div>

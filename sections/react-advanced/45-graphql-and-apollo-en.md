@@ -1,10 +1,10 @@
-# Apollo client
+# GraphQL and Apollo
 
-## Apollo Client
+## GraphQL and Apollo
 
 https://www.apollographql.com/docs/react/
 
-## Apollo client
+## GraphQL and Apollo
 
 advantages over "plain" frontend code:
 
@@ -23,7 +23,7 @@ required packages:
 - `apollo-link-http`
 - `react-apollo` (for use with React)
 
-## Apollo client: setup
+## Setup
 
 ```js
 import { ApolloClient } from 'apollo-client';
@@ -39,7 +39,7 @@ const client = new ApolloClient({
 });
 ```
 
-## Apollo client: example query
+## Example query
 
 ```js
 // via a tagged template string
@@ -53,7 +53,7 @@ const LAUNCHES_QUERY = gql`
 
 client
   .query({ query: LAUNCHES_QUERY })
-  .then(result => console.log(result));
+  .then((result) => console.log(result));
 ```
 
 ## Local data
@@ -98,7 +98,7 @@ const INPUT_TEXT_QUERY = gql`
 
 client
   .query({ query: INPUT_TEXT_QUERY })
-  .then(result => console.log(result));
+  .then((result) => console.log(result));
 ```
 
 ## Apollo Client Developer Tools

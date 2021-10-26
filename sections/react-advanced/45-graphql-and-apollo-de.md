@@ -1,10 +1,10 @@
-# Apollo Client
+# GraphQL and Apollo
 
-## Apollo Client
+## GraphQL and Apollo
 
 https://www.apollographql.com/docs/react/
 
-## Apollo Client
+## GraphQL and Apollo
 
 Gründe für die Verwendung:
 
@@ -53,7 +53,7 @@ const LAUNCHES_QUERY = gql`
 
 client
   .query({ query: LAUNCHES_QUERY })
-  .then(result => console.log(result));
+  .then((result) => console.log(result));
 ```
 
 ## Lokale Daten
@@ -98,7 +98,7 @@ const INPUT_TEXT_QUERY = gql`
 
 client
   .query({ query: INPUT_TEXT_QUERY })
-  .then(result => console.log(result));
+  .then((result) => console.log(result));
 ```
 
 ## Apollo Client Developer Tools
