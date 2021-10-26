@@ -7,7 +7,7 @@ beginnen mit _package.json_, welches ein leeres Objekt enthält: `{}`
 Installation von Abhängigkeiten:
 
 ```bash
-npm install parcel-bundler
+npm install parcel
 ```
 
 ## Parcel: Grundlegende Projekteinrichtung
@@ -28,13 +28,16 @@ export const add = (a, b) => a + b;
 
 ## Parcel: Grundlegende Projekteinrichtung
 
-npm Scripts in _package.json_:
+Konfiguration in _package.json_:
 
 ```json
-"scripts": {
-  "build": "parcel build src/index.html",
-  "start": "parcel src/index.html"
-},
+{
+  "source": "src/index.html",
+  "scripts": {
+    "build": "parcel build",
+    "start": "parcel"
+  }
+}
 ```
 
 ## Parcel: Grundlegende Projekteinrichtung

@@ -2269,11 +2269,12 @@ ReactDOM.render(
 }
 </code></pre>
 </section><section class="slide"><h2>Mutationen definieren</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useMutation } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useMutation, useQueryClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
 <span class="hljs-keyword">import</span> { addTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">const</span> queryClient = useQueryClient();
   <span class="hljs-keyword">const</span> onAddTodo = useMutation(addTodo, {
     <span class="hljs-attr">onSuccess</span>: <span class="hljs-function">() =></span> {
       <span class="hljs-comment">// initiate a refetch of todos</span>

@@ -2325,6 +2325,59 @@ test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keywo
 </section><section class="slide"><h2>Übung</h2>
 <p>schreibe Tests für die Todo-App unter:</p>
 <p><a href="https://do49e.csb.app/">https://do49e.csb.app/</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>End-to-end Tests mit Cypress</h1>
+</section><section class="slide"><h2>Cypress</h2>
+<p>npm-Paket: <em>cypress</em></p>
+<p>in <em>package.json</em>:</p>
+<pre><code class="hljs language-json">  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-attr">"cypress:open"</span>: <span class="hljs-string">"cypress open"</span>
+  }
+</code></pre>
+<p>ausführen:</p>
+<pre><code class="hljs language-bash">npm run cypress:open
+</code></pre>
+</section><section class="slide"><h2>Cypress</h2>
+<p>Testen von Wikipedia:</p>
+<pre><code class="hljs language-js">cy.visit(<span class="hljs-string">'https://en.wikipedia.org'</span>);
+</code></pre>
+<p>dann:</p>
+<pre><code class="hljs language-js">cy.title().should(<span class="hljs-string">'match'</span>, <span class="hljs-regexp">/wikipedia/i</span>);
+</code></pre>
+<p>oder:</p>
+<pre><code class="hljs language-js">cy.title().should(<span class="hljs-function">(<span class="hljs-params">title</span>) =></span> {
+  expect(title).to.match(<span class="hljs-regexp">/wikipedia/i</span>);
+});
+</code></pre>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>Restrukturierung des Codes für mehrere Tests:</p>
+<pre><code class="hljs language-js">describe(<span class="hljs-string">'wikipedia'</span>, <span class="hljs-function">() =></span> {
+  beforeEach(<span class="hljs-function">() =></span> {
+    cy.visit(<span class="hljs-string">'https://en.wikipedia.org'</span>);
+  });
+
+  it(<span class="hljs-string">"page title includes 'wikipedia'"</span>, <span class="hljs-function">() =></span> {
+    cy.title().should(<span class="hljs-function">(<span class="hljs-params">title</span>) =></span> {
+      expect(title).to.match(<span class="hljs-regexp">/wikipedia/i</span>);
+    });
+  });
+});
+</code></pre>
+</section><section class="slide"><h2>Puppeteer</h2>
+<p>Beispiel: Suche auf Wikipedia</p>
+<pre><code class="hljs language-js">it(<span class="hljs-string">'search'</span>, <span class="hljs-function">() =></span> {
+  cy.get(<span class="hljs-string">'#searchInput'</span>).type(<span class="hljs-string">'cypress'</span>);
+  cy.get(<span class="hljs-string">'#searchButton'</span>).click();
+  cy.get(<span class="hljs-string">'p'</span>)
+    .first()
+    .should(<span class="hljs-function">(<span class="hljs-params">element</span>) =></span> {
+      <span class="hljs-keyword">const</span> text = element.text();
+      expect(text).to.match(<span class="hljs-regexp">/cypress/i</span>);
+    });
+});
+</code></pre>
+</section><section class="slide"><h2>Exercise</h2>
+<p>Schreibe Tests für die Todo-Anwendung auf:</p>
+<p><a href="https://do49e.csb.app/">https://do49e.csb.app/</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Mocking mit Jest</h1>
 </section><section class="slide"><h2>Mocking von built-ins</h2>
 <p>Mocking von <em>localStorage</em> (welches in node nicht verfügbar ist) mit Beispieldaten:</p>

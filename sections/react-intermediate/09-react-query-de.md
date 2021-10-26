@@ -47,11 +47,12 @@ function TodoApp() {
 ## Mutationen definieren
 
 ```js
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { addTodo } from './todosApi';
 
 function TodoApp() {
   // ...
+  const queryClient = useQueryClient();
   const onAddTodo = useMutation(addTodo, {
     onSuccess: () => {
       // initiate a refetch of todos
