@@ -2076,21 +2076,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>example.com/shop/cart</code></li>
 </ul>
 <p>for the second method, the server needs additional configuration</p>
-</section><section class="slide"><h2>Versions and Installation</h2>
-<p>React router 6 beta is available since June 2020, but development has been slow since then</p>
-<p>packages for react router 6 (include TypeScript support):</p>
-<ul>
-<li><em>react-router-dom@next</em></li>
-<li><em>history</em></li>
-</ul>
-<p>packages for react router 5:</p>
+</section><section class="slide"><h2>Installation</h2>
+<p>packages (include TypeScript support):</p>
 <ul>
 <li><em>react-router-dom</em></li>
-<li><em>@types/react-router-dom</em></li>
+<li><em>history</em></li>
 </ul>
 </section><section class="slide"><h2>Setup</h2>
 <p>the entire application is enclosed in a <code>BrowserRouter</code> element:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.tsx</span>
 
 <span class="hljs-keyword">import</span> { BrowserRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
@@ -2103,13 +2097,13 @@ ReactDOM.render(
   rootElement
 );
 </code></pre>
-</section><section class="slide"><h2>Basic router components (v6)</h2>
+</section><section class="slide"><h2>Basic router components</h2>
 <ul>
 <li><code>&#x3C;Route></code> - a component that renders its content when active</li>
 <li><code>&#x3C;Routes></code> - a container for <code>&#x3C;Route></code> elements</li>
 <li><code>&#x3C;Link></code> / <code>&#x3C;NavLink></code> - are used in place of <code>&#x3C;a></code> elements</li>
 </ul>
-</section><section class="slide"><h2>Basic example (v6)</h2>
+</section><section class="slide"><h2>Basic example</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
@@ -2123,7 +2117,7 @@ ReactDOM.render(
   );
 };
 </code></pre>
-</section><section class="slide"><h2>Advanced routing (v6)</h2>
+</section><section class="slide"><h2>Advanced routing</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Routes</span>></span>
@@ -2136,25 +2130,6 @@ ReactDOM.render(
         <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/cart"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">Cart</span> /></span>} />
       <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">Routes</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Basic example (v5)</h2>
-<p>In v5 we use the <code>&#x3C;Switch></code> component instead of <code>&#x3C;Routes></code></p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span>></span>home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>{' '}
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/about"</span>></span>about<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">exact</span>=<span class="hljs-string">{true}</span>></span>
-          <span class="hljs-tag">&#x3C;<span class="hljs-name">HomePage</span> /></span>
-        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span>></span>
-          <span class="hljs-tag">&#x3C;<span class="hljs-name">AboutPage</span> /></span>
-        <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Switch</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 };
 </code></pre>
@@ -2176,15 +2151,9 @@ ReactDOM.render(
 };
 </code></pre>
 </section><section class="slide"><h2>Navigation from React</h2>
-<p>in v6:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> navigate = useNavigate();
 <span class="hljs-comment">// ...</span>
 navigate(<span class="hljs-string">'/'</span>);
-</code></pre>
-<p>in v5:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> history = useHistory();
-<span class="hljs-comment">// ...</span>
-history.push(<span class="hljs-string">'/'</span>);
 </code></pre>
 </section><section class="slide"><h2>Navigation from React</h2>
 <p>example:</p>

@@ -20,26 +20,19 @@ client-side routing based on on the _history API_, e.g.:
 
 for the second method, the server needs additional configuration
 
-## Versions and Installation
+## Installation
 
-React router 6 beta is available since June 2020, but development has been slow since then
-
-packages for react router 6 (include TypeScript support):
-
-- _react-router-dom@next_
-- _history_
-
-packages for react router 5:
+packages (include TypeScript support):
 
 - _react-router-dom_
-- _@types/react-router-dom_
+- _history_
 
 ## Setup
 
 the entire application is enclosed in a `BrowserRouter` element:
 
 ```js
-// index.js
+// index.tsx
 
 import { BrowserRouter } from 'react-router-dom';
 
@@ -53,13 +46,13 @@ ReactDOM.render(
 );
 ```
 
-## Basic router components (v6)
+## Basic router components
 
 - `<Route>` - a component that renders its content when active
 - `<Routes>` - a container for `<Route>` elements
 - `<Link>` / `<NavLink>` - are used in place of `<a>` elements
 
-## Basic example (v6)
+## Basic example
 
 ```js
 const App = () => {
@@ -76,7 +69,7 @@ const App = () => {
 };
 ```
 
-## Advanced routing (v6)
+## Advanced routing
 
 ```jsx
 const App = () => {
@@ -91,29 +84,6 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
       </Route>
     </Routes>
-  );
-};
-```
-
-## Basic example (v5)
-
-In v5 we use the `<Switch>` component instead of `<Routes>`
-
-```js
-const App = () => {
-  return (
-    <div>
-      <NavLink to="/">home</NavLink>{' '}
-      <NavLink to="/about">about</NavLink>
-      <Switch>
-        <Route path="/" exact={true}>
-          <HomePage />
-        </Route>
-        <Route path="/about">
-          <AboutPage />
-        </Route>
-      </Switch>
-    </div>
   );
 };
 ```
@@ -142,20 +112,10 @@ const TodoDetailView = () => {
 
 ## Navigation from React
 
-in v6:
-
 ```jsx
 const navigate = useNavigate();
 // ...
 navigate('/');
-```
-
-in v5:
-
-```js
-const history = useHistory();
-// ...
-history.push('/');
 ```
 
 ## Navigation from React
