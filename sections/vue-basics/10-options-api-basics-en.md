@@ -7,8 +7,7 @@
 
 ## Online editor
 
-- <https://codesandbox.io> (Vue 2)
-- <https://codesandbox.io/s/vue-3-ce53j> (Vue 3)
+<https://codesandbox.io>
 
 ## Example component definition (counter component)
 
@@ -87,7 +86,7 @@ _Methods_ are functions associated with a component; they can be called from the
 ## Computed
 
 - methods in `computed` can compute derived data
-- in general a component should store the _minimal_ state possible (e.g. store the image id, not the entire image URL, don't store redundant data)
+- in general a component should store the _minimal_ state possible (e.g. store the image id, not the entire image URL, avoid redundant data)
 - methods in `computed` are automatically called when one of their dependencies changes
 
 ## Computed

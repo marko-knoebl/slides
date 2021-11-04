@@ -5,7 +5,7 @@
 - binding content
 - binding properties
 - binding events
-- if / else if / else
+- if / else
 - repeating elements
 - two-way binding for inputs
 
@@ -38,9 +38,7 @@ long form:
 the _class_ property supports special syntax:
 
 ```html
-<div :class="{todo: true, completed: isCompleted}">
-  ...
-</div>
+<div :class="{todo: true, completed: isCompleted}">...</div>
 ```
 
 ## Binding events
@@ -64,9 +62,7 @@ event modifiers:
 preventing default:
 
 ```html
-<form @submit.prevent="handleSubmit()">
-  ...
-</form>
+<form @submit.prevent="handleSubmit()">...</form>
 ```
 
 stopping event propagation / bubbling:
@@ -83,14 +79,14 @@ accessing the event object via `$event`:
 <button @click="handleClick($event)">handle event</button>
 ```
 
-## If / else if / else
+## If / else
 
 ```html
-<div v-if="loggedIn">
-  Welcome
-</div>
+<div v-if="request.loading">Loading...</div>
+<div v-else-if="request.error">Error while loading</div>
 <div v-else>
-  Please log in!
+  <h1>Results</h1>
+  ...
 </div>
 ```
 
@@ -111,5 +107,5 @@ Each repeated element should have a locally unique _key_ property (for efficienc
 ## Two-way binding for inputs
 
 ```html
-<input v-model="firstName">
+<input v-model="firstName" />
 ```

@@ -91,18 +91,16 @@ export default {
       patch: '',
     });
 
-    watchEffect(() => {
+    watchEffect(async () => {
       loading.value = true;
-      fetch(
+      const res = await fetch(
         `https://api.spacexdata.com/v3/launches/${launchNr.value}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          loading.value = false;
-          launchData.name = data.mission_name;
-          launchData.date = data.launch_date_utc;
-          launchData.patch = data.links.mission_patch_small;
-        });
+      );
+      const data = await res.json();
+      loading.value = false;
+      launchData.name = data.mission_name;
+      launchData.date = data.launch_date_utc;
+      launchData.patch = data.links.mission_patch_small;
     });
     return { launchNr, launchData, loading };
   },
@@ -159,10 +157,12 @@ Fetching data on component mount (options API):
 ```js
 export default {
   // ...
-  created() {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then((res) => res.json())
-      .then((todos) => (this.todos = todos));
+  async created() {
+    const res = await fetch(
+      'https://jsonplaceholder.typicode.com/todos'
+    );
+    const todos = await res.json();
+    this.todos = todos;
   },
 };
 ```

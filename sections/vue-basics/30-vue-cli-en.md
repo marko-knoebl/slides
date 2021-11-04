@@ -43,6 +43,32 @@ many aspects can be set up automatically:
 - testing
 - CSS tooling
 
+## Vue CLI
+
+configuration:
+
+- version (2 or 3)
+- TypeScript
+- PWA support
+- Router
+- Vuex
+- CSS Pre-processors
+- Linter / Formatter (build will fail on linter errors)
+- Unit Testing
+- E2E Testing
+
+## Vue CLI
+
+don't fail on ESLint errors:
+
+new file _vue.config.js_:
+
+```js
+module.exports = {
+  lintOnSave: "warning",
+};
+```
+
 ## Default project structure
 
 - _public/index.html_, _src/main.js_: entry points

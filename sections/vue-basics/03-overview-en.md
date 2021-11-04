@@ -1,4 +1,4 @@
-# Vue.js
+# Overview
 
 ## What is Vue?
 
@@ -36,4 +36,4 @@ one of the 3 big JavaScript UI frameworks (besides React, Angular)
 ## History of Vue
 
 - initial release in 2014
-- planned for 2020: Vue 3 (new composition API)
+- 2020: Vue 3 (new composition API)
