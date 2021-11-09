@@ -2434,29 +2434,21 @@ useEffect(<span class="hljs-function">() =></span> {
 }
 </code></pre>
 </section><section class="slide"><h2>Identifying potentially obsolete data in an effect hook</h2>
-<p>Linter rule that can help identifying obsolete data:</p>
+<p>ESLint rule that can help identifying obsolete data:</p>
 <p><em>react-hooks/exhaustive-deps</em></p>
+<p>(in VS Code, install the ESLint plugin)</p>
 </section><section class="slide"><h2>Fixing the problem of obsolete data</h2>
-<p>varying solutions depending on the scenario:</p>
+<p>varying solutions depending on the scenario (see hints in the linter messages):</p>
 <ul>
 <li>move code inside the definition of an effect</li>
-<li>re-run an effect when any dependency changes (see hints in linter rules)
-<ul>
-<li>list additional dependencies</li>
-<li><code>useCallback</code></li>
-</ul>
-</li>
 <li>pass a "transformer" function to a state setter (which can always access the most recent state)</li>
+<li>have the effect re-run whenever the dependency changes</li>
 <li>store the most recent version of a state entry in a ref as well (this will also be available in older closures)</li>
 </ul>
-</section><section class="slide"><h2>Exercise</h2>
-<p>Exercise:</p>
-<p>Component <code>TransitioningImage</code> (which may be used for the slideshow)</p>
-<p>Transition by fading out the previous value of <code>src</code>, then fading in the new value</p>
-<p>possible internal state:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> State = { <span class="hljs-attr">current</span>: <span class="hljs-built_in">string</span>; previous?: <span class="hljs-built_in">string</span> };
-</code></pre>
-<p>Hint: pre-load the upcoming image during the fade-out transformation (e.g. by including an additional, hidden <code>img</code> element)</p>
+</section><section class="slide"><h2>Example: TransitioningImage</h2>
+<p>Example: Slideshow with transitioning image (with timeout)</p>
+<p><a href="https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3">https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3</a></p>
+<p>Try and see what happens if you don't use a state update function in the timeout</p>
 </section><section class="slide"><h2>Fixing the problem of obsolete data</h2>
 <p>example solution to the closure problem with <em>setInterval</em>: use the <em>ref</em> hook and potentially a custom hook</p>
 <p>see:</p>

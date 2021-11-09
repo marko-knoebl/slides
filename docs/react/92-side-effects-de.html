@@ -2433,29 +2433,21 @@ useEffect(<span class="hljs-function">() =></span> {
 }
 </code></pre>
 </section><section class="slide"><h2>Veraltete Daten in einem effect-Hook erkennen</h2>
-<p>Linter-Regel, die helfen kann, veraltete Daten zu erkennen:</p>
+<p>ESLint-Regel, die helfen kann, veraltete Daten zu erkennen:</p>
 <p><em>react-hooks/exhaustive-deps</em></p>
+<p>(in VS Code, Installiere das ESLint Plugin)</p>
 </section><section class="slide"><h2>Beheben des Problems mit veralteten Daten</h2>
-<p>verschiedene Lösungen, abhängig vom Szenario:</p>
+<p>verschiedene Lösungen, abhängig vom Szenario (siehe Hinweise in den Linter-Meldungen):</p>
 <ul>
 <li>Code in die Definition einer Effect-Funktion verschieben</li>
-<li>erneutes Ausführen eines Effects, wenn sich eine Abhängigkeit ändert (siehe Hinweise in den Linter-Regeln)
-<ul>
-<li>angeben zusätzlicher Abhängigkeiten</li>
-<li><code>useCallback</code></li>
-</ul>
-</li>
 <li>übergeben einer "Transformations-Funktion" an einen State Setter (die Funktion hat immer Zugriff auf den aktuellsten State)</li>
+<li>erneutes Ausführen eines Effects, wenn sich eine Abhängigkeit ändert</li>
 <li>zusätzliches Speichern des aktuellsten States in einer <em>ref</em> (ist damit auch in älteren Closures verfügbar)</li>
 </ul>
-</section><section class="slide"><h2>Übung</h2>
-<p>Übung:</p>
-<p>Komponente <code>TransitioningImage</code>, die z.B. für die Slideshow verwendet werden kann</p>
-<p>Übergang mittels fade-out des vorherigen <code>src</code>-Wertes, dann fade-in des neuen <code>src</code>-Wertes</p>
-<p>möglicher interner State:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> State = { <span class="hljs-attr">current</span>: <span class="hljs-built_in">string</span>; previous?: <span class="hljs-built_in">string</span> };
-</code></pre>
-<p>Hinweis: lade das kommende Bild während der fade-out-Transformation vor (z.B. durch ein zusätzliches, verstecktes <code>img</code>-Element)</p>
+</section><section class="slide"><h2>Beispiel: TransitioningImage</h2>
+<p>Beispiel: Slideshow mit Übergang bei Bild (mit Timeout)</p>
+<p><a href="https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3">https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3</a></p>
+<p>Teste, was geschieht, wenn im Timeout keine State-Update-Funktion verwendet wird</p>
 </section><section class="slide"><h2>Beheben des Problems mit veralteten Daten</h2>
 <p>Mögliche Lösung des Closure-Problems mit <em>setInterval</em>: Verwendung des <em>ref</em>-Hooks und eventuell eines selbst definierten Hooks</p>
 <p>siehe:</p>

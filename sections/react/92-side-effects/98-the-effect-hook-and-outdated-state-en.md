@@ -42,36 +42,28 @@ function CounterWithLogging() {
 
 ## Identifying potentially obsolete data in an effect hook
 
-Linter rule that can help identifying obsolete data:
+ESLint rule that can help identifying obsolete data:
 
 _react-hooks/exhaustive-deps_
 
+(in VS Code, install the ESLint plugin)
+
 ## Fixing the problem of obsolete data
 
-varying solutions depending on the scenario:
+varying solutions depending on the scenario (see hints in the linter messages):
 
 - move code inside the definition of an effect
-- re-run an effect when any dependency changes (see hints in linter rules)
-  - list additional dependencies
-  - `useCallback`
 - pass a "transformer" function to a state setter (which can always access the most recent state)
+- have the effect re-run whenever the dependency changes
 - store the most recent version of a state entry in a ref as well (this will also be available in older closures)
 
-## Exercise
+## Example: TransitioningImage
 
-Exercise:
+Example: Slideshow with transitioning image (with timeout)
 
-Component `TransitioningImage` (which may be used for the slideshow)
+<https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3>
 
-Transition by fading out the previous value of `src`, then fading in the new value
-
-possible internal state:
-
-```ts
-type State = { current: string; previous?: string };
-```
-
-Hint: pre-load the upcoming image during the fade-out transformation (e.g. by including an additional, hidden `img` element)
+Try and see what happens if you don't use a state update function in the timeout
 
 ## Fixing the problem of obsolete data
 

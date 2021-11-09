@@ -42,36 +42,28 @@ function CounterWithLogging() {
 
 ## Veraltete Daten in einem effect-Hook erkennen
 
-Linter-Regel, die helfen kann, veraltete Daten zu erkennen:
+ESLint-Regel, die helfen kann, veraltete Daten zu erkennen:
 
 _react-hooks/exhaustive-deps_
 
+(in VS Code, Installiere das ESLint Plugin)
+
 ## Beheben des Problems mit veralteten Daten
 
-verschiedene Lösungen, abhängig vom Szenario:
+verschiedene Lösungen, abhängig vom Szenario (siehe Hinweise in den Linter-Meldungen):
 
 - Code in die Definition einer Effect-Funktion verschieben
-- erneutes Ausführen eines Effects, wenn sich eine Abhängigkeit ändert (siehe Hinweise in den Linter-Regeln)
-  - angeben zusätzlicher Abhängigkeiten
-  - `useCallback`
 - übergeben einer "Transformations-Funktion" an einen State Setter (die Funktion hat immer Zugriff auf den aktuellsten State)
+- erneutes Ausführen eines Effects, wenn sich eine Abhängigkeit ändert
 - zusätzliches Speichern des aktuellsten States in einer _ref_ (ist damit auch in älteren Closures verfügbar)
 
-## Übung
+## Beispiel: TransitioningImage
 
-Übung:
+Beispiel: Slideshow mit Übergang bei Bild (mit Timeout)
 
-Komponente `TransitioningImage`, die z.B. für die Slideshow verwendet werden kann
+<https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3>
 
-Übergang mittels fade-out des vorherigen `src`-Wertes, dann fade-in des neuen `src`-Wertes
-
-möglicher interner State:
-
-```ts
-type State = { current: string; previous?: string };
-```
-
-Hinweis: lade das kommende Bild während der fade-out-Transformation vor (z.B. durch ein zusätzliches, verstecktes `img`-Element)
+Teste, was geschieht, wenn im Timeout keine State-Update-Funktion verwendet wird
 
 ## Beheben des Problems mit veralteten Daten
 
