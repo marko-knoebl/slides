@@ -2,6 +2,12 @@
 
 ## Cypress
 
+E2E-Testing-Library
+
+verwendet im Hintergrund _mocha_ und _chai_
+
+## Setup
+
 npm-Paket: _cypress_
 
 in _package.json_:
@@ -12,37 +18,62 @@ in _package.json_:
   }
 ```
 
+## Cypress ausführen
+
 ausführen:
 
 ```bash
 npm run cypress:open
 ```
 
+startet eine grafische Benutzeroberfläche
+
+erstellt beim ersten Ausführen den Ordner _cypress_
+
+## Konfiguration
+
+TypeScript-Konfiguration in einem create-react-app-Projekt:
+
+in _cypress/tsconfig.json_:
+
+```json
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    // be explicit about types included
+    // to avoid clashing with Jest types
+    "types": ["cypress"]
+  },
+  "include": ["../node_modules/cypress", "./**/*.ts"]
+}
+```
+
+## Konfiguration
+
+Um ESLint-Fehler zu vermeiden (insbesondere bei create-react-app-Projekten):
+
+in _package.json_:
+
+```json
+  "eslintConfig": {
+    // ...
+    "overrides": [
+      {
+        "files": ["cypress/**"],
+        "rules": {
+          "jest/valid-expect": 0
+        }
+      }
+    ]
+  },
+```
+
 ## Cypress
 
-Testen von Wikipedia:
+Beispiel: Testen von Wikipedia:
 
-```js
-cy.visit('https://en.wikipedia.org');
-```
-
-dann:
-
-```js
-cy.title().should('match', /wikipedia/i);
-```
-
-oder:
-
-```js
-cy.title().should((title) => {
-  expect(title).to.match(/wikipedia/i);
-});
-```
-
-## Puppeteer
-
-Restrukturierung des Codes für mehrere Tests:
+in _cypress/integration/wikipedia.spec.ts_:
 
 ```js
 describe('wikipedia', () => {
@@ -50,7 +81,11 @@ describe('wikipedia', () => {
     cy.visit('https://en.wikipedia.org');
   });
 
-  it("page title includes 'wikipedia'", () => {
+  it("page title includes 'wikipedia', version 1", () => {
+    cy.title().should('match', /wikipedia/i);
+  });
+
+  it("page title includes 'wikipedia', version 2", () => {
     cy.title().should((title) => {
       expect(title).to.match(/wikipedia/i);
     });
@@ -58,12 +93,12 @@ describe('wikipedia', () => {
 });
 ```
 
-## Puppeteer
+## Cypress
 
 Beispiel: Suche auf Wikipedia
 
 ```js
-it('search', () => {
+it("wikipedia search for 'cypress' article", () => {
   cy.get('#searchInput').type('cypress');
   cy.get('#searchButton').click();
   cy.get('p')
@@ -75,7 +110,7 @@ it('search', () => {
 });
 ```
 
-## Exercise
+## Übung
 
 Schreibe Tests für die Todo-Anwendung auf:
 

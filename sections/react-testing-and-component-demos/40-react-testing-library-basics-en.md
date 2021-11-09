@@ -95,10 +95,10 @@ extra assertions (enabled automatically when using _create-react-app_):
 import userEvent from '@testing-library/user-event';
 
 userEvent.type(
-  screen.getByRole('input', { name: /title/i }),
+  screen.getByRole('textbox', { name: /title/i }),
   'write tests'
 );
 userEvent.click(
-  screen.getByRole('button', { name: /add todo/i })
+  screen.getByRole('button', { name: /add/i })
 );
 ```

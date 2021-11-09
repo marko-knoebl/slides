@@ -2,6 +2,12 @@
 
 ## Cypress
 
+E2E testing library
+
+uses _mocha_ and _chai_ in the background
+
+## Setup
+
 npm package: _cypress_
 
 in _package.json_:
@@ -12,37 +18,62 @@ in _package.json_:
   }
 ```
 
+## Running Cypress
+
 execute:
 
 ```bash
 npm run cypress:open
 ```
 
+Starts a graphical user interface
+
+Will create folder _cypress_ on first run
+
+## Configuration
+
+TypeScript configuration in a create-react-app project:
+
+in _cypress/tsconfig.json_:
+
+```json
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    // be explicit about types included
+    // to avoid clashing with Jest types
+    "types": ["cypress"]
+  },
+  "include": ["../node_modules/cypress", "./**/*.ts"]
+}
+```
+
+## Configuration
+
+To avoid ESLint errors (in particular with _create-react-app_ projects):
+
+in _package.json_:
+
+```json
+  "eslintConfig": {
+    // ...
+    "overrides": [
+      {
+        "files": ["cypress/**"],
+        "rules": {
+          "jest/valid-expect": 0
+        }
+      }
+    ]
+  },
+```
+
 ## Cypress
 
-testing Wikipedia:
+example: testing Wikipedia:
 
-```js
-cy.visit('https://en.wikipedia.org');
-```
-
-then:
-
-```js
-cy.title().should('match', /wikipedia/i);
-```
-
-or:
-
-```js
-cy.title().should((title) => {
-  expect(title).to.match(/wikipedia/i);
-});
-```
-
-## Puppeteer
-
-restructuring code for multiple tests:
+in _cypress/integration/wikipedia.spec.ts_:
 
 ```js
 describe('wikipedia', () => {
@@ -50,7 +81,11 @@ describe('wikipedia', () => {
     cy.visit('https://en.wikipedia.org');
   });
 
-  it("page title includes 'wikipedia'", () => {
+  it("page title includes 'wikipedia', version 1", () => {
+    cy.title().should('match', /wikipedia/i);
+  });
+
+  it("page title includes 'wikipedia', version 2", () => {
     cy.title().should((title) => {
       expect(title).to.match(/wikipedia/i);
     });
@@ -58,7 +93,7 @@ describe('wikipedia', () => {
 });
 ```
 
-## Puppeteer
+## Cypress
 
 example: Searching on Wikipedia
 

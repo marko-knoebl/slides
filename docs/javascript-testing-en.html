@@ -2327,42 +2327,70 @@ test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keywo
 <p><a href="https://do49e.csb.app/">https://do49e.csb.app/</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>End-to-end tests with Cypress</h1>
 </section><section class="slide"><h2>Cypress</h2>
+<p>E2E testing library</p>
+<p>uses <em>mocha</em> and <em>chai</em> in the background</p>
+</section><section class="slide"><h2>Setup</h2>
 <p>npm package: <em>cypress</em></p>
 <p>in <em>package.json</em>:</p>
 <pre><code class="hljs language-json">  <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-attr">"cypress:open"</span>: <span class="hljs-string">"cypress open"</span>
   }
 </code></pre>
+</section><section class="slide"><h2>Running Cypress</h2>
 <p>execute:</p>
 <pre><code class="hljs language-bash">npm run cypress:open
 </code></pre>
+<p>Starts a graphical user interface</p>
+<p>Will create folder <em>cypress</em> on first run</p>
+</section><section class="slide"><h2>Configuration</h2>
+<p>TypeScript configuration in a create-react-app project:</p>
+<p>in <em>cypress/tsconfig.json</em>:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"extends"</span>: <span class="hljs-string">"../tsconfig.json"</span>,
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"noEmit"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-comment">// be explicit about types included</span>
+    <span class="hljs-comment">// to avoid clashing with Jest types</span>
+    <span class="hljs-attr">"types"</span>: [<span class="hljs-string">"cypress"</span>]
+  },
+  <span class="hljs-attr">"include"</span>: [<span class="hljs-string">"../node_modules/cypress"</span>, <span class="hljs-string">"./**/*.ts"</span>]
+}
+</code></pre>
+</section><section class="slide"><h2>Configuration</h2>
+<p>To avoid ESLint errors (in particular with <em>create-react-app</em> projects):</p>
+<p>in <em>package.json</em>:</p>
+<pre><code class="hljs language-json">  <span class="hljs-string">"eslintConfig"</span>: {
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-attr">"overrides"</span>: [
+      {
+        <span class="hljs-attr">"files"</span>: [<span class="hljs-string">"cypress/**"</span>],
+        <span class="hljs-attr">"rules"</span>: {
+          <span class="hljs-attr">"jest/valid-expect"</span>: <span class="hljs-number">0</span>
+        }
+      }
+    ]
+  },
+</code></pre>
 </section><section class="slide"><h2>Cypress</h2>
-<p>testing Wikipedia:</p>
-<pre><code class="hljs language-js">cy.visit(<span class="hljs-string">'https://en.wikipedia.org'</span>);
-</code></pre>
-<p>then:</p>
-<pre><code class="hljs language-js">cy.title().should(<span class="hljs-string">'match'</span>, <span class="hljs-regexp">/wikipedia/i</span>);
-</code></pre>
-<p>or:</p>
-<pre><code class="hljs language-js">cy.title().should(<span class="hljs-function">(<span class="hljs-params">title</span>) =></span> {
-  expect(title).to.match(<span class="hljs-regexp">/wikipedia/i</span>);
-});
-</code></pre>
-</section><section class="slide"><h2>Puppeteer</h2>
-<p>restructuring code for multiple tests:</p>
+<p>example: testing Wikipedia:</p>
+<p>in <em>cypress/integration/wikipedia.spec.ts</em>:</p>
 <pre><code class="hljs language-js">describe(<span class="hljs-string">'wikipedia'</span>, <span class="hljs-function">() =></span> {
   beforeEach(<span class="hljs-function">() =></span> {
     cy.visit(<span class="hljs-string">'https://en.wikipedia.org'</span>);
   });
 
-  it(<span class="hljs-string">"page title includes 'wikipedia'"</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">"page title includes 'wikipedia', version 1"</span>, <span class="hljs-function">() =></span> {
+    cy.title().should(<span class="hljs-string">'match'</span>, <span class="hljs-regexp">/wikipedia/i</span>);
+  });
+
+  it(<span class="hljs-string">"page title includes 'wikipedia', version 2"</span>, <span class="hljs-function">() =></span> {
     cy.title().should(<span class="hljs-function">(<span class="hljs-params">title</span>) =></span> {
       expect(title).to.match(<span class="hljs-regexp">/wikipedia/i</span>);
     });
   });
 });
 </code></pre>
-</section><section class="slide"><h2>Puppeteer</h2>
+</section><section class="slide"><h2>Cypress</h2>
 <p>example: Searching on Wikipedia</p>
 <pre><code class="hljs language-js">it(<span class="hljs-string">'search'</span>, <span class="hljs-function">() =></span> {
   cy.get(<span class="hljs-string">'#searchInput'</span>).type(<span class="hljs-string">'cypress'</span>);

@@ -2231,18 +2231,24 @@ screen.getAllByRole(<span class="hljs-string">'listitem'</span>);
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> userEvent <span class="hljs-keyword">from</span> <span class="hljs-string">'@testing-library/user-event'</span>;
 
 userEvent.type(
-  screen.getByRole(<span class="hljs-string">'input'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/title/i</span> }),
+  screen.getByRole(<span class="hljs-string">'textbox'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/title/i</span> }),
   <span class="hljs-string">'write tests'</span>
 );
 userEvent.click(
-  screen.getByRole(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/add todo/i</span> })
+  screen.getByRole(<span class="hljs-string">'button'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-regexp">/add/i</span> })
 );
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>React-Testing-Library example: todo app</h1>
 </section><section class="slide"><h2>Testing the rendering</h2>
 <pre><code class="hljs language-jsx">test(<span class="hljs-string">'renders a list item with a given text'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> title = <span class="hljs-string">'test-title'</span>;
-  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{title}</span> <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span> /></span></span>);
+  render(
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span>
+      <span class="hljs-attr">todo</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">1</span>, <span class="hljs-attr">title:</span> <span class="hljs-attr">title</span>, <span class="hljs-attr">completed:</span> <span class="hljs-attr">false</span> }}
+      <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{()</span> =></span> {}}
+      onCompletedChange={() => {}}
+    /></span>
+  );
   <span class="hljs-keyword">const</span> listItem = screen.getByRole(<span class="hljs-string">'listitem'</span>);
   expect(listItem).toHaveTextContent(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(title));
 });
@@ -2252,28 +2258,31 @@ userEvent.click(
   <span class="hljs-keyword">const</span> mockFn = jest.fn();
   render(
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span>
-      <span class="hljs-attr">title</span>=<span class="hljs-string">"foo"</span>
-      <span class="hljs-attr">completed</span>=<span class="hljs-string">{false}</span>
-      <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{mockFn}</span>
-    /></span></span>
+      <span class="hljs-attr">todo</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">1</span>, <span class="hljs-attr">title:</span> <span class="hljs-attr">title</span>, <span class="hljs-attr">completed:</span> <span class="hljs-attr">false</span> }}
+      <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{mockFn}</span>
+      <span class="hljs-attr">onCompletedChange</span>=<span class="hljs-string">{()</span> =></span> {}}
+    /></span>
   );
   <span class="hljs-keyword">const</span> listItem = screen.getByRole(<span class="hljs-string">'listitem'</span>);
-  userEvent.click(listItem);
+  <span class="hljs-keyword">const</span> deleteBtn = within(listItem).getByRole(<span class="hljs-string">'button'</span>, {
+    <span class="hljs-attr">name</span>: <span class="hljs-regexp">/delete/i</span>,
+  });
+  userEvent.click(deleteBtn);
   expect(mockFn).toHaveBeenCalled();
 });
 </code></pre>
 </section><section class="slide"><h2>Setting up initial state</h2>
 <p>Setting up a todo application with three todos before each test:</p>
 <pre><code class="hljs language-jsx">beforeEach(<span class="hljs-function">() =></span> {
-  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoApp</span> /></span></span>);
-  <span class="hljs-keyword">const</span> newTitleInput = screen.getByRole(<span class="hljs-string">'textbox'</span>, {
-    <span class="hljs-attr">name</span>: <span class="hljs-regexp">/new title/i</span>,
+  render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span></span>);
+  <span class="hljs-keyword">const</span> titleInput = screen.getByRole(<span class="hljs-string">'textbox'</span>, {
+    <span class="hljs-attr">name</span>: <span class="hljs-regexp">/title/i</span>,
   });
   <span class="hljs-keyword">const</span> addButton = screen.getByRole(<span class="hljs-string">'button'</span>, {
     <span class="hljs-attr">name</span>: <span class="hljs-string">'add'</span>,
   });
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> title <span class="hljs-keyword">of</span> [<span class="hljs-string">'first'</span>, <span class="hljs-string">'second'</span>, <span class="hljs-string">'third'</span>]) {
-    userEvent.type(newTitleInput, title);
+    userEvent.type(titleInput, title);
     userEvent.click(addButton);
   }
 });
@@ -2284,9 +2293,12 @@ userEvent.click(
   <span class="hljs-keyword">const</span> firstTodoItem = within(todoList).getAllByRole(
     <span class="hljs-string">'listitem'</span>
   )[<span class="hljs-number">0</span>];
-  expect(firstTodoItem).toHaveTextContent(<span class="hljs-regexp">/TODO: /</span>);
-  userEvent.click(firstTodoItem);
-  expect(firstTodoItem).toHaveTextContent(<span class="hljs-regexp">/DONE: /</span>);
+  <span class="hljs-keyword">const</span> firstTodoItemCheckbox = within(
+    firstTodoItem
+  ).getByRole(<span class="hljs-string">'checkbox'</span>);
+  expect(firstTodoItem).toHaveTextContent(<span class="hljs-regexp">/TODO:/</span>);
+  userEvent.click(firstTodoItemCheckbox);
+  expect(firstTodoItem).toHaveTextContent(<span class="hljs-regexp">/DONE:/</span>);
 });
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>React-Testing-Library intermediate</h1>
@@ -2302,24 +2314,21 @@ userEvent.click(
 </section><section class="slide"><h2>getByText</h2>
 <p>useful for <em>divs</em> / <em>spans</em> (no default <em>role</em>)</p>
 <p>note: Consider giving the element an appropriate role, and using e.g. <code>getByRole("presentation", { name: "text" })</code></p>
-</section><section class="slide"><h2>getByLabelText</h2>
-<p>we can get <em>text input fields</em> via <code>getByRole</code>:</p>
-<pre><code class="hljs language-js">screen.getByRole(<span class="hljs-string">'textbox'</span>, <span class="hljs-string">'first name'</span>);
-</code></pre>
-<p>for other input types we should use <code>getByLabelText</code>:</p>
-<pre><code class="hljs language-js">screen.getByLabelText(<span class="hljs-string">'birth year'</span>);
-</code></pre>
 </section><section class="slide"><h2>Testing asynchronous interactions and APIs</h2>
 <p>Use <code>.findByRole</code>, instead of <code>.getByRole</code> to wait for an element to appear</p>
 <p><code>findByRole</code> will repeatedly query for an element until it exists (by default every 0.05 seconds for a maximum of 1 second)</p>
 </section><section class="slide"><h2>Testing asynchronous code</h2>
 <p>task: testing a <code>ChuckNorrisJoke</code> component which queries an API:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> ChuckNorrisJoke = <span class="hljs-function">() =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> URL = <span class="hljs-string">'https://api.chucknorris.io/jokes/random'</span>;
+<span class="hljs-keyword">const</span> ChuckNorrisJoke = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [joke, setJoke] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadJoke</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(URL);
+    <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+    setJoke(data.value);
+  }
   useEffect(<span class="hljs-function">() =></span> {
-    fetch(<span class="hljs-string">'https://api.chucknorris.io/jokes/random'</span>)
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> setJoke(data.value));
+    loadJoke();
   }, []);
   <span class="hljs-keyword">if</span> (!joke) {
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"status"</span>></span>loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
@@ -2345,14 +2354,12 @@ globalThis.fetch = <span class="hljs-function">() =></span>
   <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">json</span>: <span class="hljs-function">() =></span> <span class="hljs-built_in">Promise</span>.resolve(data) });
 </code></pre>
 </section><section class="slide"><h2>Testing errors</h2>
-<p>TodoItem component:</p>
-<pre><code class="hljs language-jsx">test(<span class="hljs-string">'throw an error if the title is missing'</span>, <span class="hljs-function">() =></span> {
+<p>Rating component:</p>
+<pre><code class="hljs language-jsx">test(<span class="hljs-string">'throw an error if the rating is invalid'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> testFn = <span class="hljs-function">() =></span> {
-    render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> /></span></span>);
+    render(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{-1}</span> /></span></span>);
   };
-  expect(testFn).toThrow(
-    <span class="hljs-string">'property "title" must be present'</span>
-  );
+  expect(testFn).toThrow(<span class="hljs-string">'value must be 0 to 5'</span>);
 });
 </code></pre>
 </section><section class="slide"><h2>Testing for non-existence</h2>

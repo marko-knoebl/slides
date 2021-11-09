@@ -15,20 +15,6 @@ useful for _divs_ / _spans_ (no default _role_)
 
 note: Consider giving the element an appropriate role, and using e.g. `getByRole("presentation", { name: "text" })`
 
-## getByLabelText
-
-we can get _text input fields_ via `getByRole`:
-
-```js
-screen.getByRole('textbox', 'first name');
-```
-
-for other input types we should use `getByLabelText`:
-
-```js
-screen.getByLabelText('birth year');
-```
-
 ## Testing asynchronous interactions and APIs
 
 Use `.findByRole`, instead of `.getByRole` to wait for an element to appear
@@ -40,12 +26,16 @@ Use `.findByRole`, instead of `.getByRole` to wait for an element to appear
 task: testing a `ChuckNorrisJoke` component which queries an API:
 
 ```js
+const URL = 'https://api.chucknorris.io/jokes/random';
 const ChuckNorrisJoke = () => {
   const [joke, setJoke] = useState(null);
+  async function loadJoke() {
+    const res = await fetch(URL);
+    const data = await res.json();
+    setJoke(data.value);
+  }
   useEffect(() => {
-    fetch('https://api.chucknorris.io/jokes/random')
-      .then((res) => res.json())
-      .then((data) => setJoke(data.value));
+    loadJoke();
   }, []);
   if (!joke) {
     return <div role="status">loading...</div>;
@@ -81,16 +71,14 @@ globalThis.fetch = () =>
 
 ## Testing errors
 
-TodoItem component:
+Rating component:
 
 ```jsx
-test('throw an error if the title is missing', () => {
+test('throw an error if the rating is invalid', () => {
   const testFn = () => {
-    render(<TodoItem />);
+    render(<Rating value={-1} />);
   };
-  expect(testFn).toThrow(
-    'property "title" must be present'
-  );
+  expect(testFn).toThrow('value must be 0 to 5');
 });
 ```
 

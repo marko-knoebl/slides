@@ -15,20 +15,6 @@ sinnvoll für _divs_ / _spans_ (keine _role_ vordefiniert)
 
 Bemerkung: kann eventuell durch `getByRole` ersetzt werden, wenn die Rolle explizit vergeben wird (z.B. `role="presentation"`)
 
-## getByLabelText
-
-Inputs, die _Text_ beinhalten, können mittels `getByRole` abgefragt werden:
-
-```js
-screen.getByRole('textbox', 'first name');
-```
-
-Für andere Inputtypen sollten wir `getByLabelText` verwenden:
-
-```js
-screen.getByLabelText('birth year');
-```
-
 ## Testen von asynchronem Code und APIs
 
 Wir verwenden `findByRole` anstatt `getByRole`, um darauf zu warten, dass ein Element erscheint
@@ -40,12 +26,16 @@ Wir verwenden `findByRole` anstatt `getByRole`, um darauf zu warten, dass ein El
 Aufgabe: Testen einer `ChuckNorrisJoke`-Komponente, die ein API abfragt:
 
 ```js
+const URL = 'https://api.chucknorris.io/jokes/random';
 const ChuckNorrisJoke = () => {
   const [joke, setJoke] = useState(null);
+  async function loadJoke() {
+    const res = await fetch(URL);
+    const data = await res.json();
+    setJoke(data.value);
+  }
   useEffect(() => {
-    fetch('https://api.chucknorris.io/jokes/random')
-      .then((res) => res.json())
-      .then((data) => setJoke(data.value));
+    loadJoke();
   }, []);
   if (!joke) {
     return <div role="status">loading...</div>;
@@ -81,16 +71,14 @@ globalThis.fetch = () =>
 
 ## Testen von Fehlern
 
-_TodoItem_-Komponente:
+Rating-Komponente:
 
 ```jsx
-test('throw an error if the title is missing', () => {
+test('throw an error if the rating is invalid', () => {
   const testFn = () => {
-    render(<TodoItem />);
+    render(<Rating value={-1} />);
   };
-  expect(testFn).toThrow(
-    'property "title" must be present'
-  );
+  expect(testFn).toThrow('value must be 0 to 5');
 });
 ```
 
