@@ -4,6 +4,14 @@ Based on data from the grouplens database, build a recommender that recommends u
 
 For this purpose, use pre-existing ratings of users and films. Simplify the data by using dimensionality reduction.
 
+data sources (https://grouplens.org/datasets/movielens/):
+
+- MovieLens 25M Dataset (released 2019-12)
+- MovieLens Latest Datasets
+  - small (100K)
+  - full (> 25M)
+- MovieLens 100K Dataset (released 1998-04)
+
 example program run:
 
 ```py
