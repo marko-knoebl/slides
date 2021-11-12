@@ -2,13 +2,9 @@
 
 ## Clustering
 
-Clusterings falls in the category of _unsupervised learning_
+finding clusters in input data
 
-For unsupervised learning there are no target data (_y_); instead the algorithms looks for patterns in the input data
-
-The goal of clustering is finding clusters in input data
-
-## Clustering
+strategies:
 
 - _k-means clustering_
 - _gaussian mixture models_

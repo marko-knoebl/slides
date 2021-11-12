@@ -83,7 +83,7 @@ Resultat hat eine `date`-Spalte statt zwei
 
 ## Übung
 
-Übung: Ländervergleich:
+Übung: Ländervergleich (Scatter Plot):
 
 - BIP pro Kopf von 2018
 - COVID-19-Impfraten von 2021-08
@@ -114,28 +114,6 @@ vac_2021_08 = vac_series[:, "2021-08-01"]
 
 data = pd.DataFrame({"gdp": gdp_2018, "vaccinations": vac_2021_08}).dropna()
 data.plot.scatter(x="gdp", y="vaccinations")
-```
-
-## Übung
-
-Beispiel: Musiker und Lieder
-
-```py
-artists = pd.DataFrame({
-    "name": ["The Beatles", "Elvis Presley",
-             "Michael Jackson", "Elton John"],
-    "country": ["UK", "US", "US", "UK"]
-})
-```
-
-```py
-songs = pd.DataFrame({
-    "title": ["White Christmas", "Candle in the Wind",
-              "It's Now or Never"],
-    "artist": ["Bing Crosby", "Elton John",
-               "Elvis Presley"],
-    "sales": [50, 33, 20]
-})
 ```
 
 ## Joins

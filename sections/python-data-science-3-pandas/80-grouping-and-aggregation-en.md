@@ -108,3 +108,43 @@ er_90s = exchange_rates.loc[
 
 er_90s_means = er_90s.groupby("Country").mean()
 ```
+
+## Exercise - Movielens
+
+Based on the Movielens dataset, find the top-rated movies that were rated by at least 10 users
+
+```py
+ratings = pd.read_csv(
+    "https://files.grouplens.org/datasets/movielens/ml-100k/u.data",
+    sep="\t",
+    header=None,
+    usecols=[0, 1, 2],
+    names=["user_id", "movie_id", "rating"],
+)
+movie_titles = pd.read_csv(
+    "https://files.grouplens.org/datasets/movielens/ml-100k/u.item",
+    sep="|",
+    header=None,
+    encoding="latin1",
+    usecols=[0, 1],
+    names=["movie_id", "title"],
+)
+```
+
+## Exercise - Movielens: solution
+
+```py
+movie_names = movie_titles.groupby("movie_id")["title"].first()
+movie_mean_ratings = ratings.groupby("movie_id")["rating"].mean()
+movie_num_ratings = ratings.groupby("movie_id")["rating"].count()
+
+movie_ratings = pd.DataFrame({
+  "name": movie_names,
+  "mean_rating": movie_mean_ratings,
+  "num_ratings": movie_num_ratings
+})
+
+movie_ratings.query(
+    "num_ratings >= 10 and 4.2 < mean_rating"
+).sort_values(by="mean_rating", ascending=False)
+```

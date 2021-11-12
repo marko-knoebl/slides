@@ -98,6 +98,7 @@ iris = pd.read_csv(
 )
 titanic = pd.read_csv(
     "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv",
+    index_col="PassengerId",
 )
 ```
 

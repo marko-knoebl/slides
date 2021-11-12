@@ -14,3 +14,4 @@
 - Titanic Passagierdaten: [Download](https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv)
 - [MNIST Ziffern-Datensatz](https://en.wikipedia.org/wiki/MNIST_database): [Download (Binärdaten)](http://yann.lecun.com/exdb/mnist/)
 - [California Housing Daten](http://lib.stat.cmu.edu/datasets/houses.zip)
+- [MovieLens Datensatz](https://grouplens.org/datasets/movielens/)

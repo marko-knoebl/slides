@@ -83,7 +83,7 @@ will result in one `date` column instead of two
 
 ## Exercise
 
-Exercise: country comparisons:
+Exercise: country comparisons (scatter plots):
 
 - GDP per capita from 2018
 - COVID-19 vaccination rates from 2021-08
@@ -114,28 +114,6 @@ vac_2021_08 = vac_series[:, "2021-08-01"]
 
 data = pd.DataFrame({"gdp": gdp_2018, "vaccinations": vac_2021_08}).dropna()
 data.plot.scatter(x="gdp", y="vaccinations")
-```
-
-## Exercise
-
-Exercise: try some join operations on the following data:
-
-```py
-artists = pd.DataFrame({
-    "name": ["The Beatles", "Elvis Presley",
-             "Michael Jackson", "Elton John"],
-    "country": ["UK", "US", "US", "UK"]
-})
-```
-
-```py
-songs = pd.DataFrame({
-    "title": ["White Christmas", "Candle in the Wind",
-              "It's Now or Never"],
-    "artist": ["Bing Crosby", "Elton John",
-               "Elvis Presley"],
-    "sales_millions": [50, 33, 20]
-})
 ```
 
 ## Joins

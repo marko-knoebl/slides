@@ -97,7 +97,8 @@ iris = pd.read_csv(
            "petal_width", "species"],
 )
 titanic = pd.read_csv(
-    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv",
+    index_col="PassengerId",
 )
 ```
 

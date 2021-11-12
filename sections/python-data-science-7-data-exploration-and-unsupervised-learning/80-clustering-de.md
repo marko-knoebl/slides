@@ -2,13 +2,9 @@
 
 ## Clustering
 
-Beim Clustering handelt es sich um _unsupervised learning_.
+Ziel: Finden von Gruppierungen (Clustern) von Datenpunkten
 
-Solche Algorithmen haben keine Zieldaten (_y_), sondern suchen nur in den Ausgangsdaten nach einer bestimmten Struktur.
-
-Ziel von Clustering ist es, in vorhandenen Daten Gruppierungen (Cluster) von Datenpunkten zu finden.
-
-## Clustering
+Strategien:
 
 - _k-Means Clustering_
 - _Gaussian Mixture Models_

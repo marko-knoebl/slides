@@ -2203,7 +2203,8 @@ exchange_rates = pd.read_csv(
            <span class="hljs-string">"petal_width"</span>, <span class="hljs-string">"species"</span>],
 )
 titanic = pd.read_csv(
-    <span class="hljs-string">"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"</span>
+    <span class="hljs-string">"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"</span>,
+    index_col=<span class="hljs-string">"PassengerId"</span>,
 )
 </code></pre>
 </section><section class="slide"><h2>Importieren und Exportieren von Excel-Dateien</h2>
@@ -2240,6 +2241,7 @@ euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class=
 <li>Titanic Passagierdaten: <a href="https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv">Download</a></li>
 <li><a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST Ziffern-Datensatz</a>: <a href="http://yann.lecun.com/exdb/mnist/">Download (Binärdaten)</a></li>
 <li><a href="http://lib.stat.cmu.edu/datasets/houses.zip">California Housing Daten</a></li>
+<li><a href="https://grouplens.org/datasets/movielens/">MovieLens Datensatz</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Pandas und NumPy</h1>
 </section><section class="slide"><h2>Pandas und NumPy</h2>
@@ -2776,7 +2778,7 @@ pd.merge(sp500_no_index, euribor_no_index, left_on=<span class="hljs-string">"Da
 </code></pre>
 <p>Resultat hat eine <code>date</code>-Spalte statt zwei</p>
 </section><section class="slide"><h2>Übung</h2>
-<p>Übung: Ländervergleich:</p>
+<p>Übung: Ländervergleich (Scatter Plot):</p>
 <ul>
 <li>BIP pro Kopf von 2018</li>
 <li>COVID-19-Impfraten von 2021-08</li>
@@ -2804,22 +2806,6 @@ vac_2021_08 = vac_series[:, <span class="hljs-string">"2021-08-01"</span>]
 
 data = pd.DataFrame({<span class="hljs-string">"gdp"</span>: gdp_2018, <span class="hljs-string">"vaccinations"</span>: vac_2021_08}).dropna()
 data.plot.scatter(x=<span class="hljs-string">"gdp"</span>, y=<span class="hljs-string">"vaccinations"</span>)
-</code></pre>
-</section><section class="slide"><h2>Übung</h2>
-<p>Beispiel: Musiker und Lieder</p>
-<pre><code class="hljs language-py">artists = pd.DataFrame({
-    <span class="hljs-string">"name"</span>: [<span class="hljs-string">"The Beatles"</span>, <span class="hljs-string">"Elvis Presley"</span>,
-             <span class="hljs-string">"Michael Jackson"</span>, <span class="hljs-string">"Elton John"</span>],
-    <span class="hljs-string">"country"</span>: [<span class="hljs-string">"UK"</span>, <span class="hljs-string">"US"</span>, <span class="hljs-string">"US"</span>, <span class="hljs-string">"UK"</span>]
-})
-</code></pre>
-<pre><code class="hljs language-py">songs = pd.DataFrame({
-    <span class="hljs-string">"title"</span>: [<span class="hljs-string">"White Christmas"</span>, <span class="hljs-string">"Candle in the Wind"</span>,
-              <span class="hljs-string">"It's Now or Never"</span>],
-    <span class="hljs-string">"artist"</span>: [<span class="hljs-string">"Bing Crosby"</span>, <span class="hljs-string">"Elton John"</span>,
-               <span class="hljs-string">"Elvis Presley"</span>],
-    <span class="hljs-string">"sales"</span>: [<span class="hljs-number">50</span>, <span class="hljs-number">33</span>, <span class="hljs-number">20</span>]
-})
 </code></pre>
 </section><section class="slide"><h2>Joins</h2>
 <p>siehe auch: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html">https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html</a></p>
@@ -2900,6 +2886,39 @@ pclass
 ]
 
 er_90s_means = er_90s.groupby(<span class="hljs-string">"Country"</span>).mean()
+</code></pre>
+</section><section class="slide"><h2>Übung: Movielens</h2>
+<p>Basierend auf dem Movielens-Datensatz, finde die top-bewerteten Filme, die von zumindest 10 Nutzern bewertet wurden</p>
+<pre><code class="hljs language-py">ratings = pd.read_csv(
+    <span class="hljs-string">"https://files.grouplens.org/datasets/movielens/ml-100k/u.data"</span>,
+    sep=<span class="hljs-string">"\t"</span>,
+    header=<span class="hljs-literal">None</span>,
+    usecols=[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
+    names=[<span class="hljs-string">"user_id"</span>, <span class="hljs-string">"movie_id"</span>, <span class="hljs-string">"rating"</span>],
+)
+movie_titles = pd.read_csv(
+    <span class="hljs-string">"https://files.grouplens.org/datasets/movielens/ml-100k/u.item"</span>,
+    sep=<span class="hljs-string">"|"</span>,
+    header=<span class="hljs-literal">None</span>,
+    encoding=<span class="hljs-string">"latin1"</span>,
+    usecols=[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>],
+    names=[<span class="hljs-string">"movie_id"</span>, <span class="hljs-string">"title"</span>],
+)
+</code></pre>
+</section><section class="slide"><h2>Übung: Movielens - Lösung</h2>
+<pre><code class="hljs language-py">movie_names = movie_titles.groupby(<span class="hljs-string">"movie_id"</span>)[<span class="hljs-string">"title"</span>].first()
+movie_mean_ratings = ratings.groupby(<span class="hljs-string">"movie_id"</span>)[<span class="hljs-string">"rating"</span>].mean()
+movie_num_ratings = ratings.groupby(<span class="hljs-string">"movie_id"</span>)[<span class="hljs-string">"rating"</span>].count()
+
+movie_ratings = pd.DataFrame({
+  <span class="hljs-string">"name"</span>: movie_names,
+  <span class="hljs-string">"mean_rating"</span>: movie_mean_ratings,
+  <span class="hljs-string">"num_ratings"</span>: movie_num_ratings
+})
+
+movie_ratings.query(
+    <span class="hljs-string">"num_ratings >= 10 and 4.2 &#x3C; mean_rating"</span>
+).sort_values(by=<span class="hljs-string">"mean_rating"</span>, ascending=<span class="hljs-literal">False</span>)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Zeitreihen</h1>
 </section><section class="slide"><h2>Zeitreihen</h2>
