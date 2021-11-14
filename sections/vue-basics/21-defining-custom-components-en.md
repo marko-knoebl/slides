@@ -2,7 +2,7 @@
 
 ## Defining custom components
 
-generic compontent definition:
+generic compontent definition in a _.vue_ file:
 
 ```xml
 <template>
@@ -17,6 +17,31 @@ generic compontent definition:
 ...
 </style>
 ```
+
+## Defining custom components
+
+possible file name patterns for component files:
+
+- **MyComponent.vue** (recommended)
+- _my-component.vue_
+
+component names should _always_ be multiple words (to distinguish them from built-in elements)
+
+## Defining custom components
+
+recap: important props in component definitions:
+
+- **name**
+- **data**
+- **computed**
+- **methods**
+
+## Defining custom components
+
+a component may define an interface to interact with its parent component:
+
+- **props**: data that is passed down
+- **events**: may be triggered in a child component
 
 ## Props in custom components
 
@@ -46,6 +71,19 @@ export default {
 
 They are then accessible in the same ways as entries in `data`, `methods`, ...
 
+## Props in custom components
+
+multi-word props should use _mixedCase_ in JavaScript, but _kebab-case_ in templates
+
+<!-- prettier-ignore -->
+```js
+props: ['greetingText']
+```
+
+```html
+<WelcomeMessage greeting-text="hi" />
+```
+
 ## Events in custom components
 
 Custom events have a name and potentially a payload
@@ -57,10 +95,11 @@ this.$emit('eventname', payload);
 ```
 
 ```html
-<li @click="$emit('toggle')">
+<li>
   <span :class="{ todoitem: true, completed: completed }"
     >{{ completed ? 'DONE' : 'TODO' }}: {{ title }}</span
   >
-  <button @click.stop="$emit('delete')">X</button>
+  <button @click="$emit('toggle')">toggle</button>
+  <button @click="$emit('delete')">delete</button>
 </li>
 ```

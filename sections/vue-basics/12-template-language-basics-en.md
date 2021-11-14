@@ -8,6 +8,7 @@
 - if / else
 - repeating elements
 - two-way binding for inputs
+- whitespace
 
 ## Binding content
 
@@ -106,6 +107,28 @@ Each repeated element should have a locally unique _key_ property (for efficienc
 
 ## Two-way binding for inputs
 
+explicit two-way binding for inputs:
+
+```html
+<input value="title" @input="title = $event.target.value" />
+```
+
+short-hand version for two-way binding:
+
 ```html
 <input v-model="firstName" />
+```
+
+## Whitespace
+
+By default, whitespace between elements will not be rendered by Vue
+
+```html
+<strong>no</strong> <em>space</em>
+```
+
+forcing a space:
+
+```html
+<strong>with</strong>{{ " " }}<em>space</em>
 ```

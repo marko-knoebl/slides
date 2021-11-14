@@ -31,21 +31,30 @@ Create a todo list application with the following functionality:
 
 ```js
 export default {
-  data: () => ({
-    newTitle: '',
-    todos: [
-      { id: 1, title: 'groceries', completed: false },
-      { id: 2, title: 'taxes', completed: true },
-    ],
-  }),
+  data() {
+    return {
+      newTitle: '',
+      todos: [
+        { id: 1, title: 'groceries', completed: false },
+        { id: 2, title: 'taxes', completed: true },
+      ],
+    };
+  },
   methods: {
+    onSubmit() {
+      this.addTodo();
+      this.newTitle = '';
+    },
     addTodo() {
+      let maxId = 0;
+      for (let todo of this.todos) {
+        maxId = Math.max(maxId, todo.id);
+      }
       this.todos.push({
-        id: Math.max(0, ...this.todos.map((t) => t.id)) + 1,
+        id: maxId + 1,
         title: this.newTitle,
         completed: false,
       });
-      this.newTitle = '';
     },
   },
 };

@@ -5,7 +5,7 @@
 enable creation of components like these:
 
 ```xml
-<primary-button>submit</primary-button>
+<button-primary>submit</button-primary>
 ```
 
 ```xml

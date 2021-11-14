@@ -125,5 +125,5 @@ export default {
 Create a slideshow component / application that displays images like this:
 
 ```
-https://picsum.photos/200?image=0
+https://picsum.photos/300/200?image=0
 ```

@@ -38,18 +38,20 @@ Example: load SpaceX launch data when the component has mounted or when `launchN
 ```js
 function setup() {
   const launchNr = ref(1);
+  const loading = ref(true);
   const launchData = reactive({ name: null, date: null });
 
-  watchEffect(() => {
-    fetch(
+  watchEffect(async () => {
+    loading.value = true;
+    const res = await fetch(
       `https://api.spacexdata.com/v3/launches/${launchNr.value}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        launchData.name = data.mission_name;
-        launchData.date = data.launch_date_utc;
-      });
+    );
+    const data = await res.json();
+    loading.value = false;
+    launchData.name = data.mission_name;
+    launchData.date = data.launch_date_utc;
   });
+
   return { launchNr, launchData };
 }
 ```

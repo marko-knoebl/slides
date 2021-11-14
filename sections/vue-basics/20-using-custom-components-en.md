@@ -2,7 +2,7 @@
 
 ## Using custom components
 
-Custom components must be listed in the _components_ entry of the component they are used in
+Custom components must be listed in the _components_ entry of the component they are used in:
 
 ```js
 import TodoItem from './TodoItem';

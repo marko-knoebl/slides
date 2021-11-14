@@ -62,11 +62,10 @@ export default {
 
 a component definition object has several specific _props_ / _methods_:
 
+- **name**: will show up in the developer tools
 - **data**: reactive component state
 - **computed**: derived data
 - **methods**: event handlers, ...
-- _created_, _mounted_, _updated_, _destroyed_, ...: component lifecycle
-- _watch_
 - ...
 
 ## Data, methods, computed, ...

@@ -2334,11 +2334,10 @@ export default {
 </section><section class="slide"><h2>Options API basics</h2>
 <p>a component definition object has several specific <em>props</em> / <em>methods</em>:</p>
 <ul>
+<li><strong>name</strong>: will show up in the developer tools</li>
 <li><strong>data</strong>: reactive component state</li>
 <li><strong>computed</strong>: derived data</li>
 <li><strong>methods</strong>: event handlers, ...</li>
-<li><em>created</em>, <em>mounted</em>, <em>updated</em>, <em>destroyed</em>, ...: component lifecycle</li>
-<li><em>watch</em></li>
 <li>...</li>
 </ul>
 </section><section class="slide"><h2>Data, methods, computed, ...</h2>
@@ -2367,6 +2366,7 @@ During the first creation of a computed value, Vue checks which state entries ar
 <li>if / else</li>
 <li>repeating elements</li>
 <li>two-way binding for inputs</li>
+<li>whitespace</li>
 </ul>
 </section><section class="slide"><h2>Binding content</h2>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>A year has {{365 * 24}} hours.<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
@@ -2423,7 +2423,18 @@ During the first creation of a computed value, Vue checks which state entries ar
 </code></pre>
 <p>Each repeated element should have a locally unique <em>key</em> property (for efficiency)</p>
 </section><section class="slide"><h2>Two-way binding for inputs</h2>
+<p>explicit two-way binding for inputs:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"title"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"title = $event.target.value"</span> /></span>
+</code></pre>
+<p>short-hand version for two-way binding:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"firstName"</span> /></span>
+</code></pre>
+</section><section class="slide"><h2>Whitespace</h2>
+<p>By default, whitespace between elements will not be rendered by Vue</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">strong</span>></span>no<span class="hljs-tag">&#x3C;/<span class="hljs-name">strong</span>></span> <span class="hljs-tag">&#x3C;<span class="hljs-name">em</span>></span>space<span class="hljs-tag">&#x3C;/<span class="hljs-name">em</span>></span>
+</code></pre>
+<p>forcing a space:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">strong</span>></span>with<span class="hljs-tag">&#x3C;/<span class="hljs-name">strong</span>></span>{{ " " }}<span class="hljs-tag">&#x3C;<span class="hljs-name">em</span>></span>space<span class="hljs-tag">&#x3C;/<span class="hljs-name">em</span>></span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Exercise: todo list</h1>
 </section><section class="slide"><h2>Exercise: todo list</h2>
@@ -2451,28 +2462,37 @@ During the first creation of a computed value, Vue checks which state entries ar
 </code></pre>
 </section><section class="slide"><h2>Exercise: todo list - partial solution</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">data</span>: <span class="hljs-function">() =></span> ({
-    <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
-    <span class="hljs-attr">todos</span>: [
-      { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-      { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'taxes'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
-    ],
-  }),
+  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
+      <span class="hljs-attr">todos</span>: [
+        { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+        { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'taxes'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+      ],
+    };
+  },
   <span class="hljs-attr">methods</span>: {
+    <span class="hljs-function"><span class="hljs-title">onSubmit</span>(<span class="hljs-params"></span>)</span> {
+      <span class="hljs-built_in">this</span>.addTodo();
+      <span class="hljs-built_in">this</span>.newTitle = <span class="hljs-string">''</span>;
+    },
     <span class="hljs-function"><span class="hljs-title">addTodo</span>(<span class="hljs-params"></span>)</span> {
+      <span class="hljs-keyword">let</span> maxId = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> todo <span class="hljs-keyword">of</span> <span class="hljs-built_in">this</span>.todos) {
+        maxId = <span class="hljs-built_in">Math</span>.max(maxId, todo.id);
+      }
       <span class="hljs-built_in">this</span>.todos.push({
-        <span class="hljs-attr">id</span>: <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...this.todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id)) + <span class="hljs-number">1</span>,
+        <span class="hljs-attr">id</span>: maxId + <span class="hljs-number">1</span>,
         <span class="hljs-attr">title</span>: <span class="hljs-built_in">this</span>.newTitle,
         <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
       });
-      <span class="hljs-built_in">this</span>.newTitle = <span class="hljs-string">''</span>;
     },
   },
 };
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Using custom components</h1>
 </section><section class="slide"><h2>Using custom components</h2>
-<p>Custom components must be listed in the <em>components</em> entry of the component they are used in</p>
+<p>Custom components must be listed in the <em>components</em> entry of the component they are used in:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> TodoItem <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem'</span>;
 <span class="hljs-keyword">import</span> AddTodo <span class="hljs-keyword">from</span> <span class="hljs-string">'./AddTodo'</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
@@ -2491,7 +2511,7 @@ During the first creation of a computed value, Vue checks which state entries ar
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Defining custom components</h1>
 </section><section class="slide"><h2>Defining custom components</h2>
-<p>generic compontent definition:</p>
+<p>generic compontent definition in a <em>.vue</em> file:</p>
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">template</span>></span>
 ...
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">template</span>></span>
@@ -2504,6 +2524,27 @@ During the first creation of a computed value, Vue checks which state entries ar
 ...
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">style</span>></span>
 </code></pre>
+</section><section class="slide"><h2>Defining custom components</h2>
+<p>possible file name patterns for component files:</p>
+<ul>
+<li><strong>MyComponent.vue</strong> (recommended)</li>
+<li><em>my-component.vue</em></li>
+</ul>
+<p>component names should <em>always</em> be multiple words (to distinguish them from built-in elements)</p>
+</section><section class="slide"><h2>Defining custom components</h2>
+<p>recap: important props in component definitions:</p>
+<ul>
+<li><strong>name</strong></li>
+<li><strong>data</strong></li>
+<li><strong>computed</strong></li>
+<li><strong>methods</strong></li>
+</ul>
+</section><section class="slide"><h2>Defining custom components</h2>
+<p>a component may define an interface to interact with its parent component:</p>
+<ul>
+<li><strong>props</strong>: data that is passed down</li>
+<li><strong>events</strong>: may be triggered in a child component</li>
+</ul>
 </section><section class="slide"><h2>Props in custom components</h2>
 <p>Example:</p>
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">:stars</span>=<span class="hljs-string">"3"</span> /></span>
@@ -2519,16 +2560,24 @@ During the first creation of a computed value, Vue checks which state entries ar
 };
 </code></pre>
 <p>They are then accessible in the same ways as entries in <code>data</code>, <code>methods</code>, ...</p>
+</section><section class="slide"><h2>Props in custom components</h2>
+<p>multi-word props should use <em>mixedCase</em> in JavaScript, but <em>kebab-case</em> in templates</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js">props: [<span class="hljs-string">'greetingText'</span>]
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">WelcomeMessage</span> <span class="hljs-attr">greeting-text</span>=<span class="hljs-string">"hi"</span> /></span>
+</code></pre>
 </section><section class="slide"><h2>Events in custom components</h2>
 <p>Custom events have a name and potentially a payload</p>
 <p>Events are emitted via:</p>
 <pre><code class="hljs language-js"><span class="hljs-built_in">this</span>.$emit(<span class="hljs-string">'eventname'</span>, payload);
 </code></pre>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$emit('toggle')"</span>></span>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">span</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"{ todoitem: true, completed: completed }"</span>
     ></span>{{ completed ? 'DONE' : 'TODO' }}: {{ title }}&#x3C;/span
   >
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click.stop</span>=<span class="hljs-string">"$emit('delete')"</span>></span>X<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$emit('toggle')"</span>></span>toggle<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$emit('delete')"</span>></span>delete<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code for JavaScript</h1>
@@ -2827,7 +2876,7 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
 </code></pre>
 </section><section class="slide"><h2>Exercise</h2>
 <p>Create a slideshow component / application that displays images like this:</p>
-<pre><code class="hljs language-apache"><span class="hljs-attribute">https</span>://picsum.photos/<span class="hljs-number">200</span>?image=<span class="hljs-number">0</span>
+<pre><code class="hljs language-awk">https:<span class="hljs-regexp">//</span>picsum.photos<span class="hljs-regexp">/300/</span><span class="hljs-number">200</span>?image=<span class="hljs-number">0</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Composition API: props and events</h1>
 </section><section class="slide"><h2>Props and events</h2>
@@ -2846,22 +2895,6 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
   },
 };
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Vue devtools</h1>
-</section><section class="slide"><h2>Vue devtools</h2>
-<ul>
-<li><a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd">Chrome plugin</a></li>
-<li><a href="https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/">Firefox plugin</a></li>
-</ul>
-<p>features:</p>
-<ul>
-<li>display component structure</li>
-<li>show component state/data and props</li>
-<li>change state</li>
-<li>show component events</li>
-<li>show routes</li>
-<li>show vuex state</li>
-<li>analyse render performance</li>
-</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Side effects</h1>
 </section><section class="slide"><h2>Side effects</h2>
 <p>use cases:</p>
@@ -2892,18 +2925,20 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
 <p>Example: load SpaceX launch data when the component has mounted or when <code>launchNr</code> changed</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setup</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> launchNr = ref(<span class="hljs-number">1</span>);
+  <span class="hljs-keyword">const</span> loading = ref(<span class="hljs-literal">true</span>);
   <span class="hljs-keyword">const</span> launchData = reactive({ <span class="hljs-attr">name</span>: <span class="hljs-literal">null</span>, <span class="hljs-attr">date</span>: <span class="hljs-literal">null</span> });
 
-  watchEffect(<span class="hljs-function">() =></span> {
-    fetch(
+  watchEffect(<span class="hljs-keyword">async</span> () => {
+    loading.value = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
       <span class="hljs-string">`https://api.spacexdata.com/v3/launches/<span class="hljs-subst">${launchNr.value}</span>`</span>
-    )
-      .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
-        launchData.name = data.mission_name;
-        launchData.date = data.launch_date_utc;
-      });
+    );
+    <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+    loading.value = <span class="hljs-literal">false</span>;
+    launchData.name = data.mission_name;
+    launchData.date = data.launch_date_utc;
   });
+
   <span class="hljs-keyword">return</span> { launchNr, launchData };
 }
 </code></pre>
