@@ -11,13 +11,16 @@ df.columns = ["name1", "name2"]
 Zeilen entfernen:
 
 ```py
-df2 = df1.drop(["CN", "US"])
+sp500_new = sp500.drop([
+    pd.Timestamp("1871-01-01"),
+    pd.Timestamp("1871-02-01"),
+])
 ```
 
 Spalten entfernen:
 
 ```py
-df2 = df1.drop(columns=["pop"])
+sp500_new = sp500.drop(columns=["Real Earnings", "PE10"])
 ```
 
 ## Konvertieren von Daten
@@ -31,8 +34,8 @@ titanic["Survived"] = titanic["Survived"].astype("bool")
 Ersetzen von Werten:
 
 ```py
-titanic["Alive"] = titanic["Alive"].replace(
-    {"yes": True, "no": False}
+titanic["Female"] = titanic["Sex"].replace(
+    {"female": True, "male": False}
 )
 ```
 

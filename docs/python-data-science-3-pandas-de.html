@@ -2135,6 +2135,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>Excel</li>
 <li>JSON</li>
 <li>HDF5 (effizientes Binärformat)</li>
+<li>Parquet (aus <em>Apache Hadoop</em>)</li>
 <li>SQL tables (via <em>SQLAlchemy</em>)</li>
 </ul>
 </section><section class="slide"><h2>Daten importieren und exportieren</h2>
@@ -2260,32 +2261,32 @@ euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class=
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Statistische Grundwerte</h1>
 </section><section class="slide"><h2>Statistische Grundwerte</h2>
-<pre><code class="hljs language-py">countries[<span class="hljs-string">"area"</span>].describe()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>].describe()
 </code></pre>
-<pre><code class="hljs language-txt">count     3.000000
-mean     12.133333
-std       4.215843
-min       9.600000
-25%       9.700000
-50%       9.800000
-75%      13.400000
-max      17.000000
-dtype: float64
+<pre><code class="hljs language-txt">count    714.000000
+mean      29.699118
+std       14.526497
+min        0.420000
+25%       20.125000
+50%       28.000000
+75%       38.000000
+max       80.000000
+Name: Age, dtype: float64
 </code></pre>
 <p>(Siehe nächste Folie für Erklärungen)</p>
 </section><section class="slide"><h2>Statistik einer Series</h2>
-<pre><code class="hljs language-py">countries[<span class="hljs-string">"area"</span>].describe()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>].describe()
 </code></pre>
-<p>berechnet die folgenden Daten:</p>
+<p>obiges berechnet die folgenden Daten:</p>
 <ul>
-<li><code>area.count()</code></li>
-<li><code>area.mean()</code></li>
-<li><code>area.std()</code></li>
-<li><code>area.quantile(0)</code> oder <code>area.min()</code></li>
-<li><code>area.quantile(0.25)</code></li>
-<li><code>area.quantile(0.5)</code> oder <code>area.median()</code></li>
-<li><code>area.quantile(0.75)</code></li>
-<li><code>area.quantile(1)</code> oder <code>area.max()</code></li>
+<li><code>.count()</code></li>
+<li><code>.mean()</code></li>
+<li><code>.std()</code></li>
+<li><code>.quantile(0)</code> or <code>.min()</code></li>
+<li><code>.quantile(0.25)</code></li>
+<li><code>.quantile(0.5)</code> or <code>.median()</code></li>
+<li><code>.quantile(0.75)</code></li>
+<li><code>.quantile(1)</code> or <code>.max()</code></li>
 </ul>
 </section><section class="slide"><h2>Statistische Werte</h2>
 <ul>
@@ -2354,25 +2355,38 @@ df[<span class="hljs-string">"mean"</span>]        <span class="hljs-comment"># 
 <li><code>df.sample(5)</code> - fünf Einträge</li>
 <li><code>df.sample(frac=0.1)</code> - 10% aller Einträge</li>
 </ul>
-</section><section class="slide"><h2>Aufgaben: Euribor</h2>
+</section><section class="slide"><h2>Übungen: S&#x26;P 500</h2>
 <ul>
 <li>erster Eintrag</li>
 <li>letzter Eintrag</li>
 <li>letzte 10 Einträge</li>
-<li>Eintrag vom 2.1.2009</li>
+<li>10 zufällige Einträge</li>
+<li>Eintrag vom 1.1.2009</li>
 <li>Einträge aus dem Jahr 2009</li>
-<li>Einträge mit negativem Zinssatz</li>
+<li>Einträge mit "<em>long interest rate</em>" > 14</li>
 <li>...</li>
 </ul>
-</section><section class="slide"><h2>Lösungen: Euribor</h2>
+</section><section class="slide"><h2>Lösungen: S&#x26;P 500</h2>
 <ul>
-<li>erster Eintrag: <code>euribor.iloc[0]</code></li>
-<li>letzter Eintrag: <code>euribor.iloc[-1]</code></li>
-<li>letzte 10 Einträge: <code>euribor.iloc[-10:]</code></li>
-<li>Eintrag vom 2.1.2009: <code>euribor.loc["2009-01-02"]</code></li>
-<li>Einträge vom 1.1.2009 bis 31.12.2009: <code>euribor.loc["2009-01-01": "2009-12-31"]</code></li>
-<li>Einträge mit negativem Zinssatz: <code>euribor[euribor["rate"] &#x3C; 0]</code></li>
+<li>erster Eintrag: <code>sp500.iloc[0]</code></li>
+<li>letzter Eintrag: <code>sp500.iloc[-1]</code></li>
+<li>letzte 10 Einträge: <code>sp500.iloc[-10:]</code></li>
+<li>10 zufällige Einträge: <code>sp500.sample(10)</code></li>
+<li>Eintrag vom 1.1.2009: <code>sp500.loc["2009-01-01"]</code></li>
+<li>Einträge aus dem Jahr 2009: <code>sp500.loc["2009-01-01": "2009-12-31"]</code></li>
+<li>Einträge mit "<em>long interest rate</em>" > 14: <code>sp500[sp500["Long Interest Rate"] > 14]</code></li>
 </ul>
+</section><section class="slide"><h2>Aufgabe: S&#x26;P 500</h2>
+<p>wann war der S&#x26;P 500 am höchsten Wert? (Bestimme das Maximum, dann suche die zugehörige Zeile im DataFrame)</p>
+</section><section class="slide"><h2>Lösung: S&#x26;P 500</h2>
+<pre><code class="hljs language-py">sp500_max = sp500[<span class="hljs-string">"SP500"</span>].<span class="hljs-built_in">max</span>()
+<span class="hljs-comment"># returns a DataFrame</span>
+sp500_max_row = sp500[sp500[<span class="hljs-string">"SP500"</span>] == sp500_max]
+</code></pre>
+<p>kürzere Alternative: (via <code>.idxmax()</code>):</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># returns a Series</span>
+sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax()]
+</code></pre>
 </section><section class="slide"><h2>Aufgaben: Titanic</h2>
 <ul>
 <li>alle Überlebenden</li>
@@ -2383,29 +2397,6 @@ df[<span class="hljs-string">"mean"</span>]        <span class="hljs-comment"># 
 <li>alle Überlebenden: <code>titanic[titanic["Survived"] == "Yes"]</code></li>
 <li>alle 60-Jährigen: <code>titanic[titanic["Age"] == 60]</code></li>
 </ul>
-</section><section class="slide"><h2>Aufgabe: Wechselkurse</h2>
-<ul>
-<li>zeige <em>date</em> und <em>exchange rate</em> für Kurz zwischen <em>USD</em> (Basiswährung) und <em>EUR</em> (Land: "Euro")</li>
-</ul>
-</section><section class="slide"><h2>Lösung: Wechselkurse</h2>
-<pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
-    exchange_rates[<span class="hljs-string">"Country"</span>] == <span class="hljs-string">"Euro"</span>
-]
-euro_exchange_rates[[<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
-</code></pre>
-</section><section class="slide"><h2>Aufgabe: S&#x26;P 500</h2>
-<ul>
-<li>wann war der S&#x26;P 500 am höchsten Wert? (Bestimme das Maximum, dann suche die zugehörige Zeile im DataFrame)</li>
-</ul>
-</section><section class="slide"><h2>Lösung: S&#x26;P 500</h2>
-<pre><code class="hljs language-py">sp500_max = sp500[<span class="hljs-string">"SP500"</span>].<span class="hljs-built_in">max</span>()
-<span class="hljs-comment"># returns a DataFrame</span>
-sp500_max_row = sp500[sp500[<span class="hljs-string">"SP500"</span>] == sp500_max]
-</code></pre>
-<p>kürzere Alternative: (via <code>.idxmax()</code>):</p>
-<pre><code class="hljs language-py"><span class="hljs-comment"># returns a Series</span>
-sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax()]
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Daten auslesen: Fortgeschritten</h1>
 </section><section class="slide"><h2>Daten auslesen</h2>
 <p>nach Zeile und Spalte auswählen:</p>
@@ -2469,18 +2460,21 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </code></pre>
 </section><section class="slide"><h2>Daten entfernen</h2>
 <p>Zeilen entfernen:</p>
-<pre><code class="hljs language-py">df2 = df1.drop([<span class="hljs-string">"CN"</span>, <span class="hljs-string">"US"</span>])
+<pre><code class="hljs language-py">sp500_new = sp500.drop([
+    pd.Timestamp(<span class="hljs-string">"1871-01-01"</span>),
+    pd.Timestamp(<span class="hljs-string">"1871-02-01"</span>),
+])
 </code></pre>
 <p>Spalten entfernen:</p>
-<pre><code class="hljs language-py">df2 = df1.drop(columns=[<span class="hljs-string">"pop"</span>])
+<pre><code class="hljs language-py">sp500_new = sp500.drop(columns=[<span class="hljs-string">"Real Earnings"</span>, <span class="hljs-string">"PE10"</span>])
 </code></pre>
 </section><section class="slide"><h2>Konvertieren von Daten</h2>
 <p>Konvertieren von Typen:</p>
 <pre><code class="hljs language-py">titanic[<span class="hljs-string">"Survived"</span>] = titanic[<span class="hljs-string">"Survived"</span>].astype(<span class="hljs-string">"bool"</span>)
 </code></pre>
 <p>Ersetzen von Werten:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Alive"</span>] = titanic[<span class="hljs-string">"Alive"</span>].replace(
-    {<span class="hljs-string">"yes"</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">"no"</span>: <span class="hljs-literal">False</span>}
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Female"</span>] = titanic[<span class="hljs-string">"Sex"</span>].replace(
+    {<span class="hljs-string">"female"</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">"male"</span>: <span class="hljs-literal">False</span>}
 )
 </code></pre>
 </section><section class="slide"><h2>Abgeleitete Werte berechnen</h2>

@@ -3,19 +3,19 @@
 ## Statistische Grundwerte
 
 ```py
-countries["area"].describe()
+titanic["Age"].describe()
 ```
 
 ```txt
-count     3.000000
-mean     12.133333
-std       4.215843
-min       9.600000
-25%       9.700000
-50%       9.800000
-75%      13.400000
-max      17.000000
-dtype: float64
+count    714.000000
+mean      29.699118
+std       14.526497
+min        0.420000
+25%       20.125000
+50%       28.000000
+75%       38.000000
+max       80.000000
+Name: Age, dtype: float64
 ```
 
 (Siehe nächste Folie für Erklärungen)
@@ -23,19 +23,19 @@ dtype: float64
 ## Statistik einer Series
 
 ```py
-countries["area"].describe()
+titanic["Age"].describe()
 ```
 
-berechnet die folgenden Daten:
+obiges berechnet die folgenden Daten:
 
-- `area.count()`
-- `area.mean()`
-- `area.std()`
-- `area.quantile(0)` oder `area.min()`
-- `area.quantile(0.25)`
-- `area.quantile(0.5)` oder `area.median()`
-- `area.quantile(0.75)`
-- `area.quantile(1)` oder `area.max()`
+- `.count()`
+- `.mean()`
+- `.std()`
+- `.quantile(0)` or `.min()`
+- `.quantile(0.25)`
+- `.quantile(0.5)` or `.median()`
+- `.quantile(0.75)`
+- `.quantile(1)` or `.max()`
 
 ## Statistische Werte
 

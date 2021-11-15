@@ -79,47 +79,26 @@ titanic[titanic["Age"] >= 70]
 - `df.sample(5)` - five entries
 - `df.sample(frac=0.1)` - 10% of all entries
 
-## Exercises: Euribor
+## Exercises: S&P 500
 
 - first entry
 - last entry
 - last 10 entries
-- entry from 2009-01-02
+- 10 random entries
+- entry from 2009-01-01
 - entries from the year 2009
-- entries with a negative interest rates
+- entries where the long interest rate was greater than 14
 - ...
 
-## Solutions: Euribor
+## Solutions: S&P 500
 
-- first entry: `euribor.iloc[0]`
-- last entry: `euribor.iloc[-1]`
-- last 10 entries: `euribor.iloc[-10:]`
-- entry from 2009-01-02: `euribor.loc["2009-01-02"]`
-- entries from the year 2009: `euribor.loc["2009-01-01": "2009-12-31"]`
-- entries with a negative interest rate: `euribor[euribor["rate"] < 0]`
-
-## Exercises: Titanic
-
-- all survivors
-- all 60-year-olds
-
-## Solutions: Titanic
-
-- all survivors: `titanic[titanic["Survived"] == "Yes"]`
-- all 60-year-olds: `titanic[titanic["Age"] == 60]`
-
-## Exercise: Exchange rates
-
-- _date_ and _exchange rate_ between _USD_ (base currency) and _EUR_ (country: "Euro")
-
-## Solution: Exchange rates
-
-```py
-euro_exchange_rates = exchange_rates[
-    exchange_rates["Country"] == "Euro"
-]
-euro_exchange_rates[["Date", "Exchange rate"]]
-```
+- first entry: `sp500.iloc[0]`
+- last entry: `sp500.iloc[-1]`
+- last 10 entries: `sp500.iloc[-10:]`
+- 10 random entries: `sp500.sample(10)`
+- entry from 2009-01-01: `sp500.loc["2009-01-01"]`
+- entries from the year 2009: `sp500.loc["2009-01-01": "2009-12-31"]`
+- entries where the long interest rate was greater than 14: `sp500[sp500["Long Interest Rate"] > 14]`
 
 ## Exercise: S&P 500
 
@@ -139,3 +118,13 @@ shorter alternative (using `.idxmax()`):
 # returns a Series
 sp500_max_row = sp500.loc[sp500["SP500"].idxmax()]
 ```
+
+## Exercises: Titanic
+
+- all survivors
+- all 60-year-olds
+
+## Solutions: Titanic
+
+- all survivors: `titanic[titanic["Survived"] == "Yes"]`
+- all 60-year-olds: `titanic[titanic["Age"] == 60]`

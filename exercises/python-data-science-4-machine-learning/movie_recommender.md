@@ -10,7 +10,7 @@ data sources (https://grouplens.org/datasets/movielens/):
 - MovieLens Latest Datasets
   - small (100K)
   - full (> 25M)
-- MovieLens 100K Dataset (released 1998-04)
+- MovieLens 100K Dataset (released 1998-04; messy CSV format, but continuous IDs)
 
 example program run:
 

@@ -8,6 +8,7 @@ Datenformate:
 - Excel
 - JSON
 - HDF5 (effizientes Binärformat)
+- Parquet (aus _Apache Hadoop_)
 - SQL tables (via _SQLAlchemy_)
 
 ## Daten importieren und exportieren

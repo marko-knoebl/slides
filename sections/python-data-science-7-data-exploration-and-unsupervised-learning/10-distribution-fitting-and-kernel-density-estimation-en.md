@@ -61,3 +61,13 @@ titanic["Age"].plot.hist(density=True, bins=20)
 ## Distribution fitting
 
 Task: fit some other distributions (e.g. _lognorm_, _gamma_, ...)
+
+## Distribution fitting
+
+evaluation (_Kolmogorov-Smirnov_-test):
+
+```py
+stats.kstest(titanic["Age"].dropna(), dist_norm.cdf)
+
+# KstestResult(statistic=0.054, pvalue=0.029)
+```

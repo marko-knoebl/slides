@@ -2135,6 +2135,7 @@ area[<span class="hljs-string">'CN'</span>] <span class="hljs-comment"># 9.6</sp
 <li>Excel</li>
 <li>JSON</li>
 <li>HDF5 (efficient binary format)</li>
+<li>Parquet (from <em>Apache Hadoop</em>)</li>
 <li>SQL tables (via <em>SQLAlchemy</em>)</li>
 </ul>
 </section><section class="slide"><h2>Importing and exporting data</h2>
@@ -2260,32 +2261,32 @@ euribor = pd.read_hdf(<span class="hljs-string">"data.hdf5"</span>, <span class=
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Data statistics</h1>
 </section><section class="slide"><h2>Statistics on series</h2>
-<pre><code class="hljs language-py">countries[<span class="hljs-string">"area"</span>].describe()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>].describe()
 </code></pre>
-<pre><code class="hljs language-txt">count     3.000000
-mean     12.133333
-std       4.215843
-min       9.600000
-25%       9.700000
-50%       9.800000
-75%      13.400000
-max      17.000000
-dtype: float64
+<pre><code class="hljs language-txt">count    714.000000
+mean      29.699118
+std       14.526497
+min        0.420000
+25%       20.125000
+50%       28.000000
+75%       38.000000
+max       80.000000
+Name: Age, dtype: float64
 </code></pre>
 <p>(see next slide for explanations)</p>
 </section><section class="slide"><h2>Statistics on series</h2>
-<pre><code class="hljs language-py">countries[<span class="hljs-string">"area"</span>].describe()
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Age"</span>].describe()
 </code></pre>
 <p>The above computes the following data:</p>
 <ul>
-<li><code>area.count()</code></li>
-<li><code>area.mean()</code></li>
-<li><code>area.std()</code></li>
-<li><code>area.quantile(0)</code> or <code>area.min()</code></li>
-<li><code>area.quantile(0.25)</code></li>
-<li><code>area.quantile(0.5)</code> or <code>area.median()</code></li>
-<li><code>area.quantile(0.75)</code></li>
-<li><code>area.quantile(1)</code> or <code>area.max()</code></li>
+<li><code>.count()</code></li>
+<li><code>.mean()</code></li>
+<li><code>.std()</code></li>
+<li><code>.quantile(0)</code> or <code>.min()</code></li>
+<li><code>.quantile(0.25)</code></li>
+<li><code>.quantile(0.5)</code> or <code>.median()</code></li>
+<li><code>.quantile(0.75)</code></li>
+<li><code>.quantile(1)</code> or <code>.max()</code></li>
 </ul>
 </section><section class="slide"><h2>Statistical quantities</h2>
 <ul>
@@ -2354,45 +2355,27 @@ df[<span class="hljs-string">"mean"</span>]        <span class="hljs-comment"># 
 <li><code>df.sample(5)</code> - five entries</li>
 <li><code>df.sample(frac=0.1)</code> - 10% of all entries</li>
 </ul>
-</section><section class="slide"><h2>Exercises: Euribor</h2>
+</section><section class="slide"><h2>Exercises: S&#x26;P 500</h2>
 <ul>
 <li>first entry</li>
 <li>last entry</li>
 <li>last 10 entries</li>
-<li>entry from 2009-01-02</li>
+<li>10 random entries</li>
+<li>entry from 2009-01-01</li>
 <li>entries from the year 2009</li>
-<li>entries with a negative interest rates</li>
+<li>entries where the long interest rate was greater than 14</li>
 <li>...</li>
 </ul>
-</section><section class="slide"><h2>Solutions: Euribor</h2>
+</section><section class="slide"><h2>Solutions: S&#x26;P 500</h2>
 <ul>
-<li>first entry: <code>euribor.iloc[0]</code></li>
-<li>last entry: <code>euribor.iloc[-1]</code></li>
-<li>last 10 entries: <code>euribor.iloc[-10:]</code></li>
-<li>entry from 2009-01-02: <code>euribor.loc["2009-01-02"]</code></li>
-<li>entries from the year 2009: <code>euribor.loc["2009-01-01": "2009-12-31"]</code></li>
-<li>entries with a negative interest rate: <code>euribor[euribor["rate"] &#x3C; 0]</code></li>
+<li>first entry: <code>sp500.iloc[0]</code></li>
+<li>last entry: <code>sp500.iloc[-1]</code></li>
+<li>last 10 entries: <code>sp500.iloc[-10:]</code></li>
+<li>10 random entries: <code>sp500.sample(10)</code></li>
+<li>entry from 2009-01-01: <code>sp500.loc["2009-01-01"]</code></li>
+<li>entries from the year 2009: <code>sp500.loc["2009-01-01": "2009-12-31"]</code></li>
+<li>entries where the long interest rate was greater than 14: <code>sp500[sp500["Long Interest Rate"] > 14]</code></li>
 </ul>
-</section><section class="slide"><h2>Exercises: Titanic</h2>
-<ul>
-<li>all survivors</li>
-<li>all 60-year-olds</li>
-</ul>
-</section><section class="slide"><h2>Solutions: Titanic</h2>
-<ul>
-<li>all survivors: <code>titanic[titanic["Survived"] == "Yes"]</code></li>
-<li>all 60-year-olds: <code>titanic[titanic["Age"] == 60]</code></li>
-</ul>
-</section><section class="slide"><h2>Exercise: Exchange rates</h2>
-<ul>
-<li><em>date</em> and <em>exchange rate</em> between <em>USD</em> (base currency) and <em>EUR</em> (country: "Euro")</li>
-</ul>
-</section><section class="slide"><h2>Solution: Exchange rates</h2>
-<pre><code class="hljs language-py">euro_exchange_rates = exchange_rates[
-    exchange_rates[<span class="hljs-string">"Country"</span>] == <span class="hljs-string">"Euro"</span>
-]
-euro_exchange_rates[[<span class="hljs-string">"Date"</span>, <span class="hljs-string">"Exchange rate"</span>]]
-</code></pre>
 </section><section class="slide"><h2>Exercise: S&#x26;P 500</h2>
 <p>When was the S&#x26;P 500 at its highest value? (compute the maximum, then get the corresponding row in the DataFrame)</p>
 </section><section class="slide"><h2>Solution: S&#x26;P 500</h2>
@@ -2404,6 +2387,16 @@ sp500_max_row = sp500[sp500[<span class="hljs-string">"SP500"</span>] == sp500_m
 <pre><code class="hljs language-py"><span class="hljs-comment"># returns a Series</span>
 sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax()]
 </code></pre>
+</section><section class="slide"><h2>Exercises: Titanic</h2>
+<ul>
+<li>all survivors</li>
+<li>all 60-year-olds</li>
+</ul>
+</section><section class="slide"><h2>Solutions: Titanic</h2>
+<ul>
+<li>all survivors: <code>titanic[titanic["Survived"] == "Yes"]</code></li>
+<li>all 60-year-olds: <code>titanic[titanic["Age"] == 60]</code></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Querying data: advanced</h1>
 </section><section class="slide"><h2>Querying data</h2>
 <p>querying by row and column:</p>
@@ -2467,18 +2460,21 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </code></pre>
 </section><section class="slide"><h2>Dropping data</h2>
 <p>dropping rows:</p>
-<pre><code class="hljs language-py">df2 = df1.drop([<span class="hljs-string">"CN"</span>, <span class="hljs-string">"US"</span>])
+<pre><code class="hljs language-py">sp500_new = sp500.drop([
+    pd.Timestamp(<span class="hljs-string">"1871-01-01"</span>),
+    pd.Timestamp(<span class="hljs-string">"1871-02-01"</span>),
+])
 </code></pre>
 <p>dropping columns:</p>
-<pre><code class="hljs language-py">df2 = df1.drop(columns=[<span class="hljs-string">"pop"</span>])
+<pre><code class="hljs language-py">sp500_new = sp500.drop(columns=[<span class="hljs-string">"Real Earnings"</span>, <span class="hljs-string">"PE10"</span>])
 </code></pre>
 </section><section class="slide"><h2>Converting data</h2>
 <p>converting types:</p>
 <pre><code class="hljs language-py">titanic[<span class="hljs-string">"Survived"</span>] = titanic[<span class="hljs-string">"Survived"</span>].astype(<span class="hljs-string">"bool"</span>)
 </code></pre>
 <p>replacing values:</p>
-<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Alive"</span>] = titanic[<span class="hljs-string">"Alive"</span>].replace(
-    {<span class="hljs-string">"yes"</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">"no"</span>: <span class="hljs-literal">False</span>}
+<pre><code class="hljs language-py">titanic[<span class="hljs-string">"Female"</span>] = titanic[<span class="hljs-string">"Sex"</span>].replace(
+    {<span class="hljs-string">"female"</span>: <span class="hljs-literal">True</span>, <span class="hljs-string">"male"</span>: <span class="hljs-literal">False</span>}
 )
 </code></pre>
 </section><section class="slide"><h2>Computing derived data</h2>

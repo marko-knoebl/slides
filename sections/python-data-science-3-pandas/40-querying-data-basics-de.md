@@ -79,51 +79,30 @@ titanic[titanic["Age"] >= 70]
 - `df.sample(5)` - fünf Einträge
 - `df.sample(frac=0.1)` - 10% aller Einträge
 
-## Aufgaben: Euribor
+## Übungen: S&P 500
 
 - erster Eintrag
 - letzter Eintrag
 - letzte 10 Einträge
-- Eintrag vom 2.1.2009
+- 10 zufällige Einträge
+- Eintrag vom 1.1.2009
 - Einträge aus dem Jahr 2009
-- Einträge mit negativem Zinssatz
+- Einträge mit "_long interest rate_" > 14
 - ...
 
-## Lösungen: Euribor
+## Lösungen: S&P 500
 
-- erster Eintrag: `euribor.iloc[0]`
-- letzter Eintrag: `euribor.iloc[-1]`
-- letzte 10 Einträge: `euribor.iloc[-10:]`
-- Eintrag vom 2.1.2009: `euribor.loc["2009-01-02"]`
-- Einträge vom 1.1.2009 bis 31.12.2009: `euribor.loc["2009-01-01": "2009-12-31"]`
-- Einträge mit negativem Zinssatz: `euribor[euribor["rate"] < 0]`
-
-## Aufgaben: Titanic
-
-- alle Überlebenden
-- alle 60-Jährigen
-
-## Lösungen: Titanic
-
-- alle Überlebenden: `titanic[titanic["Survived"] == "Yes"]`
-- alle 60-Jährigen: `titanic[titanic["Age"] == 60]`
-
-## Aufgabe: Wechselkurse
-
-- zeige _date_ und _exchange rate_ für Kurz zwischen _USD_ (Basiswährung) und _EUR_ (Land: "Euro")
-
-## Lösung: Wechselkurse
-
-```py
-euro_exchange_rates = exchange_rates[
-    exchange_rates["Country"] == "Euro"
-]
-euro_exchange_rates[["Date", "Exchange rate"]]
-```
+- erster Eintrag: `sp500.iloc[0]`
+- letzter Eintrag: `sp500.iloc[-1]`
+- letzte 10 Einträge: `sp500.iloc[-10:]`
+- 10 zufällige Einträge: `sp500.sample(10)`
+- Eintrag vom 1.1.2009: `sp500.loc["2009-01-01"]`
+- Einträge aus dem Jahr 2009: `sp500.loc["2009-01-01": "2009-12-31"]`
+- Einträge mit "_long interest rate_" > 14: `sp500[sp500["Long Interest Rate"] > 14]`
 
 ## Aufgabe: S&P 500
 
-- wann war der S&P 500 am höchsten Wert? (Bestimme das Maximum, dann suche die zugehörige Zeile im DataFrame)
+wann war der S&P 500 am höchsten Wert? (Bestimme das Maximum, dann suche die zugehörige Zeile im DataFrame)
 
 ## Lösung: S&P 500
 
@@ -139,3 +118,13 @@ kürzere Alternative: (via `.idxmax()`):
 # returns a Series
 sp500_max_row = sp500.loc[sp500["SP500"].idxmax()]
 ```
+
+## Aufgaben: Titanic
+
+- alle Überlebenden
+- alle 60-Jährigen
+
+## Lösungen: Titanic
+
+- alle Überlebenden: `titanic[titanic["Survived"] == "Yes"]`
+- alle 60-Jährigen: `titanic[titanic["Age"] == 60]`
