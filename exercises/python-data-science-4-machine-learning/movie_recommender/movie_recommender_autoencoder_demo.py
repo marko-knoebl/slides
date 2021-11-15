@@ -1,4 +1,4 @@
-from movie_recommender import MovieRecommender
+from movie_recommender_autoencoder import MovieRecommender
 
 mr = MovieRecommender()
 
@@ -17,3 +17,5 @@ print(
         ]
     )
 )
+
+print(mr.recommend_similar(["Star Wars (1977)", "Alien (1979)"]))
