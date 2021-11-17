@@ -2330,12 +2330,14 @@ model.fit(passenger_data, survived)
 <li>40-year-old woman in first class (without companions)</li>
 <li>40-year-old man in second class (without companions)</li>
 </ul>
-<pre><code class="hljs language-py">model.predict(
-    np.array([
+<pre><code class="hljs language-py">new_passenger_data = pd.DataFrame(
+    [
         [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
-        [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
-    ])
+        [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+    ],
+    columns=[<span class="hljs-string">"Female"</span>, <span class="hljs-string">"Pclass"</span>, <span class="hljs-string">"Age"</span>, <span class="hljs-string">"SibSp"</span>, <span class="hljs-string">"Parch"</span>],
 )
+model.predict(new_passenger_data)
 <span class="hljs-comment"># [0.93, 0.23]</span>
 </code></pre></section></section></div>
     </div>

@@ -9,6 +9,7 @@ nach Zeile und Spalte auswählen:
 
 ## Zeilen sortieren
 
+- `series.sort_values()`
 - `df.sort_values(by="rate")`
 - `df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")`
 - `df.sort_index(ascending=False)`

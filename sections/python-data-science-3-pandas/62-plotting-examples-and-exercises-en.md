@@ -65,3 +65,13 @@ surface = pd.Series({"land": 0.29, "water": 0.71})
 
 surface.plot.pie(ylabel="Surface of the earth")
 ```
+
+## Pareto diagram
+
+Example:
+
+```py
+pop = countries["population"].sort_values(ascending=False)
+pop.plot.bar()
+pop.cumsum().plot.line(color="C1")
+```

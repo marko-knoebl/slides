@@ -2406,6 +2406,7 @@ sp500_max_row = sp500.loc[sp500[<span class="hljs-string">"SP500"</span>].idxmax
 </ul>
 </section><section class="slide"><h2>Zeilen sortieren</h2>
 <ul>
+<li><code>series.sort_values()</code></li>
 <li><code>df.sort_values(by="rate")</code></li>
 <li><code>df.loc["2009-01-02" : "2009-12-31"].sort_values(by="rate")</code></li>
 <li><code>df.sort_index(ascending=False)</code></li>
@@ -2649,6 +2650,12 @@ sp500[<span class="hljs-string">"SP500"</span>].plot.line()
 <pre><code class="hljs language-py">surface = pd.Series([<span class="hljs-number">0.29</span>, <span class="hljs-number">0.71</span>], index=[<span class="hljs-string">"land"</span>, <span class="hljs-string">"water"</span>])
 
 surface.plot.pie(ylabel=<span class="hljs-string">"Surface of the earth"</span>)
+</code></pre>
+</section><section class="slide"><h2>Pareto-Diagram</h2>
+<p>Beispiel:</p>
+<pre><code class="hljs language-py">pop = countries[<span class="hljs-string">"population"</span>].sort_values(ascending=<span class="hljs-literal">False</span>)
+pop.plot.bar()
+pop.cumsum().plot.line(color=<span class="hljs-string">"C1"</span>)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Plotting: Scatter Matrix</h1>
 </section><section class="slide"><h2>Scatter Matrix</h2>

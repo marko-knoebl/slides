@@ -37,11 +37,13 @@ predicting a value for the survival of:
 - 40-year-old man in second class (without companions)
 
 ```py
-model.predict(
-    np.array([
+new_passenger_data = pd.DataFrame(
+    [
         [1, 1, 40, 0, 0],
-        [0, 2, 40, 0, 0],
-    ])
+        [0, 2, 40, 0, 0]
+    ],
+    columns=["Female", "Pclass", "Age", "SibSp", "Parch"],
 )
+model.predict(new_passenger_data)
 # [0.93, 0.23]
 ```

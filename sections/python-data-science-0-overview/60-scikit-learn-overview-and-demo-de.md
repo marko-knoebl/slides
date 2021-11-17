@@ -37,11 +37,13 @@ Voraussagen eines Wertes für das Überleben von:
 - 40 Jahre alter Mann in der zweiten Klasse (ohne Begleitung)
 
 ```py
-model.predict(
-    np.array([
+new_passenger_data = pd.DataFrame(
+    [
         [1, 1, 40, 0, 0],
-        [0, 2, 40, 0, 0],
-    ])
+        [0, 2, 40, 0, 0]
+    ],
+    columns=["Female", "Pclass", "Age", "SibSp", "Parch"],
 )
+model.predict(new_passenger_data)
 # [0.93, 0.23]
 ```
