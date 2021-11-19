@@ -21,8 +21,11 @@
 
 <script>
 export default {
-  // state initialization function
-  data: () => ({ count: 0 }),
+  name: 'CounterApp',
+  // state initialization method
+  data() {
+    return { count: 0 };
+  },
 };
 </script>
 ```
@@ -42,7 +45,10 @@ export default {
 
 ```js
 export default {
-  data: () => ({ imgId: 0 }),
+  name: 'Slideshow',
+  data() {
+    return { imgId: 0 };
+  },
   computed: {
     imgUrl() {
       return `https://picsum.photos/200?image=${this.imgId}`;

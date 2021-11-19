@@ -21,25 +21,39 @@
 short form:
 
 ```html
-<a :href="'https://en.wikipedia.org/wiki/' + topic"
-  >some article</a
->
+<a :href="'https://en.wikipedia.org/wiki/' + topic">
+  some article
+</a>
 ```
 
 long form:
 
 ```html
-<a v-bind:href="'https://en.wikipedia.org/wiki/' + topic"
-  >some article</a
->
+<a v-bind:href="'https://en.wikipedia.org/wiki/' + topic">
+  some article
+</a>
 ```
 
 ## Class property
 
-the _class_ property supports special syntax:
+special syntax for the _class_ property:
 
 ```html
 <div :class="{todo: true, completed: isCompleted}">...</div>
+```
+
+## Style property
+
+special syntax for the _style_ property:
+
+```html
+<div :style="{padding: '8px', margin: '8px'}">...</div>
+```
+
+```html
+<div :style="{color: completed ? 'grey' : 'black'}">
+  ...
+</div>
 ```
 
 ## Binding events
@@ -90,8 +104,6 @@ accessing the event object via `$event`:
   ...
 </div>
 ```
-
-also available: `v-else-if`
 
 ## Repeating elements
 

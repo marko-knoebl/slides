@@ -9,7 +9,7 @@ features:
 - display component structure
 - show component state and props
 - change state and props
-- show component events
+- log component events
 - ...
 
 ## Vue developer tools

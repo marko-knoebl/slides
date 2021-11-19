@@ -13,7 +13,25 @@ export default {
 };
 ```
 
-Custom components are commonly defined in camel case (e.g. `TodoItem`) - they can then be used in kebab case (e.g. `todo-item`)
+## Using Custom components
+
+Custom components can typically be written in two ways:
+
+recommended:
+
+<!-- prettier-ignore -->
+```html
+<TodoItem />
+<VBtn>foo</VBtn>
+```
+
+alternative:
+
+<!-- prettier-ignore -->
+```html
+<todo-item />
+<v-btn>foo</v-btn>
+```
 
 ## Component libraries
 

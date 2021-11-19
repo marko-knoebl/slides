@@ -2301,8 +2301,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 &#x3C;script>
 export default {
-  // state initialization function
-  data: () => ({ count: 0 }),
+  name: 'CounterApp',
+  // state initialization method
+  data() {
+    return { count: 0 };
+  },
 };
 &#x3C;/script>
 </code></pre>
@@ -2316,7 +2319,10 @@ export default {
 </code></pre>
 </section><section class="slide"><h2>Example component definition (slideshow component)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">data</span>: <span class="hljs-function">() =></span> ({ <span class="hljs-attr">imgId</span>: <span class="hljs-number">0</span> }),
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Slideshow'</span>,
+  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">imgId</span>: <span class="hljs-number">0</span> };
+  },
   <span class="hljs-attr">computed</span>: {
     <span class="hljs-function"><span class="hljs-title">imgUrl</span>(<span class="hljs-params"></span>)</span> {
       <span class="hljs-keyword">return</span> <span class="hljs-string">`https://picsum.photos/200?image=<span class="hljs-subst">${<span class="hljs-built_in">this</span>.imgId}</span>`</span>;
@@ -2373,18 +2379,26 @@ During the first creation of a computed value, Vue checks which state entries ar
 </code></pre>
 </section><section class="slide"><h2>Binding properties</h2>
 <p>short form:</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">"'https://en.wikipedia.org/wiki/' + topic"</span>
-  ></span>some article&#x3C;/a
->
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">"'https://en.wikipedia.org/wiki/' + topic"</span>></span>
+  some article
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
 </code></pre>
 <p>long form:</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">v-bind:href</span>=<span class="hljs-string">"'https://en.wikipedia.org/wiki/' + topic"</span>
-  ></span>some article&#x3C;/a
->
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">v-bind:href</span>=<span class="hljs-string">"'https://en.wikipedia.org/wiki/' + topic"</span>></span>
+  some article
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Class property</h2>
-<p>the <em>class</em> property supports special syntax:</p>
+<p>special syntax for the <em>class</em> property:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"{todo: true, completed: isCompleted}"</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Style property</h2>
+<p>special syntax for the <em>style</em> property:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"{padding: '8px', margin: '8px'}"</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"{color: completed ? 'grey' : 'black'}"</span>></span>
+  ...
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Binding events</h2>
 <p>short form:</p>
@@ -2413,7 +2427,6 @@ During the first creation of a computed value, Vue checks which state entries ar
   ...
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 </code></pre>
-<p>also available: <code>v-else-if</code></p>
 </section><section class="slide"><h2>Repeating elements</h2>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"todo in todos"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"todo.id"</span>></span>
@@ -2462,6 +2475,7 @@ During the first creation of a computed value, Vue checks which state entries ar
 </code></pre>
 </section><section class="slide"><h2>Exercise: todo list - partial solution</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'TodoList'</span>,
   <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
@@ -2500,7 +2514,18 @@ During the first creation of a computed value, Vue checks which state entries ar
   <span class="hljs-comment">// ...</span>
 };
 </code></pre>
-<p>Custom components are commonly defined in camel case (e.g. <code>TodoItem</code>) - they can then be used in kebab case (e.g. <code>todo-item</code>)</p>
+</section><section class="slide"><h2>Using Custom components</h2>
+<p>Custom components can typically be written in two ways:</p>
+<p>recommended:</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> /></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">VBtn</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">VBtn</span>></span>
+</code></pre>
+<p>alternative:</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">todo-item</span> /></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">v-btn</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-btn</span>></span>
+</code></pre>
 </section><section class="slide"><h2>Component libraries</h2>
 <p>(for Vue 2)</p>
 <ul>
@@ -2545,41 +2570,112 @@ During the first creation of a computed value, Vue checks which state entries ar
 <li><strong>props</strong>: data that is passed down</li>
 <li><strong>events</strong>: may be triggered in a child component</li>
 </ul>
-</section><section class="slide"><h2>Props in custom components</h2>
-<p>Example:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Component props</h1>
+</section><section class="slide"><h2>Component props</h2>
+<ul>
+<li>state = internal to the component</li>
+<li>props = parameters that are passed down from the parent</li>
+</ul>
+</section><section class="slide"><h2>Component props</h2>
+<p>Examples:</p>
+<pre><code class="hljs language-jsx">&#x3C;ProgressBar :value=<span class="hljs-string">"0.75"</span> color=<span class="hljs-string">"green"</span> />
+</code></pre>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXQAAAAoCAYAAADuWAFrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAADhSURBVHhe7dXBCYRQAEPBX/p2rh3oZRMkzMBrITkXABMMOsAIgw4wwqADjDDoACMMOsAIgw4w4nHQzzmSpI/05n3Qf5L0HHkGXVIl8gy6pErkGXRJlcgz6JIqkWfQJVUiz6BLqkSeQZdUiTyDLqkSeQZdUiXyDLqkSuQZdEmVyDPokiqRZ9AlVSLPoEuqRJ5Bl1SJPIMuqRJ5Bl1SJfIMuqRK5Bl0SZXIM+iSKpFn0CVVIs+gS6pEnkGXVIm8/wy6JOkTvXGtACMMOsAIgw4wwqADjDDoACMMOsAIgw4w4bpuWEaun31NO2YAAAAASUVORK5CYII=" style="width:16em" />
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">:stars</span>=<span class="hljs-string">"3"</span> /></span>
 </code></pre>
 <img src="data:image/png;base64,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" style="width: 16em" />
-<p>Example:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span> <span class="hljs-attr">:title</span>=<span class="hljs-string">"'learn vue'"</span> <span class="hljs-attr">:completed</span>=<span class="hljs-string">"false"</span> /></span>
-</code></pre>
-</section><section class="slide"><h2>Props in custom components</h2>
+</section><section class="slide"><h2>Component props</h2>
 <p>Any props of a component must be listed in the component config:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">props</span>: [<span class="hljs-string">'title'</span>, <span class="hljs-string">'completed'</span>],
+  <span class="hljs-attr">props</span>: [<span class="hljs-string">'value'</span>, <span class="hljs-string">'color'</span>],
 };
 </code></pre>
 <p>They are then accessible in the same ways as entries in <code>data</code>, <code>methods</code>, ...</p>
-</section><section class="slide"><h2>Props in custom components</h2>
+</section><section class="slide"><h2>Component props</h2>
 <p>multi-word props should use <em>mixedCase</em> in JavaScript, but <em>kebab-case</em> in templates</p>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-js">props: [<span class="hljs-string">'greetingText'</span>]
 </code></pre>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">WelcomeMessage</span> <span class="hljs-attr">greeting-text</span>=<span class="hljs-string">"hi"</span> /></span>
 </code></pre>
-</section><section class="slide"><h2>Events in custom components</h2>
-<p>Custom events have a name and potentially a payload</p>
-<p>Events are emitted via:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Component events</h1>
+</section><section class="slide"><h2>Data/event flow</h2>
+<ul>
+<li>parent → child: props</li>
+<li>child → parent: events</li>
+</ul>
+</section><section class="slide"><h2>Component events</h2>
+<p>events have a name and potentially contain some data ("payload(s)")</p>
+</section><section class="slide"><h2>Component events</h2>
+<p>example: handling component events</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">StarsRating</span>
+  <span class="hljs-attr">:value</span>=<span class="hljs-string">"rating1"</span>
+  @<span class="hljs-attr">update:value</span>=<span class="hljs-string">"rating1 = $event"</span>
+/></span>
+</code></pre>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoItem</span>
+  <span class="hljs-attr">:todo</span>=<span class="hljs-string">"todo"</span>
+  @<span class="hljs-attr">delete</span>=<span class="hljs-string">"deleteTodo($event)"</span>
+  @<span class="hljs-attr">update:completed</span>=<span class="hljs-string">"changeTodoCompleted($event)"</span>
+/></span>
+</code></pre>
+</section><section class="slide"><h2>Component events</h2>
+<p>Events are emitted from a child component via:</p>
 <pre><code class="hljs language-js"><span class="hljs-built_in">this</span>.$emit(<span class="hljs-string">'eventname'</span>, payload);
 </code></pre>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">span</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"{ todoitem: true, completed: completed }"</span>
-    ></span>{{ completed ? 'DONE' : 'TODO' }}: {{ title }}&#x3C;/span
-  >
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$emit('toggle')"</span>></span>toggle<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$emit('delete')"</span>></span>delete<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+</section><section class="slide"><h2>Component events</h2>
+<p>example: <code>StarsRating</code>:</p>
+<ul>
+<li>Vue 2: <a href="https://codesandbox.io/s/stars-rating-8h600">https://codesandbox.io/s/stars-rating-8h600</a></li>
+<li>Vue 3: <a href="https://codesandbox.io/s/stars-rating-vue3-sup3p">https://codesandbox.io/s/stars-rating-vue3-sup3p</a></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Components and two-way binding</h1>
+</section><section class="slide"><h2>Components and two-way binding</h2>
+<p>recap: inputs:</p>
+<p>explicit two-way binding for inputs:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"title"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"title = $event.target.value"</span> /></span>
 </code></pre>
+<p>short-hand version for two-way binding:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"firstName"</span> /></span>
+</code></pre>
+</section><section class="slide"><h2>Components and two-way binding</h2>
+<p>custom components in Vue 3:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">StarsRating</span>
+  <span class="hljs-attr">:modelValue</span>=<span class="hljs-string">"rating1"</span>
+  @<span class="hljs-attr">update:modelValue</span>=<span class="hljs-string">"rating1 = $event"</span>
+/></span>
+</code></pre>
+<p>short form:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">StarsRating</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"rating1"</span> /></span>
+</code></pre>
+</section><section class="slide"><h2>Components and two-way binding</h2>
+<p>custom components in Vue 2:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">StarsRating</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"rating1"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"rating1 = $event"</span> /></span>
+</code></pre>
+<p>short form:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">StarsRating</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"rating1"</span> /></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Custom components: exercises</h1>
+</section><section class="slide"><h2>Custom components: exercises</h2>
+<p>Task: split the todo app into smaller components (e.g. <em>TodoList</em>, <em>TodoItem</em>, <em>AddTodo</em>)</p>
+<p>Task: extract reusable components that are mainly used for styling - e.g. a <code>Button</code> component or a <code>TextInput</code> component</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Vue developer tools</h1>
+</section><section class="slide"><h2>Vue developer tools</h2>
+<p>plugins for Chrome, Firefox and Edge</p>
+<p>features:</p>
+<ul>
+<li>display component structure</li>
+<li>show component state and props</li>
+<li>change state and props</li>
+<li>log component events</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Vue developer tools</h2>
+<p>possible approach when looking for issues:</p>
+<ul>
+<li>check state update logic: state updates correctly in response to events</li>
+<li>check rendering logic: state is rendered as expected</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code for JavaScript</h1>
 </section><section class="slide"><h2>VS Code</h2>
 <p><a href="https://code.visualstudio.com">https://code.visualstudio.com</a></p>
@@ -2762,23 +2858,6 @@ vue create my-app
 <ul>
 <li><a href="https://netlify.com/drop">https://netlify.com/drop</a> (hosting for 24 hours)</li>
 <li><a href="https://tiiny.host/">https://tiiny.host/</a> (upload via a zip folder, hosting for a couple of days)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Vue developer tools</h1>
-</section><section class="slide"><h2>Vue developer tools</h2>
-<p>plugins for Chrome, Firefox and Edge</p>
-<p>features:</p>
-<ul>
-<li>display component structure</li>
-<li>show component state and props</li>
-<li>change state and props</li>
-<li>show component events</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Vue developer tools</h2>
-<p>possible approach when looking for issues:</p>
-<ul>
-<li>check state update logic: state updates correctly in response to events</li>
-<li>check rendering logic: state is rendered as expected</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Composition API</h1>
 </section><section class="slide"><h2>Composition API vs options API</h2>

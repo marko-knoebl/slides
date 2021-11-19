@@ -31,6 +31,7 @@ Create a todo list application with the following functionality:
 
 ```js
 export default {
+  name: 'TodoList',
   data() {
     return {
       newTitle: '',
