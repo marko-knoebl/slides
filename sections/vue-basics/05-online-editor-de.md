@@ -1,6 +1,6 @@
-# Online Dditor
+# Online Editor
 
-## Online Dditor
+## Online Editor
 
 Empfehlung:
 

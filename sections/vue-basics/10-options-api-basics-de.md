@@ -86,12 +86,12 @@ _Methoden_ sind Funktionen, die mit einer Komponente assoziiert sind
 
 ## Computed
 
-- Methoden in `computed` können abgeleitete Daten berechnen
+- Funktionen in `computed` können abgeleitete Daten berechnen
 - im Allgemeinen sollte eine Komponente den _minimalen_ State speichern (z.B. die _Bild-ID_, nicht die ganze _Bild-URL_, vermeiden redundanter Daten)
-- Methoden in `computed` werden automatisch aufgerufen, wenn sich eine Abhängigkeit ändert
+- Funktionen in `computed` werden automatisch aufgerufen, wenn sich eine Abhängigkeit ändert
 
 ## Computed
 
 Wie weiß Vue, wann Werte in computed aktualisert werden müssen?
 
-Während dem ersten berechnen eines _computed_-Wertes überprüft Vue, auf welche State-Einträge zugegriffen wird - diese zählen später als Trigger für die Aktualisierung
+Während dem ersten Berechnen eines _computed_-Wertes überprüft Vue, auf welche State-Einträge zugegriffen wird - diese zählen später als Trigger für die Aktualisierung

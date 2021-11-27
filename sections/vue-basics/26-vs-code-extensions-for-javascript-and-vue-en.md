@@ -1,13 +1,14 @@
-# VS Code extensions for JavaScript
+# VS Code extensions for JavaScript and Vue
 
-## VS Code extensions for JavaScript
+## VS Code extensions for JavaScript and Vue
 
 open the extensions view in the sidebar: fifth symbol on the left
 
-recommended extensions for JavaScript development:
+recommended extensions for Vue development:
 
 - Prettier (code formatter)
 - ESLint (linter)
+- Vetur (Vue tooling)
 
 ## Prettier
 

@@ -1,6 +1,6 @@
-# Extensions
+# VS Code Extensions für JavaScript und Vue
 
-## VS Code Extensions für JavaScript
+## VS Code Extensions für JavaScript und Vue
 
 Extensions-Sidebar öffnen: fünftes Symbol auf der linken Seite
 
@@ -8,6 +8,7 @@ mögliche Extensions:
 
 - Prettier (Code-Formatierung)
 - ESLint (Linter)
+- Vetur (Vue-Tooling)
 
 ## Prettier
 
