@@ -35,9 +35,13 @@ alternative:
 
 ## Component libraries
 
-(for Vue 2)
+for Vue 2:
 
-- vuetify: components in _material design_
+- vuetify
 - bootstrap-vue
 - element-ui
-- ...
+
+for Vue 3:
+
+- _vuetify_ release planned for 2022-02
+- _element-plus_ is in beta

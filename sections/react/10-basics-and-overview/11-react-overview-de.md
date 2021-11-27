@@ -6,12 +6,12 @@
 
 ## Grundlagen moderner JavaScript UI Libraries
 
-- deklarativ
+- State-basiert / deklarativ
 - Komponenten-Struktur
 
-## Deklarativ
+## State-basiert / Deklarativ
 
-- Datenmodell, das den gesamten Anwendungszustand abbildet
+- Datenmodell, das den gesamten Anwendungszustand (State) abbildet
 - User-Interaktionen ändern das Modell, das View wird automatisch aktualisiert
 
 ## Komponenten-Struktur

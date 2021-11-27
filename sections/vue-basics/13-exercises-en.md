@@ -1,4 +1,11 @@
-# Exercise: todo list
+# Exercises
+
+## Exercises
+
+Tasks:
+
+- reacreate the slideshow component
+- create a todo list in a single component
 
 ## Exercise: todo list
 

@@ -16,6 +16,7 @@ options API:
 
 ```js
 export default {
+  name: 'TodoApp',
   data: () => ({
     todos: [],
     newTitle: '',
@@ -36,6 +37,7 @@ composition API:
 ```js
 import { ref, reactive, computed } from 'vue';
 export default {
+  name: 'TodoApp',
   setup() {
     const todos = reactive([]);
     const newTitle = ref('');
@@ -101,21 +103,26 @@ reading / writing from the template:
 ```js
 import { ref, reactive } from 'vue';
 export default {
+  name: 'TodoApp',
   setup() {
     const newTitle = ref('');
     const todos = reactive([
       { id: 1, title: 'groceries', completed: false },
       { id: 2, title: 'taxes', completed: true },
     ]);
-    const addTodo = () => {
+    function onSubmit() {
+      addTodo(newTitle.value);
+      newTitle.value = '';
+    }
+    function addTodo(title) {
+      const maxId = Math.max(0, ...todos.map((t) => t.id));
       todos.push({
-        id: Math.max(0, ...todos.map((t) => t.id)) + 1,
+        id: newId,
         title: newTitle.value,
         completed: false,
       });
-      newTitle.value = '';
-    };
-    return { newTitle, todos, addTodo };
+    }
+    return { newTitle, todos, onSubmit };
   },
 };
 ```

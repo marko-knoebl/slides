@@ -6,10 +6,10 @@ one of the 3 big JavaScript UI frameworks (besides React, Angular)
 
 ## Basics of modern JavaScript UI frameworks
 
-- declarative
+- state-based / declarative
 - component-based
 
-## Declarative
+## State-basied / Declarative
 
 - data model which describes the entire application state
 - user interactions change the data model, causing the view to update automatically
@@ -28,7 +28,7 @@ one of the 3 big JavaScript UI frameworks (besides React, Angular)
 
 <img src="assets/todo-components-state-props-events.svg" />
 
-## What makes Vue special?
+## Vue compared to other frameworks
 
 - simpler than others
 - _may_ be used without a build step

@@ -5,29 +5,22 @@
 - options API: traditional way to write Vue components
 - composition API: new possibility introduced in 2020 with Vue 3 (inspired by React hooks)
 
-## Online editor
+## Component definition
 
-<https://codesandbox.io>
+generic compontent definition in a _.vue_ file:
 
-## Example component definition (counter component)
-
-```vue
+```xml
 <template>
-  <div>
-    count: {{ count }}
-    <button @click="count++">increment</button>
-  </div>
+...
 </template>
 
 <script>
-export default {
-  name: 'CounterApp',
-  // state initialization method
-  data() {
-    return { count: 0 };
-  },
-};
+...
 </script>
+
+<style scoped>
+...
+</style>
 ```
 
 ## Example component definition (slideshow component)
@@ -35,7 +28,7 @@ export default {
 ```html
 <div>
   <button @click="imgId = 0">start</button>
-  <button @click="prevImg()">prev</button>
+  <button @click="prevImg()">previous</button>
   <img :src="imgUrl" alt="slideshow" />
   <button @click="imgId++">next</button>
 </div>
@@ -45,7 +38,7 @@ export default {
 
 ```js
 export default {
-  name: 'Slideshow',
+  name: 'MySlideshow',
   data() {
     return { imgId: 0 };
   },

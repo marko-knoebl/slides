@@ -8,10 +8,11 @@ Example: rating component:
 
 ```js
 export default {
-  props: ['stars'],
+  name: 'StarsRating',
+  props: ['value'],
   setup(props, context) {
     const ariaLabel = computed(
-      () => `${props.stars} out of 5 stars`
+      () => `${props.value} out of 5 stars`
     );
     const onStarClick = (id) => {
       context.emit('change', id);

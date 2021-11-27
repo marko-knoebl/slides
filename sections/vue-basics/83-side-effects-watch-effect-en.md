@@ -1,29 +1,4 @@
-# Side effects
-
-## Side effects
-
-use cases:
-
-- query an API when a component is first included
-- query an API when component state / props change
-- persist component state to _localStorage_ when it changes
-- start a timer when a component is included
-- ...
-
-## Side effects
-
-methods for implementing side effects:
-
-- watchEffect function (composition API only)
-- watch function
-- lifecycle events
-
-## watchEffect
-
-common practice in the composition API:
-
-- initialization code goes into the `setup` method
-- side effects are triggered via the `watchEffect` function
+# Side effects: watchEffect
 
 ## watchEffect
 
@@ -128,43 +103,6 @@ export default {
       localStorage.setItem('count', count.value);
     });
     return { count };
-  },
-};
-```
-
-## Lifecycle events
-
-Options API: Component methods that are called when certain lifecylce events occur:
-
-- `created`
-- `mounted`
-- `updated`
-- `destroyed`
-- ...
-
-## Lifecylcle events
-
-Composition API: equivalent functions
-
-- `created` → `setup`
-- `mounted` → `onMounted`
-- `updated` → `onUpdated`
-- `destroyed` → `onUnmounted`
-- ...
-
-## Lifecycle events
-
-Fetching data on component mount (options API):
-
-```js
-export default {
-  // ...
-  async created() {
-    const res = await fetch(
-      'https://jsonplaceholder.typicode.com/todos'
-    );
-    const todos = await res.json();
-    this.todos = todos;
   },
 };
 ```

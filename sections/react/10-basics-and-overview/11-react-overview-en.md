@@ -6,10 +6,10 @@ one of the 3 big JavaScript UI libraries / frameworks (besides Angular, Vue.js)
 
 ## Basics of modern JavaScript UI libraries
 
-- declarative
+- state-based / declarative
 - component-based
 
-## Declarative
+## State-based / declarative
 
 - data model which describes the entire application state
 - user interactions change the data model, causing the view to update automatically

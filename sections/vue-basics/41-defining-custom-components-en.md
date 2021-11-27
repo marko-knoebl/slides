@@ -2,24 +2,6 @@
 
 ## Defining custom components
 
-generic compontent definition in a _.vue_ file:
-
-```xml
-<template>
-...
-</template>
-
-<script>
-...
-</script>
-
-<style scoped>
-...
-</style>
-```
-
-## Defining custom components
-
 possible file name patterns for component files:
 
 - **MyComponent.vue** (recommended)

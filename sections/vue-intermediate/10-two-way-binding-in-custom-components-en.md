@@ -36,9 +36,9 @@ implementation of `todo-item`:
     :value="title"
     @input="$emit('update:title', $event.target.value)"
   />
-  <button
-    @click="$emit('update:completed', !completed)"
-  >toggle</button>
+  <button @click="$emit('update:completed', !completed)">
+    toggle
+  </button>
 </li>
 ```
 

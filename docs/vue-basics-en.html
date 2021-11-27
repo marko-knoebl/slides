@@ -2078,10 +2078,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>one of the 3 big JavaScript UI frameworks (besides React, Angular)</p>
 </section><section class="slide"><h2>Basics of modern JavaScript UI frameworks</h2>
 <ul>
-<li>declarative</li>
+<li>state-based / declarative</li>
 <li>component-based</li>
 </ul>
-</section><section class="slide"><h2>Declarative</h2>
+</section><section class="slide"><h2>State-basied / Declarative</h2>
 <ul>
 <li>data model which describes the entire application state</li>
 <li>user interactions change the data model, causing the view to update automatically</li>
@@ -2273,7 +2273,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     </g>
   </g>
 </svg>
-</section><section class="slide"><h2>What makes Vue special?</h2>
+</section><section class="slide"><h2>Vue compared to other frameworks</h2>
 <ul>
 <li>simpler than others</li>
 <li><em>may</em> be used without a build step</li>
@@ -2283,43 +2283,47 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>initial release in 2014</li>
 <li>2020: Vue 3 (new composition API)</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Online editor</h1>
+</section><section class="slide"><h2>Online editor</h2>
+<p>recommended:</p>
+<p><a href="https://codesandbox.io">https://codesandbox.io</a></p>
+<ul>
+<li>has templates for <em>Vue</em> and <em>Vue 3</em></li>
+<li>based on <em>VS Code</em></li>
+<li>Prettier-based formatting via <em>Shift</em> + <em>Alt</em> + <em>F</em></li>
+<li>hosting under e.g. <em><a href="https://abcde.csb.app">https://abcde.csb.app</a></em></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Options API basics</h1>
 </section><section class="slide"><h2>Options API and composition API</h2>
 <ul>
 <li>options API: traditional way to write Vue components</li>
 <li>composition API: new possibility introduced in 2020 with Vue 3 (inspired by React hooks)</li>
 </ul>
-</section><section class="slide"><h2>Online editor</h2>
-<p><a href="https://codesandbox.io">https://codesandbox.io</a></p>
-</section><section class="slide"><h2>Example component definition (counter component)</h2>
-<pre><code class="hljs language-vue">&#x3C;template>
-  &#x3C;div>
-    count: {{ count }}
-    &#x3C;button @click="count++">increment&#x3C;/button>
-  &#x3C;/div>
-&#x3C;/template>
+</section><section class="slide"><h2>Component definition</h2>
+<p>generic compontent definition in a <em>.vue</em> file:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">template</span>></span>
+...
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">template</span>></span>
 
-&#x3C;script>
-export default {
-  name: 'CounterApp',
-  // state initialization method
-  data() {
-    return { count: 0 };
-  },
-};
-&#x3C;/script>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">script</span>></span>
+...
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+
+<span class="hljs-tag">&#x3C;<span class="hljs-name">style</span> <span class="hljs-attr">scoped</span>></span>
+...
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">style</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Example component definition (slideshow component)</h2>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"imgId = 0"</span>></span>start<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"prevImg()"</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"prevImg()"</span>></span>previous<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">"imgUrl"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span> /></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"imgId++"</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Example component definition (slideshow component)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'Slideshow'</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'MySlideshow'</span>,
   <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> { <span class="hljs-attr">imgId</span>: <span class="hljs-number">0</span> };
   },
@@ -2449,7 +2453,13 @@ During the first creation of a computed value, Vue checks which state entries ar
 <p>forcing a space:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">strong</span>></span>with<span class="hljs-tag">&#x3C;/<span class="hljs-name">strong</span>></span>{{ " " }}<span class="hljs-tag">&#x3C;<span class="hljs-name">em</span>></span>space<span class="hljs-tag">&#x3C;/<span class="hljs-name">em</span>></span>
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Exercise: todo list</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
+</section><section class="slide"><h2>Exercises</h2>
+<p>Tasks:</p>
+<ul>
+<li>reacreate the slideshow component</li>
+<li>create a todo list in a single component</li>
+</ul>
 </section><section class="slide"><h2>Exercise: todo list</h2>
 <p>Create a todo list application with the following functionality:</p>
 <ul>
@@ -2504,6 +2514,167 @@ During the first creation of a computed value, Vue checks which state entries ar
   },
 };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Vue developer tools</h1>
+</section><section class="slide"><h2>Vue developer tools</h2>
+<p>plugins for Chrome, Firefox and Edge</p>
+<p>features:</p>
+<ul>
+<li>display component structure</li>
+<li>show component state and props</li>
+<li>change state and props</li>
+<li>log component events</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Vue developer tools</h2>
+<p>possible approach when looking for issues:</p>
+<ul>
+<li>check state update logic: state updates correctly in response to events</li>
+<li>check rendering logic: state is rendered as expected</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>VS Code for JavaScript</h1>
+</section><section class="slide"><h2>VS Code</h2>
+<p><a href="https://code.visualstudio.com">https://code.visualstudio.com</a></p>
+<p>open source IDE</p>
+<p>independent of <em>Visual Studio</em> itself</p>
+</section><section class="slide"><h2>Basics</h2>
+<ul>
+<li>opening a folder</li>
+<li>file explorer</li>
+</ul>
+</section><section class="slide"><h2>Command palette</h2>
+<p><em>F1</em> or <em>Ctrl</em> + <em>Shift</em> + <em>P</em>: display command palette</p>
+<ul>
+<li>searchable</li>
+<li>displays keyboard shortcuts</li>
+</ul>
+</section><section class="slide"><h2>Command palette</h2>
+<p>example commands:</p>
+<ul>
+<li><em>View: Toggle Terminal</em></li>
+<li><em>Format Document</em></li>
+<li><em>Find</em></li>
+<li><em>Search: Find in Files</em></li>
+<li><em>Preferences: Open Settings (UI)</em></li>
+<li><em>Toggle line comment</em> / <em>Toggle block comment</em></li>
+<li><em>Go to definition</em> / <em>Peek definition</em> (only for certain file types)</li>
+<li><em>Rename symbol</em> (only for certain file types)</li>
+</ul>
+</section><section class="slide"><h2>Configuration</h2>
+<p>Via <em>File - Preferences - Settings</em></p>
+<p>Is split into <em>User Settings</em> and <em>Workspace Settings</em></p>
+</section><section class="slide"><h2>Configuration options for JavaScript</h2>
+<p>Recommendations:</p>
+<ul>
+<li>Accept Suggestions on Commit Character (Autocomplete on other keys than <em>Enter</em>): <em>deactivate</em> if you're working with JavaScript / TypeScript</li>
+<li>Tab Size: 2</li>
+</ul>
+<p>Further options:</p>
+<ul>
+<li>Format on Save</li>
+<li>Word Wrap</li>
+<li>EOL</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>VS Code extensions for JavaScript</h1>
+</section><section class="slide"><h2>VS Code extensions for JavaScript</h2>
+<p>open the extensions view in the sidebar: fifth symbol on the left</p>
+<p>recommended extensions for JavaScript development:</p>
+<ul>
+<li>Prettier (code formatter)</li>
+<li>ESLint (linter)</li>
+</ul>
+</section><section class="slide"><h2>Prettier</h2>
+<ul>
+<li>code formatting according to strict rules</li>
+<li>for JavaScript, HTML, CSS</li>
+<li>shortcut: <em>Shift</em> + <em>Alt</em> + <em>F</em></li>
+</ul>
+</section><section class="slide"><h2>ESLint</h2>
+<p>Linter with more functionality than VS Code's default linter</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Vue CLI</h1>
+</section><section class="slide"><h2>Vue CLI</h2>
+<p>a tool for initializing a Vue project</p>
+</section><section class="slide"><h2>Developing with node.js and npm</h2>
+<ul>
+<li>node.js: JS runtime
+<ul>
+<li>running the local development server</li>
+<li>unit tests</li>
+</ul>
+</li>
+<li>npm: package manager
+<ul>
+<li>managing dependencies</li>
+<li>packages are located in the <em>node_modules</em> directory</li>
+<li>configuration via <em>package.json</em></li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Vue CLI</h2>
+<p>install and run:</p>
+<pre><code class="hljs language-bash">npm install -g @vue/cli
+
+vue create my-app
+</code></pre>
+<p>or run directly (without installing):</p>
+<pre><code class="hljs language-bash">npx @vue/cli create my-app
+</code></pre>
+</section><section class="slide"><h2>Vue CLI</h2>
+<p>Creates a simple Vue app which can be used as a starting point</p>
+<p>many aspects can be set up automatically:</p>
+<ul>
+<li>webpack and babel for building</li>
+<li>local development server</li>
+<li>linter</li>
+<li>TypeScript support</li>
+<li>testing</li>
+<li>CSS tooling</li>
+</ul>
+</section><section class="slide"><h2>Vue CLI</h2>
+<p>configuration:</p>
+<ul>
+<li>version (2 or 3)</li>
+<li>TypeScript</li>
+<li>PWA support</li>
+<li>Router</li>
+<li>Vuex</li>
+<li>CSS Pre-processors</li>
+<li>Linter / Formatter (build will fail on linter errors)</li>
+<li>Unit Testing</li>
+<li>E2E Testing</li>
+</ul>
+</section><section class="slide"><h2>Vue CLI</h2>
+<p>don't fail on ESLint errors:</p>
+<p>new file <em>vue.config.js</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">lintOnSave</span>: <span class="hljs-string">"warning"</span>,
+};
+</code></pre>
+</section><section class="slide"><h2>Default project structure</h2>
+<ul>
+<li><em>public/index.html</em>, <em>src/main.js</em>: entry points</li>
+<li><em>src/App.vue</em>: defines the App component</li>
+<li><em>node_modules</em>: dependencies</li>
+</ul>
+</section><section class="slide"><h2>Development server and build</h2>
+<p>inside the project directory:</p>
+<ul>
+<li><code>npm run serve</code>: starts the local development server</li>
+<li><code>npm run build</code>: creates a build (for deployment)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Build and deployment</h1>
+</section><section class="slide"><h2>Build and deployment</h2>
+<p>A Vue project can be hosted on any static hosting service</p>
+</section><section class="slide"><h2>Build</h2>
+<p>build with Vue CLI:</p>
+<pre><code class="hljs language-bash">npm run build
+</code></pre>
+<p>minified and bundled app is created in the <em>dist</em> folder</p>
+</section><section class="slide"><h2>Deployment</h2>
+<p>simple options for trying out deployment options without login:</p>
+<ul>
+<li><a href="https://netlify.com/drop">https://netlify.com/drop</a> (hosting for 24 hours)</li>
+<li><a href="https://tiiny.host/">https://tiiny.host/</a> (upload via a zip folder, hosting for a couple of days)</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Using custom components</h1>
 </section><section class="slide"><h2>Using custom components</h2>
 <p>Custom components must be listed in the <em>components</em> entry of the component they are used in:</p>
@@ -2527,28 +2698,18 @@ During the first creation of a computed value, Vue checks which state entries ar
 <span class="hljs-tag">&#x3C;<span class="hljs-name">v-btn</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-btn</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Component libraries</h2>
-<p>(for Vue 2)</p>
+<p>for Vue 2:</p>
 <ul>
-<li>vuetify: components in <em>material design</em></li>
+<li>vuetify</li>
 <li>bootstrap-vue</li>
 <li>element-ui</li>
-<li>...</li>
+</ul>
+<p>for Vue 3:</p>
+<ul>
+<li><em>vuetify</em> release planned for 2022-02</li>
+<li><em>element-plus</em> is in beta</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Defining custom components</h1>
-</section><section class="slide"><h2>Defining custom components</h2>
-<p>generic compontent definition in a <em>.vue</em> file:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">template</span>></span>
-...
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">template</span>></span>
-
-<span class="hljs-tag">&#x3C;<span class="hljs-name">script</span>></span>
-...
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
-
-<span class="hljs-tag">&#x3C;<span class="hljs-name">style</span> <span class="hljs-attr">scoped</span>></span>
-...
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">style</span>></span>
-</code></pre>
 </section><section class="slide"><h2>Defining custom components</h2>
 <p>possible file name patterns for component files:</p>
 <ul>
@@ -2659,206 +2820,20 @@ During the first creation of a computed value, Vue checks which state entries ar
 </section><section class="slide"><h2>Custom components: exercises</h2>
 <p>Task: split the todo app into smaller components (e.g. <em>TodoList</em>, <em>TodoItem</em>, <em>AddTodo</em>)</p>
 <p>Task: extract reusable components that are mainly used for styling - e.g. a <code>Button</code> component or a <code>TextInput</code> component</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Vue developer tools</h1>
-</section><section class="slide"><h2>Vue developer tools</h2>
-<p>plugins for Chrome, Firefox and Edge</p>
-<p>features:</p>
-<ul>
-<li>display component structure</li>
-<li>show component state and props</li>
-<li>change state and props</li>
-<li>log component events</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Vue developer tools</h2>
-<p>possible approach when looking for issues:</p>
-<ul>
-<li>check state update logic: state updates correctly in response to events</li>
-<li>check rendering logic: state is rendered as expected</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>VS Code for JavaScript</h1>
-</section><section class="slide"><h2>VS Code</h2>
-<p><a href="https://code.visualstudio.com">https://code.visualstudio.com</a></p>
-<p>open source IDE</p>
-<p>independent of <em>Visual Studio</em> itself</p>
-</section><section class="slide"><h2>Basics</h2>
-<ul>
-<li>opening a folder</li>
-<li>file explorer</li>
-</ul>
-</section><section class="slide"><h2>Command palette</h2>
-<p><em>F1</em> or <em>Ctrl</em> + <em>Shift</em> + <em>P</em>: display command palette</p>
-<ul>
-<li>searchable</li>
-<li>displays keyboard shortcuts</li>
-</ul>
-</section><section class="slide"><h2>Command palette</h2>
-<p>example commands:</p>
-<ul>
-<li><em>View: Toggle Terminal</em></li>
-<li><em>Format Document</em></li>
-<li><em>Find</em></li>
-<li><em>Search: Find in Files</em></li>
-<li><em>Preferences: Open Settings (UI)</em></li>
-<li><em>Toggle line comment</em> / <em>Toggle block comment</em></li>
-<li><em>Go to definition</em> / <em>Peek definition</em> (only for certain file types)</li>
-<li><em>Rename symbol</em> (only for certain file types)</li>
-</ul>
-</section><section class="slide"><h2>Configuration</h2>
-<p>Via <em>File - Preferences - Settings</em></p>
-<p>Is split into <em>User Settings</em> and <em>Workspace Settings</em></p>
-</section><section class="slide"><h2>Configuration options for JavaScript</h2>
-<p>Recommendations:</p>
-<ul>
-<li>Accept Suggestions on Commit Character (Autocomplete on other keys than <em>Enter</em>): <em>deactivate</em> if you're working with JavaScript / TypeScript</li>
-<li>Tab Size: 2</li>
-</ul>
-<p>Further options:</p>
-<ul>
-<li>Format on Save</li>
-<li>Word Wrap</li>
-<li>EOL</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>VS Code extensions for JavaScript</h1>
-</section><section class="slide"><h2>VS Code extensions for JavaScript</h2>
-<p>open the extensions view in the sidebar: fifth symbol on the left</p>
-<p>recommended extensions for JavaScript development:</p>
-<ul>
-<li>Prettier (code formatter)</li>
-<li>ESLint (linter)</li>
-</ul>
-</section><section class="slide"><h2>Prettier</h2>
-<ul>
-<li>code formatting according to strict rules</li>
-<li>for JavaScript, HTML, CSS</li>
-<li>shortcut: <em>Shift</em> + <em>Alt</em> + <em>F</em></li>
-</ul>
-</section><section class="slide"><h2>ESLint</h2>
-<p>Linter with more functionality than VS Code's default linter</p>
-</section></section><section class="slides-section"><section class="slide"><h1>VS Code: Debugging JavaScript</h1>
-</section><section class="slide"><h2>Debugging JavaScript</h2>
-<p>possibilities:</p>
-<ul>
-<li>start a node.js debug terminal; run JS code there</li>
-<li>run a JavaScript file in the node.js debugger (configured via <em>.vscode/launch.json</em>)</li>
-<li>connect to a browser's debugger (configured via <em>.vscode/launch.json</em>)</li>
-</ul>
-<p>accessible via the <em>Run</em> tab in the sidebar</p>
-</section><section class="slide"><h2>Debugger configuration</h2>
-<p>debugger configuration via <em>.vscode/launch.json</em></p>
-<p>To create a debugger configuration file: In the <em>Run</em> sidebar, select <em>create a launch.json file</em></p>
-</section><section class="slide"><h2>Debugging with node.js</h2>
-<p>example <em>launch.json</em> configuration entries for node.js:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Launch Node.js Program"</span>,
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"node"</span>,
-  <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
-  <span class="hljs-attr">"skipFiles"</span>: [<span class="hljs-string">"&#x3C;node_internals>/**"</span>],
-  <span class="hljs-attr">"program"</span>: <span class="hljs-string">"${workspaceFolder}/index.js"</span>
-}
+</section></section><section class="slides-section"><section class="slide"><h1>Passing content to components: slots</h1>
+</section><section class="slide"><h2>Passing content to components: slots</h2>
+<p>we may create components that can be used like this:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DialogModal</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"error"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>OK<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">DialogModal</span>></span>
 </code></pre>
-</section><section class="slide"><h2>Debugging in the browser</h2>
-<p>example <em>launch.json</em> configuration entries for debugging in Chrome / Edge:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Launch Chrome"</span>,
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"pwa-chrome"</span>,
-  <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
-  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:8080"</span>,
-  <span class="hljs-attr">"webRoot"</span>: <span class="hljs-string">"${workspaceFolder}"</span>
-}
+</section><section class="slide"><h2>Passing content to components: slots</h2>
+<p>template for <code>DialogModal</code>:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"{dialog: true, dialogType: type}"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">slot</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">slot</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 </code></pre>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Launch Edge for React"</span>,
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"pwa-msedge"</span>,
-  <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
-  <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:3000"</span>
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Vue CLI</h1>
-</section><section class="slide"><h2>Vue CLI</h2>
-<p>a tool for initializing a Vue project</p>
-</section><section class="slide"><h2>Developing with node.js and npm</h2>
-<ul>
-<li>node.js: JS runtime
-<ul>
-<li>running the local development server</li>
-<li>unit tests</li>
-</ul>
-</li>
-<li>npm: package manager
-<ul>
-<li>managing dependencies</li>
-<li>packages are located in the <em>node_modules</em> directory</li>
-<li>configuration via <em>package.json</em></li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Vue CLI</h2>
-<p>install and run:</p>
-<pre><code class="hljs language-bash">npm install -g @vue/cli
-
-vue create my-app
-</code></pre>
-<p>or run directly (without installing):</p>
-<pre><code class="hljs language-bash">npx @vue/cli create my-app
-</code></pre>
-</section><section class="slide"><h2>Vue CLI</h2>
-<p>Creates a simple Vue app which can be used as a starting point</p>
-<p>many aspects can be set up automatically:</p>
-<ul>
-<li>webpack and babel for building</li>
-<li>local development server</li>
-<li>linter</li>
-<li>TypeScript support</li>
-<li>testing</li>
-<li>CSS tooling</li>
-</ul>
-</section><section class="slide"><h2>Vue CLI</h2>
-<p>configuration:</p>
-<ul>
-<li>version (2 or 3)</li>
-<li>TypeScript</li>
-<li>PWA support</li>
-<li>Router</li>
-<li>Vuex</li>
-<li>CSS Pre-processors</li>
-<li>Linter / Formatter (build will fail on linter errors)</li>
-<li>Unit Testing</li>
-<li>E2E Testing</li>
-</ul>
-</section><section class="slide"><h2>Vue CLI</h2>
-<p>don't fail on ESLint errors:</p>
-<p>new file <em>vue.config.js</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-built_in">module</span>.exports = {
-  <span class="hljs-attr">lintOnSave</span>: <span class="hljs-string">"warning"</span>,
-};
-</code></pre>
-</section><section class="slide"><h2>Default project structure</h2>
-<ul>
-<li><em>public/index.html</em>, <em>src/main.js</em>: entry points</li>
-<li><em>src/App.vue</em>: defines the App component</li>
-<li><em>node_modules</em>: dependencies</li>
-</ul>
-</section><section class="slide"><h2>Development server and build</h2>
-<p>inside the project directory:</p>
-<ul>
-<li><code>npm run serve</code>: starts the local development server</li>
-<li><code>npm run build</code>: creates a build (for deployment)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Build and deployment</h1>
-</section><section class="slide"><h2>Build and deployment</h2>
-<p>A Vue project can be hosted on any static hosting service</p>
-</section><section class="slide"><h2>Build</h2>
-<p>build with Vue CLI:</p>
-<pre><code class="hljs language-bash">npm run build
-</code></pre>
-<p>minified and bundled app is created in the <em>dist</em> folder</p>
-</section><section class="slide"><h2>Deployment</h2>
-<p>simple options for trying out deployment options without login:</p>
-<ul>
-<li><a href="https://netlify.com/drop">https://netlify.com/drop</a> (hosting for 24 hours)</li>
-<li><a href="https://tiiny.host/">https://tiiny.host/</a> (upload via a zip folder, hosting for a couple of days)</li>
-</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Composition API</h1>
 </section><section class="slide"><h2>Composition API vs options API</h2>
 <p>Composition API: component logic is defined in a <code>setup</code> method</p>
@@ -2871,6 +2846,7 @@ vue create my-app
 </section><section class="slide"><h2>Composition API vs options API</h2>
 <p>options API:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'TodoApp'</span>,
   <span class="hljs-attr">data</span>: <span class="hljs-function">() =></span> ({
     <span class="hljs-attr">todos</span>: [],
     <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
@@ -2887,6 +2863,7 @@ vue create my-app
 <p>composition API:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ref, reactive, computed } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'TodoApp'</span>,
   <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">const</span> todos = reactive([]);
     <span class="hljs-keyword">const</span> newTitle = ref(<span class="hljs-string">''</span>);
@@ -2935,21 +2912,26 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
 </section><section class="slide"><h2>Example component definition (simple todo app)</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ref, reactive } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'TodoApp'</span>,
   <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">const</span> newTitle = ref(<span class="hljs-string">''</span>);
     <span class="hljs-keyword">const</span> todos = reactive([
       { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
       { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'taxes'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
     ]);
-    <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function">() =></span> {
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onSubmit</span>(<span class="hljs-params"></span>) </span>{
+      addTodo(newTitle.value);
+      newTitle.value = <span class="hljs-string">''</span>;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">title</span>) </span>{
+      <span class="hljs-keyword">const</span> maxId = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id));
       todos.push({
-        <span class="hljs-attr">id</span>: <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id)) + <span class="hljs-number">1</span>,
+        <span class="hljs-attr">id</span>: newId,
         <span class="hljs-attr">title</span>: newTitle.value,
         <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
       });
-      newTitle.value = <span class="hljs-string">''</span>;
-    };
-    <span class="hljs-keyword">return</span> { newTitle, todos, addTodo };
+    }
+    <span class="hljs-keyword">return</span> { newTitle, todos, onSubmit };
   },
 };
 </code></pre>
@@ -2962,10 +2944,11 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
 <p>The <code>setup</code> method receives two arguments: <code>props</code> and <code>context</code></p>
 <p>Example: rating component:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">props</span>: [<span class="hljs-string">'stars'</span>],
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'StarsRating'</span>,
+  <span class="hljs-attr">props</span>: [<span class="hljs-string">'value'</span>],
   <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params">props, context</span>)</span> {
     <span class="hljs-keyword">const</span> ariaLabel = computed(
-      <span class="hljs-function">() =></span> <span class="hljs-string">`<span class="hljs-subst">${props.stars}</span> out of 5 stars`</span>
+      <span class="hljs-function">() =></span> <span class="hljs-string">`<span class="hljs-subst">${props.value}</span> out of 5 stars`</span>
     );
     <span class="hljs-keyword">const</span> onStarClick = <span class="hljs-function">(<span class="hljs-params">id</span>) =></span> {
       context.emit(<span class="hljs-string">'change'</span>, id);
@@ -2974,29 +2957,125 @@ newTitle.value = <span class="hljs-string">'foo'</span>;
   },
 };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Network requests in JavaScript</h1>
+</section><section class="slide"><h2>Network requests in JavaScript</h2>
+<p><em>promises</em>: modern way of handling asynchronous code:</p>
+<ul>
+<li>promises and <code>async</code> / <code>await</code></li>
+<li>promises and <code>.then()</code></li>
+</ul>
+<p>modern ways of sending network requests:</p>
+<ul>
+<li><code>fetch()</code> (included in browsers)</li>
+<li><em>axios</em> (library)</li>
+</ul>
+</section><section class="slide"><h2>Network requests in JavaScript</h2>
+<p>asynchronous function that fetches todos from an API:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// todosApi.ts</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTodos</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>>> </span>{
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
+  <span class="hljs-keyword">const</span> apiTodos = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-comment">// convert data format (don't include userId)</span>
+  <span class="hljs-keyword">const</span> todos = apiTodos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> ({
+    <span class="hljs-attr">id</span>: todo.id,
+    <span class="hljs-attr">title</span>: todo.title,
+    <span class="hljs-attr">completed</span>: todo.completed,
+  }));
+  <span class="hljs-keyword">return</span> todos;
+}
+</code></pre>
+</section><section class="slide"><h2>Network requests in JavaScript</h2>
+<p>asynchronous function that fetches an exchange rate from an API:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params">
+  <span class="hljs-keyword">from</span>: <span class="hljs-built_in">string</span>,
+  to: <span class="hljs-built_in">string</span>
+</span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">number</span>> </span>{
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+    <span class="hljs-string">'https://api.exchangerate.host/latest?base='</span> +
+      <span class="hljs-keyword">from</span>.toUpperCase() +
+      <span class="hljs-string">'&#x26;symbols='</span> +
+      to.toUpperCase()
+  );
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
+}
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Side effects</h1>
 </section><section class="slide"><h2>Side effects</h2>
-<p>use cases:</p>
+<p>when component props / state change:</p>
+<p>"main effect": component (re-)renders with current data</p>
+<p>potential "side effects": triggering API queries, saving data, explicitly manipulating the DOM, ...</p>
+</section><section class="slide"><h2>Side effects</h2>
+<p>Typically, we will want to trigger side effects <em>when some specific props / state or other data have changed</em> or <em>when the component is rendered for the first time</em></p>
+</section><section class="slide"><h2>Side effects</h2>
+<p>typical use cases for side effects:</p>
 <ul>
-<li>query an API when a component is first included</li>
-<li>query an API when component state / props change</li>
-<li>persist component state to <em>localStorage</em> when it changes</li>
-<li>start a timer when a component is included</li>
+<li>triggering API queries
+<ul>
+<li>when a component is rendered for the first time</li>
+<li>when some data (state / props) have changed (e.g. the user has selected a specific item to view its details)</li>
+</ul>
+</li>
+<li>saving some data to the browser storage if it has changed</li>
+<li>explicitly manipulating the DOM</li>
+<li>starting timers</li>
 <li>...</li>
 </ul>
 </section><section class="slide"><h2>Side effects</h2>
-<p>methods for implementing side effects:</p>
+<p>common triggers for a side effect:</p>
 <ul>
-<li>watchEffect function (composition API only)</li>
-<li>watch function</li>
-<li>lifecycle events</li>
+<li>on initial rendering of a component</li>
+<li>when entries in <em>state</em> / <em>props</em> change</li>
 </ul>
-</section><section class="slide"><h2>watchEffect</h2>
-<p>common practice in the composition API:</p>
+</section><section class="slide"><h2>Side effects</h2>
+<p>side effects in the options API:</p>
 <ul>
-<li>initialization code goes into the <code>setup</code> method</li>
-<li>side effects are triggered via the <code>watchEffect</code> function</li>
+<li>lifecycle event: <code>created</code></li>
+<li>when data changes: <code>watch</code> function</li>
 </ul>
+<p>side effects in the composition API (variant 1):</p>
+<ul>
+<li>initialization inside of <code>setup</code></li>
+<li>when data changes: <code>watch</code> function</li>
+</ul>
+<p>side effects in the composition API (variant 2):</p>
+<ul>
+<li><code>watchEffect</code> function: runs initially and on any watched changes</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Side effects: lifecycle events</h1>
+</section><section class="slide"><h2>Side effects: lifecycle events</h2>
+<p>Options API: Component methods that are called when certain lifecylce events occur:</p>
+<ul>
+<li><code>created</code></li>
+<li><code>mounted</code></li>
+<li><code>updated</code></li>
+<li><code>destroyed</code></li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Side effects: lifecylcle events</h2>
+<p>Composition API: equivalent functions</p>
+<ul>
+<li><code>created</code> → include in <code>setup</code></li>
+<li><code>mounted</code> → <code>onMounted</code></li>
+<li><code>updated</code> → <code>onUpdated</code></li>
+<li><code>destroyed</code> → <code>onUnmounted</code></li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Side effects: lifecycle events</h2>
+<p>Fetching data on component mount (options API):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">created</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+      <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
+    );
+    <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
+    <span class="hljs-built_in">this</span>.todos = todos;
+  },
+};
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Side effects: watchEffect</h1>
 </section><section class="slide"><h2>watchEffect</h2>
 <p>The <code>watchEffect</code> function can be used to perform <em>side effects</em> when a component is mounted for the first time or when its props / state have changed.</p>
 <p>It is useful for querying web APIs, setting up timers, persisting data to <em>localStorage</em>, ...</p>
@@ -3085,37 +3164,6 @@ export default {
       <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count.value);
     });
     <span class="hljs-keyword">return</span> { count };
-  },
-};
-</code></pre>
-</section><section class="slide"><h2>Lifecycle events</h2>
-<p>Options API: Component methods that are called when certain lifecylce events occur:</p>
-<ul>
-<li><code>created</code></li>
-<li><code>mounted</code></li>
-<li><code>updated</code></li>
-<li><code>destroyed</code></li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Lifecylcle events</h2>
-<p>Composition API: equivalent functions</p>
-<ul>
-<li><code>created</code> → <code>setup</code></li>
-<li><code>mounted</code> → <code>onMounted</code></li>
-<li><code>updated</code> → <code>onUpdated</code></li>
-<li><code>destroyed</code> → <code>onUnmounted</code></li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Lifecycle events</h2>
-<p>Fetching data on component mount (options API):</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-comment">// ...</span>
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">created</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-      <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
-    );
-    <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
-    <span class="hljs-built_in">this</span>.todos = todos;
   },
 };
 </code></pre></section></section></div>
