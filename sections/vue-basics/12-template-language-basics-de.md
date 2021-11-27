@@ -1,24 +1,24 @@
-# Template language basics
+# Templatesprache: Grundlagen
 
-## Template language basics
+## Templatesprache: Grundlagen
 
-- binding content
-- binding properties
-- binding events
+- Binden von Inhalten
+- Binden von Properties
+- Binden von Events
 - if / else
-- repeating elements
-- two-way binding for inputs
-- whitespace
+- Wiederholen von Elementen
+- Two-Way-Binding für Inputs
+- Whitespace
 
-## Binding content
+## Binden von Inhalten
 
 ```html
 <div>A year has {{365 * 24}} hours.</div>
 ```
 
-## Binding properties
+## Binden von Properties
 
-short form:
+Kurzform:
 
 ```html
 <a :href="'https://en.wikipedia.org/wiki/' + topic">
@@ -26,7 +26,7 @@ short form:
 </a>
 ```
 
-long form:
+Langform:
 
 ```html
 <a v-bind:href="'https://en.wikipedia.org/wiki/' + topic">
@@ -34,17 +34,17 @@ long form:
 </a>
 ```
 
-## Class property
+## Class-Property
 
-special syntax for the _class_ property:
+besondere Syntax für die _class_-Property:
 
 ```html
 <div :class="{todo: true, completed: isCompleted}">...</div>
 ```
 
-## Style property
+## Style-Property
 
-special syntax for the _style_ property:
+besondere Syntax für die _style_-Property:
 
 ```html
 <div :style="{padding: '8px', margin: '8px'}">...</div>
@@ -56,33 +56,33 @@ special syntax for the _style_ property:
 </div>
 ```
 
-## Binding events
+## Events binden
 
-short form:
+Kurzform:
 
 ```html
 <button @click="alert('hello')">Say Hello</button>
 ```
 
-long form:
+Langform:
 
 ```html
 <button v-on:click="alert('hello')">Say Hello</button>
 ```
 
-## Binding events
+## Events binden
 
-event modifiers:
+Event-Modifier:
 
-preventing default:
+Verhindern des "Default-Verhaltens":
 
 ```html
 <form @submit.prevent="handleSubmit()">...</form>
 ```
 
-## Binding events
+## Events binden
 
-accessing the event object via `$event`:
+Zugriff auf das Event-Objekt mittes `$event`:
 
 ```html
 <button @click="handleClick($event)">handle event</button>
@@ -99,7 +99,7 @@ accessing the event object via `$event`:
 </div>
 ```
 
-## Repeating elements
+## Wiederholen von Elementen
 
 ```html
 <ul>
@@ -109,17 +109,17 @@ accessing the event object via `$event`:
 </ul>
 ```
 
-Each repeated element should have a locally unique _key_ property (for efficiency)
+Jedes wiederholte Element sollte eine lokal eindeutige _key_-Property haben (für Effizienz)
 
-## Two-way binding for inputs
+## Two-way Binding für Inputs
 
-explicit two-way binding for inputs:
+Explizites Two-way Binding für Inputs:
 
 ```html
 <input value="title" @input="title = $event.target.value" />
 ```
 
-short-hand version for two-way binding:
+Kurzform:
 
 ```html
 <input v-model="firstName" />
@@ -127,13 +127,13 @@ short-hand version for two-way binding:
 
 ## Whitespace
 
-By default, whitespace between elements will not be rendered by Vue
+Standardmäßig wird Whitespace zwischen Elementen nicht von Vue gerendert
 
 ```html
 <strong>no</strong> <em>space</em>
 ```
 
-forcing a space:
+"Erzwingen" eines Leerzeichens:
 
 ```html
 <strong>with</strong>{{ " " }}<em>space</em>

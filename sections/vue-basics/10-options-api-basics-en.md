@@ -79,7 +79,10 @@ _state_ entries are reactive, meaning Vue can react if they change (and update t
 
 ## Methods
 
-_Methods_ are functions associated with a component; they can be called from the template and they can access the state
+_Methods_ are functions associated with a component
+
+- can be called from the template
+- can access the state
 
 ## Computed
 
@@ -91,5 +94,4 @@ _Methods_ are functions associated with a component; they can be called from the
 
 _How does Vue know when to re-evaluate a computed value?_
 
-Everything inside the state is reactive - Vue knows when it's accessed or changed  
-During the first creation of a computed value, Vue checks which state entries are accessed - the computed value will re-evaluate whenever one of these dependencies changes
+During the first computation Vue tracks which state entries are accessed - these will subsequently act as triggers for updates

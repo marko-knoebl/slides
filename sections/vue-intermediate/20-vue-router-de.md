@@ -1,26 +1,26 @@
 # Vue router
 
-## Client-side routing
+## client-seitiges Routing
 
-**client-side routing**: navigating between views without leaving the app
+**client-seitiges Routing**: Navigieren zwischen Ansichten, ohne die Anwendung zu verlassen
 
 ## Client side routing
 
-options:
+Möglichkeiten:
 
-hash-based client-side routing, e.g.:
+hash-basiertes Client-seitiges Routing, z.B.:
 
 - `example.com/#/home`
 - `example.com/#/shop/cart`
 
-client-side routing based on on the _history API_, e.g.:
+Client-seitiges Routing basierend auf dem _History API_, z.B.:
 
 - `example.com/home`
 - `example.com/shop/cart`
 
-for the second method, the server needs additional configuration
+Für die zweite Option muss der Server zusätzlich konfiguriert werden
 
-## Route configuration
+## Routen-Konfiguration
 
 ```js
 // router/index.js
@@ -39,7 +39,7 @@ const routes = [
 ];
 ```
 
-## Basic components
+## Grundlegende Komponenten
 
 ```xml
 <router-link to="/">Home</router-link>
@@ -49,15 +49,15 @@ const routes = [
 <router-view />
 ```
 
-## Passing data
+## Übergeben von Daten
 
-we can pass down data to the route:
+Wir können Daten an die Route übergebn:
 
 ```xml
 <router-view :todos="todos" />
 ```
 
-## Route parameters
+## Routenparameter
 
 ```js
 const routes = [
@@ -68,18 +68,18 @@ const routes = [
 ];
 ```
 
-access the parameter:
+Zugriff auf die Parameter:
 
 ```xml
 Details of todo: {{ $route.params.todoId }}
 ```
 
-## Programmatic navigation
+## Navigation aus dem Code heraus
 
 ```js
 this.$router.push('/');
 ```
 
-## Styling links
+## Styling von Links
 
-active links will receive the `.router-link-active` class
+aktive Links erhalten die Klasse `router-link-active`

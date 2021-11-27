@@ -10,7 +10,7 @@ Options API: Component methods that are called when certain lifecylce events occ
 - `destroyed`
 - ...
 
-## Side effects: lifecylcle events
+## Side effects: lifecycle events
 
 Composition API: equivalent functions
 
