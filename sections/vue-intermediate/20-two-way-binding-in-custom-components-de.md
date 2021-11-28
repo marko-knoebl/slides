@@ -2,6 +2,10 @@
 
 ## Two-way Binding in eigenen Komponenten
 
+(dies gilt für Vue 3)
+
+## Two-way Binding in eigenen Komponenten
+
 two-way binding für inputs:
 
 ```xml
@@ -23,7 +27,12 @@ Two-way Binding in eigenen Komponenten:
 
 ## Two-way Binding in eigenen Komponenten
 
-<!-- FIXME: update:completed does not work as expected -->
+Implementierung von `star-rating`:
+
+- prop: `modelValue`
+- event: `update:modelValue`
+
+## Two-way Binding in eigenen Komponenten
 
 Implementierung von `todo-item`:
 
@@ -32,19 +41,14 @@ Implementierung von `todo-item`:
 
 ```xml
 <li>
+  {{ completed ? "DONE: " : "TODO: " }}
   <input
     :value="title"
     @input="$emit('update:title', $event.target.value)"
+    :style="{ border: 'none' }"
   />
   <button @click="$emit('update:completed', !completed)">
     toggle
   </button>
 </li>
 ```
-
-## Two-way Binding in eigenen Komponenten
-
-Implementierung von `star-rating`:
-
-- prop: `modelValue`
-- event: `update:modelValue`

@@ -2,6 +2,10 @@
 
 ## Two-way binding in custom components
 
+(this is for Vue 3)
+
+## Two-way binding in custom components
+
 two-way binding for inputs:
 
 ```xml
@@ -23,7 +27,12 @@ two-way binding in custom components:
 
 ## Two-way binding in custom components
 
-<!-- FIXME: update:completed does not work as expected -->
+implementation of `star-rating`:
+
+- prop: `modelValue`
+- event: `update:modelValue`
+
+## Two-way binding in custom components
 
 implementation of `todo-item`:
 
@@ -32,19 +41,14 @@ implementation of `todo-item`:
 
 ```xml
 <li>
+  {{ completed ? "DONE: " : "TODO: " }}
   <input
     :value="title"
     @input="$emit('update:title', $event.target.value)"
+    :style="{ border: 'none' }"
   />
   <button @click="$emit('update:completed', !completed)">
     toggle
   </button>
 </li>
 ```
-
-## Two-way binding in custom components
-
-implementation of `star-rating`:
-
-- prop: `modelValue`
-- event: `update:modelValue`

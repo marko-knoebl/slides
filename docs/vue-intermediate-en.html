@@ -2061,42 +2061,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Vue intermediate</h1>
-</section></section><section class="slides-section"><section class="slide"><h1>Two-way binding in custom components</h1>
-</section><section class="slide"><h2>Two-way binding in custom components</h2>
-<p>two-way binding for inputs:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newTitle"</span> /></span>
-</code></pre>
-<p>two-way binding in custom components:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">star-rating</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"productRating"</span> /></span>
-</code></pre>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">todo-item</span>
-  <span class="hljs-attr">v-model:title</span>=<span class="hljs-string">"todo.title"</span>
-  <span class="hljs-attr">v-model:completed</span>=<span class="hljs-string">"todo.completed"</span>
-/></span>
-</code></pre>
-</section><section class="slide"><h2>Two-way binding in custom components</h2>
-<!-- FIXME: update:completed does not work as expected -->
-<p>implementation of <code>todo-item</code>:</p>
-<ul>
-<li>props: <code>title</code>, <code>completed</code></li>
-<li>events: <code>update:title</code>, <code>update:completed</code></li>
-</ul>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-    <span class="hljs-attr">:value</span>=<span class="hljs-string">"title"</span>
-    @<span class="hljs-attr">input</span>=<span class="hljs-string">"$emit('update:title', $event.target.value)"</span>
-  /></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$emit('update:completed', !completed)"</span>></span>
-    toggle
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-</code></pre>
-</section><section class="slide"><h2>Two-way binding in custom components</h2>
-<p>implementation of <code>star-rating</code>:</p>
-<ul>
-<li>prop: <code>modelValue</code></li>
-<li>event: <code>update:modelValue</code></li>
-</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Vue router</h1>
 </section><section class="slide"><h2>Client-side routing</h2>
 <p><strong>client-side routing</strong>: navigating between views without leaving the app</p>
@@ -2154,6 +2118,45 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Styling links</h2>
 <p>active links will receive the <code>.router-link-active</code> class</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Two-way binding in custom components</h1>
+</section><section class="slide"><h2>Two-way binding in custom components</h2>
+<p>(this is for Vue 3)</p>
+</section><section class="slide"><h2>Two-way binding in custom components</h2>
+<p>two-way binding for inputs:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newTitle"</span> /></span>
+</code></pre>
+<p>two-way binding in custom components:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">star-rating</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"productRating"</span> /></span>
+</code></pre>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">todo-item</span>
+  <span class="hljs-attr">v-model:title</span>=<span class="hljs-string">"todo.title"</span>
+  <span class="hljs-attr">v-model:completed</span>=<span class="hljs-string">"todo.completed"</span>
+/></span>
+</code></pre>
+</section><section class="slide"><h2>Two-way binding in custom components</h2>
+<p>implementation of <code>star-rating</code>:</p>
+<ul>
+<li>prop: <code>modelValue</code></li>
+<li>event: <code>update:modelValue</code></li>
+</ul>
+</section><section class="slide"><h2>Two-way binding in custom components</h2>
+<p>implementation of <code>todo-item</code>:</p>
+<ul>
+<li>props: <code>title</code>, <code>completed</code></li>
+<li>events: <code>update:title</code>, <code>update:completed</code></li>
+</ul>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>
+  {{ completed ? "DONE: " : "TODO: " }}
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+    <span class="hljs-attr">:value</span>=<span class="hljs-string">"title"</span>
+    @<span class="hljs-attr">input</span>=<span class="hljs-string">"$emit('update:title', $event.target.value)"</span>
+    <span class="hljs-attr">:style</span>=<span class="hljs-string">"{ border: 'none' }"</span>
+  /></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"$emit('update:completed', !completed)"</span>></span>
+    toggle
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Prop types and prop validation</h1>
 </section><section class="slide"><h2>Prop types and prop validation</h2>
 <p>minimal prop definition of a component:</p>
