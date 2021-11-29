@@ -2914,10 +2914,12 @@ vue create my-app
 <p>options API:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
   <span class="hljs-attr">name</span>: <span class="hljs-string">'TodoApp'</span>,
-  <span class="hljs-attr">data</span>: <span class="hljs-function">() =></span> ({
-    <span class="hljs-attr">todos</span>: [],
-    <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
-  }),
+  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">todos</span>: [],
+      <span class="hljs-attr">newTitle</span>: <span class="hljs-string">''</span>,
+    };
+  },
   <span class="hljs-attr">methods</span>: {
     <span class="hljs-comment">/*...*/</span>
   },
@@ -2934,9 +2936,9 @@ vue create my-app
   <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">const</span> todos = reactive([]);
     <span class="hljs-keyword">const</span> newTitle = ref(<span class="hljs-string">''</span>);
-    <span class="hljs-keyword">const</span> addTodo = <span class="hljs-function">() =></span> {
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params"></span>) </span>{
       <span class="hljs-comment">// ...</span>
-    };
+    }
     <span class="hljs-keyword">const</span> numActive = computed(
       <span class="hljs-function">() =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> !t.completed).length
     );
@@ -2944,6 +2946,33 @@ vue create my-app
   },
 };
 </code></pre>
+</section><section class="slide"><h2>Composition API vs options API</h2>
+<p>possible restructuring of code:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// manages todos</span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'TodoApp'</span>,
+  <span class="hljs-function"><span class="hljs-title">setup</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">const</span> newTitle = ref(<span class="hljs-string">''</span>);
+    <span class="hljs-keyword">const</span> { todos, addTodo, numActive } = useTodos();
+    <span class="hljs-keyword">return</span> { todos, addTodo, numActive, newTitle };
+  },
+};
+</code></pre>
+</section><section class="slide"><h2>Composition API</h2>
+<p><em>VueUse</em>: collection of pre-defined Vue composition functions:</p>
+<p><a href="https://github.com/vueuse/vueuse">https://github.com/vueuse/vueuse</a></p>
+<p>examples:</p>
+<ul>
+<li><em>useFetch</em></li>
+<li><em>useGeolocation</em></li>
+<li><em>useMediaQuery</em></li>
+<li><em>useNow</em></li>
+<li><em>useOnline</em></li>
+<li>...</li>
+</ul>
 </section><section class="slide"><h2>State in the composition API</h2>
 <p>two mechanisms:</p>
 <ul>

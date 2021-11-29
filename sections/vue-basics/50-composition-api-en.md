@@ -17,10 +17,12 @@ options API:
 ```js
 export default {
   name: 'TodoApp',
-  data: () => ({
-    todos: [],
-    newTitle: '',
-  }),
+  data() {
+    return {
+      todos: [],
+      newTitle: '',
+    };
+  },
   methods: {
     /*...*/
   },
@@ -41,9 +43,9 @@ export default {
   setup() {
     const todos = reactive([]);
     const newTitle = ref('');
-    const addTodo = () => {
+    function addTodo() {
       // ...
-    };
+    }
     const numActive = computed(
       () => todos.filter((t) => !t.completed).length
     );
@@ -51,6 +53,40 @@ export default {
   },
 };
 ```
+
+## Composition API vs options API
+
+possible restructuring of code:
+
+```js
+function useTodos() {
+  // manages todos
+}
+
+export default {
+  name: 'TodoApp',
+  setup() {
+    const newTitle = ref('');
+    const { todos, addTodo, numActive } = useTodos();
+    return { todos, addTodo, numActive, newTitle };
+  },
+};
+```
+
+## Composition API
+
+_VueUse_: collection of pre-defined Vue composition functions:
+
+<https://github.com/vueuse/vueuse>
+
+examples:
+
+- _useFetch_
+- _useGeolocation_
+- _useMediaQuery_
+- _useNow_
+- _useOnline_
+- ...
 
 ## State in the composition API
 
