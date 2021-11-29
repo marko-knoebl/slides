@@ -2441,7 +2441,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Each repeated element should have a locally unique <em>key</em> property (for efficiency)</p>
 </section><section class="slide"><h2>Two-way binding for inputs</h2>
 <p>explicit two-way binding for inputs:</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"title"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"title = $event.target.value"</span> /></span>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"title"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"title = $event.target.value"</span> /></span>
 </code></pre>
 <p>short-hand version for two-way binding:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"firstName"</span> /></span>
@@ -2566,13 +2566,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Recommendations:</p>
 <ul>
 <li>Accept Suggestions on Commit Character (Autocomplete on other keys than <em>Enter</em>): <em>deactivate</em> if you're working with JavaScript / TypeScript</li>
+<li>EOL: <code>\n</code></li>
 <li>Tab Size: 2</li>
 </ul>
 <p>Further options:</p>
 <ul>
 <li>Format on Save</li>
 <li>Word Wrap</li>
-<li>EOL</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code extensions for JavaScript and Vue</h1>
 </section><section class="slide"><h2>VS Code extensions for JavaScript and Vue</h2>
@@ -2676,8 +2676,8 @@ vue create my-app
 <li><a href="https://netlify.com/drop">https://netlify.com/drop</a> (hosting for 24 hours)</li>
 <li><a href="https://tiiny.host/">https://tiiny.host/</a> (upload via a zip folder, hosting for a couple of days)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Using custom components</h1>
-</section><section class="slide"><h2>Using custom components</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Custom components</h1>
+</section><section class="slide"><h2>Custom components</h2>
 <p>Custom components must be listed in the <em>components</em> entry of the component they are used in:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> TodoItem <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem'</span>;
 <span class="hljs-keyword">import</span> AddTodo <span class="hljs-keyword">from</span> <span class="hljs-string">'./AddTodo'</span>;
@@ -2686,7 +2686,7 @@ vue create my-app
   <span class="hljs-comment">// ...</span>
 };
 </code></pre>
-</section><section class="slide"><h2>Using Custom components</h2>
+</section><section class="slide"><h2>Custom components</h2>
 <p>Custom components can typically be written in two ways:</p>
 <p>recommended:</p>
 <!-- prettier-ignore -->
@@ -2698,6 +2698,7 @@ vue create my-app
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">todo-item</span> /></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">v-btn</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-btn</span>></span>
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Component libraries</h1>
 </section><section class="slide"><h2>Component libraries</h2>
 <p>for Vue 2:</p>
 <ul>
@@ -2709,6 +2710,71 @@ vue create my-app
 <ul>
 <li><em>vuetify</em> release planned for 2022-02</li>
 <li><em>element-plus</em> is in beta</li>
+</ul>
+</section><section class="slide"><h2>Vuetify 2: setup</h2>
+<p>add vuetify 2 to a vanilla <em>Vue CLI</em> project:</p>
+<pre><code class="hljs language-bash">npx @vue/cli add vuetify
+</code></pre>
+<p>(note: will overwrite <em>App.vue</em> and some other files)</p>
+</section><section class="slide"><h2>Vuetify 2: setup</h2>
+<p>make sure your application in <em>App.vue</em> is enclosed in a <code>&#x3C;v-app></code> component:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">template</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-app</span>></span>
+    ...
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-app</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">template</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: components</h2>
+<p>example component use:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-btn</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>add<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-btn</span>></span>
+</code></pre>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-text-field</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newTitle"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"new title"</span> /></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: app layout</h2>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-app</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-app-bar</span> <span class="hljs-attr">app</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">v-toolbar-title</span>></span>Todo<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-toolbar-title</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-app-bar</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-main</span>></span>
+    ...
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-main</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-footer</span> <span class="hljs-attr">app</span>></span>Todo App by Marko<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-footer</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-app</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: container</h2>
+<p><em>v-container</em>: responsive container with horizontal margins for spacing</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-main</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-container</span>></span>
+    ...
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-container</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-main</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: grid system</h2>
+<p>Vuetify comes with a 12-column grid system (similar to <em>bootstrap</em>)</p>
+<ul>
+<li><em>v-row</em>: horizontal container, divided into 12 columns</li>
+<li><em>v-col</em>: contained within <em>v-row</em> elements</li>
+</ul>
+</section><section class="slide"><h2>Vuetify 2: grid system</h2>
+<p>two columns with the same size:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-row</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-col</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-col</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-col</span>></span>bar<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-col</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-row</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: grid system</h2>
+<p>configuring the width:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-row</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-col</span> <span class="hljs-attr">:cols</span>=<span class="hljs-string">"6"</span> <span class="hljs-attr">:md</span>=<span class="hljs-string">"3"</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">v-text-field</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newTitle"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"new title"</span> /></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-col</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">v-btn</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-btn</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-col</span> ></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-row</span>></span>
+</code></pre>
+<ul>
+<li><code>:cols="6"</code> - will take up 6 of 12 columns on the smallest screens</li>
+<li><code>:md="3"</code> - will take up 3 columns on <em>medium</em> or larger screens</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Defining custom components</h1>
 </section><section class="slide"><h2>Defining custom components</h2>

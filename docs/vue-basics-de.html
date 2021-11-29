@@ -2443,7 +2443,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Jedes wiederholte Element sollte eine lokal eindeutige <em>key</em>-Property haben (für Effizienz)</p>
 </section><section class="slide"><h2>Two-way Binding für Inputs</h2>
 <p>Explizites Two-way Binding für Inputs:</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"title"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"title = $event.target.value"</span> /></span>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">"title"</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">"title = $event.target.value"</span> /></span>
 </code></pre>
 <p>Kurzform:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"firstName"</span> /></span>
@@ -2568,14 +2568,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Empfehlungen:</p>
 <ul>
 <li>Accept Suggestion on Commit Character (Autovervollständigung ohne <em>Enter</em>): bei Verwendung von JavaScript / TypeScript <em>deaktivieren</em></li>
-<li>Tab Size: <em>2</em> oder <em>4</em></li>
+<li>EOL: <code>\n</code></li>
+<li>Tab Size: <em>2</em></li>
 </ul>
 <p>Weitere Möglichkeiten:</p>
 <ul>
 <li>Auto Save</li>
 <li>Format on Save</li>
 <li>Word Wrap</li>
-<li>EOL</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code Extensions für JavaScript und Vue</h1>
 </section><section class="slide"><h2>VS Code Extensions für JavaScript und Vue</h2>
@@ -2700,6 +2700,7 @@ vue create my-app
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">todo-item</span> /></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">v-btn</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-btn</span>></span>
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Komponenten-Libraries</h1>
 </section><section class="slide"><h2>Komponenten-Libraries</h2>
 <p>für Vue 2:</p>
 <ul>
@@ -2711,6 +2712,71 @@ vue create my-app
 <ul>
 <li><em>vuetify</em>-Release geplant für 2022-02</li>
 <li><em>element-plus</em> ist in der Beta-Phase</li>
+</ul>
+</section><section class="slide"><h2>Vuetify 2: Setup</h2>
+<p>Hinzufügen von Vuetify 2 zu einem neuen <em>Vue CLI</em>-Projekt:</p>
+<pre><code class="hljs language-bash">npx @vue/cli add vuetify
+</code></pre>
+<p>(Bemerkung: überschreibt <em>App.vue</em> und manche andere Dateien)</p>
+</section><section class="slide"><h2>Vuetify 2: Setup</h2>
+<p>Stelle sicher, dass der ganze Komponentenbaum in <em>App.vue</em> von einer <code>&#x3C;v-app></code>-Komponente umfasst wird:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">template</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-app</span>></span>
+    ...
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-app</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">template</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: Komponenten</h2>
+<p>Beispiel für die Verwendung von Komponenten:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-btn</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>add<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-btn</span>></span>
+</code></pre>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-text-field</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newTitle"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"new title"</span> /></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: App-Layout</h2>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-app</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-app-bar</span> <span class="hljs-attr">app</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">v-toolbar-title</span>></span>Todo<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-toolbar-title</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-app-bar</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-main</span>></span>
+    ...
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-main</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-footer</span> <span class="hljs-attr">app</span>></span>Todo App by Marko<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-footer</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-app</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: Container</h2>
+<p><em>v-container</em>: responsive Container mit horizontalen Margins (Abständen)</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-main</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-container</span>></span>
+    ...
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-container</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-main</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: Grid-System</h2>
+<p>Vuetify bietet ein Grid-System mit 12 Spalten (ähnlich wie <em>bootstrap</em>)</p>
+<ul>
+<li><em>v-row</em>: horizontaler Container, unterteilt in 12 Spalten</li>
+<li><em>v-col</em>: beinhaltet in <em>v-row</em>-Elementen</li>
+</ul>
+</section><section class="slide"><h2>Vuetify 2: Grid-System</h2>
+<p>zwei Spalten mit gleicher Breite:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-row</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-col</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-col</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-col</span>></span>bar<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-col</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-row</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Vuetify 2: Grid-System</h2>
+<p>Konfigurieren der Breite:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">v-row</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-col</span> <span class="hljs-attr">:cols</span>=<span class="hljs-string">"6"</span> <span class="hljs-attr">:md</span>=<span class="hljs-string">"3"</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">v-text-field</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"newTitle"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"new title"</span> /></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">v-col</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">v-btn</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"primary"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-btn</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">v-col</span> ></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">v-row</span>></span>
+</code></pre>
+<ul>
+<li><code>:cols="6"</code> - nutzt auf den kleinsten Bildschirmen 12 Spalten</li>
+<li><code>:md="3"</code> - nutzt auf Bildschirmen der Mindestgröße <em>medium</em> 3 Spalten</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Definieren eigener Komponenten</h1>
 </section><section class="slide"><h2>Definieren eigener Komponenten</h2>

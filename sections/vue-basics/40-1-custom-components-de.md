@@ -32,16 +32,3 @@ alternativ:
 <todo-item />
 <v-btn>foo</v-btn>
 ```
-
-## Komponenten-Libraries
-
-für Vue 2:
-
-- vuetify
-- bootstrap-vue
-- element-ui
-
-für Vue 3:
-
-- _vuetify_-Release geplant für 2022-02
-- _element-plus_ ist in der Beta-Phase

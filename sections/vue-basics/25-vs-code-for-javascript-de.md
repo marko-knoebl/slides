@@ -44,11 +44,11 @@ Eingeteilt in _User Settings_ und _Workspace Settings_
 Empfehlungen:
 
 - Accept Suggestion on Commit Character (Autovervollständigung ohne _Enter_): bei Verwendung von JavaScript / TypeScript _deaktivieren_
-- Tab Size: _2_ oder _4_
+- EOL: `\n`
+- Tab Size: _2_
 
 Weitere Möglichkeiten:
 
 - Auto Save
 - Format on Save
 - Word Wrap
-- EOL

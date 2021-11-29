@@ -44,10 +44,10 @@ Is split into _User Settings_ and _Workspace Settings_
 Recommendations:
 
 - Accept Suggestions on Commit Character (Autocomplete on other keys than _Enter_): _deactivate_ if you're working with JavaScript / TypeScript
+- EOL: `\n`
 - Tab Size: 2
 
 Further options:
 
 - Format on Save
 - Word Wrap
-- EOL

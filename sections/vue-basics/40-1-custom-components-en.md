@@ -1,6 +1,6 @@
-# Using custom components
+# Custom components
 
-## Using custom components
+## Custom components
 
 Custom components must be listed in the _components_ entry of the component they are used in:
 
@@ -13,7 +13,7 @@ export default {
 };
 ```
 
-## Using Custom components
+## Custom components
 
 Custom components can typically be written in two ways:
 
@@ -32,16 +32,3 @@ alternative:
 <todo-item />
 <v-btn>foo</v-btn>
 ```
-
-## Component libraries
-
-for Vue 2:
-
-- vuetify
-- bootstrap-vue
-- element-ui
-
-for Vue 3:
-
-- _vuetify_ release planned for 2022-02
-- _element-plus_ is in beta

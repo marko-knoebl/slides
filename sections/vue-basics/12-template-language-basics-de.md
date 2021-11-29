@@ -116,7 +116,7 @@ Jedes wiederholte Element sollte eine lokal eindeutige _key_-Property haben (fü
 Explizites Two-way Binding für Inputs:
 
 ```html
-<input value="title" @input="title = $event.target.value" />
+<input :value="title" @input="title = $event.target.value" />
 ```
 
 Kurzform:

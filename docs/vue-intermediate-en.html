@@ -2222,8 +2222,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> defineComponent({
   data(): ComponentState {
     <span class="hljs-comment">// ...</span>
-  }
-})
+  },
+});
 </code></pre>
 </section><section class="slide"><h2>Vue and TypeScript</h2>
 <p>defining props with <em>TypeScript</em> annotations:</p>
@@ -2235,6 +2235,22 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-attr">props</span>: {
     <span class="hljs-attr">type</span>: [] <span class="hljs-keyword">as</span> PropType&#x3C;<span class="hljs-built_in">Array</span>&#x3C;Todo>>,
     required: <span class="hljs-literal">true</span>,
+  },
+});
+</code></pre>
+</section><section class="slide"><h2>Vue and TypeScript</h2>
+<p><strong>Vue 3</strong> only:</p>
+<p>defining events and event payloads (inside validator functions):</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> defineComponent({
+  <span class="hljs-attr">emits</span>: {
+    <span class="hljs-comment">/* eslint-disable @typescript-eslint/no-unused-vars */</span>
+    <span class="hljs-function"><span class="hljs-title">delete</span>(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>)</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    },
+    <span class="hljs-function"><span class="hljs-title">toggle</span>(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>)</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    },
+    <span class="hljs-comment">/* eslint-enable @typescript-eslint/no-unused-vars */</span>
   },
 });
 </code></pre>

@@ -116,7 +116,7 @@ Each repeated element should have a locally unique _key_ property (for efficienc
 explicit two-way binding for inputs:
 
 ```html
-<input value="title" @input="title = $event.target.value" />
+<input :value="title" @input="title = $event.target.value" />
 ```
 
 short-hand version for two-way binding:

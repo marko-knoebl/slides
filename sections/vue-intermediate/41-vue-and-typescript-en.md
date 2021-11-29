@@ -56,8 +56,8 @@ type ComponentState = {
 export default defineComponent({
   data(): ComponentState {
     // ...
-  }
-})
+  },
+});
 ```
 
 ## Vue and TypeScript
@@ -73,6 +73,27 @@ export default defineComponent({
   props: {
     type: [] as PropType<Array<Todo>>,
     required: true,
+  },
+});
+```
+
+## Vue and TypeScript
+
+**Vue 3** only:
+
+defining events and event payloads (inside validator functions):
+
+```ts
+export default defineComponent({
+  emits: {
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    delete(id: number) {
+      return true;
+    },
+    toggle(id: number) {
+      return true;
+    },
+    /* eslint-enable @typescript-eslint/no-unused-vars */
   },
 });
 ```

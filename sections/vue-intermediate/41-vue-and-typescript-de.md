@@ -76,3 +76,24 @@ export default defineComponent({
   },
 });
 ```
+
+## Vue und TypeScript
+
+nur **Vue 3**:
+
+Definieren von Events und Event-Payloads (in Validierungsfunktionen):
+
+```ts
+export default defineComponent({
+  emits: {
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    delete(id: number) {
+      return true;
+    },
+    toggle(id: number) {
+      return true;
+    },
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+  },
+});
+```
