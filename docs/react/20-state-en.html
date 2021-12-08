@@ -2109,53 +2109,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>button for <em>random image</em></li>
 <li>buttons that let the user select different resolutions</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Input state</h1>
-</section><section class="slide"><h2>Input state</h2>
-<p>In a React application, everything that can change in the UI should be part of the <em>state</em></p>
-<p>If we include a simple input element:</p>
-<pre><code class="hljs language-jsx">&#x3C;input />
-</code></pre>
-<p>there would be an aspect of the UI state which would not be captured in the React state.</p>
-</section><section class="slide"><h2>Input state</h2>
-<p>This is how we can capture the value of an input and track it in the state:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [inputText, setInputText] = useState(<span class="hljs-string">''</span>);
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;input
-  value={inputText}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setInputText(event.target.value)}
-/>
-</code></pre>
-</section><section class="slide"><h2>Input state</h2>
-<p>explanation:</p>
-<pre><code class="hljs language-txt">value={inputText}
-</code></pre>
-<p>binds from the <em>state</em> to the input value</p>
-<pre><code class="hljs language-txt">onChange={(event) => setInputText(event.target.value)}
-</code></pre>
-<p>updates the state whenever the input value changes</p>
-</section><section class="slide"><h2>Input state</h2>
-<p>why <code>event.target.value</code>?</p>
-<ul>
-<li><code>event.target</code> represents the input element</li>
-<li><code>event.target.value</code> is the new value of the input element</li>
-</ul>
-</section><section class="slide"><h2>Input state</h2>
-<p>Example: Input that also displays the number of characters:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [text, setText] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> len = text.length;
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setText(event.target.value)}
-      />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {len} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
 </section><section class="slide"><h2>Immutable state</h2>
 <p><strong>Immutability</strong>: important concept in functional programing and with React / Redux</p>
@@ -2349,15 +2302,151 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-keyword">return</span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed);
 }
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Input state</h1>
+</section><section class="slide"><h2>Input state</h2>
+<p>In a React application, everything that can change in the UI should be part of the <em>state</em></p>
+<p>If we include a simple input element:</p>
+<pre><code class="hljs language-jsx">&#x3C;input />
+</code></pre>
+<p>there would be an aspect of the UI state which would not be captured in the React state.</p>
+</section><section class="slide"><h2>Input state</h2>
+<p>This is how we can capture the value of an input and track it in the state:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [inputText, setInputText] = useState(<span class="hljs-string">''</span>);
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;input
+  value={inputText}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setInputText(event.target.value)}
+/>
+</code></pre>
+</section><section class="slide"><h2>Input state</h2>
+<p>explanation:</p>
+<pre><code class="hljs language-txt">value={inputText}
+</code></pre>
+<p>binds from the <em>state</em> to the input value</p>
+<pre><code class="hljs language-txt">onChange={(event) => setInputText(event.target.value)}
+</code></pre>
+<p>updates the state whenever the input value changes</p>
+</section><section class="slide"><h2>Input state</h2>
+<p>why <code>event.target.value</code>?</p>
+<ul>
+<li><code>event.target</code> represents the input element</li>
+<li><code>event.target.value</code> is the new value of the input element</li>
+</ul>
+</section><section class="slide"><h2>Input state</h2>
+<p>Example: Input that also displays the number of characters:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [text, setText] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> len = text.length;
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setText(event.target.value)}
+      />
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {len} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Input types</h1>
+</section><section class="slide"><h2>Input types</h2>
+<ul>
+<li>text</li>
+<li>textarea</li>
+<li>checkbox</li>
+<li>numeric input</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Input types</h2>
+<p>text and text area:</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  value={title}
+  onChange={<span class="hljs-function">(<span class="hljs-params">e</span>) =></span> {
+    setTitle(e.target.value);
+  }}
+/>
+
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">textarea</span>
+  <span class="hljs-attr">value</span>=<span class="hljs-string">{message}</span>
+  <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =></span> {
+    setMessage(e.target.value);
+  }}
+/></span>
+</code></pre>
+</section><section class="slide"><h2>Input types</h2>
+<p>checkbox:</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  type=<span class="hljs-string">"checkbox"</span>
+  checked={accept}
+  onChange={<span class="hljs-function">(<span class="hljs-params">e</span>) =></span> setAccept(e.target.checked)}
+/>
+</code></pre>
+</section><section class="slide"><h2>Numeric input fields</h2>
+<p>The value of a numeric input field should usually be stored as a string (not as a number)</p>
+<p>Reasoning: possible contents of a numeric input field (while the user is typing):</p>
+<pre><code class="hljs language-txt">""
+"-"
+"-3"
+"-3."
+"-3.0"
+</code></pre>
+</section><section class="slide"><h2>Numeric inputs with direct "results"</h2>
+<p>example: keeping the content of a numeric input field as a string, updating an associated numeric value whenever possible:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FontSizeDemo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [size, setSize] = useState(<span class="hljs-number">16</span>);
+  <span class="hljs-keyword">const</span> [sizeStr, setSizeStr] = useState(size.toString());
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateSize</span>(<span class="hljs-params">s</span>) </span>{
+    setSizeStr(s);
+    <span class="hljs-comment">// source: https://stackoverflow.com/questions/18082</span>
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">parseFloat</span>(s)) &#x26;&#x26; <span class="hljs-built_in">isFinite</span>(s)) {
+      setSize(<span class="hljs-built_in">Number</span>(s));
+    }
+  }
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{sizeStr}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> updateSize(event.target.value)}
+      />
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">fontSize:</span> <span class="hljs-attr">size</span> }}></span>Sample text<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Forms and inputs</h1>
+</section><section class="slide"><h2>Form actions</h2>
+<p>Default behavior of a form when it is submitted: directly send data to the server</p>
+<p>Replacing the default behavior:</p>
+<pre><code class="hljs language-jsx">&#x3C;form
+  onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    event.preventDefault();
+    <span class="hljs-comment">// handle submit with custom logic</span>
+  }}
+>
+  ...
+&#x3C;/form>
+</code></pre>
+</section><section class="slide"><h2>Input labels</h2>
+<p>Adding a label for an input without using IDs:</p>
+<pre><code class="hljs language-jsx">&#x3C;label>
+  first name:
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+  // <span class="hljs-attr">...</span>
+  /></span></span>
+&#x3C;/label>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Exercise: registration form</h1>
 </section><section class="slide"><h2>Exercise: registration form</h2>
 <p>Create a user registration form</p>
 <p>Values should be stored in a single JS object with different keys:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [userData, setUserData] = useState({
-  <span class="hljs-attr">username</span>: <span class="hljs-string">""</span>,
-  <span class="hljs-attr">password</span>: <span class="hljs-string">""</span>,
-  <span class="hljs-attr">repeatPassword</span>: <span class="hljs-string">""</span>,
-})
+  <span class="hljs-attr">username</span>: <span class="hljs-string">''</span>,
+  <span class="hljs-attr">password</span>: <span class="hljs-string">''</span>,
+  <span class="hljs-attr">repeatPassword</span>: <span class="hljs-string">''</span>,
+  <span class="hljs-attr">acceptTerms</span>: <span class="hljs-literal">false</span>,
+});
 </code></pre>
 </section><section class="slide"><h2>Exercise: registration form</h2>
 <p>Underneath the form, display a potential error message for the <em>first</em> invalid input (if there is one)</p>
@@ -2366,7 +2455,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><em>Username must not be empty</em></li>
 <li><em>Password must be at least 4 characters long</em></li>
 <li><em>Passwords don't match</em></li>
-</ul></section></section></div>
+<li><em>You must accept the terms and conditions</em></li>
+</ul>
+</section><section class="slide"><h2>Exercise: registration form</h2>
+<p>extra: create a dropdown via a <em>select</em> element for choosing a gender (e.g. <em>male</em>, <em>female</em>, <em>diverse</em>)</p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

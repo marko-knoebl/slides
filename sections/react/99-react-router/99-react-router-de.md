@@ -91,9 +91,7 @@ const App = () => {
 ## Routenparameter
 
 ```jsx
-<Route path="/todos/:todoId">
-  <TodoDetailView />
-</Route>
+<Route path="/todos/:todoId" element={<TodoDetailView />} />
 ```
 
 ```jsx

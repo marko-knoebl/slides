@@ -46,6 +46,7 @@ the _accessible name_ could be:
 - alt text of an image
 - title text of a link / image
 - label text of an input
+- an explicit `aria-label` attribute
 
 ## Querying elements
 

@@ -11,7 +11,7 @@
 
 ## React-Bootstrap
 
-npm-Pakete: _react-bootstrap_, _bootstrap_
+npm-Pakete: _bootstrap_, _react-bootstrap_, _@types/react-bootstrap_
 
 ```jsx
 // index.js

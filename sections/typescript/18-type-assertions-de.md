@@ -18,7 +18,7 @@ dies klappt:
 const nameInput = document.getElementById(
   'name-input'
 ) as HTMLInputElement;
-console.log(myInput.value);
+console.log(nameInput.value);
 ```
 
 ## Type Assertions

@@ -97,13 +97,15 @@ Konfigurieren der Breite:
 
 ```xml
 <v-row>
-  <v-col :cols="6" :md="3">
+  <v-col :cols="12" :sm="6" :md="3">
     <v-text-field v-model="newTitle" label="new title" />
   </v-col>
+  <v-col>
     <v-btn color="primary" type="submit">Add</v-btn>
-  <v-col >
+  </v-col>
 </v-row>
 ```
 
-- `:cols="6"` - nutzt auf den kleinsten Bildschirmen 12 Spalten
+- `:cols="12"` - nutzt auf den kleinsten Bildschirmen alle 12 Spalten
+- `:sm="6"` - nutzt auf Bildschirmen der Mindestgröße _small_ 6 Spalten
 - `:md="3"` - nutzt auf Bildschirmen der Mindestgröße _medium_ 3 Spalten

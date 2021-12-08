@@ -97,13 +97,15 @@ configuring the width:
 
 ```xml
 <v-row>
-  <v-col :cols="6" :md="3">
+  <v-col :cols="12" :sm="6" :md="3">
     <v-text-field v-model="newTitle" label="new title" />
   </v-col>
+  <v-col>
     <v-btn color="primary" type="submit">Add</v-btn>
-  <v-col >
+  </v-col>
 </v-row>
 ```
 
-- `:cols="6"` - will take up 6 of 12 columns on the smallest screens
+- `:cols="12"` - will take up all 12 columns on the smallest screens
+- `:sm="6"` - will take up 6 of 12 columns on _small_ or larger screens
 - `:md="3"` - will take up 3 columns on _medium_ or larger screens

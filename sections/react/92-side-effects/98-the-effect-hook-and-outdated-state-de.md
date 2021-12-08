@@ -40,6 +40,14 @@ function CounterWithLogging() {
 }
 ```
 
+## Beispiel: TransitioningImage
+
+Beispiel: Slideshow mit Übergang bei Bild (mit Timeout)
+
+<https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3>
+
+Teste, was geschieht, wenn im Timeout keine State-Update-Funktion verwendet wird
+
 ## Veraltete Daten in einem effect-Hook erkennen
 
 ESLint-Regel, die helfen kann, veraltete Daten zu erkennen:
@@ -56,14 +64,6 @@ verschiedene Lösungen, abhängig vom Szenario (siehe Hinweise in den Linter-Mel
 - übergeben einer "Transformations-Funktion" an einen State Setter (die Funktion hat immer Zugriff auf den aktuellsten State)
 - erneutes Ausführen eines Effects, wenn sich eine Abhängigkeit ändert
 - zusätzliches Speichern des aktuellsten States in einer _ref_ (ist damit auch in älteren Closures verfügbar)
-
-## Beispiel: TransitioningImage
-
-Beispiel: Slideshow mit Übergang bei Bild (mit Timeout)
-
-<https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3>
-
-Teste, was geschieht, wenn im Timeout keine State-Update-Funktion verwendet wird
 
 ## Beheben des Problems mit veralteten Daten
 

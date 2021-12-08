@@ -40,6 +40,14 @@ function CounterWithLogging() {
 }
 ```
 
+## Example: TransitioningImage
+
+Example: Slideshow with transitioning image (with timeout)
+
+<https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3>
+
+Try and see what happens if you don't use a state update function in the timeout
+
 ## Identifying potentially obsolete data in an effect hook
 
 ESLint rule that can help identifying obsolete data:
@@ -56,14 +64,6 @@ varying solutions depending on the scenario (see hints in the linter messages):
 - pass a "transformer" function to a state setter (which can always access the most recent state)
 - have the effect re-run whenever the dependency changes
 - store the most recent version of a state entry in a ref as well (this will also be available in older closures)
-
-## Example: TransitioningImage
-
-Example: Slideshow with transitioning image (with timeout)
-
-<https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3>
-
-Try and see what happens if you don't use a state update function in the timeout
 
 ## Fixing the problem of obsolete data
 

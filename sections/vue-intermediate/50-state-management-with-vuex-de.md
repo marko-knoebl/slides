@@ -27,15 +27,6 @@ Beispiele für Mutationen, wie sie in den Devtools erscheinen:
 
 ```json
 {
-  "type": "deleteTodo",
-  "payload": {
-    "id": 1
-  }
-}
-```
-
-```json
-{
   "type": "deleteCompletedTodos"
 }
 ```
@@ -95,7 +86,7 @@ const store = new Vuex.Store({
 });
 ```
 
-## Vuex and Vue
+## Vuex und Vue
 
 Verwenden eines _Vuex_-Stores in einer Vue-Anwendung:
 
@@ -106,4 +97,40 @@ new Vue({
 });
 ```
 
-Der Store ist innerhalb von Komponenten als `this.$store` verfügbar
+Der Store ist innerhalb von Komponenten als `$store` verfügbar
+
+## Vuex und Vue
+
+Zugriff auf den Vuex-State aus Komponenten:
+
+```xml
+<todo-item v-for="todo in $store.state.todos" ... />
+```
+
+```xml
+<p>Incomplete todos: {{ $store.getters.numIncomplete }}</p>
+```
+
+## Vuex und Vue
+
+Auslösen von Mutationen aus Vue:
+
+```xml
+<todo-item
+  :todo="todo"
+  @toggle="$store.commit('toggleTodo', { id: todo.id })"
+  @delete="$store.commit('deleteTodo', { id: todo.id })"
+/>
+```
+
+## Vuex und Vue
+
+Auslösen einer Action aus Vue:
+
+```js
+export default {
+  async created() {
+    this.$store.dispatch('loadFromApi');
+  },
+};
+```

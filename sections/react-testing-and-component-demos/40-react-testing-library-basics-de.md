@@ -46,6 +46,7 @@ Möglichkeiten für den _accessible name_:
 - Alt-Text eines Bildes
 - Titel eines Links / Bildes
 - Label-Text eines Inputs
+- explizites `aria-label`-Attribut
 
 ## Elemente abfragen
 

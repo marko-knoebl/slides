@@ -37,48 +37,8 @@ Checkbox:
 <input
   type="checkbox"
   checked={accept}
-  onChange={(e) => {
-    setAccept(e.target.checked);
-  }}
+  onChange={(e) => setAccept(e.target.checked)}
 />
-```
-
-## Input-Typen
-
-Dropdown mit festen Optionen:
-
-```jsx
-<select
-  value={unit}
-  onChange={(e) => setUnit(e.target.value)}
->
-  <option value="px">px</option>
-  <option value="em">em</option>
-  <option value="%">%</option>
-</select>
-```
-
-## Input-Typen
-
-Dropdown mit Optionen aus einem Array:
-
-```jsx
-const UnitDropdown = () => {
-  const units = ['px', 'em', '%'];
-  const [unit, setUnit] = useState(units[0]);
-  return (
-    <select
-      value={unit}
-      onChange={(e) => setUnit(e.target.value)}
-    >
-      {units.map((u) => (
-        <option value={u} key={u}>
-          {u}
-        </option>
-      ))}
-    </select>
-  );
-};
 ```
 
 ## Numerische Inputs
@@ -100,16 +60,16 @@ Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):
 Beispiel: Speichern des numerischen Inhalts eines Inputs als ein String, aktualisieren eines zugehörigen numerischen Wertes, wenn dies möglich ist:
 
 ```jsx
-const FontSizeDemo = () => {
+function FontSizeDemo() {
   const [size, setSize] = useState(16);
   const [sizeStr, setSizeStr] = useState(size.toString());
-  const updateSize = (s) => {
+  function updateSize(s) {
     setSizeStr(s);
     // source: https://stackoverflow.com/questions/18082
     if (!isNaN(parseFloat(s)) && isFinite(s)) {
       setSize(Number(s));
     }
-  };
+  }
   return (
     <div>
       <input
@@ -120,5 +80,5 @@ const FontSizeDemo = () => {
       <div style={{ fontSize: size }}>Sample text</div>
     </div>
   );
-};
+}
 ```

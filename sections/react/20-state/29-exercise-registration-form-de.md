@@ -8,10 +8,11 @@ Werte sollten in einem einzigen JS-Objekt mit verschiedenen Keys gespeichert wer
 
 ```js
 const [userData, setUserData] = useState({
-  username: "",
-  password: "",
-  repeatPassword: "",
-})
+  username: '',
+  password: '',
+  repeatPassword: '',
+  acceptTerms: false,
+});
 ```
 
 ## Übung: Registrierungsformular
@@ -23,3 +24,8 @@ mögliche Meldungen:
 - _Username must not be empty_
 - _Password must be at least 4 characters long_
 - _Passwords don't match_
+- _You must accept the terms and conditions_
+
+## Übung: Registrierungsformular
+
+Zusatz: Erstelle ein Dropdown mittels eines _select_-Elements, um ein Geschlecht auswählen zu können (z.B. _male_, _female_, _diverse_)

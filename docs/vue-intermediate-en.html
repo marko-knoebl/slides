@@ -2271,13 +2271,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 <pre><code class="hljs language-json">{
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"deleteTodo"</span>,
-  <span class="hljs-attr">"payload"</span>: {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>
-  }
-}
-</code></pre>
-<pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"deleteCompletedTodos"</span>
 }
 </code></pre>
@@ -2335,7 +2328,29 @@ store.commit(<span class="hljs-string">'deleteTodo'</span>, { <span class="hljs-
   <span class="hljs-attr">store</span>: store,
 });
 </code></pre>
-<p>The store will be available via <code>this.$store</code> inside components</p>
+<p>The store will be available via <code>$store</code> inside components</p>
+</section><section class="slide"><h2>Vuex and Vue</h2>
+<p>Accessing the Vuex state from components:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">todo-item</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"todo in $store.state.todos"</span> <span class="hljs-attr">...</span> /></span>
+</code></pre>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Incomplete todos: {{ $store.getters.numIncomplete }}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Vuex and Vue</h2>
+<p>Triggering mutations from Vue:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">todo-item</span>
+  <span class="hljs-attr">:todo</span>=<span class="hljs-string">"todo"</span>
+  @<span class="hljs-attr">toggle</span>=<span class="hljs-string">"$store.commit('toggleTodo', { id: todo.id })"</span>
+  @<span class="hljs-attr">delete</span>=<span class="hljs-string">"$store.commit('deleteTodo', { id: todo.id })"</span>
+/></span>
+</code></pre>
+</section><section class="slide"><h2>Vuex and Vue</h2>
+<p>Triggering an action from Vue:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">created</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.$store.dispatch(<span class="hljs-string">'loadFromApi'</span>);
+  },
+};
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Transitions</h1>
 </section><section class="slide"><h2>Transitions</h2>
 <p>animation of <em>enter</em> / <em>leave</em> transitions:</p>

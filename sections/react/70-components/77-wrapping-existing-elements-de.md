@@ -1,6 +1,6 @@
-# "Wrappper" für bestehende Elemente
+# "Wrapper" für bestehende Elemente
 
-## "Wrappper" für bestehende Elemente
+## "Wrapper" für bestehende Elemente
 
 verbreiteter Use Case: "Wrapper" für bestehende Elemente zwecks Styling:
 

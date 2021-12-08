@@ -27,15 +27,6 @@ example mutations as they will appear in the devtools:
 
 ```json
 {
-  "type": "deleteTodo",
-  "payload": {
-    "id": 1
-  }
-}
-```
-
-```json
-{
   "type": "deleteCompletedTodos"
 }
 ```
@@ -106,4 +97,40 @@ new Vue({
 });
 ```
 
-The store will be available via `this.$store` inside components
+The store will be available via `$store` inside components
+
+## Vuex and Vue
+
+Accessing the Vuex state from components:
+
+```xml
+<todo-item v-for="todo in $store.state.todos" ... />
+```
+
+```xml
+<p>Incomplete todos: {{ $store.getters.numIncomplete }}</p>
+```
+
+## Vuex and Vue
+
+Triggering mutations from Vue:
+
+```xml
+<todo-item
+  :todo="todo"
+  @toggle="$store.commit('toggleTodo', { id: todo.id })"
+  @delete="$store.commit('deleteTodo', { id: todo.id })"
+/>
+```
+
+## Vuex and Vue
+
+Triggering an action from Vue:
+
+```js
+export default {
+  async created() {
+    this.$store.dispatch('loadFromApi');
+  },
+};
+```
