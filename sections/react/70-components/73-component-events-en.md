@@ -14,7 +14,10 @@ Event handlers are defined as functions and passed down via props.
 Example:
 
 ```jsx
-<Rating value={prodRating} onChange={onProdRatingChange} />
+<Rating
+  value={prodRating}
+  onChange={(newRating) => onProdRatingChange(newRating)}
+/>
 ```
 
 <img src="assets/rating.png" style="width: 16em" />

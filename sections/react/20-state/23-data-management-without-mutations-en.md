@@ -9,26 +9,6 @@ options for getting updated data from previous data:
 
 ## Data management without mutations
 
-initial data:
-
-```js
-const names = ['Alice', 'Bob', 'Charlie'];
-```
-
-**mutation**: this modifies the original array
-
-```js
-names.push('Dan');
-```
-
-**no mutation**: creates a new array (spread syntax)
-
-```js
-const newNames = [...names, 'Dan'];
-```
-
-## Data management without mutations
-
 topics:
 
 - adding properties to an object

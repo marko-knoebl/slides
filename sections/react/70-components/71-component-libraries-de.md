@@ -30,16 +30,18 @@ Dokumentation: https://react-bootstrap.github.io/
 
 ## Material-UI
 
-Vorgefertigte React-Komponenten im Material-Design-Stil (Stil von Google/Android)
+React-Komponenten im Material-Design-Stil (Stil von Google/Android)
 
-npm-Paket: _@material-ui/core_
+npm-Pakete: _@mui/material_ _@emotion/react_ _@emotion/styled_
 
 ```jsx
-import { Button } from '@material-ui/core';
+import Button from '@mui/material/Button';
 ```
 
 ```jsx
-<Button color="primary">Hello World</Button>
+<Button color="primary" variant="contained">
+  Hello World
+</Button>
 ```
 
-Dokumentation: https://material-ui.com
+Dokumentation: https://mui.com

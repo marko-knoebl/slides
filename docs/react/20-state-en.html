@@ -2125,31 +2125,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 <p>If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.</p>
 </section><section class="slide"><h2>Immutable state</h2>
-<p>demo (see <a href="https://codesandbox.io/s/immutable-state-demo-r2x1i">https://codesandbox.io/s/immutable-state-demo-r2x1i</a>):</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [numbers, setNumbers] = useState([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addByReplacing</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-comment">// creates a new - derived - state object</span>
-    setNumbers([...numbers, numbers.length]);
-  }
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addByMutating</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-comment">// changes (mutates) the old state entry</span>
-    numbers.push(numbers.length);
-    setNumbers(numbers);
-  }
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{JSON.stringify(numbers)}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> addByReplacing()}>
-        add (replace)
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> addByMutating()}>
-        add (mutate)
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
+<p>demo: <a href="https://codesandbox.io/s/immutable-state-demo-r2x1i">https://codesandbox.io/s/immutable-state-demo-r2x1i</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Data management without mutations</h1>
 </section><section class="slide"><h2>Data management without mutations</h2>
 <p>options for getting updated data from previous data:</p>
@@ -2157,16 +2133,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>mutate the original data</li>
 <li>create new - derived - data from the original data</li>
 </ul>
-</section><section class="slide"><h2>Data management without mutations</h2>
-<p>initial data:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-</code></pre>
-<p><strong>mutation</strong>: this modifies the original array</p>
-<pre><code class="hljs language-js">names.push(<span class="hljs-string">'Dan'</span>);
-</code></pre>
-<p><strong>no mutation</strong>: creates a new array (spread syntax)</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> newNames = [...names, <span class="hljs-string">'Dan'</span>];
-</code></pre>
 </section><section class="slide"><h2>Data management without mutations</h2>
 <p>topics:</p>
 <ul>

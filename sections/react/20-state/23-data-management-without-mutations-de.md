@@ -9,26 +9,6 @@ Möglichkeiten, um aus bestehenden Daten aktualisierte Daten zu erhalten:
 
 ## Datenverwaltung ohne Mutationen
 
-Ausgangsdaten:
-
-```js
-const names = ['Alice', 'Bob', 'Charlie'];
-```
-
-**Mutation**: Abändern des ursprünglichen Arrays
-
-```js
-names.push('Dan');
-```
-
-**keine Mutation**: Erstellen eines neuen Arrays (spread Syntax)
-
-```js
-const newNames = [...names, 'Dan'];
-```
-
-## Datenverwaltung ohne Mutationen
-
 Themen:
 
 - Hinzufügen von Properties zu einem Objekt

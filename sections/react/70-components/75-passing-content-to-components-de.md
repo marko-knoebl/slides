@@ -18,15 +18,20 @@ Komponentendefinition:
 
 ```jsx
 type Props = {
-  type: string,
-  children: React.ReactNode,
+  type: string;
+  children: React.ReactNode;
 };
 
 const Notification = (props: Props) => {
-  const style = {
-    backgroundColor:
-      props.type === 'error' ? 'salmon' : 'lightblue',
-  };
-  return <div style={style}>{props.children}</div>;
+  return (
+    <div
+      style={{
+        backgroundColor:
+          props.type === 'error' ? 'salmon' : 'lightblue',
+      }}
+    >
+      {props.children}
+    </div>
+  );
 };
 ```

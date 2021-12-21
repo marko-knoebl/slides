@@ -14,7 +14,10 @@ Eventhandler werden als Funktionen definiert und via props übergeben / erhalten
 Example:
 
 ```jsx
-<Rating value={prodRating} onChange={onProdRatingChange} />
+<Rating
+  value={prodRating}
+  onChange={(newRating) => onProdRatingChange(newRating)}
+/>
 ```
 
 <img src="assets/rating.png" style="width: 16em" />
