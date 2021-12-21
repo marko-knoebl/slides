@@ -9,7 +9,7 @@ usually 2 days
 ### Development of modern front-end applications
 
 - overview and similarities of React, Vue and Angular
-- declarative rendering
+- declarative rendering and state
 - components - defining custom HTML tags
 - initializing a React project via create-react-app
 
@@ -20,6 +20,7 @@ usually 2 days
 - modules (import and export)
 - arrow functions
 - functional programming in JavaScript
+- data managemant without mutations
 
 ### TypeScript basics for React
 
@@ -54,11 +55,6 @@ usually 2 days
 - data flow between components
 - inspecting components via the React developer tools
 
-### Querying APIs from React
-
-- sending HTTP requests via _fetch_
-- using the effect hook to trigger HTTP requests
-
 ### Class components
 
 - defining components via functions or via classes
@@ -66,18 +62,27 @@ usually 2 days
 - state in class components
 - props and events in class components
 
+### Querying APIs from React
+
+- sending HTTP requests via _fetch_
+- using the effect hook to trigger HTTP requests
+
+### React router
+
+- displaying different views based on the route
+- nested routes
+- route parameters
+
 ## React intermediate
 
 usually 1 day
 
 ### React tools and libraries
 
-- React router
-- external and custom hooks (e.g. react-query)
-- context: sharing values across a component tree
-- effect hook in detail
 - styling libraries
 - form libraries
+- external and custom hooks (e.g. react-query)
+- context: sharing values across a component tree
 
 ### State management with reducers
 
@@ -90,6 +95,7 @@ usually 1 day
 
 - component demos with storybook
 - testing JavaScript code with Jest
+- end-to-end tests with JavaScript
 - testing React components with react-testing-library
 - snapshot tests
 
@@ -104,6 +110,9 @@ usually 1 day
 - React.memo (memoized component renderings)
 - callback hook (memoized callbacks / event handlers)
 - memo hook (memoized derived values)
+
+### Pre-Rendering und next.js
+
 - static site generation
 - server-side rendering
 - code splitting
@@ -145,7 +154,6 @@ usually 1 day
 
 - overview of the Redux ecosystem
 - middleware
-- asynchronous actions via Sagas
 
 ## React and GraphQL
 

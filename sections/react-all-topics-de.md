@@ -9,7 +9,7 @@
 ### Entwicklung moderner Frontend-Anwendungen
 
 - Überblick und Gemeinsamkeiten von React, Vue und Angular
-- deklaratives Rendering
+- deklaratives Rendering und State
 - Komponenten - eigene HTML-Tags definieren
 - Initialisierung eines React-Projektes mittels create-react-app
 
@@ -20,6 +20,7 @@
 - Module (import und export)
 - Pfeilfunktionen
 - Funktionale Programmierung in JavaScript
+- Datenverwaltung ohne Mutationen
 
 ### TypeScript Grundlagen für React
 
@@ -54,11 +55,6 @@
 - Datenfluss zwischen Komponenten
 - Komponenten untersuchen mit den React Developer Tools
 
-### APIs aus React abfragen
-
-- senden von HTTP-Requests via _fetch_
-- verwenden des effect-Hooks, um HTTP-Requests auszulösen
-
 ### Klassenkomponenten
 
 - Definieren einer Komponente als Funktion oder als Klasse
@@ -66,18 +62,27 @@
 - State in Klassenkomponenten
 - Props und Events in Klassenkomponenten
 
+### APIs aus React abfragen
+
+- senden von HTTP-Requests via _fetch_
+- verwenden des effect-Hooks, um HTTP-Requests auszulösen
+
+### React Router
+
+- Anzeigen unterschiedlicher Ansichten basierend auf der Route
+- verschachtelte Rotuen
+- Routenparameter
+
 ## React Intermediate
 
 üblicherweise 1 Tag
 
 ### React Tools und Libraries
 
-- React Router
-- externe und eigene Hooks (z.B. react-query)
-- Context: Teilen von Daten über einen Komponentenbaum hinweg
-- der Effect-Hook im Detail
 - Styling Libraries
 - Formular-Libraries
+- externe und eigene Hooks (z.B. react-query)
+- Context: Teilen von Daten über einen Komponentenbaum hinweg
 
 ### State Management mit Reducern
 
@@ -90,6 +95,7 @@
 
 - Komponentendemos mit Storybook
 - Testen von JavaScript-Funktionen mit Jest
+- End-to-End-Tests mit JavaScript
 - Testen von React-Komponenten mit react-testing-library
 - Snapshot-Tests
 
@@ -98,12 +104,15 @@
 - Progressive Web Apps: Erstellen von installierbaren mobilen und Desktop-Anwendungen
 - Überblick über React Native
 
-### Performanceoptimierung und Pre-Rendering
+### Performanceoptimierung
 
 - React Developer Tools Profiler
 - React.memo (memoisierte Komponentenrenderings)
 - Callback-Hook (memoisierte Callback / Eventhandler)
 - Memo-Hook (memoisierte abgeleitete Werte)
+
+### Pre-Rendering und next.js
+
 - Static Site Generators
 - server-seitiges Rendering
 - Code splitting
@@ -145,7 +154,6 @@
 
 - Überblick über Redux Tooling
 - Middleware
-- asynchrone Actions mittels Sagas
 
 ## React und GraphQL
 
