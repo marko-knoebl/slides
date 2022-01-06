@@ -1,23 +1,17 @@
-# End-to-end tests with Jest and puppeteer
-
-## End-to-end testing tools
-
-- puppeteer
-- cypress
-- selenium
+# End-to-end Tests mit puppeteer
 
 ## Puppeteer
 
-a tool that can control an instance of the Chromium browser from node
-
-npm packages:
+npm-Pakete:
 
 - _puppeteer_
 - _@types/puppeteer_
 
+wir werden _jest_ als Test-Runner verwenden
+
 ## Puppeteer
 
-testing Wikipedia:
+Testen von Wikipedia:
 
 ```js
 import puppeteer from 'puppeteer';
@@ -34,7 +28,7 @@ test('wikipedia title', async () => {
 
 ## Puppeteer
 
-restructuring code for multiple tests:
+Restrukturierung für mehrere Tests:
 
 ```ts
 let browser: puppeteer.Browser;
@@ -58,7 +52,7 @@ test('wikipedia title', async () => {
 
 ## Puppeteer
 
-tests that actually open a browser window:
+Test, der tatsächlich ein Browser-Fenster öffnet:
 
 ```js
 beforeAll(async () => {
@@ -68,21 +62,21 @@ beforeAll(async () => {
 
 ## Puppeteer
 
-_querying elements_ is not trivial since there are two _separate_ JavaScript environments (node and Chromium)
+Abfragen von Elementen ist nicht trivial, da wir mit zwei _separate_ JavaScript-Umgebungen arbeiten (node und Chromium)
 
-querying elements for getting their contents:
+Seiteninhalte abfragen:
 
-- `page.$eval()` for a single elements
-- `page.$$eval()` for multiple elements
+- `page.$eval()` für Inhalte eines einzelnen Elements
+- `page.$$eval()` zum Abfragen aller zutreffenden Elemente
 
-querying elements for triggering actions:
+Elemente abfragen, um mit ihnen zu interagieren:
 
-- `page.$()` for single elements
-- `page.$$()` for an array of elements
+- `page.$()` für ein einzelnes Element
+- `page.$$()` für ein Array aller zutreffenden Eelmente
 
 ## Puppeteer
 
-getting elements to retrieve their content:
+Elemente abfragen, um auf deren Inhalte zuzugreifen:
 
 ```js
 const firstLinkText = await page.$eval(
@@ -98,7 +92,7 @@ const thirdLinkText = await page.$$eval(
 
 ## Puppeteer
 
-getting an element for triggering an action:
+Elemente abfragen, um mit ihnen zu interagieren:
 
 ```js
 const firstLink = await page.$('a');
@@ -108,7 +102,7 @@ await page.waitForNavigation();
 
 ## Puppeteer
 
-example: Searching on Wikipedia
+Beispiel: Suche auf Wikipedia
 
 ```js
 test('wikipedia search', async () => {
@@ -125,11 +119,11 @@ test('wikipedia search', async () => {
 });
 ```
 
-<small>notes: <em>page.keyboard.press("Enter")</em> would trigger full-text search; on some Wikipedia pages the first paragraph might be empty.</small>
+<small>Bemerkungen: <em>page.keyboard.press("Enter")</em> würde eine Volltextsuche auslösen; auf manchen Wikipedia-Seiten ist der erste Paragraph leer.</small>
 
 ## Puppeteer
 
-important methods:
+wichtige Methoden:
 
 - `page.$()`
 - `page.$$()`
@@ -141,10 +135,10 @@ important methods:
 - `element.click()`
 - `page.waitForNavigation()`
 
-[complete API](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md)
+[vollständiges API](https://github.com/puppeteer/puppeteer/blob/main/docs/api.md)
 
-## Exercise
+## Übung
 
-Write tests for the todo app at:
+schreibe Tests für die Todo-App unter:
 
 https://do49e.csb.app/

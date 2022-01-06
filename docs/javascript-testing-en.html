@@ -2209,20 +2209,139 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
   test(<span class="hljs-comment">/*...*/</span>);
 });
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>End-to-end tests with Jest and puppeteer</h1>
-</section><section class="slide"><h2>End-to-end testing tools</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>End-to-end tests</h1>
+</section><section class="slide"><h2>End-to-end tests</h2>
+<p>End-to-end tests: an instance of a browser is controlled to interact with a website and verify its behavior</p>
+</section><section class="slide"><h2>End-to-end tests</h2>
+<p>tools:</p>
 <ul>
-<li>puppeteer</li>
-<li>cypress</li>
-<li>selenium</li>
+<li><em>selenium</em></li>
+<li><em>cypress</em>: released in 2017</li>
+<li><em>puppeteer</em>: only supports Chrome / Chromium, released in 2017</li>
+<li><em>playwright</em>: forked from puppeteer, released in 2020</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>End-to-end tests with Cypress</h1>
+</section><section class="slide"><h2>Cypress</h2>
+<p>uses <em>mocha</em> and <em>chai</em> in the background</p>
+</section><section class="slide"><h2>Setup</h2>
+<p>npm package: <em>cypress</em></p>
+<p>in <em>package.json</em>:</p>
+<pre><code class="hljs language-json">  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-attr">"cypress:open"</span>: <span class="hljs-string">"cypress open"</span>,
+    <span class="hljs-attr">"cypress:run"</span>: <span class="hljs-string">"cypress run"</span>
+  }
+</code></pre>
+</section><section class="slide"><h2>Running Cypress</h2>
+<p>execute:</p>
+<pre><code class="hljs language-bash">npm run cypress:open
+</code></pre>
+<p>Starts a graphical user interface</p>
+<p>Will create folder <em>cypress</em> on first run</p>
+</section><section class="slide"><h2>Configuration</h2>
+<p>TypeScript configuration in a create-react-app project:</p>
+<p>in <em>cypress/tsconfig.json</em>:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"extends"</span>: <span class="hljs-string">"../tsconfig.json"</span>,
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"noEmit"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-comment">// be explicit about types included</span>
+    <span class="hljs-comment">// to avoid clashing with Jest types</span>
+    <span class="hljs-attr">"types"</span>: [<span class="hljs-string">"cypress"</span>]
+  },
+  <span class="hljs-attr">"include"</span>: [<span class="hljs-string">"../node_modules/cypress"</span>, <span class="hljs-string">"./**/*.ts"</span>]
+}
+</code></pre>
+</section><section class="slide"><h2>Configuration</h2>
+<p>To avoid ESLint errors (in particular with <em>create-react-app</em> projects):</p>
+<p>in <em>package.json</em>:</p>
+<pre><code class="hljs language-json">  <span class="hljs-string">"eslintConfig"</span>: {
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-attr">"overrides"</span>: [
+      {
+        <span class="hljs-attr">"files"</span>: [<span class="hljs-string">"cypress/**"</span>],
+        <span class="hljs-attr">"rules"</span>: {
+          <span class="hljs-attr">"jest/valid-expect"</span>: <span class="hljs-number">0</span>
+        }
+      }
+    ]
+  },
+</code></pre>
+</section><section class="slide"><h2>Cypress</h2>
+<p>example: testing Wikipedia:</p>
+<p>in <em>cypress/integration/wikipedia.spec.ts</em>:</p>
+<pre><code class="hljs language-js">describe(<span class="hljs-string">'wikipedia'</span>, <span class="hljs-function">() =></span> {
+  beforeEach(<span class="hljs-function">() =></span> {
+    cy.visit(<span class="hljs-string">'https://en.wikipedia.org'</span>);
+  });
+
+  it(<span class="hljs-string">"page title includes 'wikipedia', version 1"</span>, <span class="hljs-function">() =></span> {
+    cy.title().should(<span class="hljs-string">'match'</span>, <span class="hljs-regexp">/wikipedia/i</span>);
+  });
+
+  it(<span class="hljs-string">"page title includes 'wikipedia', version 2"</span>, <span class="hljs-function">() =></span> {
+    cy.title().should(<span class="hljs-function">(<span class="hljs-params">title</span>) =></span> {
+      expect(title).to.match(<span class="hljs-regexp">/wikipedia/i</span>);
+    });
+  });
+});
+</code></pre>
+</section><section class="slide"><h2>Cypress</h2>
+<p>querying elements:</p>
+<ul>
+<li>search by text: <code>cy.contains("hello world")</code></li>
+<li>search by text and selector: <code>cy.contains("h1", "hello world")</code></li>
+<li>search by selector: <code>cy.get("#name-input")</code></li>
+</ul>
+</section><section class="slide"><h2>Cypress</h2>
+<p>nested queries:</p>
+<pre><code class="hljs language-js">cy.get(<span class="hljs-string">'main'</span>).get(<span class="hljs-string">'table'</span>).contains(<span class="hljs-string">'tr'</span>, <span class="hljs-string">'foo'</span>);
+</code></pre>
+</section><section class="slide"><h2>Cypress</h2>
+<p>interacting with elements:</p>
+<ul>
+<li><code>cy.get("#reset-btn").click()</code></li>
+<li><code>cy.get("#name-input").type("foo")</code></li>
+</ul>
+</section><section class="slide"><h2>Cypress</h2>
+<p>example assertion:</p>
+<pre><code class="hljs language-js">cy.get(<span class="hljs-string">'#name-input'</span>).should(<span class="hljs-string">'have.class'</span>, <span class="hljs-string">'invalid'</span>);
+</code></pre>
+<p>other assertions::</p>
+<ul>
+<li><code>cy.url().should("match", /foo/i)</code></li>
+<li><code>.should("have.class", "invalid")</code></li>
+<li><code>.should("have.value", "")</code></li>
+</ul>
+</section><section class="slide"><h2>Cypress</h2>
+<p>example: Searching on Wikipedia</p>
+<pre><code class="hljs language-js">it(<span class="hljs-string">'search'</span>, <span class="hljs-function">() =></span> {
+  cy.get(<span class="hljs-string">'#searchInput'</span>).type(<span class="hljs-string">'cypress'</span>);
+  cy.get(<span class="hljs-string">'#searchButton'</span>).click();
+  cy.get(<span class="hljs-string">'p'</span>)
+    .first()
+    .should(<span class="hljs-function">(<span class="hljs-params">element</span>) =></span> {
+      <span class="hljs-keyword">const</span> text = element.text();
+      expect(text).to.match(<span class="hljs-regexp">/cypress/i</span>);
+    });
+});
+</code></pre>
+</section><section class="slide"><h2>Cypress</h2>
+<p>extra configuration in <em>cypress.json</em>:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"baseUrl"</span>: <span class="hljs-string">"http://localhost:8080"</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Exercise</h2>
+<p>Write tests for the todo app at:</p>
+<p><a href="https://do49e.csb.app/">https://do49e.csb.app/</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>End-to-end tests with puppeteer</h1>
 </section><section class="slide"><h2>Puppeteer</h2>
-<p>a tool that can control an instance of the Chromium browser from node</p>
 <p>npm packages:</p>
 <ul>
 <li><em>puppeteer</em></li>
 <li><em>@types/puppeteer</em></li>
 </ul>
+<p>we will use <em>jest</em> as a test runner</p>
 </section><section class="slide"><h2>Puppeteer</h2>
 <p>testing Wikipedia:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> puppeteer <span class="hljs-keyword">from</span> <span class="hljs-string">'puppeteer'</span>;
@@ -2325,87 +2444,63 @@ test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keywo
 </section><section class="slide"><h2>Exercise</h2>
 <p>Write tests for the todo app at:</p>
 <p><a href="https://do49e.csb.app/">https://do49e.csb.app/</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>End-to-end tests with Cypress</h1>
-</section><section class="slide"><h2>Cypress</h2>
-<p>E2E testing library</p>
-<p>uses <em>mocha</em> and <em>chai</em> in the background</p>
+</section></section><section class="slides-section"><section class="slide"><h1>End-to-End Tests with Playwright</h1>
+</section><section class="slide"><h2>Playwright</h2>
+<p>includes <em>expect</em> from Jest</p>
 </section><section class="slide"><h2>Setup</h2>
-<p>npm package: <em>cypress</em></p>
-<p>in <em>package.json</em>:</p>
-<pre><code class="hljs language-json">  <span class="hljs-string">"scripts"</span>: {
-    <span class="hljs-attr">"cypress:open"</span>: <span class="hljs-string">"cypress open"</span>
-  }
+<pre><code class="hljs language-bash">npm install @playwright/<span class="hljs-built_in">test</span>
 </code></pre>
-</section><section class="slide"><h2>Running Cypress</h2>
-<p>execute:</p>
-<pre><code class="hljs language-bash">npm run cypress:open
+<p>install browsers (Chromium, Firefox, Webkit):</p>
+<pre><code class="hljs language-bash">npx playwright install
 </code></pre>
-<p>Starts a graphical user interface</p>
-<p>Will create folder <em>cypress</em> on first run</p>
-</section><section class="slide"><h2>Configuration</h2>
-<p>TypeScript configuration in a create-react-app project:</p>
-<p>in <em>cypress/tsconfig.json</em>:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"extends"</span>: <span class="hljs-string">"../tsconfig.json"</span>,
-  <span class="hljs-attr">"compilerOptions"</span>: {
-    <span class="hljs-attr">"noEmit"</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-comment">// be explicit about types included</span>
-    <span class="hljs-comment">// to avoid clashing with Jest types</span>
-    <span class="hljs-attr">"types"</span>: [<span class="hljs-string">"cypress"</span>]
-  },
-  <span class="hljs-attr">"include"</span>: [<span class="hljs-string">"../node_modules/cypress"</span>, <span class="hljs-string">"./**/*.ts"</span>]
-}
+</section><section class="slide"><h2>Running tests</h2>
+<p>run tests:</p>
+<pre><code class="hljs language-bash">npx playwright <span class="hljs-built_in">test</span>
 </code></pre>
-</section><section class="slide"><h2>Configuration</h2>
-<p>To avoid ESLint errors (in particular with <em>create-react-app</em> projects):</p>
-<p>in <em>package.json</em>:</p>
-<pre><code class="hljs language-json">  <span class="hljs-string">"eslintConfig"</span>: {
-    <span class="hljs-comment">// ...</span>
-    <span class="hljs-attr">"overrides"</span>: [
-      {
-        <span class="hljs-attr">"files"</span>: [<span class="hljs-string">"cypress/**"</span>],
-        <span class="hljs-attr">"rules"</span>: {
-          <span class="hljs-attr">"jest/valid-expect"</span>: <span class="hljs-number">0</span>
-        }
-      }
-    ]
-  },
+<p>run in "<em>headed</em>" mode (actually opening a browser window):</p>
+<pre><code class="hljs language-bash">npx playwright <span class="hljs-built_in">test</span> --headed
 </code></pre>
-</section><section class="slide"><h2>Cypress</h2>
-<p>example: testing Wikipedia:</p>
-<p>in <em>cypress/integration/wikipedia.spec.ts</em>:</p>
-<pre><code class="hljs language-js">describe(<span class="hljs-string">'wikipedia'</span>, <span class="hljs-function">() =></span> {
-  beforeEach(<span class="hljs-function">() =></span> {
-    cy.visit(<span class="hljs-string">'https://en.wikipedia.org'</span>);
-  });
+</section><section class="slide"><h2>Playwright</h2>
+<p>testing Wikipedia:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { test, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@playwright/test'</span>;
 
-  it(<span class="hljs-string">"page title includes 'wikipedia', version 1"</span>, <span class="hljs-function">() =></span> {
-    cy.title().should(<span class="hljs-string">'match'</span>, <span class="hljs-regexp">/wikipedia/i</span>);
-  });
-
-  it(<span class="hljs-string">"page title includes 'wikipedia', version 2"</span>, <span class="hljs-function">() =></span> {
-    cy.title().should(<span class="hljs-function">(<span class="hljs-params">title</span>) =></span> {
-      expect(title).to.match(<span class="hljs-regexp">/wikipedia/i</span>);
-    });
-  });
+test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keyword">async</span> ({ page }) => {
+  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'https://en.wikipedia.org'</span>);
+  <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
+  expect(pageTitle).toMatch(<span class="hljs-regexp">/Wikipedia/</span>);
 });
 </code></pre>
-</section><section class="slide"><h2>Cypress</h2>
+</section><section class="slide"><h2>Playwright</h2>
+<p>restructuring code for multiple tests:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { test, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@playwright/test'</span>;
+
+test.beforeEach(<span class="hljs-keyword">async</span> ({ page }) => {
+  <span class="hljs-keyword">await</span> page.goto(<span class="hljs-string">'https://en.wikipedia.org'</span>);
+});
+
+test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keyword">async</span> ({ page }) => {
+  <span class="hljs-keyword">const</span> pageTitle = <span class="hljs-keyword">await</span> page.title();
+  expect(pageTitle).toMatch(<span class="hljs-regexp">/Wikipedia/</span>);
+});
+</code></pre>
+</section><section class="slide"><h2>Playwright</h2>
+<p>clicking on a link:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> page.click(<span class="hljs-string">'text=About Wikipedia'</span>);
+</code></pre>
+</section><section class="slide"><h2>Playwright</h2>
 <p>example: Searching on Wikipedia</p>
-<pre><code class="hljs language-js">it(<span class="hljs-string">'search'</span>, <span class="hljs-function">() =></span> {
-  cy.get(<span class="hljs-string">'#searchInput'</span>).type(<span class="hljs-string">'cypress'</span>);
-  cy.get(<span class="hljs-string">'#searchButton'</span>).click();
-  cy.get(<span class="hljs-string">'p'</span>)
-    .first()
-    .should(<span class="hljs-function">(<span class="hljs-params">element</span>) =></span> {
-      <span class="hljs-keyword">const</span> text = element.text();
-      expect(text).to.match(<span class="hljs-regexp">/cypress/i</span>);
-    });
+<pre><code class="hljs language-js">test(<span class="hljs-string">'wikipedia search'</span>, <span class="hljs-keyword">async</span> ({ page }) => {
+  <span class="hljs-keyword">await</span> page.fill(
+    <span class="hljs-string">'input[aria-label="Search Wikipedia"]'</span>,
+    <span class="hljs-string">'foo'</span>
+  );
+  <span class="hljs-keyword">await</span> page.click(<span class="hljs-string">'#searchButton'</span>);
+  <span class="hljs-keyword">await</span> page.waitForNavigation();
+  <span class="hljs-keyword">const</span> mainHeading = page.locator(<span class="hljs-string">'h1'</span>);
+  <span class="hljs-keyword">await</span> expect(mainHeading).toHaveText(<span class="hljs-regexp">/foo/i</span>);
 });
 </code></pre>
-</section><section class="slide"><h2>Exercise</h2>
-<p>Write tests for the todo app at:</p>
-<p><a href="https://do49e.csb.app/">https://do49e.csb.app/</a></p>
+<p><small>note: <em>page.keyboard.press("Enter")</em> would trigger full-text search</small></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Mocking with jest</h1>
 </section><section class="slide"><h2>Mocking built-ins</h2>
 <p>mocking <em>localStorage</em> (which is not available in node) with example content:</p>

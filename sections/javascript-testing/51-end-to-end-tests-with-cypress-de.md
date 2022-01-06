@@ -2,8 +2,6 @@
 
 ## Cypress
 
-E2E-Testing-Library
-
 verwendet im Hintergrund _mocha_ und _chai_
 
 ## Setup
@@ -14,7 +12,8 @@ in _package.json_:
 
 ```json
   "scripts": {
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   }
 ```
 
@@ -95,6 +94,43 @@ describe('wikipedia', () => {
 
 ## Cypress
 
+Abfragen von Elementen:
+
+- nach Text suchen: `cy.contains("hello world")`
+- nach Text und Selektor suchen: `cy.contains("h1", "hello world")`
+- nach Selektor suchen: `cy.get("#name-input")`
+
+## Cypress
+
+verschachtelte Abfragen:
+
+```js
+cy.get('main').get('table').contains('tr', 'foo');
+```
+
+## Cypress
+
+Interagieren mit Elementen:
+
+- `cy.get("#reset-btn").click()`
+- `cy.get("#name-input").type("foo")`
+
+## Cypress
+
+Beispiel für eine Assertion:
+
+```js
+cy.get('#name-input').should('have.class', 'invalid');
+```
+
+andere Assertions:
+
+- `cy.url().should("match", /foo/i)`
+- `.should("have.class", "invalid")`
+- `.should("have.value", "")`
+
+## Cypress
+
 Beispiel: Suche auf Wikipedia
 
 ```js
@@ -108,6 +144,16 @@ it("wikipedia search for 'cypress' article", () => {
       expect(text).to.match(/cypress/i);
     });
 });
+```
+
+## Cypress
+
+extra-Konfiguration in _cypress.json_:
+
+```json
+{
+  "baseUrl": "http://localhost:8080"
+}
 ```
 
 ## Übung

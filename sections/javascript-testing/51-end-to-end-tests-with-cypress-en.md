@@ -2,8 +2,6 @@
 
 ## Cypress
 
-E2E testing library
-
 uses _mocha_ and _chai_ in the background
 
 ## Setup
@@ -14,7 +12,8 @@ in _package.json_:
 
 ```json
   "scripts": {
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   }
 ```
 
@@ -95,6 +94,43 @@ describe('wikipedia', () => {
 
 ## Cypress
 
+querying elements:
+
+- search by text: `cy.contains("hello world")`
+- search by text and selector: `cy.contains("h1", "hello world")`
+- search by selector: `cy.get("#name-input")`
+
+## Cypress
+
+nested queries:
+
+```js
+cy.get('main').get('table').contains('tr', 'foo');
+```
+
+## Cypress
+
+interacting with elements:
+
+- `cy.get("#reset-btn").click()`
+- `cy.get("#name-input").type("foo")`
+
+## Cypress
+
+example assertion:
+
+```js
+cy.get('#name-input').should('have.class', 'invalid');
+```
+
+other assertions::
+
+- `cy.url().should("match", /foo/i)`
+- `.should("have.class", "invalid")`
+- `.should("have.value", "")`
+
+## Cypress
+
 example: Searching on Wikipedia
 
 ```js
@@ -108,6 +144,16 @@ it('search', () => {
       expect(text).to.match(/cypress/i);
     });
 });
+```
+
+## Cypress
+
+extra configuration in _cypress.json_:
+
+```json
+{
+  "baseUrl": "http://localhost:8080"
+}
 ```
 
 ## Exercise
