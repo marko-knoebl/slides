@@ -70,8 +70,7 @@ Bundler wie webpack können beim Importieren vom JavaScript Standard abweichen:
 
 ## Pfeilfunktionen
 
-- Kurzschreibweise für anonyme Funktionen
-- Lässt _this_ unverändert (überschreibt es nicht)
+Kurzschreibweise für anonyme Funktionen
 
 ```js
 const multiply = (a, b) => {
@@ -79,17 +78,6 @@ const multiply = (a, b) => {
 };
 
 const multiply = (a, b) => a * b;
-```
-
-## Pfeilfunktionen
-
-wenn direkt ein Objekt zurückgegeben werden soll: mit runden Klammern umschießen
-
-```js
-const getState = () => ({
-  loggedIn: true,
-  userName: 'mike',
-});
 ```
 
 ## Template Literals

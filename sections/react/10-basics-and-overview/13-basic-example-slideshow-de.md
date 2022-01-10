@@ -17,11 +17,14 @@ const baseUrl = 'https://picsum.photos/300/200?image=';
 function SlideshowApp() {
   const [img, setImg] = useState(0);
   const imgUrl = baseUrl + img.toString();
+  function goToPrevImg() {
+    setImg(img !== 0 ? img - 1 : 0);
+  }
   return (
     <div>
       <h1>Image {img}</h1>
       <button onClick={() => setImg(0)}>start</button>
-      <button onClick={() => setImg(img - 1)}>prev</button>
+      <button onClick={() => goToPrevImg()}>previous</button>
       <img src={imgUrl} />
       <button onClick={() => setImg(img + 1)}>next</button>
     </div>
@@ -69,6 +72,17 @@ Weitere Werte (z.B. `imgUrl`) können aus dem State abgeleitet werden
 ## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->
+```js
+  function goToPrevImg() {
+    setImg(img !== 0 ? img - 1 : 0);
+  }
+```
+
+Funktionen, die mit State interagieren, können innerhalb der Komponentenfunktion definiert werden
+
+## Grundlegendes Beispiel: Slideshow
+
+<!-- prettier-ignore -->
 ```jsx
   return (
     <div>
@@ -93,7 +107,7 @@ Eine geschweifte Klammer wechselt zurück zu JavaScript
 <!-- prettier-ignore -->
 ```jsx
       <button onClick={() => setImg(0)}>start</button>
-      <button onClick={() => setImg(img - 1)}>prev</button>
+      <button onClick={() => setImg(img - 1)}>previous</button>
       <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
 ```

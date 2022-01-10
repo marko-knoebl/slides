@@ -2079,7 +2079,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Arrays of other elements</li>
 <li>null, undefined, true, false (these are not rendered)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX: binding content, properties and events</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: binding content and properties</h1>
 </section><section class="slide"><h2>Binding content</h2>
 <p>we can include <em>numbers</em> and <em>strings</em> as basic types:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> dateString = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleDateString();
@@ -2093,6 +2093,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 &#x3C;/a>
 </code></pre>
 <p>Note: no quote characters around the value of <em>href</em></p>
+</section><section class="slide"><h2>Property names</h2>
+<p>Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)</p>
+<ul>
+<li><code>className</code> (instead of <code>class</code>)</li>
+<li><code>htmlFor</code> (instead of <code>for</code>)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: Binding events</h1>
 </section><section class="slide"><h2>Binding events</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params"></span>) </span>{
   alert(<span class="hljs-string">'hello world'</span>);
@@ -2113,13 +2120,29 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>OK:</p>
 <pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
 </code></pre>
-</section><section class="slide"><h2>Property and event names</h2>
-<p>Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)</p>
-<ul>
-<li><code>className</code> (instead of <code>class</code>)</li>
-<li><code>onClick</code> (instead of <code>onclick</code>)</li>
-<li><code>htmlFor</code> (instead of <code>for</code>)</li>
-</ul>
+</section><section class="slide"><h2>Binding events</h2>
+<p>accessing the event object as a function parameter:</p>
+<pre><code class="hljs language-js">&#x3C;button
+  onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(event);
+  }}
+>
+  click me
+&#x3C;/button>
+</code></pre>
+<p>the event will be a <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent">MouseEvent</a> object</p>
+</section><section class="slide"><h2>Binding events</h2>
+<p>Default behavior of a submit event: directly send data to the server</p>
+<p>Replacing the default behavior:</p>
+<pre><code class="hljs language-jsx">&#x3C;form
+  onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    event.preventDefault();
+    <span class="hljs-comment">// handle submit with custom logic</span>
+  }}
+>
+  ...
+&#x3C;/form>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: whitespace, comments and fragments</h1>
 </section><section class="slide"><h2>Whitespace</h2>
 <p>In HTML the following examples are equivalent (displaying a single space between the images):</p>

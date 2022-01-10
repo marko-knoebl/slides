@@ -39,4 +39,3 @@
 - 2013 von Facebook als open source veröffentlicht
 - Februar 2019: React 16.8: Einführung von _Hooks_
 - August 2020: React 17: keine großen Änderungen
-- bevorstehende Ergänzungen: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) und [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)

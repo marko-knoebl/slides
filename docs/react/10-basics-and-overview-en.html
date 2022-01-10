@@ -2293,7 +2293,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>open-sourced by Facebook in 2013</li>
 <li>February 2019: React 16.8: introduction of <em>hooks</em></li>
 <li>August 2020: React 17: no big changes</li>
-<li>upcoming additions: <a href="https://reactjs.org/docs/concurrent-mode-suspense.html">suspense for data fetching</a> and <a href="https://reactjs.org/docs/concurrent-mode-intro.html">concurrent mode</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Online editors</h1>
 </section><section class="slide"><h2>Online editors</h2>
@@ -2326,11 +2325,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SlideshowApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [img, setImg] = useState(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">const</span> imgUrl = baseUrl + img.toString();
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">goToPrevImg</span>(<span class="hljs-params"></span>) </span>{
+    setImg(img !== <span class="hljs-number">0</span> ? img - <span class="hljs-number">1</span> : <span class="hljs-number">0</span>);
+  }
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Image {img}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(0)}>start<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img - 1)}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> goToPrevImg()}>previus<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{imgUrl}</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span> /></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
@@ -2360,6 +2362,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Other values (like <code>imgUrl</code>) can be derived from the state values</p>
 </section><section class="slide"><h2>Basic example: slideshow</h2>
 <!-- prettier-ignore -->
+<pre><code class="hljs language-js">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">goToPrevImg</span>(<span class="hljs-params"></span>) </span>{
+    setImg(img !== <span class="hljs-number">0</span> ? img - <span class="hljs-number">1</span> : <span class="hljs-number">0</span>);
+  }
+</code></pre>
+<p>functions that interact with state can be defined within the component function</p>
+</section><section class="slide"><h2>Basic example: slideshow</h2>
+<!-- prettier-ignore -->
 <pre><code class="hljs language-jsx">  <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       ...
@@ -2375,7 +2384,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Basic example: slideshow</h2>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-jsx">      &#x3C;button onClick={<span class="hljs-function">() =></span> setImg(<span class="hljs-number">0</span>)}>start&#x3C;/button>
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img - 1)}>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> goToPrevImg()}>previous<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
       <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{imgUrl}</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"slideshow"</span> /></span></span>
       <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setImg(img + 1)}>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
 </code></pre>

@@ -2111,7 +2111,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
 </section><section class="slide"><h2>Immutable state</h2>
-<p><strong>Immutability</strong>: important concept in functional programing and with React / Redux</p>
+<p><strong>Immutability</strong>: important concept in functional programing and with React</p>
 <p>Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)</p>
 </section><section class="slide"><h2>Immutable state</h2>
 <p>if there are arrays or objects in the state we <em>could</em> try and mutate them directly</p>
@@ -2230,9 +2230,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-comment">// add a todo with title 'baz'</span>
 <span class="hljs-keyword">const</span> todos2 = addTodo(todos1, <span class="hljs-string">'baz'</span>);
 <span class="hljs-comment">// set the completed status of the first todo to 'true'</span>
-<span class="hljs-keyword">const</span> todos3 = changeTodoStatus(todos2, <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">const</span> todos3 = changeTodoCompleted(todos2, <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>);
 <span class="hljs-comment">// remove all completed todos</span>
-<span class="hljs-keyword">const</span> todos4 = removeCompleted(todos3);
+<span class="hljs-keyword">const</span> todos4 = removeCompletedTodos(todos3);
 <span class="hljs-comment">// [{ id: 3, title: 'baz', completed: false }]</span>
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
@@ -2251,20 +2251,22 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTodoStatus</span>(<span class="hljs-params">
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTodoCompleted</span>(<span class="hljs-params">
   todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
   id: number,
-  newStatus: boolean
+  completed: boolean
 </span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
   <span class="hljs-keyword">return</span> todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span>
     todo.id === id
-      ? { ...todo, <span class="hljs-attr">completed</span>: newStatus }
+      ? { ...todo, <span class="hljs-attr">completed</span>: completed }
       : todo
   );
 }
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeCompleted</span>(<span class="hljs-params">todos: <span class="hljs-built_in">Array</span>&#x3C;Todo></span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeCompletedTodos</span>(<span class="hljs-params">
+  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>
+</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
   <span class="hljs-keyword">return</span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed);
 }
 </code></pre>

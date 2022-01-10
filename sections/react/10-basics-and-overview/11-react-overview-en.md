@@ -39,4 +39,3 @@ one of the 3 big JavaScript UI libraries / frameworks (besides Angular, Vue.js)
 - open-sourced by Facebook in 2013
 - February 2019: React 16.8: introduction of _hooks_
 - August 2020: React 17: no big changes
-- upcoming additions: [suspense for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html) and [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html)

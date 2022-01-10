@@ -137,9 +137,9 @@ const todos1 = [
 // add a todo with title 'baz'
 const todos2 = addTodo(todos1, 'baz');
 // set the completed status of the first todo to 'true'
-const todos3 = changeTodoStatus(todos2, 1, true);
+const todos3 = changeTodoCompleted(todos2, 1, true);
 // remove all completed todos
-const todos4 = removeCompleted(todos3);
+const todos4 = removeCompletedTodos(todos3);
 // [{ id: 3, title: 'baz', completed: false }]
 ```
 
@@ -164,14 +164,14 @@ function addTodo(
 ## Exercises
 
 ```js
-function changeTodoStatus(
+function changeTodoCompleted(
   todos: Array<Todo>,
   id: number,
-  newStatus: boolean
+  completed: boolean
 ): Array<Todo> {
   return todos.map((todo) =>
     todo.id === id
-      ? { ...todo, completed: newStatus }
+      ? { ...todo, completed: completed }
       : todo
   );
 }
@@ -180,7 +180,9 @@ function changeTodoStatus(
 ## Exercises
 
 ```js
-function removeCompleted(todos: Array<Todo>): Array<Todo> {
+function removeCompletedTodos(
+  todos: Array<Todo>
+): Array<Todo> {
   return todos.filter((todo) => !todo.completed);
 }
 ```

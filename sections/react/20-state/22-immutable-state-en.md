@@ -2,7 +2,7 @@
 
 ## Immutable state
 
-**Immutability**: important concept in functional programing and with React / Redux
+**Immutability**: important concept in functional programing and with React
 
 Data is not modified directly - instead, new data is derived from existing data (and may replace the existing data)
 

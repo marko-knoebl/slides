@@ -70,8 +70,7 @@ Bundlers like webpack can deviate from standard JavaScript import behavior:
 
 ## Arrow functions
 
-- short notation for anonymous functions
-- leaves _this_ unchanged (does not reassign)
+short notation for anonymous functions
 
 ```js
 const multiply = (a, b) => {
@@ -79,17 +78,6 @@ const multiply = (a, b) => {
 };
 
 const multiply = (a, b) => a * b;
-```
-
-## Arrow functions
-
-if we want to return an object directly: wrap it in parentheses
-
-```js
-const getState = () => ({
-  loggedIn: true,
-  userName: 'mike',
-});
 ```
 
 ## Template literals
