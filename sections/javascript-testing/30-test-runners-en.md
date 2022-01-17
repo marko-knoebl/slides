@@ -16,7 +16,7 @@
 
 Tests are commonly run via an npm script - e.g. via `npm run test` (or `npm test` for short)
 
-Note: running tests should always be cancelled before installing new npm packages - otherwise the installation may fail
+Note: running tests should be cancelled before installing new npm packages - otherwise the installation may fail
 
 ## Finding test files
 
@@ -85,7 +85,7 @@ describe('database', () => {
     clearTestDB();
   });
 
-  test(/*...*/);
-  test(/*...*/);
+  it(/*...*/);
+  it(/*...*/);
 });
 ```

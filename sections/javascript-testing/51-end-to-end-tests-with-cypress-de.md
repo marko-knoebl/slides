@@ -114,6 +114,7 @@ Interagieren mit Elementen:
 
 - `cy.get("#reset-btn").click()`
 - `cy.get("#name-input").type("foo")`
+- `cy.get("#name-input").type("{esc}")`
 
 ## Cypress
 
@@ -125,9 +126,10 @@ cy.get('#name-input').should('have.class', 'invalid');
 
 andere Assertions:
 
-- `cy.url().should("match", /foo/i)`
+- `cy.url().should("match", /\/items\/d+$/)`
 - `.should("have.class", "invalid")`
 - `.should("have.value", "")`
+- `.should("be.visible")`
 
 ## Cypress
 

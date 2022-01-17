@@ -16,7 +16,7 @@
 
 Tests werden meist mittels eines npm Scripts ausgeführt - z.B. via `npm run test` (oder abgekürzt `npm test`)
 
-Bemerkung: Laufende Tests sollten immer abgebrochen werden, bevor neue npm-Pakete installiert werden - ansonsten kann die Installation fehlschlagen
+Bemerkung: Laufende Tests sollten abgebrochen werden, bevor neue npm-Pakete installiert werden - ansonsten kann die Installation fehlschlagen
 
 ## Finden von Tests
 
@@ -85,7 +85,7 @@ describe('database', () => {
     clearTestDB();
   });
 
-  test(/*...*/);
-  test(/*...*/);
+  it(/*...*/);
+  it(/*...*/);
 });
 ```

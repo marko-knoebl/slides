@@ -2093,10 +2093,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
  * shortens a given string to a specified length,
  * adding "..." at the end if it was shortened
  */</span>
-<span class="hljs-keyword">const</span> shorten = <span class="hljs-function">(<span class="hljs-params">s, maxlength</span>) =></span>
-  s.length > maxlength
-    ? s.slice(<span class="hljs-number">0</span>, maxlength - <span class="hljs-number">3</span>) + <span class="hljs-string">'...'</span>
-    : s;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shorten</span>(<span class="hljs-params">text, maxlength</span>) </span>{
+  <span class="hljs-keyword">if</span> (text.length > maxlength) {
+    <span class="hljs-keyword">return</span> text.slice(<span class="hljs-number">0</span>, maxlength - <span class="hljs-number">3</span>) + <span class="hljs-string">'...'</span>;
+  }
+  <span class="hljs-keyword">return</span> text;
+}
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> shorten;
 </code></pre>
 </section><section class="slide"><h2>Example: shorten</h2>
@@ -2160,7 +2162,7 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
 </ul>
 </section><section class="slide"><h2>Running tests</h2>
 <p>Tests are commonly run via an npm script - e.g. via <code>npm run test</code> (or <code>npm test</code> for short)</p>
-<p>Note: running tests should always be cancelled before installing new npm packages - otherwise the installation may fail</p>
+<p>Note: running tests should be cancelled before installing new npm packages - otherwise the installation may fail</p>
 </section><section class="slide"><h2>Finding test files</h2>
 <p>Jest: by default looks for files inside of directories named <code>__tests__</code> and for files ending in <code>.test.js</code> or <code>.spec.js</code></p>
 <p>Mocha: by default looks for files inside the directory <code>test</code> (custom pattern via e.g.: <code>mocha "src/**/*.{test,spec}.{js,jsx}"</code>)</p>
@@ -2205,8 +2207,8 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
     clearTestDB();
   });
 
-  test(<span class="hljs-comment">/*...*/</span>);
-  test(<span class="hljs-comment">/*...*/</span>);
+  it(<span class="hljs-comment">/*...*/</span>);
+  it(<span class="hljs-comment">/*...*/</span>);
 });
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>End-to-end tests</h1>
@@ -2301,6 +2303,7 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
 <ul>
 <li><code>cy.get("#reset-btn").click()</code></li>
 <li><code>cy.get("#name-input").type("foo")</code></li>
+<li><code>cy.get("#name-input").type("{esc}")</code></li>
 </ul>
 </section><section class="slide"><h2>Cypress</h2>
 <p>example assertion:</p>
@@ -2308,9 +2311,10 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
 </code></pre>
 <p>other assertions::</p>
 <ul>
-<li><code>cy.url().should("match", /foo/i)</code></li>
+<li><code>cy.url().should("match", /\/items\/d+$/)</code></li>
 <li><code>.should("have.class", "invalid")</code></li>
 <li><code>.should("have.value", "")</code></li>
+<li><code>.should("be.visible")</code></li>
 </ul>
 </section><section class="slide"><h2>Cypress</h2>
 <p>example: Searching on Wikipedia</p>
@@ -2501,12 +2505,14 @@ test(<span class="hljs-string">'wikipedia title'</span>, <span class="hljs-keywo
 });
 </code></pre>
 <p><small>note: <em>page.keyboard.press("Enter")</em> would trigger full-text search</small></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Mocking with jest</h1>
-</section><section class="slide"><h2>Mocking built-ins</h2>
-<p>mocking <em>localStorage</em> (which is not available in node) with example content:</p>
-<pre><code class="hljs language-js">globalThis.localStorage = {
-  <span class="hljs-attr">getItem</span>: <span class="hljs-function">(<span class="hljs-params">anyKey</span>) =></span> <span class="hljs-string">'foo'</span>,
-};
+</section></section><section class="slides-section"><section class="slide"><h1>Mocking with Jest</h1>
+</section><section class="slide"><h2>Mocking</h2>
+<p><strong>mocking</strong>: simulating objects / interfaces in a testing environment</p>
+</section><section class="slide"><h2>Mocking</h2>
+<p>Example: Mocking a network request</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> fetchMock <span class="hljs-keyword">from</span> <span class="hljs-string">'fetch-mock'</span>;
+
+fetchMock.mock(<span class="hljs-string">'https://example.com'</span>, { <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> });
 </code></pre>
 </section><section class="slide"><h2>Mocking modules</h2>
 <p>mocking a module via <code>jest.mock</code>:</p>
@@ -2528,39 +2534,6 @@ jest.mock(<span class="hljs-string">'axios'</span>); <span class="hljs-comment">
 jest.mock(<span class="hljs-string">'./foo'</span>);
 </code></pre>
 <p>Note: inside a create-react-app project this would be e.g. <code>src/__mocks__/axios.js</code> instead of <code>__mocks__/axios.js</code> (see <a href="https://github.com/facebook/create-react-app/issues/7539">issue</a>)</p>
-</section><section class="slide"><h2>Mocking modules</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// __mocks__/fs.js</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> readFileSync = <span class="hljs-function">() =></span> <span class="hljs-string">'mock content'</span>;
-</code></pre>
-</section><section class="slide"><h2>Mocking promises</h2>
-<p>manually mocking a <em>fetch</em> result with a promise:</p>
-<pre><code class="hljs language-js">globalThis.fetch = <span class="hljs-function">() =></span>
-  <span class="hljs-built_in">Promise</span>.resolve({
-    <span class="hljs-attr">json</span>: <span class="hljs-function">() =></span> <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> }),
-  });
-</code></pre>
-</section><section class="slide"><h2>Mocking promises</h2>
-<p>Mocking <em>axios</em> requests with promises:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// __mocks__/axios.js</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-  <span class="hljs-attr">get</span>: <span class="hljs-function">(<span class="hljs-params">path</span>) =></span> {
-    <span class="hljs-keyword">if</span> (path === <span class="hljs-string">'/'</span>) {
-      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve({ <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span> });
-    }
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject({ <span class="hljs-attr">message</span>: <span class="hljs-string">'NetworkError ...'</span> });
-  },
-};
-</code></pre>
-</section><section class="slide"><h2>Auto mocking</h2>
-<p>mocking <em>fetch</em> via <em>jest-fetch-mock</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> fetchMock <span class="hljs-keyword">from</span> <span class="hljs-string">'jest-fetch-mock'</span>;
-
-fetchMock.enableMocks();
-
-fetchMock.mockResponseOnce(<span class="hljs-string">'{ "foo": "bar" }'</span>);
-</code></pre>
 </section><section class="slide"><h2>Mocking and inspecting functions</h2>
 <p>Mocking a function that can be called and inspected later:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> mockFn = jest.fn();
