@@ -9,6 +9,8 @@ Verbreitete Zugänge:
 - Gruppieren nach Feature / Route
 - Gruppieren nach Typ (Komponente / Reducer / API interface)
 
+Beispielprojekt: [bulletproof react](https://github.com/alan2207/bulletproof-react)
+
 ## Rendern einer App-Komponente
 
 grundlegendes Beispiel für das Rendering einer App-Komponente:

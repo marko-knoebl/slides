@@ -9,6 +9,7 @@ common approaches:
 - grouping by features or routes
 - grouping by type (component / reducer / API interface)
 
+example project: [bulletproof react](https://github.com/alan2207/bulletproof-react)
 
 ## Rendering an App component
 
