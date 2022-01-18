@@ -18,11 +18,21 @@ Der Wechsel von XML auf JS klappt auch bei Properties:
 
 ```jsx
 <a href={'https://en.wikipedia.org/wiki/' + articleName}>
-  some article
+  wikipedia article
 </a>
 ```
 
 Beachte die fehlenden Anführungszeichen bei href
+
+## Properties binden
+
+Steht eine Property in Anführungszeichen, haben die geschweiften Klammern keine besondere Bedeutung:
+
+```jsx
+<a href="https://google.com/search?q=what+is+${}+in+js">
+  google search
+</a>
+```
 
 ## Property-Namen
 

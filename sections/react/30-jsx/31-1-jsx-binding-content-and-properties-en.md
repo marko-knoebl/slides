@@ -14,15 +14,25 @@ const dateString = new Date().toLocaleDateString();
 
 ## Binding properties
 
-we can also change from XML to JS in properties:
+we can change from XML to JS for an entire property:
 
 ```jsx
 <a href={'https://en.wikipedia.org/wiki/' + articleName}>
-  some article
+  wikipedia article
 </a>
 ```
 
 Note: no quote characters around the value of _href_
+
+## Binding properties
+
+If a prop is enclosed in quotes, the curly braces have no special meaning
+
+```jsx
+<a href="https://google.com/search?q=what+is+${}+in+js">
+  google search
+</a>
+```
 
 ## Property names
 

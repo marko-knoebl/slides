@@ -56,4 +56,4 @@ const imageStyle = {
 
 Bemerkung:
 
-Das direkte binden an die _style_-Property ist ineffizient und wird meist vermieden; in der Praxis werden Libraries wie _styled-components_ oder _emotion_ verwendet, um Stildeklarationen in JavaScript zu schreiben.
+Das direkte binden an die _style_-Property hat Nachteile und wird in der Praxis meist vermieden; stattdessen werden Libraries wie _styled-components_ oder _emotion_ verwendet, um Stildeklarationen in JavaScript zu schreiben.

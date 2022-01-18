@@ -4,7 +4,7 @@
 
 beim zuweisen von _Inhalten_ werden XML-Tags automatisch escaped
 
-dies wird nur reinen Textinhalt darstellen:
+dies wird nur reinen Textinhalt darstellen - es ist kein Angriffsziel:
 
 ```jsx
 const userSuppliedValue = 'abc <script>alert()</script>';

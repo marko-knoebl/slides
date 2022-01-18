@@ -2089,10 +2089,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Properties binden</h2>
 <p>Der Wechsel von XML auf JS klappt auch bei Properties:</p>
 <pre><code class="hljs language-jsx">&#x3C;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}>
-  some article
+  wikipedia article
 &#x3C;/a>
 </code></pre>
 <p>Beachte die fehlenden Anführungszeichen bei href</p>
+</section><section class="slide"><h2>Properties binden</h2>
+<p>Steht eine Property in Anführungszeichen, haben die geschweiften Klammern keine besondere Bedeutung:</p>
+<pre><code class="hljs language-jsx">&#x3C;a href=<span class="hljs-string">"https://google.com/search?q=what+is+${}+in+js"</span>>
+  google search
+&#x3C;/a>
+</code></pre>
 </section><section class="slide"><h2>Property-Namen</h2>
 <p>Manche Properties von Elementen haben andere Namen als in standard HTML (spiegeln teilweise die standard DOM-Properties wider)</p>
 <ul>
@@ -2112,13 +2118,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Events binden</h2>
 <p>Achtung: Ein Event Handler muss eine <strong>Funktion</strong> sein, und nicht ein Funktionsaufruf</p>
 <p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
+</code></pre>
+<p>OK:</p>
 <pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;/button>
 </code></pre>
 <p>nicht OK:</p>
 <pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
-</code></pre>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
 </code></pre>
 </section><section class="slide"><h2>Events binden</h2>
 <p>Zugriff auf das Event-Objekt als Funktionsparameter:</p>
@@ -2320,11 +2326,11 @@ Lösung: <strong>key</strong>:</p>
 </code></pre>
 </section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
 <p>Bemerkung:</p>
-<p>Das direkte binden an die <em>style</em>-Property ist ineffizient und wird meist vermieden; in der Praxis werden Libraries wie <em>styled-components</em> oder <em>emotion</em> verwendet, um Stildeklarationen in JavaScript zu schreiben.</p>
+<p>Das direkte binden an die <em>style</em>-Property hat Nachteile und wird in der Praxis meist vermieden; stattdessen werden Libraries wie <em>styled-components</em> oder <em>emotion</em> verwendet, um Stildeklarationen in JavaScript zu schreiben.</p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX und Sicherheit</h1>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>
 <p>beim zuweisen von <em>Inhalten</em> werden XML-Tags automatisch escaped</p>
-<p>dies wird nur reinen Textinhalt darstellen:</p>
+<p>dies wird nur reinen Textinhalt darstellen - es ist kein Angriffsziel:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userSuppliedValue = <span class="hljs-string">'abc &#x3C;script>alert()&#x3C;/script>'</span>;
 
 element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{userSuppliedValue}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;

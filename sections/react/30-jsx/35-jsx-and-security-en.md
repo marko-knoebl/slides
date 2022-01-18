@@ -4,7 +4,7 @@
 
 when binding _content_, XML tags will be escaped automatically
 
-this will just display plain text content:
+this will just display plain text content - it is not an attack target:
 
 ```jsx
 const userSuppliedValue = 'abc <script>alert()</script>';

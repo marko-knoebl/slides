@@ -14,6 +14,8 @@ import fetchMock from 'fetch-mock';
 fetchMock.mock('https://example.com', { foo: 'bar' });
 ```
 
+<!-- alternative: MSW -->
+
 ## Mocking modules
 
 mocking a module via `jest.mock`:

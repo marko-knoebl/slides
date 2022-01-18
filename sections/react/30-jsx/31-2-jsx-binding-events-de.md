@@ -22,6 +22,12 @@ Achtung: Ein Event Handler muss eine **Funktion** sein, und nicht ein Funktionsa
 OK:
 
 ```js
+<button onClick={() => alert('hello')}>Say Hello</button>
+```
+
+OK:
+
+```js
 <button onClick={alert}>Say something</button>
 ```
 
@@ -29,12 +35,6 @@ nicht OK:
 
 ```js
 <button onClick={alert('hello')}>Say Hello</button>
-```
-
-OK:
-
-```js
-<button onClick={() => alert('hello')}>Say Hello</button>
 ```
 
 ## Events binden

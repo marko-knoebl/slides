@@ -2087,12 +2087,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-jsx">&#x3C;div>curent date: {dateString}&#x3C;/div>
 </code></pre>
 </section><section class="slide"><h2>Binding properties</h2>
-<p>we can also change from XML to JS in properties:</p>
+<p>we can change from XML to JS for an entire property:</p>
 <pre><code class="hljs language-jsx">&#x3C;a href={<span class="hljs-string">'https://en.wikipedia.org/wiki/'</span> + articleName}>
-  some article
+  wikipedia article
 &#x3C;/a>
 </code></pre>
 <p>Note: no quote characters around the value of <em>href</em></p>
+</section><section class="slide"><h2>Binding properties</h2>
+<p>If a prop is enclosed in quotes, the curly braces have no special meaning</p>
+<pre><code class="hljs language-jsx">&#x3C;a href=<span class="hljs-string">"https://google.com/search?q=what+is+${}+in+js"</span>>
+  google search
+&#x3C;/a>
+</code></pre>
 </section><section class="slide"><h2>Property names</h2>
 <p>Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)</p>
 <ul>
@@ -2112,13 +2118,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Binding events</h2>
 <p>note: an event handler must be a <strong>function</strong>, not a function call</p>
 <p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
+</code></pre>
+<p>OK:</p>
 <pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;/button>
 </code></pre>
 <p>not OK:</p>
 <pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
-</code></pre>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
 </code></pre>
 </section><section class="slide"><h2>Binding events</h2>
 <p>accessing the event object as a function parameter:</p>
@@ -2320,11 +2326,11 @@ solution: <strong>key</strong>:</p>
 </code></pre>
 </section><section class="slide"><h2>JSX and styling basics</h2>
 <p>note:</p>
-<p>Binding to the <em>style</em> property directly is inefficient and is usually avoided; in practice, libraries like <em>styled-components</em> or <em>emotion</em> are used to write style declarations inside JavaScript</p>
+<p>Binding to the <em>style</em> property directly has some drawbacks and is usually avoided in practice; instead, libraries like <em>styled-components</em> or <em>emotion</em> are used to write style declarations inside JavaScript</p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX and security</h1>
 </section><section class="slide"><h2>JSX and security</h2>
 <p>when binding <em>content</em>, XML tags will be escaped automatically</p>
-<p>this will just display plain text content:</p>
+<p>this will just display plain text content - it is not an attack target:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userSuppliedValue = <span class="hljs-string">'abc &#x3C;script>alert()&#x3C;/script>'</span>;
 
 element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{userSuppliedValue}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
