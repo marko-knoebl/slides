@@ -13,7 +13,7 @@ Einbindung meist im head, z.B.:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/picnic"
+  href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
 />
 ```
 
@@ -26,6 +26,12 @@ Resets: Stylesheets, die grundlegende Stile über verschiedene Browser hinweg ve
 - _reboot_: basiert auf normalize, dient als Basis für Bootstrap - [website](https://getbootstrap.com/docs/4.0/content/reboot/), [CDN](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap-reboot.css)
 
 CDN: Content Delivery Network - Services, die CSS- und JS-Libraries hosten
+
+## Semantische CSS-Starter
+
+- [water.css](https://watercss.kognise.dev/)
+- [new.css](https://newcss.net)
+- [simple.css](https://simplecss.org/)
 
 ## CSS Libraries
 

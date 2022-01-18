@@ -13,7 +13,7 @@ example:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/picnic"
+  href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
 />
 ```
 
@@ -28,6 +28,12 @@ Resets: stylesheets that unify basic styles across browsers:
 - _reboot_: based on normalize, is used in Bootstrap - [website](https://getbootstrap.com/docs/4.0/content/reboot/), [CDN](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap-reboot.css)
 
 CDN: Content Delivery Network - services that host CSS and JS libraries
+
+## Semantic CSS starters
+
+- [water.css](https://watercss.kognise.dev/)
+- [new.css](https://newcss.net)
+- [simple.css](https://simplecss.org/)
 
 ## CSS Libraries
 

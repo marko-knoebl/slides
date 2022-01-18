@@ -23,7 +23,7 @@
 
 ## Headings und strukturierende Elemente
 
-Headings innerhalb von _nav_, _aside_, _article_, _section_ haben automatisch angepasste Größen:
+_h1_-Elemente innerhalb von _nav_, _aside_, _article_, _section_ haben automatisch angepasste Größen:
 
 ```html
 <h1>big heading</h1>

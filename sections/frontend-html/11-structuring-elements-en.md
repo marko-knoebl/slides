@@ -23,7 +23,7 @@
 
 ## Headings and Structuring elements
 
-Headings inside of _nav_, _aside_, _article_ and _section_ have their font sizes adjusted automatically:
+_h1_ elements inside of _nav_, _aside_, _article_ and _section_ have their font sizes adjusted automatically:
 
 ```html
 <h1>big heading</h1>
