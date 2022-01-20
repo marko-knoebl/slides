@@ -44,38 +44,9 @@ async function fetchExchangeRate(
 
 ## Beispiel: Laden von Wechselkursen
 
-vollständiger Code (Klassenkomponenten und Funktionskomponenten):
+vollständiger Code (Klassenkomponenten und Funktionskomponenten, inklusive "cleanup"):
 
 <https://codesandbox.io/s/side-effects-exchange-rate-2z42d>
-
-## Beispiel: Laden von Wechselkursen
-
-mit Einfachem Cleanup: Abbrechen einer früheren Query durch setzen einer Variable in einer Closure
-
-```js
-function ExchangeRate() {
-  const [from, setFrom] = useState('USD');
-  const [to, setTo] = useState('EUR');
-  const [rate, setRate] = useState(null);
-  useEffect(() => {
-    let isCancelled = false;
-    async function loadExchangeRate() {
-      setRate(null);
-      const rate = await fetchExchangeRate(from, to);
-      if (!isCancelled) {
-        setRate(rate);
-      }
-    }
-    function cancelThisQuery() {
-      isCancelled = true;
-    }
-    loadExchangeRate();
-    return cancelThisQuery;
-  }, [from, to]);
-  // render two dropdowns for selecting currencies
-  // and show the exchange rate
-}
-```
 
 ## Übungen
 

@@ -2083,7 +2083,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Side Effects</h2>
 <p>Implementierung:</p>
 <p>in Funktionskomponenten: mittels des <em>Effect Hooks</em></p>
-<p>in Klassenkomponenten: mit Hilfe von Lifecycle-Methoden wie <code>componentDidMount</code>, <code>componentDidUpdate</code> oder <code>componentWillUnmount</code></p>
+<p>in Klassenkomponenten: mit Hilfe von Lifecycle-Methoden</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Side Effects in Klassenkomponenten</h1>
 </section><section class="slide"><h2>Side Effects in Klassenkomponenten</h2>
 <p>Drei wichtige Methoden zum Abfragen von Ereignissen im Lebenszyklus einer Komponente:</p>
@@ -2222,105 +2222,6 @@ useEffect(<span class="hljs-function">() =></span> {
   loadSearchResultsAsync();
 }, [query]);
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiele und Übungen</h1>
-</section><section class="slide"><h2>Beispiele und Übungen</h2>
-<p>Beispiele und Übungen, die nicht mit APIs interagieren</p>
-</section><section class="slide"><h2>Beispiel: Counter</h2>
-<p>Counter, der seinen Wert in localStorage speichert, wenn sich dieser ändert:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PersistentCounter</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadCount</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">const</span> lsCount = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>);
-    <span class="hljs-keyword">if</span> (lsCount !== <span class="hljs-literal">null</span>) {
-      setCount(<span class="hljs-built_in">Number</span>(lsCount));
-    } <span class="hljs-keyword">else</span> {
-      setCount(<span class="hljs-number">0</span>);
-    }
-  }
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveCount</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">if</span> (count !== <span class="hljs-literal">null</span>) {
-      <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
-    }
-  }
-  useEffect(loadCount, []);
-  useEffect(saveCount, [count]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
-      {count}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Übungen</h2>
-<p>Übung: Speichere den state einer der vorigen Anwendungen, (z.B. slideshow) in <em>localStorage</em></p>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
-</code></pre>
-<p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<p>Implementierung als Klassenkomponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocumentTitle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">document</span>.title = <span class="hljs-built_in">this</span>.props.value;
-  }
-  <span class="hljs-function"><span class="hljs-title">componentDidUpdate</span>(<span class="hljs-params">prevProps, prevState</span>)</span> {
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.props.title !== prevProps.title) {
-      <span class="hljs-built_in">document</span>.title = <span class="hljs-built_in">this</span>.props.value;
-    }
-  }
-  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
-<p>Implementierung als Funktionskomponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> {
-  <span class="hljs-keyword">const</span> updateTitle = <span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">document</span>.title = props.value;
-  };
-  useEffect(updateTitle, [props.value]);
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-};
-</code></pre>
-<p>(funktioniert wie gewünscht, aber zeigt eine Warnung bezüglich <em>exhaustive dependencies</em>)</p>
-</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
-<p>Teil der Implementierung einer Clock-Komponente als Klassenkomponente:</p>
-<pre><code class="hljs language-jsx">  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.intervalId = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
-      <span class="hljs-built_in">this</span>.setState({
-        <span class="hljs-attr">time</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleTimeString()
-      });
-    }, <span class="hljs-number">1000</span>);
-  }
-
-  <span class="hljs-function"><span class="hljs-title">componentWillUnmount</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">clearInterval</span>(<span class="hljs-built_in">this</span>.intervalId);
-  }
-</code></pre>
-</section><section class="slide"><h2>Beispiel: Logout-timer</h2>
-<p>Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
-  <span class="hljs-keyword">const</span> [lastInteraction, setLastInteraction] = useState(
-    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
-  );
-  <span class="hljs-comment">// restart the logout timer on user interaction</span>
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">const</span> logout = <span class="hljs-function">() =></span> setLoggedIn(<span class="hljs-literal">false</span>);
-    <span class="hljs-keyword">const</span> timeoutId = <span class="hljs-built_in">setTimeout</span>(logout, <span class="hljs-number">10000</span>);
-    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearTimeout</span>(timeoutId);
-  }, [lastInteraction]);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLastInteraction(new Date())}>
-      {loggedIn
-        ? 'click to stay logged in'
-        : 'logged out automatically'}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-  );
-};
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Beispiele und Übungen: APIs</h1>
 </section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
 <p>Beispiel: Laden von Wechselkursen von einem API, wenn sich die ausgewählten Währungen ändern:</p>
@@ -2357,33 +2258,8 @@ useEffect(<span class="hljs-function">() =></span> {
 }
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
-<p>vollständiger Code (Klassenkomponenten und Funktionskomponenten):</p>
+<p>vollständiger Code (Klassenkomponenten und Funktionskomponenten, inklusive "cleanup"):</p>
 <p><a href="https://codesandbox.io/s/side-effects-exchange-rate-2z42d">https://codesandbox.io/s/side-effects-exchange-rate-2z42d</a></p>
-</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
-<p>mit Einfachem Cleanup: Abbrechen einer früheren Query durch setzen einer Variable in einer Closure</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
-  <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
-  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">let</span> isCancelled = <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-      setRate(<span class="hljs-literal">null</span>);
-      <span class="hljs-keyword">const</span> rate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-keyword">from</span>, to);
-      <span class="hljs-keyword">if</span> (!isCancelled) {
-        setRate(rate);
-      }
-    }
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cancelThisQuery</span>(<span class="hljs-params"></span>) </span>{
-      isCancelled = <span class="hljs-literal">true</span>;
-    }
-    loadExchangeRate();
-    <span class="hljs-keyword">return</span> cancelThisQuery;
-  }, [<span class="hljs-keyword">from</span>, to]);
-  <span class="hljs-comment">// render two dropdowns for selecting currencies</span>
-  <span class="hljs-comment">// and show the exchange rate</span>
-}
-</code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Beispiele für abfragbare APIs:</p>
 <ul>
@@ -2400,31 +2276,46 @@ useEffect(<span class="hljs-function">() =></span> {
 <li>Zeige Daten zu einem bestimmten Pokémon basierend auf der Nummer</li>
 <li>Zeige Hacker News Artikel basierend auf einem Suchbegriff</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Der effect-Hook und veralteter State</h1>
-</section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
-<p>Wie wir zuvor gsehen haben, können Funktionen auf alten State / alte Daten verweisen</p>
-</section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
-<p>Erklärung: Unterschied bei State / Props in Funktionskomponenten und in Klassenkomponenten:</p>
-<p>wenn sich State / Props ändern:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiele und Übungen: andere</h1>
+</section><section class="slide"><h2>Beispiele und Übungen</h2>
+<p>Beispiele und Übungen, die nicht mit APIs interagieren</p>
 <ul>
-<li>in Klassenkomponenten werden <code>this.props</code> und <code>this.state</code> durch neue Objekte ersetzt</li>
-<li>in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue <em>Closure</em> entsteht, welche die neuen Props / State-Werte enthält</li>
+<li>Clock</li>
+<li>Counter, der in localStorage speichert</li>
+<li>Komponente, die den Dokumententitel "rendert"</li>
+<li>Logout Timer</li>
 </ul>
-<p>Achtung: in Funktionskomponenten können alte / obsolete Daten in alten <em>Closures</em> weiterbestehen</p>
-</section><section class="slide"><h2>Der effect-Hook und veralteter State</h2>
-<p>Beispiel: fehlerhafter Code, der in einer Closure weiter auf einen veralteten State-Eintrag verweist</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterWithLogging</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-
+</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Clock</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
   useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
-      <span class="hljs-comment">// this innermost function will only be created once</span>
-      <span class="hljs-comment">// the variable "count" will always refer to the</span>
-      <span class="hljs-comment">// value from the initial rendering (0)</span>
-      <span class="hljs-built_in">console</span>.log(count);
+    <span class="hljs-keyword">const</span> intervalId = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      setTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
     }, <span class="hljs-number">1000</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(intervalId);
   }, []);
-
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{time.toLocaleTimeString()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Counter</h2>
+<p>Counter, der seinen Wert in localStorage speichert, wenn sich dieser ändert:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PersistentCounter</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadCount</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> lsCount = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>);
+    <span class="hljs-keyword">if</span> (lsCount !== <span class="hljs-literal">null</span>) {
+      setCount(<span class="hljs-built_in">Number</span>(lsCount));
+    } <span class="hljs-keyword">else</span> {
+      setCount(<span class="hljs-number">0</span>);
+    }
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveCount</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (count !== <span class="hljs-literal">null</span>) {
+      <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
+    }
+  }
+  useEffect(loadCount, []);
+  useEffect(saveCount, [count]);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
       {count}
@@ -2432,24 +2323,155 @@ useEffect(<span class="hljs-function">() =></span> {
   );
 }
 </code></pre>
+</section><section class="slide"><h2>Übungen</h2>
+<p>Übung: Speichere den state einer der vorigen Anwendungen, (z.B. slideshow) in <em>localStorage</em></p>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
+</code></pre>
+<p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> {
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">document</span>.title = props.value;
+  }, [props.value]);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Logout-timer</h2>
+<p>Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> [lastInteraction, setLastInteraction] = useState(
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+  );
+  <span class="hljs-comment">// restart the logout timer on user interaction</span>
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> logout = <span class="hljs-function">() =></span> setLoggedIn(<span class="hljs-literal">false</span>);
+    <span class="hljs-keyword">const</span> timeoutId = <span class="hljs-built_in">setTimeout</span>(logout, <span class="hljs-number">10000</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearTimeout</span>(timeoutId);
+  }, [lastInteraction]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLastInteraction(new Date())}>
+      {loggedIn
+        ? 'click to stay logged in'
+        : 'logged out automatically'}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+};
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Veralteter State</h1>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>manchmals haben wir keinen direkten Zugriff auf den aktuellsten State, wenn wir einen neuen State festsetzen</p>
+<p>spezielles Szenario: asynchrone Events in Funktionskomponenten (z.B. Netzwerkanfragen)</p>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>Szenarien:</p>
+<p>Wird in einem Event-Handler ein State-Setter aufgerufen, so ist der neueste State erst <em>nach</em> dem vollständigen Ausführen des Event-Handlers verfügbar</p>
+<p>Wird eine asynchrone Aktion aus einer <em>Funktionskomponente</em> ausgelöst, so kann sie während der Ausführung weiter auf alten State verweisen</p>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>Beispiel 1:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementTwice</span>(<span class="hljs-params"></span>) </span>{
+  setCount(count + <span class="hljs-number">1</span>);
+  setCount(count + <span class="hljs-number">1</span>);
+}
+</code></pre>
+<p>Der Code setzt <code>count</code> zweimal hintereinander auf 1</p>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>Beispiel 2:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>{
+  setCount(count + <span class="hljs-number">1</span>);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementWithDelay</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =></span> setCount(count + <span class="hljs-number">1</span>), <span class="hljs-number">3000</span>);
+}
+</code></pre>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>Szenario für Beispiel 2:</p>
+<ul>
+<li><code>count</code> startet bei 0</li>
+<li><code>incrementWithDelay</code> wird aufgerufen</li>
+<li>nach 1 Sekunde wird <code>increment</code> aufgerufen</li>
+<li>nach 2 Sekunden wird <code>increment</code> erneut aufgerufen</li>
+<li>nach 3 Sekunden aktualisiert <code>incrementWithDelay</code> den Wert</li>
+</ul>
+<p>Werte von <code>count</code>: 0 → 1 → 2 → 1</p>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>Erklärung von Beispiel 2:</p>
+<p>Unterschied zwischen Funktionskomponenten und Klassenkomponenten wenn sich Props / State ändern:</p>
+<ul>
+<li>in Klassenkomponenten werden <code>this.props</code> und <code>this.state</code> durch neue Objekte ersetzt</li>
+<li>in Funktionskomponenten wird die Komponentenfunktion erneut aufgerufen, und eine neue <em>Closure</em> entsteht, welche die neuen Props / State-Werte enthält</li>
+</ul>
+<p>Achtung: in Funktionskomponenten können alte / obsolete Daten in alten <em>Closures</em> weiterbestehen</p>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>Beispiel: fehlerhafter Code, der in einer Closure weiter auf einen veralteten State-Eintrag verweist</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Counter</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startCounting</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// This innermost function will only be created once.</span>
+      <span class="hljs-comment">// The variable "count" will always refer to the</span>
+      <span class="hljs-comment">//   state from the initial rendering (0)</span>
+      setCount(count + <span class="hljs-number">1</span>);
+    }, <span class="hljs-number">1000</span>);
+  }
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{count}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> startCounting()}>start<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>ESLint-Regel, die helfen kann, veraltete Daten in einem Effect-Hook zu erkennen:</p>
+<p><em>react-hooks/exhaustive-deps</em></p>
+<p>(in VS Code, installiere hierfür das ESLint-Plugin)</p>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>mögliche Lösungen (siehe auch: Hinweise in den Linter-Meldungen):</p>
+<ul>
+<li>Übergeben einer "Transformations-Funktion" an den State-Setter (die Funktion hat immer Zugriff auf den aktuellsten State hat)</li>
+<li>zusätzliches Speichern der aktuellsten Version eines States in einer <em>ref</em> (ist damit auch in älteren Closures verfügbar)</li>
+</ul>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>mögliche Lösung: "State-Transformations-Funktion"</p>
+<p>ersetze dies:</p>
+<pre><code class="hljs language-js">setCount(count + <span class="hljs-number">1</span>);
+</code></pre>
+<p>to this:</p>
+<pre><code class="hljs language-js">setCount(<span class="hljs-function">(<span class="hljs-params">c</span>) =></span> c + <span class="hljs-number">1</span>);
+</code></pre>
+<p>Die innere Funktion bekommt immer den aktuellsten Wert übergeben</p>
+</section><section class="slide"><h2>Veralteter State</h2>
+<p>mögliche Lösung: zusätzliches Speichern von Daten in einer <em>Ref</em> (wird später genauer erklärt)</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Counter</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> countRef = useRef(count);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startCounting</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      countRef.current++;
+      setCount(countRef.current);
+    }, <span class="hljs-number">1000</span>);
+  }
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
 </section><section class="slide"><h2>Beispiel: TransitioningImage</h2>
 <p>Beispiel: Slideshow mit Übergang bei Bild (mit Timeout)</p>
 <p><a href="https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3">https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3</a></p>
 <p>Teste, was geschieht, wenn im Timeout keine State-Update-Funktion verwendet wird</p>
-</section><section class="slide"><h2>Veraltete Daten in einem effect-Hook erkennen</h2>
-<p>ESLint-Regel, die helfen kann, veraltete Daten zu erkennen:</p>
-<p><em>react-hooks/exhaustive-deps</em></p>
-<p>(in VS Code, Installiere das ESLint Plugin)</p>
-</section><section class="slide"><h2>Beheben des Problems mit veralteten Daten</h2>
-<p>verschiedene Lösungen, abhängig vom Szenario (siehe Hinweise in den Linter-Meldungen):</p>
-<ul>
-<li>Code in die Definition einer Effect-Funktion verschieben</li>
-<li>übergeben einer "Transformations-Funktion" an einen State Setter (die Funktion hat immer Zugriff auf den aktuellsten State)</li>
-<li>erneutes Ausführen eines Effects, wenn sich eine Abhängigkeit ändert</li>
-<li>zusätzliches Speichern des aktuellsten States in einer <em>ref</em> (ist damit auch in älteren Closures verfügbar)</li>
-</ul>
-</section><section class="slide"><h2>Beheben des Problems mit veralteten Daten</h2>
-<p>Mögliche Lösung des Closure-Problems mit <em>setInterval</em>: Verwendung des <em>ref</em>-Hooks und eventuell eines selbst definierten Hooks</p>
+</section><section class="slide"><h2>Beispiel: Wechselkurse</h2>
+<p>Beispiel: State, der mehrere USD-Wechselkurse enthalten kann</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [usdRates, setUsdRates] = useState({});
+</code></pre>
+<pre><code class="hljs language-js">setUsdRates({ ...usdRates, [currency]: rate });
+</code></pre>
+<p>Dies wird zu Fehlern führen, wenn mehrere Wechselkurse gleichzeitig vom API geladen werden</p>
+</section><section class="slide"><h2>Veralteter State und setInterval</h2>
 <p>siehe:</p>
 <ul>
 <li><a href="https://overreacted.io/making-setinterval-declarative-with-react-hooks/">Dan Abramov: Making setInterval Declarative with React Hooks</a></li>

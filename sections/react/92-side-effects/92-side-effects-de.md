@@ -29,4 +29,4 @@ Implementierung:
 
 in Funktionskomponenten: mittels des _Effect Hooks_
 
-in Klassenkomponenten: mit Hilfe von Lifecycle-Methoden wie `componentDidMount`, `componentDidUpdate` oder `componentWillUnmount`
+in Klassenkomponenten: mit Hilfe von Lifecycle-Methoden

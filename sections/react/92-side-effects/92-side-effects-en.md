@@ -30,4 +30,4 @@ implementation:
 
 in function components: via the _effect_ hook
 
-in class components: via lifecycle methods like `componentDidMount`, `componentDidUpdate` or `componentWillUnmount`
+in class components: via lifecycle methods

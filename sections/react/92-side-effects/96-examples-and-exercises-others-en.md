@@ -1,8 +1,28 @@
-# Examples and exercises
+# Examples and exercises: others
 
 ## Examples and exercises
 
 Examples and exercises for use cases that don't interact with APIs
+
+- clock
+- counter that saves to localStorage
+- component that "renders" text to the document title
+- logout timer
+
+## Example: Clock component
+
+```jsx
+function Clock() {
+  const [time, setTime] = useState(new Date());
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+  return <div>{time.toLocaleTimeString()}</div>;
+}
+```
 
 ## Example: persistent counter
 
@@ -50,56 +70,13 @@ This component may appear anywhere in the React application.
 
 ## Example: DocumentTitle component
 
-implementation as a class component:
-
-```jsx
-class DocumentTitle extends Component {
-  componentDidMount() {
-    document.title = this.props.value;
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.title !== prevProps.title) {
-      document.title = this.props.value;
-    }
-  }
-  render() {
-    return null;
-  }
-}
-```
-
-## Example: DocumentTitle component
-
-implementation as a function component:
-
 ```jsx
 const DocumentTitle = (props) => {
-  const updateTitle = () => {
+  useEffect(() => {
     document.title = props.value;
-  };
-  useEffect(updateTitle, [props.value]);
+  }, [props.value]);
   return null;
 };
-```
-
-(will work correctly, but will show a warning concerning _exhaustive dependencies_)
-
-## Example: Clock component
-
-partial implementation of a clock component as a class component:
-
-```jsx
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-      this.setState({
-        time: new Date().toLocaleTimeString()
-      });
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
-  }
 ```
 
 ## Example: Logout timer

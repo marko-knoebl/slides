@@ -1,8 +1,28 @@
-# Beispiele und Übungen
+# Beispiele und Übungen: andere
 
 ## Beispiele und Übungen
 
 Beispiele und Übungen, die nicht mit APIs interagieren
+
+- Clock
+- Counter, der in localStorage speichert
+- Komponente, die den Dokumententitel "rendert"
+- Logout Timer
+
+## Beispiel: Clock-Komponente
+
+```jsx
+function Clock() {
+  const [time, setTime] = useState(new Date());
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+  return <div>{time.toLocaleTimeString()}</div>;
+}
+```
 
 ## Beispiel: Counter
 
@@ -50,56 +70,13 @@ Diese Komponente kann irgendwo in der React-Anwendung vorkommen.
 
 ## Beispiel: DocumentTitle-Komponente
 
-Implementierung als Klassenkomponente:
-
-```jsx
-class DocumentTitle extends Component {
-  componentDidMount() {
-    document.title = this.props.value;
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.title !== prevProps.title) {
-      document.title = this.props.value;
-    }
-  }
-  render() {
-    return null;
-  }
-}
-```
-
-## Beispiel: DocumentTitle-Komponente
-
-Implementierung als Funktionskomponente:
-
 ```jsx
 const DocumentTitle = (props) => {
-  const updateTitle = () => {
+  useEffect(() => {
     document.title = props.value;
-  };
-  useEffect(updateTitle, [props.value]);
+  }, [props.value]);
   return null;
 };
-```
-
-(funktioniert wie gewünscht, aber zeigt eine Warnung bezüglich _exhaustive dependencies_)
-
-## Beispiel: Clock-Komponente
-
-Teil der Implementierung einer Clock-Komponente als Klassenkomponente:
-
-```jsx
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-      this.setState({
-        time: new Date().toLocaleTimeString()
-      });
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
-  }
 ```
 
 ## Beispiel: Logout-timer

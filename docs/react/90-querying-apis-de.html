@@ -2144,40 +2144,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> loadRate("jpy")}>
   load JPY rate
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Veralteter State</h1>
-</section><section class="slide"><h2>Veralteter State</h2>
-<p>manchmals haben wir keinen direkten Zugriff auf den aktuellsten State, wenn wir einen neuen State festsetzen</p>
-<p>spezielles Szenario: asynchrone Events in Funktionskomponenten (z.B. Netzwerkanfragen)</p>
-</section><section class="slide"><h2>Veralteter State</h2>
-<p>Beispiel:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>{
-  setCount(count + <span class="hljs-number">1</span>);
-}
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementTwice</span>(<span class="hljs-params"></span>) </span>{
-  setCount(count + <span class="hljs-number">1</span>);
-  setCount(count + <span class="hljs-number">1</span>);
-}
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementWithDelay</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">setTimeout</span>(increment, <span class="hljs-number">3000</span>);
-}
-</code></pre>
-<p><code>incrementTwice</code> und <code>incrementWithDelay</code> können unerwartetes Verhalten haben</p>
-</section><section class="slide"><h2>Veralteter State</h2>
-<p>mögliche Lösung:</p>
-<pre><code class="hljs language-js">setCount(<span class="hljs-function">(<span class="hljs-params">c</span>) =></span> c + <span class="hljs-number">1</span>);
-</code></pre>
-<p>anstatt direkt den neuen State zu übergeben, übergeben wir eine "State-Transformations-Funktion"</p>
-</section><section class="slide"><h2>Veralteter State</h2>
-<p>"State-Transformations-Funktionen" werden üblicherweise mit asynchronem Code verwendet, um Probleme mit veraltetem State zu vermeiden:</p>
-<pre><code class="hljs language-js">setUsdRates(<span class="hljs-function">(<span class="hljs-params">usdRates</span>) =></span> ({
-  ...usdRates,
-  [currency]: rate,
-}));
-</code></pre>
-<p>(dies behebt ein Problem, wenn zwei Wechselkurse gleichzeitig abgefragt werden)</p></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

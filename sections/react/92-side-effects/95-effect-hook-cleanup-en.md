@@ -39,13 +39,13 @@ function App() {
 
 ## Asynchronous effects and cleanup functions
 
-An effect function **may not be an async function**
+An effect function **must not be an async function**
 
 reason:
 
 any return value of an effect function is treated as a cleanup function
 
-async functions always return Promises
+async functions always return promises
 
 ## Asynchronous effects and cleanup functions
 

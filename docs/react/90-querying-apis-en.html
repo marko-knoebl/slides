@@ -2144,40 +2144,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> loadRate("jpy")}>
   load JPY rate
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Outdated state</h1>
-</section><section class="slide"><h2>Outdated state</h2>
-<p>Sometimes, we may not have direct access to the most recent state entries when computing a new state</p>
-<p>particular scenario: asynchronous events in function components (e.g. network requests)</p>
-</section><section class="slide"><h2>Outdated state</h2>
-<p>example:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>{
-  setCount(count + <span class="hljs-number">1</span>);
-}
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementTwice</span>(<span class="hljs-params"></span>) </span>{
-  setCount(count + <span class="hljs-number">1</span>);
-  setCount(count + <span class="hljs-number">1</span>);
-}
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incrementWithDelay</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">setTimeout</span>(increment, <span class="hljs-number">3000</span>);
-}
-</code></pre>
-<p><code>incrementTwice</code> and <code>incrementWithDelay</code> may have some unexpected behavior</p>
-</section><section class="slide"><h2>Outdated state</h2>
-<p>possible solution:</p>
-<pre><code class="hljs language-js">setCount(<span class="hljs-function">(<span class="hljs-params">c</span>) =></span> c + <span class="hljs-number">1</span>);
-</code></pre>
-<p>instead of directly passing the new state, we pass a "state transformer function" - it will be used to <em>queue</em> state updates</p>
-</section><section class="slide"><h2>Outdated state</h2>
-<p>we will commonly use "state transformer functions" in asynchronous code to avoid issues with outdated state:</p>
-<pre><code class="hljs language-js">setUsdRates(<span class="hljs-function">(<span class="hljs-params">usdRates</span>) =></span> ({
-  ...usdRates,
-  [currency]: rate,
-}));
-</code></pre>
-<p>(this fixes an issue when two rates are requested at the same time)</p></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js
