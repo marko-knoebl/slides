@@ -2068,6 +2068,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Context</li>
 <li>Styling-Tools</li>
 <li>Formulare und Validierung</li>
+<li>Refs</li>
 <li>Projektsetup und Dateistruktur</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Hooks</h1>
@@ -2406,11 +2407,16 @@ function ThemeProvider(props: { children: ReactNode }) {
 <p>Bei create-react-app sind CSS-Module vorkonfiguriert; Diese erlauben das Verwenden von CSS-Klassennamen, die garantiert über CSS-Dateien hinweg eindeutig sind.</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./TodoItem.module.css'</span>;
 
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{styles.todoItem}</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{</span>`${<span class="hljs-attr">styles.todoItem</span>} ${<span class="hljs-attr">styles.completed</span>}`}></span>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{styles.todoItem</span> + ' ' + <span class="hljs-attr">styles.completed</span>}></span>
   ...
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+<p>möglicher Output im HTML:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>
+  <span class="hljs-attr">class</span>=<span class="hljs-string">"TodoItem_todoItem__L9V1E TodoItem_completed__9bPW1"</span>
+></span>
+  ...
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 </code></pre>
 </section><section class="slide"><h2>CSS Module und classnames</h2>
 <pre><code class="hljs language-ts">&#x3C;div className={classNames({
@@ -2525,7 +2531,7 @@ function ThemeProvider(props: { children: ReactNode }) {
 );
 </code></pre>
 </section><section class="slide"><h2>styled-components</h2>
-<p>dynamische Stile via props (TypeScript):</p>
+<p>dynamische Stile via props:</p>
 <pre><code class="hljs language-tsx">import styled from 'styled-components';
 
 const Button = styled.button&#x3C;{ primary: boolean }>`
@@ -2635,6 +2641,18 @@ const Slideshow = (props) => (
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Formulare und Validierung</h1>
 </section><section class="slide"><h2>Formulare und Validierung</h2>
+<p>Möglichkeiten:</p>
+<ul>
+<li>eingebaute Funktionalität von HTML-Elementen</li>
+<li>eingebaute Funktionalität von Komponentenlibraries</li>
+<li>Formular-Libraries (<em>react-hook-form</em>, <em>formik</em>)</li>
+<li>eigener Validierungs-Code</li>
+</ul>
+</section><section class="slide"><h2>Formulare und Validierung</h2>
+<p>eingebaute Funktionalität von HTML:</p>
+<pre><code class="hljs language-jsx">&#x3C;input required={<span class="hljs-literal">true</span>} minlength={<span class="hljs-number">4</span>} />
+</code></pre>
+</section><section class="slide"><h2>Formulare und Validierung</h2>
 <p>Wann kann ein Input validiert werden?</p>
 <ul>
 <li>wenn das Formular <em>submittet</em> wird (<em>submit</em>)</li>
@@ -2654,11 +2672,11 @@ const Slideshow = (props) => (
 };
 </code></pre>
 </section><section class="slide"><h2>Validierung: Beispiele</h2>
-<p>Validierung bei <em>blur</em> bzw <em>change</em>:</p>
+<p>Validierung bei <em>blur</em>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
   <span class="hljs-keyword">const</span> [emailValid, setEmailValid] = useState(<span class="hljs-literal">true</span>);
-  <span class="hljs-comment">// call from onBlur / onChange:</span>
+  <span class="hljs-comment">// call from onBlur:</span>
   <span class="hljs-keyword">const</span> validateEmail = <span class="hljs-function">() =></span> {
     setEmailValid(isEmail(email));
   };
@@ -2826,6 +2844,190 @@ const Slideshow = (props) => (
 
 <span class="hljs-keyword">const</span> isEmail = <span class="hljs-function">(<span class="hljs-params">email</span>) =></span>
   email.match(<span class="hljs-regexp">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i</span>);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Refs zum Ablegen von Objektreferenzen</h1>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p><strong>refs</strong>: ähnlich zu <em>State</em>, mit Unterschieden:</p>
+<ul>
+<li>Änderung eines Refs führt nicht zu einem Re-Rendering</li>
+<li>Der Wert eines Refs ist nie veraltet</li>
+</ul>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>erster Use-Case:</p>
+<p>Ablegen von Werten / Objektreferenzen, die das Rendering einer Komponente nicht beeinflussen:</p>
+<ul>
+<li>Timer IDs</li>
+<li>Request IDs</li>
+<li>WebSocket-Verbindungen</li>
+<li>ein PWA-Installationsdialog (siehe Abschnitt PWA)</li>
+<li>DOM-Elemente (siehe nächster Abschnitt "Ref Property zum Zugriff auf DOM-Elemente")</li>
+</ul>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>zweiter Use-Case:</p>
+<p>Speichern der aktuellsten Version eines States</p>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>Auf eine Ref kann mittels <code>useRef</code> zugegriffen werden</p>
+<p>Objekte werden in der <code>.current</code>-Property der Ref abgelegt</p>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>ein Beispiel mit beiden Use-Cases:</p>
+<pre><code class="hljs language-tsx">function StopWatch() {
+  const [time, setTime] = useState(0);
+  const timeRef = useRef(time);
+  const intervalId = useRef&#x3C;number>(null);
+  function start() {
+    setTime(0);
+    timeRef.current = 0;
+    intervalId.current = setInterval(() => {
+      timeRef.current++;
+      setTime(timeRef);
+    }, 1000);
+  }
+  function stop() {
+    clearInterval(intervalId.current);
+  }
+  return &#x3C;div>...&#x3C;/div>;
+}
+</code></pre>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>Bemerkung: oft gibt es auch mögliche Implementierungen, die Refs vermeiden:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">StopWatch</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> [running, setRunning] = useState(<span class="hljs-literal">false</span>);
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">if</span> (running) {
+      <span class="hljs-keyword">const</span> intervalId = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+        setTime(<span class="hljs-function">(<span class="hljs-params">time</span>) =></span> time + <span class="hljs-number">1</span>);
+      });
+      <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(intervalId);
+    }
+  }, [running]);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Ref-Property zum Zugriff auf DOM-Elemente</h1>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Ähnlich wie <em>key</em> hat auch die <em>ref</em>-Property eine besondere Bedeutung in JSX - sie ermöglicht den Zugriff auf gerenderte DOM-Elemente</p>
+<p>Anwendungsgebiete:</p>
+<ul>
+<li>Verwalten von Fokus, Textauswahl oder Medienwiedergabe</li>
+<li>Integration von anderen DOM-Libraries</li>
+<li>Alternative Möglichkeit zum Verwalten von Inputs</li>
+</ul>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Verwendung der <em>ref</em>-Property zusammen mit dem <em>useRef</em>-Hook:</p>
+<pre><code class="hljs language-tsx">function RefDemo() {
+  const myRef = useRef&#x3C;HTMLInputElement>(null);
+  return (
+    &#x3C;input
+      ref={myRef}
+      onChange={() => {
+        console.log(myRef.current.value);
+      }}
+    />
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p><strong>Verwalten von Fokus, Textauswahl oder Medienwiedergabe</strong></p>
+<p>manche Änderungen können nicht deklarativ (via State) ausgedrückt werden - sie benötigen Zugriff zu einem bestimmten DOM-Element</p>
+<p>Beispiel: es gibt Properties wie <code>.value</code> zum Ändern des Werts eines Inputs oder <code>.className</code> zum Ändern von Klassennamen, aber keine Property zum Verwalten des Fokus</p>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Verwalten des Fokus:</p>
+<pre><code class="hljs language-tsx">function App() {
+  const inputEl = useRef&#x3C;HTMLInputElement>(null);
+  useEffect(() => {
+    inputEl.current?.focus();
+  }, []);
+  return &#x3C;input ref={inputEl} />;
+};
+</code></pre>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Verwalten von Medienwiedergabe:</p>
+<pre><code class="hljs language-tsx">// https://codesandbox.io/s/media-playback-x3ci4
+function Video() {
+  const [playing, setPlaying] = useState(false);
+  const videoEl = useRef&#x3C;HTMLVideoElement>(null);
+  useEffect(() => {
+    if (playing) {
+      videoEl.current?.play();
+    } else {
+      videoEl.current?.pause();
+    }
+  }, [playing]);
+  return (
+    &#x3C;div>
+      &#x3C;video
+        ref={videoEl}
+        width="250"
+        src={
+          'https://interactive-examples.mdn.mozilla.net/' +
+          'media/cc0-videos/flower.mp4'
+        }
+      />
+      &#x3C;button onClick={() => setPlaying(!playing)}>
+        {playing ? 'pause' : 'play'}
+      &#x3C;/button>
+    &#x3C;/div>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p><strong>Integration von anderen DOM-Libraries</strong></p>
+<p>Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen</p>
+<p>Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Karte gezeichnet wird</p>
+<p>Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden</p>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Integration von Google Maps mittels Ref:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Map</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> mapRef = useRef&#x3C;HTMLElement>();
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">new</span> google.maps.Map(mapRef.current);
+  }, []);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{mapRef}</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{height:</span> <span class="hljs-attr">400</span>} /></span></span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p><strong>Alternative Möglichkeit zum Verwalten von Inputs</strong></p>
+<p>Verwendung von <code>ref</code> Anstelle von <code>value</code> und <code>onChange</code> kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)</p>
+<p>Refs werden von <em>react-hook-form</em> verwendet, um Formularverwaltung einfacher und schneller zu machen</p>
+</section><section class="slide"><h2>Ref-Property zum Verwalten von Inputs</h2>
+<p>Verwalten von Inputs: Vergleich von <code>useState</code> und <code>useRef</code>:</p>
+<pre><code class="hljs language-tsx">const App = () => {
+  const [firstName, setFirstName] = useState('');
+  const lastNameInput = useRef&#x3C;HTMLInputElement>(null);
+
+  return (
+    &#x3C;div>
+      &#x3C;input
+        value={firstName}
+        onChange={(event) =>
+          setFirstName(event.target.value)
+        }
+      />
+      &#x3C;input ref={lastNameInput} />
+
+      &#x3C;button
+        onClick={() => {
+          console.log(firstName);
+          console.log(lastNameInput.current.value);
+        }}
+      >
+        log values
+      &#x3C;/button>
+    &#x3C;/div>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Callback Refs</h2>
+<p>Wie bisher gesehen: Wir können ein Ref-Objekt an die <em>ref</em>-Property übergeben</p>
+<p>Wir können auch eine <em>Callbackfunktion</em> übergeben, die nach dem Rendering mit dem Element als Parameter aufgerufen wird (<em>react-hook-form</em> verwendet dies)</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  ref={<span class="hljs-function">(<span class="hljs-params">element</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(element);
+    <span class="hljs-built_in">console</span>.log(element.value);
+    element.focus();
+  }}
+/>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Manuelle Projekt-Einrichtung</h1>
 </section><section class="slide"><h2>Dateistruktur</h2>

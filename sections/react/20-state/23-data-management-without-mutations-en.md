@@ -110,7 +110,12 @@ exercise: create the following _pure_ function that handles a todo item:
 ```js
 const todo1 = { id: 1, title: 'foo', completed: false };
 
+function changeTitle(todo: Todo, newTitle: string): Todo {
+  // TODO: FINISH IMPLEMENTATION HERE
+}
+
 const todo2 = changeTitle(todo1, 'bar');
+console.log(todo2);
 // { id: 1, title: 'bar', completed: false}
 ```
 
@@ -126,24 +131,40 @@ function changeTitle(todo: Todo, newTitle: string): Todo {
 
 ## Exercises
 
-exercise: create the following _pure_ functions that handle an array of todos
+exercise: create _pure_ functions that handle an array of todos
 
 ```js
-const todos1 = [
+const todos = [
   { id: 1, title: 'foo', completed: false },
-  { id: 2, title: 'bar', completed: true },
+  { id: 5, title: 'bar', completed: true },
+  { id: 7, title: 'baz', completed: false },
 ];
-
-// add a todo with title 'baz'
-const todos2 = addTodo(todos1, 'baz');
-// set the completed status of the first todo to 'true'
-const todos3 = changeTodoCompleted(todos2, 1, true);
-// remove all completed todos
-const todos4 = removeCompletedTodos(todos3);
-// [{ id: 3, title: 'baz', completed: false }]
 ```
 
 ## Exercises
+
+Complete this code so it adds a todo with a given title and a new id:
+
+```ts
+function addTodo(
+  todos: Array<Todo>,
+  newTitle: string
+): Array<Todo> {
+  let maxId = 0;
+  for (let todo of todos) {
+    maxId = Math.max(maxId, todo.id);
+  }
+  // TODO: FINISH IMPLEMENTATION HERE
+}
+
+// add a todo with title 'baz'
+const todosA = addTodo(todos, 'baz');
+console.log(todosA);
+```
+
+## Exercises
+
+possible solution:
 
 ```js
 function addTodo(
@@ -163,7 +184,27 @@ function addTodo(
 
 ## Exercises
 
-```js
+Complete this code so it sets the completed status of a specific todo
+
+```ts
+function changeTodoCompleted(
+  todos: Array<Todo>,
+  id: number,
+  completed: boolean
+): Array<Todo> {
+  // TODO: FINISH IMPLEMENTATION HERE
+}
+
+// change the completed status of todo 1 to true
+const todosB = changeTodoCompleted(todos, 1, true);
+console.log(todosB);
+```
+
+## Exercises
+
+possible solution:
+
+```ts
 function changeTodoCompleted(
   todos: Array<Todo>,
   id: number,
@@ -179,10 +220,29 @@ function changeTodoCompleted(
 
 ## Exercises
 
-```js
-function removeCompletedTodos(
-  todos: Array<Todo>
+Complete this code so it removes a specific todo by its id:
+
+```ts
+function removeTodo(
+  todos: Array<Todo>,
+  id: number
 ): Array<Todo> {
-  return todos.filter((todo) => !todo.completed);
+  // TODO: FINISH IMPLEMENTATION HERE
+}
+
+const todosC = removeTodo(todos, 1);
+console.log(todosC);
+```
+
+## Exercises
+
+possible solution:
+
+```ts
+function removeTodo(
+  todos: Array<Todo>,
+  id: number
+): Array<Todo> {
+  return todos.filter((todo) => todo.id !== id);
 }
 ```

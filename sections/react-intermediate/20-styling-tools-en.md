@@ -38,11 +38,19 @@ CSS modules are preconfigured in create-react-app; they enable using CSS class n
 ```js
 import styles from './TodoItem.module.css';
 
-<div className={styles.todoItem}>...</div>;
-
-<div className={`${styles.todoItem} ${styles.completed}`}>
+<div className={styles.todoItem + ' ' + styles.completed}>
   ...
 </div>;
+```
+
+possible output in the HTML:
+
+```html
+<div
+  class="TodoItem_todoItem__L9V1E TodoItem_completed__9bPW1"
+>
+  ...
+</div>
 ```
 
 ## CSS modules and classnames
@@ -211,7 +219,7 @@ const Slideshow = (props) => (
 
 ## styled-components
 
-dynamic styles via props (TypeScript):
+dynamic styles via props:
 
 ```tsx
 import styled from 'styled-components';

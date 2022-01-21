@@ -7,8 +7,8 @@
 Anwendungsgebiete:
 
 - Verwalten von Fokus, Textauswahl oder Medienwiedergabe
-- Alternative Möglichkeit zum Verwalten von Inputs
 - Integration von anderen DOM-Libraries
+- Alternative Möglichkeit zum Verwalten von Inputs
 
 ## Ref-Property zum Zugriff auf DOM-Elemente
 
@@ -38,41 +38,21 @@ Beispiel: es gibt Properties wie `.value` zum Ändern des Werts eines Inputs ode
 
 ## Ref-Property zum Zugriff auf DOM-Elemente
 
-**Alternative Möglichkeit zum Verwalten von Inputs**
-
-Verwendung von `ref` Anstelle von `value` und `onChange` kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)
-
-Refs werden von _react-hook-form_ verwendet, um Formularverwaltung einfacher und schneller zu machen
-
-## Ref-Property zum Zugriff auf DOM-Elemente
-
-**Integration von anderen DOM-Libraries**
-
-Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen
-
-Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Karte gezeichnet wird
-
-Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden
-
-## Ref-Property zum Verwalten des Fokus
-
-Verwalten des Fokus mittels einer Ref:
+Verwalten des Fokus:
 
 ```tsx
-const App = () => {
+function App() {
   const inputEl = useRef<HTMLInputElement>(null);
-  return (
-    <div>
-      <input ref={inputEl} />
-      <button onClick={() => inputEl.current?.focus()}>
-        focus
-      </button>
-    </div>
-  );
+  useEffect(() => {
+    inputEl.current?.focus();
+  }, []);
+  return <input ref={inputEl} />;
 };
 ```
 
-## Ref-Property und Effect Hook zum Verwalten von Medienwiedergabe
+## Ref-Property zum Zugriff auf DOM-Elemente
+
+Verwalten von Medienwiedergabe:
 
 ```tsx
 // https://codesandbox.io/s/media-playback-x3ci4
@@ -103,6 +83,38 @@ function Video() {
   );
 }
 ```
+
+## Ref-Property zum Zugriff auf DOM-Elemente
+
+**Integration von anderen DOM-Libraries**
+
+Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen
+
+Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Karte gezeichnet wird
+
+Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden
+
+## Ref-Property zum Zugriff auf DOM-Elemente
+
+Integration von Google Maps mittels Ref:
+
+```ts
+function Map() {
+  const mapRef = useRef<HTMLElement>();
+  useEffect(() => {
+    new google.maps.Map(mapRef.current);
+  }, []);
+  return <div ref={mapRef} style={height: 400} />;
+}
+```
+
+## Ref-Property zum Zugriff auf DOM-Elemente
+
+**Alternative Möglichkeit zum Verwalten von Inputs**
+
+Verwendung von `ref` Anstelle von `value` und `onChange` kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)
+
+Refs werden von _react-hook-form_ verwendet, um Formularverwaltung einfacher und schneller zu machen
 
 ## Ref-Property zum Verwalten von Inputs
 
@@ -149,6 +161,5 @@ Wir können auch eine _Callbackfunktion_ übergeben, die nach dem Rendering mit 
     console.log(element.value);
     element.focus();
   }}
-  type="text"
 />
 ```

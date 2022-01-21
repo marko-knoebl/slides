@@ -7,8 +7,8 @@ Just like _key_, the _ref_ property has a special meaning in JSX - enabling dire
 use cases:
 
 - managing focus, text selection, or media playback
-- alternative way of managing inputs (uncontrolled components)
 - integrating with third-party DOM libraries
+- alternative way of managing inputs (uncontrolled components)
 
 ## Ref property for accessing DOM elements
 
@@ -38,41 +38,21 @@ example: there are properties like `.value` for changing a value or `.className`
 
 ## Ref property for accessing DOM elements
 
-**alternative way of managing inputs**
-
-using `ref` instead of `value` and `onChange` can mean less code (but is discouraged by the React documentation)
-
-Refs are used by _react-hook-form_ to make form handling simpler and faster
-
-## Ref property for accessing DOM elements
-
-**integrating with third-party DOM libraries**
-
-Third-party libraries may require a DOM element being passed in
-
-Example: Google Maps takes an element where it will paint the map
-
-Many third-party libraries have wrappers for React where refs are not needed
-
-## Ref property for managing focus
-
-Managing focus with a ref:
+Managing focus:
 
 ```tsx
-const App = () => {
+function App() {
   const inputEl = useRef<HTMLInputElement>(null);
-  return (
-    <div>
-      <input ref={inputEl} />
-      <button onClick={() => inputEl.current?.focus()}>
-        focus
-      </button>
-    </div>
-  );
+  useEffect(() => {
+    inputEl.current?.focus();
+  }, []);
+  return <input ref={inputEl} />;
 };
 ```
 
-## Ref property and effect hook for managing media playback
+## Ref property for accessing DOM elements
+
+managing media playback:
 
 ```tsx
 // https://codesandbox.io/s/media-playback-x3ci4
@@ -103,6 +83,38 @@ function Video() {
   );
 }
 ```
+
+## Ref property for accessing DOM elements
+
+**integrating with third-party DOM libraries**
+
+Third-party libraries may require a DOM element being passed in
+
+Example: Google Maps takes an element where it will paint the map
+
+Many third-party libraries have wrappers for React where refs are not needed
+
+## Ref property for accessing DOM elements
+
+integrating Google Maps via a ref:
+
+```ts
+function Map() {
+  const mapRef = useRef<HTMLElement>();
+  useEffect(() => {
+    new google.maps.Map(mapRef.current);
+  }, []);
+  return <div ref={mapRef} style={height: 400} />;
+}
+```
+
+## Ref property for accessing DOM elements
+
+**alternative way of managing inputs**
+
+using `ref` instead of `value` and `onChange` can mean less code (but is discouraged by the React documentation)
+
+Refs are used by _react-hook-form_ to make form handling simpler and faster
 
 ## Ref property for managing inputs
 
@@ -149,6 +161,5 @@ We can also pass in a _callback_ function which will be called with the element 
     console.log(element.value);
     element.focus();
   }}
-  type="text"
 />
 ```

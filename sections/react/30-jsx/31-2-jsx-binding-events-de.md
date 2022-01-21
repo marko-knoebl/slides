@@ -9,7 +9,7 @@ function sayHello() {
 ```
 
 ```jsx
-<button onClick={() => sayHello())}>Say Hello</button>
+<button onClick={() => sayHello()}>Say Hello</button>
 ```
 
 Liste von Browser-Events:  

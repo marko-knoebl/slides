@@ -2211,7 +2211,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>exercise: create the following <em>pure</em> function that handles a todo item:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todo1 = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
 
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTitle</span>(<span class="hljs-params">todo: Todo, newTitle: string</span>): <span class="hljs-title">Todo</span> </span>{
+  <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> FINISH IMPLEMENTATION HERE</span>
+}
+
 <span class="hljs-keyword">const</span> todo2 = changeTitle(todo1, <span class="hljs-string">'bar'</span>);
+<span class="hljs-built_in">console</span>.log(todo2);
 <span class="hljs-comment">// { id: 1, title: 'bar', completed: false}</span>
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
@@ -2221,21 +2226,32 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
-<p>exercise: create the following <em>pure</em> functions that handle an array of todos</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todos1 = [
+<p>exercise: create <em>pure</em> functions that handle an array of todos</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todos = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'bar'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'bar'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">7</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'baz'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
 ];
-
-<span class="hljs-comment">// add a todo with title 'baz'</span>
-<span class="hljs-keyword">const</span> todos2 = addTodo(todos1, <span class="hljs-string">'baz'</span>);
-<span class="hljs-comment">// set the completed status of the first todo to 'true'</span>
-<span class="hljs-keyword">const</span> todos3 = changeTodoCompleted(todos2, <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>);
-<span class="hljs-comment">// remove all completed todos</span>
-<span class="hljs-keyword">const</span> todos4 = removeCompletedTodos(todos3);
-<span class="hljs-comment">// [{ id: 3, title: 'baz', completed: false }]</span>
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
+<p>Complete this code so it adds a todo with a given title and a new id:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">
+  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
+  newTitle: <span class="hljs-built_in">string</span>
+</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
+  <span class="hljs-keyword">let</span> maxId = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> todo <span class="hljs-keyword">of</span> todos) {
+    maxId = <span class="hljs-built_in">Math</span>.max(maxId, todo.id);
+  }
+  <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> FINISH IMPLEMENTATION HERE</span>
+}
+
+<span class="hljs-comment">// add a todo with title 'baz'</span>
+<span class="hljs-keyword">const</span> todosA = addTodo(todos, <span class="hljs-string">'baz'</span>);
+<span class="hljs-built_in">console</span>.log(todosA);
+</code></pre>
+</section><section class="slide"><h2>Exercises</h2>
+<p>possible solution:</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">
   todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
   newTitle: string
@@ -2251,10 +2267,25 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTodoCompleted</span>(<span class="hljs-params">
+<p>Complete this code so it sets the completed status of a specific todo</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTodoCompleted</span>(<span class="hljs-params">
   todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
-  id: number,
-  completed: boolean
+  id: <span class="hljs-built_in">number</span>,
+  completed: <span class="hljs-built_in">boolean</span>
+</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
+  <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> FINISH IMPLEMENTATION HERE</span>
+}
+
+<span class="hljs-comment">// change the completed status of todo 1 to true</span>
+<span class="hljs-keyword">const</span> todosB = changeTodoCompleted(todos, <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-built_in">console</span>.log(todosB);
+</code></pre>
+</section><section class="slide"><h2>Exercises</h2>
+<p>possible solution:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTodoCompleted</span>(<span class="hljs-params">
+  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
+  id: <span class="hljs-built_in">number</span>,
+  completed: <span class="hljs-built_in">boolean</span>
 </span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
   <span class="hljs-keyword">return</span> todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span>
     todo.id === id
@@ -2264,10 +2295,24 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeCompletedTodos</span>(<span class="hljs-params">
-  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>
+<p>Complete this code so it removes a specific todo by its id:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeTodo</span>(<span class="hljs-params">
+  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
+  id: <span class="hljs-built_in">number</span>
 </span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
-  <span class="hljs-keyword">return</span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed);
+  <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> FINISH IMPLEMENTATION HERE</span>
+}
+
+<span class="hljs-keyword">const</span> todosC = removeTodo(todos, <span class="hljs-number">1</span>);
+<span class="hljs-built_in">console</span>.log(todosC);
+</code></pre>
+</section><section class="slide"><h2>Exercises</h2>
+<p>possible solution:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeTodo</span>(<span class="hljs-params">
+  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
+  id: <span class="hljs-built_in">number</span>
+</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
+  <span class="hljs-keyword">return</span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> todo.id !== id);
 }
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Input state</h1>

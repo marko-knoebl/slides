@@ -24,7 +24,7 @@ function SlideshowApp() {
     <div>
       <h1>Image {img}</h1>
       <button onClick={() => setImg(0)}>start</button>
-      <button onClick={() => goToPrevImg()}>previus</button>
+      <button onClick={() => goToPrevImg()}>prev</button>
       <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
     </div>
@@ -107,7 +107,7 @@ A curly brace switches back to JavaScript
 <!-- prettier-ignore -->
 ```jsx
       <button onClick={() => setImg(0)}>start</button>
-      <button onClick={() => goToPrevImg()}>previous</button>
+      <button onClick={() => goToPrevImg()}>prev</button>
       <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
 ```

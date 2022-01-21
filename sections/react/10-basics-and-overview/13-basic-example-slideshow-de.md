@@ -24,8 +24,8 @@ function SlideshowApp() {
     <div>
       <h1>Image {img}</h1>
       <button onClick={() => setImg(0)}>start</button>
-      <button onClick={() => goToPrevImg()}>previous</button>
-      <img src={imgUrl} />
+      <button onClick={() => goToPrevImg()}>prev</button>
+      <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
     </div>
   );
@@ -107,7 +107,7 @@ Eine geschweifte Klammer wechselt zurück zu JavaScript
 <!-- prettier-ignore -->
 ```jsx
       <button onClick={() => setImg(0)}>start</button>
-      <button onClick={() => setImg(img - 1)}>previous</button>
+      <button onClick={() => goToPrevImg()}>prev</button>
       <img src={imgUrl} alt="slideshow" />
       <button onClick={() => setImg(img + 1)}>next</button>
 ```

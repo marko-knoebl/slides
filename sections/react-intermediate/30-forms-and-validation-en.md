@@ -2,6 +2,23 @@
 
 ## Forms and validation
 
+possibilities:
+
+- use functionality that's built into HTML elements
+- use functionality that's built into component libraries
+- use a form library (_react-hook-form_, _formik_)
+- write custom validation code
+
+## Forms and validation
+
+built-in functionality of HTML:
+
+```jsx
+<input required={true} minlength={4} />
+```
+
+## Forms and validation
+
 When can a form input be validated?
 
 - when the form is submitted (on submit)
@@ -27,13 +44,13 @@ const NewsletterSignup = () => {
 
 ## Validation: examples
 
-validation on blur / on change:
+validation on blur:
 
 ```js
 const NewsletterSignup = () => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
-  // call from onBlur / onChange:
+  // call from onBlur:
   const validateEmail = () => {
     setEmailValid(isEmail(email));
   };

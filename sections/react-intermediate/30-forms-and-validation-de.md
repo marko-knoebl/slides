@@ -2,6 +2,23 @@
 
 ## Formulare und Validierung
 
+Möglichkeiten:
+
+- eingebaute Funktionalität von HTML-Elementen
+- eingebaute Funktionalität von Komponentenlibraries
+- Formular-Libraries (_react-hook-form_, _formik_)
+- eigener Validierungs-Code
+
+## Formulare und Validierung
+
+eingebaute Funktionalität von HTML:
+
+```jsx
+<input required={true} minlength={4} />
+```
+
+## Formulare und Validierung
+
 Wann kann ein Input validiert werden?
 
 - wenn das Formular _submittet_ wird (_submit_)
@@ -27,13 +44,13 @@ const NewsletterSignup = () => {
 
 ## Validierung: Beispiele
 
-Validierung bei _blur_ bzw _change_:
+Validierung bei _blur_:
 
 ```js
 const NewsletterSignup = () => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
-  // call from onBlur / onChange:
+  // call from onBlur:
   const validateEmail = () => {
     setEmailValid(isEmail(email));
   };
