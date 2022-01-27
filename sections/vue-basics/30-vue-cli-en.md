@@ -65,9 +65,19 @@ new file _vue.config.js_:
 
 ```js
 module.exports = {
-  lintOnSave: "warning",
+  lintOnSave: 'warning',
 };
 ```
+
+## Vue CLI
+
+Check imports for errors:
+
+```bash
+npm install eslint-plugin-import
+```
+
+in the _eslint_ config, add `"plugin:import/recommended"` to `"extends"`
 
 ## Default project structure
 

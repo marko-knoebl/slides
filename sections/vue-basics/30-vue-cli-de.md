@@ -68,6 +68,16 @@ module.exports = {
 };
 ```
 
+## Vue CLI
+
+Überprüfe Imports auf Fehler:
+
+```bash
+npm install eslint-plugin-import
+```
+
+in der _eslint_-Konfiguration unter `"extends"`, füge `"plugin:import/recommended"` hinzu
+
 ## Standard Projektstruktur
 
 - _public/index.html_, _src/main.js_: Einstiegspunkte
