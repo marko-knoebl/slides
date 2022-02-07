@@ -2391,23 +2391,37 @@ plt.legend()
 </code></pre>
 <p>This will automatically become the active figure.</p>
 </section><section class="slide"><h2>Figure objects</h2>
-<p>exporting a figure:</p>
-<pre><code class="hljs language-py">fig.savefig(<span class="hljs-string">"myplot.png"</span>)
-fig.savefig(<span class="hljs-string">"myplot.svg"</span>)
+<p>exporting the active figure:</p>
+<pre><code class="hljs language-py">plt.savefig(<span class="hljs-string">"myplot.png"</span>)
+plt.savefig(<span class="hljs-string">"myplot.svg"</span>)
 </code></pre>
 </section><section class="slide"><h2>Axes objects</h2>
-<p>Getting the active <em>axes</em> object:</p>
-<pre><code class="hljs language-py">ax = plt.gca() <span class="hljs-comment"># get current axes</span>
-</code></pre>
-<p>The Methods of <code>plt</code> that we've previously seen call methods of the active <em>Axes</em> object in the background:</p>
-<pre><code class="hljs language-py">ax.plot(...)
-ax.set_title(...)
-ax.set_xlabel(...)
-ax.legend()
-ax.set_aspect(<span class="hljs-string">"equal"</span>)
+<p>Creating and activating new axes objects:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># axes in the bottom left</span>
+ax1 = plt.axes(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>)
+plt.plot([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>])
+
+<span class="hljs-comment"># axes in the top right</span>
+ax2 = plt.axes(<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>)
+plt.plot([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>])
 </code></pre>
 </section><section class="slide"><h2>Axes objects</h2>
-<p>Task: Create a sine and cosine plot via <em>Axes</em></p>
+<p>making an axes object the active axes:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># sca = set current axes</span>
+plt.sca(ax1)
+</code></pre>
+<p>getting the current active axes object:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># gca = get current axes</span>
+active_axes = plt.gca()
+</code></pre>
+</section><section class="slide"><h2>Axes objects</h2>
+<p>automatic creation of multiple <em>Axes</em> objects in a grid (here: 2 rows, 3 columns):</p>
+<pre><code class="hljs language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+
+ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+</code></pre>
 </section><section class="slide"><h2>Axis and Axes</h2>
 <p>naming to keep in mind:</p>
 <ul>
@@ -2415,13 +2429,14 @@ ax.set_aspect(<span class="hljs-string">"equal"</span>)
 <li><code>plt.axes</code>: for creating a new coordinate system</li>
 </ul>
 <p>actual meaning (from Latin): <em>axis</em> = singular, <em>axes</em> = plural</p>
-</section><section class="slide"><h2>Subplots</h2>
-<p>Creating multiple <em>Axes</em> objects in a grid (here: 2 rows, 3 columns):</p>
-<pre><code class="hljs language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
-
-ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
-ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
-ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+</section></section><section class="slides-section"><section class="slide"><h1>Object-oriented interface</h1>
+</section><section class="slide"><h2>Object-oriented interface</h2>
+<p>The Methods of <code>plt</code> that we've previously seen call methods of the active <em>Axes</em> object in the background:</p>
+<pre><code class="hljs language-py">ax.plot(...)
+ax.set_title(...)
+ax.set_xlabel(...)
+ax.legend()
+ax.set_aspect(<span class="hljs-string">"equal"</span>)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Advanced plot types</h1>
 </section><section class="slide"><h2>Advanced plot types</h2>

@@ -2391,23 +2391,37 @@ plt.legend()
 </code></pre>
 <p>Dies wird automatisch zur aktiven Figure.</p>
 </section><section class="slide"><h2>Figure Objekte</h2>
-<p>Exportieren einer Figure:</p>
-<pre><code class="hljs language-py">fig.savefig(<span class="hljs-string">"myplot.png"</span>)
-fig.savefig(<span class="hljs-string">"myplot.svg"</span>)
+<p>Exportieren der aktiven Figure:</p>
+<pre><code class="hljs language-py">plt.savefig(<span class="hljs-string">"myplot.png"</span>)
+plt.savefig(<span class="hljs-string">"myplot.svg"</span>)
 </code></pre>
 </section><section class="slide"><h2>Axes Objekte</h2>
+<p>Erstellen und aktivieren neuer Axes Objekte:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># axes in the bottom left</span>
+ax1 = plt.axes(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>)
+plt.plot([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>])
+
+<span class="hljs-comment"># axes in the top right</span>
+ax2 = plt.axes(<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>)
+plt.plot([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>])
+</code></pre>
+</section><section class="slide"><h2>Axes Objekte</h2>
+<p>Ein <em>Axes</em>-Objekt zum aktiven machen:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># sca = set current axes</span>
+plt.sca(ax1)
+</code></pre>
 <p>Das aktive <em>Axes</em>-Objekt abfragen:</p>
-<pre><code class="hljs language-py">ax = plt.gca() <span class="hljs-comment"># get current axes</span>
+<pre><code class="hljs language-py"><span class="hljs-comment"># gca = get current axes</span>
+active_axes = plt.gca()
 </code></pre>
-<p>Die schon bekannten Methoden von <code>plt</code> verwenden im Hintergrund Methoden des aktiven <em>Axes</em> Objekts:</p>
-<pre><code class="hljs language-py">ax.plot(...)
-ax.set_title(...)
-ax.set_xlabel(...)
-ax.legend()
-ax.set_aspect(<span class="hljs-string">"equal"</span>)
+</section><section class="slide"><h2>Subplots</h2>
+<p>automatisches Erstellen mehrerer Axes-Objekte in einem Raster (hier: 2 Zeilen, 3 Spalten):</p>
+<pre><code class="hljs language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+
+ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
 </code></pre>
-</section><section class="slide"><h2>Axes Objekte</h2>
-<p>Aufgabe: Erstellen des Sinus- und Kosinusplots via <em>Axes</em></p>
 </section><section class="slide"><h2>Axis und Axes</h2>
 <p>Achtung unglückliche Namensvergabe:</p>
 <ul>
@@ -2415,13 +2429,14 @@ ax.set_aspect(<span class="hljs-string">"equal"</span>)
 <li><code>plt.axes</code>: zum Erstellen eines neuen Koordinatensystems</li>
 </ul>
 <p>Eigentliche Bedeutungen aus dem Lateinischen / Englischen: <em>axis</em> = Achse, <em>axes</em> = Achsen</p>
-</section><section class="slide"><h2>Subplots</h2>
-<p>Erstellen mehrerer Axes-Objekte in einem Raster (hier: 2 Zeilen, 3 Spalten):</p>
-<pre><code class="hljs language-py">fig, ax = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
-
-ax0 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
-ax1 = ax[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
-ax5 = ax[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+</section></section><section class="slides-section"><section class="slide"><h1>Objekt-orientiertes Interface</h1>
+</section><section class="slide"><h2>Objekt-orientiertes Interface</h2>
+<p>Die schon bekannten Methoden von <code>plt</code> verwenden im Hintergrund Methoden des aktiven <em>Axes</em> Objekts:</p>
+<pre><code class="hljs language-py">ax.plot(...)
+ax.set_title(...)
+ax.set_xlabel(...)
+ax.legend()
+ax.set_aspect(<span class="hljs-string">"equal"</span>)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Weitere Plots</h1>
 </section><section class="slide"><h2>Weitere Plots</h2>

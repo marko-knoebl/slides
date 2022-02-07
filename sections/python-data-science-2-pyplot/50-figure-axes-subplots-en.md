@@ -25,34 +25,54 @@ This will automatically become the active figure.
 
 ## Figure objects
 
-exporting a figure:
+exporting the active figure:
 
 ```py
-fig.savefig("myplot.png")
-fig.savefig("myplot.svg")
+plt.savefig("myplot.png")
+plt.savefig("myplot.svg")
 ```
 
 ## Axes objects
 
-Getting the active _axes_ object:
+Creating and activating new axes objects:
 
 ```py
-ax = plt.gca() # get current axes
-```
+# axes in the bottom left
+ax1 = plt.axes(0, 0, 0.5, 0.5)
+plt.plot([0, 1, 2], [0, 1, 0])
 
-The Methods of `plt` that we've previously seen call methods of the active _Axes_ object in the background:
-
-```py
-ax.plot(...)
-ax.set_title(...)
-ax.set_xlabel(...)
-ax.legend()
-ax.set_aspect("equal")
+# axes in the top right
+ax2 = plt.axes(0.5, 0.5, 0.5, 0.5)
+plt.plot([0, 1, 2], [0, 1, 0])
 ```
 
 ## Axes objects
 
-Task: Create a sine and cosine plot via _Axes_
+making an axes object the active axes:
+
+```py
+# sca = set current axes
+plt.sca(ax1)
+```
+
+getting the current active axes object:
+
+```py
+# gca = get current axes
+active_axes = plt.gca()
+```
+
+## Axes objects
+
+automatic creation of multiple _Axes_ objects in a grid (here: 2 rows, 3 columns):
+
+```py
+fig, ax = plt.subplots(2, 3)
+
+ax0 = ax[0, 0]
+ax1 = ax[0, 1]
+ax5 = ax[1, 2]
+```
 
 ## Axis and Axes
 
@@ -62,15 +82,3 @@ naming to keep in mind:
 - `plt.axes`: for creating a new coordinate system
 
 actual meaning (from Latin): _axis_ = singular, _axes_ = plural
-
-## Subplots
-
-Creating multiple _Axes_ objects in a grid (here: 2 rows, 3 columns):
-
-```py
-fig, ax = plt.subplots(2, 3)
-
-ax0 = ax[0, 0]
-ax1 = ax[0, 1]
-ax5 = ax[1, 2]
-```
