@@ -63,4 +63,23 @@ body > main {
 
 ## Flexbox
 
+Example: article element with header and scrollable main area
+
+```css
+article {
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+}
+article > header {
+  height: 48px;
+}
+article > .main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+```
+
+## Flexbox
+
 [css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
