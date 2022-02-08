@@ -48,6 +48,14 @@ plt.plot([0, 1, 2], [0, 1, 0])
 
 ## Axes Objekte
 
+Erstellen eines neuen _Axes_-Objekts mit gleicher x-Achse und neuer y-Achse:
+
+```py
+ax2 = ax1.twinx()
+```
+
+## Axes Objekte
+
 Ein _Axes_-Objekt zum aktiven machen:
 
 ```py
