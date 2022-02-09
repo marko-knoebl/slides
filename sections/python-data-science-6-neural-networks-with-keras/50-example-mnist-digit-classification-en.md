@@ -50,3 +50,17 @@ adding a rescaling layer:
 ```py
 keras.layers.Rescaling(1/255)
 ```
+
+## Saving and loading
+
+saving a trained model:
+
+```py
+model.save("path/to/folder")
+```
+
+loading a model:
+
+```py
+model = keras.models.load_model("path/to/folder")
+```

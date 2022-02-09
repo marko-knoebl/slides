@@ -11,10 +11,7 @@ df.columns = ["name1", "name2"]
 Zeilen entfernen:
 
 ```py
-sp500_new = sp500.drop([
-    pd.Timestamp("1871-01-01"),
-    pd.Timestamp("1871-02-01"),
-])
+sp500_new = sp500.drop(["1871-01-01", "1871-02-01"])
 ```
 
 Spalten entfernen:
