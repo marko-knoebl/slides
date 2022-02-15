@@ -27,7 +27,7 @@ Example:
 example prop types for a rating component:
 
 ```tsx
-type Props = {
+type RatingProps = {
   value: number;
   onChange?: (value: number) => void;
 };
@@ -36,15 +36,16 @@ type Props = {
 ## Custom events
 
 ```tsx
-const Rating = (props: Props) => {
+const Rating = (props: RatingProps) => {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
       {starIds.map((id) => (
         <span
           onClick={() => {
-            // call .onChange if it exists
-            props.onChange?.(id);
+            if (props.onChange) {
+              props.onChange(id);
+            }
           }}
           key={id}
         >

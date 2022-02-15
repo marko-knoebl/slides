@@ -2258,7 +2258,7 @@ ReactDOM.render(
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> { isLoading, error, <span class="hljs-attr">data</span>: todos } = useQuery(
-    <span class="hljs-string">'todos'</span>,
+    [<span class="hljs-string">'todos'</span>],
     fetchTodos
   );
   <span class="hljs-keyword">if</span> (isLoading) {
@@ -2276,15 +2276,35 @@ ReactDOM.render(
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
   <span class="hljs-keyword">const</span> queryClient = useQueryClient();
-  <span class="hljs-keyword">const</span> onAddTodo = useMutation(addTodo, {
+  <span class="hljs-keyword">const</span> addTodoMutation = useMutation(addTodo, {
     <span class="hljs-attr">onSuccess</span>: <span class="hljs-function">() =></span> {
       <span class="hljs-comment">// initiate a refetch of todos</span>
       queryClient.invalidateQueries(<span class="hljs-string">'todos'</span>);
     },
   });
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onAddTodo</span>(<span class="hljs-params"></span>) </span>{
+    addTodoMutation.mutate({ <span class="hljs-attr">title</span>: newTitle });
+  }
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
+</section><section class="slide"><h2>Devtools</h2>
+<p>enabling a devtools popup:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
+<span class="hljs-keyword">import</span> { ReactQueryDevtools } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query/devtools'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">QueryClientProvider</span> <span class="hljs-attr">client</span>=<span class="hljs-string">{queryClient}</span>></span>
+      {/* The rest of your application */}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">ReactQueryDevtools</span> <span class="hljs-attr">initialIsOpen</span>=<span class="hljs-string">{false}</span> /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Exercise</h2>
+<p>Create an exchange rate app that loads data from an API like this:</p>
+<p><em><a href="https://api.exchangerate.host/latest?base=USD&#x26;symbols=EUR" target="_blank">https://api.exchangerate.host/latest?base=USD&#x26;symbols=EUR</a></em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Context</h1>
 </section><section class="slide"><h2>Context</h2>
 <p>Context is a means to provide values from a component to all components that are contained within it - without explicitly passing it through all intermediate levels.</p>

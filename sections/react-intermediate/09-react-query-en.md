@@ -32,7 +32,7 @@ import { fetchTodos } from './todosApi';
 
 function TodoApp() {
   const { isLoading, error, data: todos } = useQuery(
-    'todos',
+    ['todos'],
     fetchTodos
   );
   if (isLoading) {
@@ -53,12 +53,39 @@ import { addTodo } from './todosApi';
 function TodoApp() {
   // ...
   const queryClient = useQueryClient();
-  const onAddTodo = useMutation(addTodo, {
+  const addTodoMutation = useMutation(addTodo, {
     onSuccess: () => {
       // initiate a refetch of todos
       queryClient.invalidateQueries('todos');
     },
   });
+  function onAddTodo() {
+    addTodoMutation.mutate({ title: newTitle });
+  }
   // ...
 }
 ```
+
+## Devtools
+
+enabling a devtools popup:
+
+```js
+// index.js
+import { ReactQueryDevtools } from 'react-query/devtools';
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      {/* The rest of your application */}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
+}
+```
+
+## Exercise
+
+Create an exchange rate app that loads data from an API like this:
+
+_https://api.exchangerate.host/latest?base=USD&symbols=EUR_
