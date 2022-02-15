@@ -5,6 +5,7 @@ import rehypeSlides from "@karuga/rehype-slides";
 import rehypeStringify from "rehype-stringify";
 import remarkRehype from "remark-rehype";
 import unified from "unified";
+import visit from "unist-util-visit";
 import vfile, { VFile } from "vfile";
 import { Node as UnistNode } from "unist";
 
@@ -46,7 +47,14 @@ const transformHtmlToSlides = (content: UnistNode, vfile: VFile): UnistNode => {
   }
   const processor = unified()
     .use(rehypeSlides, { preset: "headings_compact" })
-    .use(rehypeInline);
+    .use(rehypeInline)
+    .use(() => (node) => {
+      visit(node, "element", (node) => {
+        if (node.tagName === "a") {
+          (node.properties as any).target = "_blank";
+        }
+      });
+    });
   return processor.runSync(content);
 };
 
