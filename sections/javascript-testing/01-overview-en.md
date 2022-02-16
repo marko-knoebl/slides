@@ -8,14 +8,12 @@ code may be tested automatically to ensure it behaves as expected
 
 - _node_ is needed to provide a runtime
 - _assert_: basic assertion package, built into node
-- _Jest_: test runner & assertion library
-- _Mocha_: test runner
-- _Chai_: assertion library
-- _Jasmine_: test runner & assertion library
+- _Jest_: test runner and assertion library
+- _Mocha_ and _Chai_: test runner and assertion library
 
 popularity:
 
-- [State of JS 2020: survey on test tools](https://2020.stateofjs.com/en-US/technologies/testing/)
+- [State of JS 2021: survey on test tools](https://2021.stateofjs.com/en-US/libraries/testing/)
 - [npmtrends](https://www.npmtrends.com/jest-vs-mocha-vs-chai-vs-jasmine)
 
 ## Example: shorten

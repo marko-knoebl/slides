@@ -15,6 +15,7 @@
 Möglichkeiten:
 
 - **create-react-app** (meistverwendete Methode)
+- vite
 - gatsby (ermöglicht _Static Site Generation_)
 - next.js (ermöglicht _Static Site Generation_ und serverseitiges Rendering)
 
@@ -26,6 +27,10 @@ Mögliche Befehle zum Initialisieren eines Projekts namens "todolist":
 npx create-react-app todolist
 npx create-react-app todolist --template typescript
 npx create-react-app todolist --template cra-template-pwa-typescript
+```
+
+```bash
+npm create vite@latest
 ```
 
 ```bash
