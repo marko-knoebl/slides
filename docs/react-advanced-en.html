@@ -2908,6 +2908,48 @@ useEffect(getInstallPermission, []);
 <p>The resulting HOC receives a regular component and returns a component that is connected to the Redux store:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> RatingContainer = connector(Rating);
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Render props</h1>
+</section><section class="slide"><h2>Render props</h2>
+<p><strong>render props</strong>: pattern that allows a parent to provide additional or derived data when rendering a child</p>
+<p>the parent receives instructions for how to render data - these instructions are provided as functions</p>
+</section><section class="slide"><h2>Render props</h2>
+<p>Wishful thinking - if only this would work:</p>
+<pre><code class="hljs language-js">&#x3C;DataLoader resource=<span class="hljs-string">"https://jsonplaceholder.typicode.com"</span>>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DataViewer</span> /></span></span>
+&#x3C;/DataLoader>
+</code></pre>
+<p>one way to make it work:</p>
+<pre><code class="hljs language-js">&#x3C;DataLoader
+  resource=<span class="hljs-string">"https://jsonplaceholder.typicode.com"</span>
+  render={<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DataViewer</span> <span class="hljs-attr">data</span>=<span class="hljs-string">{data}</span> /></span></span>}
+/>
+</code></pre>
+</section><section class="slide"><h2>Render props</h2>
+<p>full example: <code>DataLoader</code></p>
+<pre><code class="hljs language-js">&#x3C;DataLoader
+  resource=<span class="hljs-string">"https://jsonplaceholder.typicode.com"</span>
+  renderLoading={<span class="hljs-function">() =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>loading<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
+  renderError={<span class="hljs-function">(<span class="hljs-params">error</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Error: ...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
+  render={<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DataViewer</span> <span class="hljs-attr">data</span>=<span class="hljs-string">{data}</span> /></span></span>}
+/>
+</code></pre>
+</section><section class="slide"><h2>Render props</h2>
+<p>example: <code>DataTable</code></p>
+<pre><code class="hljs language-js">&#x3C;DataTable
+  data={todos}
+  filter={<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed}
+  renderRow={<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">tr</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">tr</span>></span></span>}
+/>
+</code></pre>
+</section><section class="slide"><h2>Render props</h2>
+<p>example: <em>formik</em> library</p>
+<pre><code class="hljs language-js">&#x3C;Formik
+  initialValues={<span class="hljs-comment">/*...*/</span>}
+  onSubmit={<span class="hljs-comment">/*...*/</span>}
+  validate={<span class="hljs-comment">/*...*/</span>}
+  children={<span class="hljs-function">(<span class="hljs-params">props</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Form</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">Form</span>></span></span>}
+/>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Internationalization</h1>
 </section><section class="slide"><h2>Internationalization</h2>
 <p>libraries:</p>
@@ -2974,7 +3016,57 @@ i18next.use(initReactI18next).init({
 <ul>
 <li><a href="https://www.robinwieruch.de/react-internationalization" target="_blank">Robin Wieruch: "React Internationalization with i18n"</a></li>
 <li><a href="https://www.i18next.com/translation-function/essentials" target="_blank">i18next.com: Translation function</a></li>
-</ul></section></section></div>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Portals</h1>
+</section><section class="slide"><h2>Portals</h2>
+<p>Portals: allow rendering of HTML elements "outside" the component they are created in</p>
+</section><section class="slide"><h2>Portals</h2>
+<p>example: <code>Dialog</code> component</p>
+<p>A <code>Dialog</code> can be rendered from any component - its rendering will become a child of the HTML body element</p>
+<pre><code class="hljs language-tsx">function Dialog(props: { children: React.ReactNode }) {
+  return ReactDOM.createPortal(
+    &#x3C;div style={dialogStyle}>{props.children}&#x3C;/div>,
+    document.querySelector('body') as HTMLBodyElement
+  );
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Error boundaries</h1>
+</section><section class="slide"><h2>Error boundaries</h2>
+<p>goal:</p>
+<p>catch errors in a deployed application and show "nice" error messages to users</p>
+</section><section class="slide"><h2>Error boundaries</h2>
+<p>example: catch runtime errors in the entire application</p>
+<pre><code class="hljs language-apache"><span class="hljs-section">&#x3C;MyErrorBoundary></span>
+  <span class="hljs-section">&#x3C;App /></span>
+<span class="hljs-section">&#x3C;/MyErrorBoundary></span>
+</code></pre>
+</section><section class="slide"><h2>Error boundaries</h2>
+<p>Error boundary components can only be implemented as <em>class components</em></p>
+<p>Error boundaries <em>will</em> catch these errors of subcomponents:</p>
+<ul>
+<li>errors in the rendering code / JSX</li>
+<li>errors inside lifecycle methods / effect hooks</li>
+</ul>
+</section><section class="slide"><h2>Error boundaries</h2>
+<p>implementation of an <code>ErrorBoundary</code> component:</p>
+<pre><code class="hljs language-tsx">type Props = { children: React.ReactNode };
+type State = { hasError: boolean };
+class ErrorBoundary extends Component&#x3C;Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError(error: Error): State {
+    return { hasError: true };
+  }
+  render() {
+    if (this.state.hasError) {
+      return &#x3C;div>Something went wrong ...&#x3C;/div>;
+    }
+    return this.props.children;
+  }
+}
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js
