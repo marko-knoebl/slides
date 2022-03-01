@@ -34,6 +34,20 @@ If a prop is enclosed in quotes, the curly braces have no special meaning
 </a>
 ```
 
+## Binding properties
+
+setting boolean HTML properties:
+
+```jsx
+<button disabled>disabled button</button>
+```
+
+or
+
+```jsx
+<button disabled={true}>disabled button</button>
+```
+
 ## Property names
 
 Some element properties have different names than in HTML (sometimes reflecting standard DOM properties)

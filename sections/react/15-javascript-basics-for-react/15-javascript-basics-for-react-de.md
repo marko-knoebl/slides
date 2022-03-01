@@ -134,11 +134,19 @@ const Foo = () => {
 };
 ```
 
-## Destrukturierung
+## Destrukturierende Zuweisung
+
+gleichzeitige Zuweisung zu mehreren Variablen
+
+```js
+const [a, b, c] = [1, 2, 3];
+```
 
 ```js
 const [result, errors] = someComputation();
+```
 
+```js
 // swapping values
 let a = 1;
 let b = 2;

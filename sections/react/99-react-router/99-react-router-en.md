@@ -1,5 +1,15 @@
 # React Router
 
+## React Router
+
+- client-side routing
+- defining routes
+- navigation links
+- nested routes
+- route parameters
+- navigation from code
+- active links
+
 ## Client-side routing
 
 **client-side routing**: navigating between views without leaving the React app
@@ -22,10 +32,7 @@ for the second method, the server needs additional configuration
 
 ## Installation
 
-packages (include TypeScript support):
-
-- _react-router-dom_
-- _history_
+npm package: _react-router-dom_
 
 ## Setup
 
@@ -33,7 +40,6 @@ the entire application is enclosed in a `BrowserRouter` element:
 
 ```js
 // index.tsx
-
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
@@ -55,57 +61,72 @@ ReactDOM.render(
 ## Basic example
 
 ```js
-const App = () => {
+function App() {
   return (
     <div>
       <NavLink to="/">home</NavLink>{' '}
       <NavLink to="/about">about</NavLink>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
+        <Route path="/" element={<HomeView />} />
+        <Route path="/about" element={<AboutView />} />
+        <Route path="*" element={<NotFoundView />} />
       </Routes>
     </div>
   );
-};
+}
 ```
 
-## Advanced routing
+## Nested routes
 
 ```jsx
-const App = () => {
+function App() {
   return (
     <Routes>
-      <Route path="/posts" element={<PostPage />}>
-        <Route path="/:postId" element={<Post />} />
-      </Route>
-      <Route path="/shop" element={<ShopPage />}>
-        <Route path="/" element={<ShopIndex />} />
-        <Route path="/product/:id" element={<Product />} />
+      <Route path="/" element={<HomeView />} />
+      <Route path="/about" element={<AboutView />} />
+      <Route path="/shop" element={<ShopView />}>
+        <Route index={true} element={<ShopIndex />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
       </Route>
     </Routes>
   );
-};
+}
+```
+
+## Nested routes
+
+the output of a sub-route is displayed in the `<Outlet>` of the parent route's element:
+
+```jsx
+function ShopView() {
+  return (
+    <div>
+      <h1>Shop</h1>
+      <NavLink to="/shop">shop index</NavLink>
+      <NavLink to="/shop/products">products</NavLink>
+      <NavLink to="/shop/cart">cart</NavLink>
+
+      <Outlet />
+    </div>
+  );
+}
 ```
 
 ## Route parameters
 
 ```jsx
-<Route path="/todos/:todoId" element={<TodoDetailView />} />
+<Route
+  path="/products/:productId"
+  element={<ProductDetails />}
+/>
 ```
 
 ```jsx
-import { useParams } from 'react-router-dom';
-
-const TodoDetailView = () => {
-  const routeParams = useParams();
-  return (
-    <div>
-      Details of todo: {routeParams.todoId}
-      <div>...</div>
-    </div>
-  );
-};
+function ProductDetails() {
+  const { productId } = useParams();
+  // ...
+}
 ```
 
 ## Navigation from React
@@ -116,22 +137,6 @@ const navigate = useNavigate();
 navigate('/');
 ```
 
-## Navigation from React
-
-example:
-
-```jsx
-const AddTodoView = () => {
-  const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // ...
-    navigate('/');
-  };
-  // ...
-};
-```
-
 ## Styling links
 
 supplying a class name that will be applied to any active link:
@@ -140,3 +145,12 @@ supplying a class name that will be applied to any active link:
 <NavLink to="/" activeClassName="active-link">Home</NavLink>
 <NavLink to="/add" activeClassName="active-link">Add</NavLink>
 ```
+
+## Exercise
+
+create routes in the todo app, e.g.:
+
+- `/`
+- `/about`
+- `/add`
+- `/stats`

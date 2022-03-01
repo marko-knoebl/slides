@@ -8,64 +8,20 @@ verwendet im Hintergrund _mocha_ und _chai_
 
 npm-Paket: _cypress_
 
-in _package.json_:
+zum Initialisieren: `npx cypress open`
 
-```json
-  "scripts": {
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
-  }
-```
+## Ausführen
 
-## Cypress ausführen
-
-ausführen:
+Öffnen der grafischen Oberfläche:
 
 ```bash
-npm run cypress:open
+npx cypress open
 ```
 
-startet eine grafische Benutzeroberfläche
+Ausführen aller Tests im Terminal:
 
-erstellt beim ersten Ausführen den Ordner _cypress_
-
-## Konfiguration
-
-TypeScript-Konfiguration in einem create-react-app-Projekt:
-
-in _cypress/tsconfig.json_:
-
-```json
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "noEmit": true,
-    // be explicit about types included
-    // to avoid clashing with Jest types
-    "types": ["cypress"]
-  },
-  "include": ["../node_modules/cypress", "./**/*.ts"]
-}
-```
-
-## Konfiguration
-
-Um ESLint-Fehler zu vermeiden (insbesondere bei create-react-app-Projekten):
-
-in _package.json_:
-
-```json
-  "eslintConfig": {
-    // ...
-    "overrides": [
-      {
-        "files": ["cypress/**"],
-        "rules": {
-          "jest/valid-expect": 0
-        }
-      }
-    ]
-  },
+```bash
+npx cypress run
 ```
 
 ## Cypress
@@ -80,32 +36,45 @@ describe('wikipedia', () => {
     cy.visit('https://en.wikipedia.org');
   });
 
-  it("page title includes 'wikipedia', version 1", () => {
+  it("page title includes 'wikipedia'", () => {
     cy.title().should('match', /wikipedia/i);
-  });
-
-  it("page title includes 'wikipedia', version 2", () => {
-    cy.title().should((title) => {
-      expect(title).to.match(/wikipedia/i);
-    });
   });
 });
 ```
 
 ## Cypress
 
-Abfragen von Elementen:
+globales Abfragen von Elementen:
 
-- nach Text suchen: `cy.contains("hello world")`
-- nach Text und Selektor suchen: `cy.contains("h1", "hello world")`
-- nach Selektor suchen: `cy.get("#name-input")`
+- erstes Element nach Selektor und Text: `cy.contains("h1", "hello world")`
+- erstes Element nach Text: `cy.contains("hello world")`
+- alle nach Selektor: `cy.get("main #name-input")`
+- erstes Element nach Selektor: `cy.get("main #name-input").first()`
 
 ## Cypress
 
-verschachtelte Abfragen:
+Abfragen von Unterelementen:
+
+- `.find()`: ähnlich zu `.get()`, aber für Unterelemente
+- `.contains()`
 
 ```js
-cy.get('main').get('table').contains('tr', 'foo');
+cy.contains('li', 'TODO: write tests').find('button');
+```
+
+```js
+cy.contains('li', 'TODO: write tests').contains(
+  'button',
+  'delete'
+);
+```
+
+## Cypress
+
+Abfragen des Elternelements:
+
+```js
+cy.contains('h1', 'section title').parent();
 ```
 
 ## Cypress
@@ -136,26 +105,11 @@ andere Assertions:
 Beispiel: Suche auf Wikipedia
 
 ```js
-it("wikipedia search for 'cypress' article", () => {
+it('search', () => {
   cy.get('#searchInput').type('cypress');
   cy.get('#searchButton').click();
-  cy.get('p')
-    .first()
-    .should((element) => {
-      const text = element.text();
-      expect(text).to.match(/cypress/i);
-    });
+  cy.get('p').first().should('include.text', 'Cypress');
 });
-```
-
-## Cypress
-
-extra-Konfiguration in _cypress.json_:
-
-```json
-{
-  "baseUrl": "http://localhost:8080"
-}
 ```
 
 ## Übung

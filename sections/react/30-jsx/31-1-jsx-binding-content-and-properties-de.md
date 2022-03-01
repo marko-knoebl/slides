@@ -34,6 +34,20 @@ Steht eine Property in Anführungszeichen, haben die geschweiften Klammern keine
 </a>
 ```
 
+## Properties binden
+
+setzen von booleschen HTML-Properties:
+
+```jsx
+<button disabled>disabled button</button>
+```
+
+oder
+
+```jsx
+<button disabled={true}>disabled button</button>
+```
+
 ## Property-Namen
 
 Manche Properties von Elementen haben andere Namen als in standard HTML (spiegeln teilweise die standard DOM-Properties wider)

@@ -134,11 +134,19 @@ const Foo = () => {
 };
 ```
 
-## Destructuring assignment
+## Destructuring assignment with arrays
+
+assigning to multiple variables at the same time
+
+```js
+const [a, b, c] = [1, 2, 3];
+```
 
 ```js
 const [result, errors] = someComputation();
+```
 
+```js
 // swapping values
 let a = 1;
 let b = 2;

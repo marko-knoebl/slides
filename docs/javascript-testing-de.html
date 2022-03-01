@@ -2225,46 +2225,13 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
 <p>verwendet im Hintergrund <em>mocha</em> und <em>chai</em></p>
 </section><section class="slide"><h2>Setup</h2>
 <p>npm-Paket: <em>cypress</em></p>
-<p>in <em>package.json</em>:</p>
-<pre><code class="hljs language-json">  <span class="hljs-string">"scripts"</span>: {
-    <span class="hljs-attr">"cypress:open"</span>: <span class="hljs-string">"cypress open"</span>,
-    <span class="hljs-attr">"cypress:run"</span>: <span class="hljs-string">"cypress run"</span>
-  }
+<p>zum Initialisieren: <code>npx cypress open</code></p>
+</section><section class="slide"><h2>Ausführen</h2>
+<p>Öffnen der grafischen Oberfläche:</p>
+<pre><code class="hljs language-bash">npx cypress open
 </code></pre>
-</section><section class="slide"><h2>Cypress ausführen</h2>
-<p>ausführen:</p>
-<pre><code class="hljs language-bash">npm run cypress:open
-</code></pre>
-<p>startet eine grafische Benutzeroberfläche</p>
-<p>erstellt beim ersten Ausführen den Ordner <em>cypress</em></p>
-</section><section class="slide"><h2>Konfiguration</h2>
-<p>TypeScript-Konfiguration in einem create-react-app-Projekt:</p>
-<p>in <em>cypress/tsconfig.json</em>:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"extends"</span>: <span class="hljs-string">"../tsconfig.json"</span>,
-  <span class="hljs-attr">"compilerOptions"</span>: {
-    <span class="hljs-attr">"noEmit"</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-comment">// be explicit about types included</span>
-    <span class="hljs-comment">// to avoid clashing with Jest types</span>
-    <span class="hljs-attr">"types"</span>: [<span class="hljs-string">"cypress"</span>]
-  },
-  <span class="hljs-attr">"include"</span>: [<span class="hljs-string">"../node_modules/cypress"</span>, <span class="hljs-string">"./**/*.ts"</span>]
-}
-</code></pre>
-</section><section class="slide"><h2>Konfiguration</h2>
-<p>Um ESLint-Fehler zu vermeiden (insbesondere bei create-react-app-Projekten):</p>
-<p>in <em>package.json</em>:</p>
-<pre><code class="hljs language-json">  <span class="hljs-string">"eslintConfig"</span>: {
-    <span class="hljs-comment">// ...</span>
-    <span class="hljs-attr">"overrides"</span>: [
-      {
-        <span class="hljs-attr">"files"</span>: [<span class="hljs-string">"cypress/**"</span>],
-        <span class="hljs-attr">"rules"</span>: {
-          <span class="hljs-attr">"jest/valid-expect"</span>: <span class="hljs-number">0</span>
-        }
-      }
-    ]
-  },
+<p>Ausführen aller Tests im Terminal:</p>
+<pre><code class="hljs language-bash">npx cypress run
 </code></pre>
 </section><section class="slide"><h2>Cypress</h2>
 <p>Beispiel: Testen von Wikipedia:</p>
@@ -2274,27 +2241,35 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
     cy.visit(<span class="hljs-string">'https://en.wikipedia.org'</span>);
   });
 
-  it(<span class="hljs-string">"page title includes 'wikipedia', version 1"</span>, <span class="hljs-function">() =></span> {
+  it(<span class="hljs-string">"page title includes 'wikipedia'"</span>, <span class="hljs-function">() =></span> {
     cy.title().should(<span class="hljs-string">'match'</span>, <span class="hljs-regexp">/wikipedia/i</span>);
-  });
-
-  it(<span class="hljs-string">"page title includes 'wikipedia', version 2"</span>, <span class="hljs-function">() =></span> {
-    cy.title().should(<span class="hljs-function">(<span class="hljs-params">title</span>) =></span> {
-      expect(title).to.match(<span class="hljs-regexp">/wikipedia/i</span>);
-    });
   });
 });
 </code></pre>
 </section><section class="slide"><h2>Cypress</h2>
-<p>Abfragen von Elementen:</p>
+<p>globales Abfragen von Elementen:</p>
 <ul>
-<li>nach Text suchen: <code>cy.contains("hello world")</code></li>
-<li>nach Text und Selektor suchen: <code>cy.contains("h1", "hello world")</code></li>
-<li>nach Selektor suchen: <code>cy.get("#name-input")</code></li>
+<li>erstes Element nach Selektor und Text: <code>cy.contains("h1", "hello world")</code></li>
+<li>erstes Element nach Text: <code>cy.contains("hello world")</code></li>
+<li>alle nach Selektor: <code>cy.get("main #name-input")</code></li>
+<li>erstes Element nach Selektor: <code>cy.get("main #name-input").first()</code></li>
 </ul>
 </section><section class="slide"><h2>Cypress</h2>
-<p>verschachtelte Abfragen:</p>
-<pre><code class="hljs language-js">cy.get(<span class="hljs-string">'main'</span>).get(<span class="hljs-string">'table'</span>).contains(<span class="hljs-string">'tr'</span>, <span class="hljs-string">'foo'</span>);
+<p>Abfragen von Unterelementen:</p>
+<ul>
+<li><code>.find()</code>: ähnlich zu <code>.get()</code>, aber für Unterelemente</li>
+<li><code>.contains()</code></li>
+</ul>
+<pre><code class="hljs language-js">cy.contains(<span class="hljs-string">'li'</span>, <span class="hljs-string">'TODO: write tests'</span>).find(<span class="hljs-string">'button'</span>);
+</code></pre>
+<pre><code class="hljs language-js">cy.contains(<span class="hljs-string">'li'</span>, <span class="hljs-string">'TODO: write tests'</span>).contains(
+  <span class="hljs-string">'button'</span>,
+  <span class="hljs-string">'delete'</span>
+);
+</code></pre>
+</section><section class="slide"><h2>Cypress</h2>
+<p>Abfragen des Elternelements:</p>
+<pre><code class="hljs language-js">cy.contains(<span class="hljs-string">'h1'</span>, <span class="hljs-string">'section title'</span>).parent();
 </code></pre>
 </section><section class="slide"><h2>Cypress</h2>
 <p>Interagieren mit Elementen:</p>
@@ -2316,22 +2291,11 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
 </ul>
 </section><section class="slide"><h2>Cypress</h2>
 <p>Beispiel: Suche auf Wikipedia</p>
-<pre><code class="hljs language-js">it(<span class="hljs-string">"wikipedia search for 'cypress' article"</span>, <span class="hljs-function">() =></span> {
+<pre><code class="hljs language-js">it(<span class="hljs-string">'search'</span>, <span class="hljs-function">() =></span> {
   cy.get(<span class="hljs-string">'#searchInput'</span>).type(<span class="hljs-string">'cypress'</span>);
   cy.get(<span class="hljs-string">'#searchButton'</span>).click();
-  cy.get(<span class="hljs-string">'p'</span>)
-    .first()
-    .should(<span class="hljs-function">(<span class="hljs-params">element</span>) =></span> {
-      <span class="hljs-keyword">const</span> text = element.text();
-      expect(text).to.match(<span class="hljs-regexp">/cypress/i</span>);
-    });
+  cy.get(<span class="hljs-string">'p'</span>).first().should(<span class="hljs-string">'include.text'</span>, <span class="hljs-string">'Cypress'</span>);
 });
-</code></pre>
-</section><section class="slide"><h2>Cypress</h2>
-<p>extra-Konfiguration in <em>cypress.json</em>:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"baseUrl"</span>: <span class="hljs-string">"http://localhost:8080"</span>
-}
 </code></pre>
 </section><section class="slide"><h2>Übung</h2>
 <p>Schreibe Tests für die Todo-Anwendung auf:</p>

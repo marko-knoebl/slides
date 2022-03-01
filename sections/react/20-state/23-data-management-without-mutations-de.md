@@ -157,8 +157,8 @@ function addTodo(
   // TODO: FINISH IMPLEMENTATION HERE
 }
 
-// add a todo with title 'baz'
-const todosA = addTodo(todos, 'baz');
+// add a todo with title 'qux'
+const todosA = addTodo(todos, 'qux');
 console.log(todosA);
 ```
 

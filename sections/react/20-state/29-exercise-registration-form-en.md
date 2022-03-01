@@ -17,15 +17,18 @@ const [userData, setUserData] = useState({
 
 ## Exercise: registration form
 
-Underneath the form, display a potential error message for the _first_ invalid input (if there is one)
+render a _register_ button that's either enabled or disabled based on the user inputs:
 
-possible error messages:
+```jsx
+<button disabled={!canRegister}>register</button>
+```
 
-- _Username must not be empty_
-- _Password must be at least 4 characters long_
-- _Passwords don't match_
-- _You must accept the terms and conditions_
+note: try to avoid redundant data in the state
 
 ## Exercise: registration form
 
-extra: create a dropdown via a _select_ element for choosing a gender (e.g. _male_, _female_, _diverse_)
+further tasks:
+
+- button to reset the form
+- status message that says "_passwords match_" or "_passwords don't match_"
+- dropdown for choosing a gender (via a _select_ element)

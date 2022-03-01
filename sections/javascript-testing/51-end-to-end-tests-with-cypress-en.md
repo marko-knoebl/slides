@@ -8,64 +8,20 @@ uses _mocha_ and _chai_ in the background
 
 npm package: _cypress_
 
-in _package.json_:
-
-```json
-  "scripts": {
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
-  }
-```
+for intialization, run `npx cypress open` once
 
 ## Running Cypress
 
-execute:
+opening the graphical user interface:
 
 ```bash
-npm run cypress:open
+npx cypress open
 ```
 
-Starts a graphical user interface
+running all tests in the terminal:
 
-Will create folder _cypress_ on first run
-
-## Configuration
-
-TypeScript configuration in a create-react-app project:
-
-in _cypress/tsconfig.json_:
-
-```json
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "noEmit": true,
-    // be explicit about types included
-    // to avoid clashing with Jest types
-    "types": ["cypress"]
-  },
-  "include": ["../node_modules/cypress", "./**/*.ts"]
-}
-```
-
-## Configuration
-
-To avoid ESLint errors (in particular with _create-react-app_ projects):
-
-in _package.json_:
-
-```json
-  "eslintConfig": {
-    // ...
-    "overrides": [
-      {
-        "files": ["cypress/**"],
-        "rules": {
-          "jest/valid-expect": 0
-        }
-      }
-    ]
-  },
+```bash
+npx cypress run
 ```
 
 ## Cypress
@@ -80,32 +36,45 @@ describe('wikipedia', () => {
     cy.visit('https://en.wikipedia.org');
   });
 
-  it("page title includes 'wikipedia', version 1", () => {
+  it("page title includes 'wikipedia'", () => {
     cy.title().should('match', /wikipedia/i);
-  });
-
-  it("page title includes 'wikipedia', version 2", () => {
-    cy.title().should((title) => {
-      expect(title).to.match(/wikipedia/i);
-    });
   });
 });
 ```
 
 ## Cypress
 
-querying elements:
+global queries:
 
-- search by text: `cy.contains("hello world")`
-- search by text and selector: `cy.contains("h1", "hello world")`
-- search by selector: `cy.get("#name-input")`
+- find first by selector and text: `cy.contains("h1", "hello world")`
+- find first by text `cy.contains("hello world")`
+- find all by selector: `cy.get("main #name-input")`
+- find first by selector: `cy.get("main #name-input").first()`
 
 ## Cypress
 
-nested queries:
+querying sub-elements:
+
+- `.find()`: similar to `.get()`, but for sub-elements
+- `.contains()`
 
 ```js
-cy.get('main').get('table').contains('tr', 'foo');
+cy.contains('li', 'TODO: write tests').find('button');
+```
+
+```js
+cy.contains('li', 'TODO: write tests').contains(
+  'button',
+  'delete'
+);
+```
+
+## Cypress
+
+getting the parent:
+
+```js
+cy.contains('h1', 'section title').parent();
 ```
 
 ## Cypress
@@ -129,6 +98,8 @@ other assertions::
 - `cy.url().should("match", /\/items\/d+$/)`
 - `.should("have.class", "invalid")`
 - `.should("have.value", "")`
+- `.should("have.length", 10)`
+- `.should("include.text", "foo")`
 - `.should("be.visible")`
 
 ## Cypress
@@ -139,23 +110,8 @@ example: Searching on Wikipedia
 it('search', () => {
   cy.get('#searchInput').type('cypress');
   cy.get('#searchButton').click();
-  cy.get('p')
-    .first()
-    .should((element) => {
-      const text = element.text();
-      expect(text).to.match(/cypress/i);
-    });
+  cy.get('p').first().should('include.text', 'Cypress');
 });
-```
-
-## Cypress
-
-extra configuration in _cypress.json_:
-
-```json
-{
-  "baseUrl": "http://localhost:8080"
-}
 ```
 
 ## Exercise

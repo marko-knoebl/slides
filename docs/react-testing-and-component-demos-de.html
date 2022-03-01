@@ -2129,6 +2129,36 @@ FiveStars.args = { <span class="hljs-attr">stars</span>: <span class="hljs-numbe
   typeof Rating
 >> = (args) => &#x3C;Rating {...args} />;
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Cypress</h1>
+</section><section class="slide"><h2>Cypress</h2>
+<p>Konfiguration in einem create-react-app-Projekt:</p>
+<p>in <em>cypress/tsconfig.json</em>:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"extends"</span>: <span class="hljs-string">"../tsconfig.json"</span>,
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"noEmit"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-comment">// be explicit about types included</span>
+    <span class="hljs-comment">// to avoid clashing with Jest types</span>
+    <span class="hljs-attr">"types"</span>: [<span class="hljs-string">"cypress"</span>]
+  },
+  <span class="hljs-attr">"include"</span>: [<span class="hljs-string">"../node_modules/cypress"</span>, <span class="hljs-string">"./**/*.ts"</span>]
+}
+</code></pre>
+</section><section class="slide"><h2>Cypress</h2>
+<p>Um ESLint-Fehler zu vermeiden (insbesondere bei create-react-app-Projekten):</p>
+<p>in <em>package.json</em>:</p>
+<pre><code class="hljs language-json">  <span class="hljs-string">"eslintConfig"</span>: {
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-attr">"overrides"</span>: [
+      {
+        <span class="hljs-attr">"files"</span>: [<span class="hljs-string">"cypress/**"</span>],
+        <span class="hljs-attr">"rules"</span>: {
+          <span class="hljs-attr">"jest/valid-expect"</span>: <span class="hljs-number">0</span>
+        }
+      }
+    ]
+  },
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Puppeteer</h1>
 </section><section class="slide"><h2>Testen einer React-Anwendung mit Puppeteer</h2>
 <p>Starten der React-Anwendung im Hintergrund (auf Port 3000), damit Puppeteer auf sie zugreifen kann:</p>
