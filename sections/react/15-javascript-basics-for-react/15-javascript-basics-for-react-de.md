@@ -36,7 +36,7 @@ export { foo, bar, baz };
 
 ```js
 // index.js
-import { foo, bar } from 'mymodule.js';
+import { foo, bar } from './mymodule.js';
 ```
 
 ## Imports und Exports

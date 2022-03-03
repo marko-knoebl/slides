@@ -20,6 +20,22 @@ while (i <= 9) {
 }
 ```
 
+## Erweiterte Zuweisung
+
+_erweiterte Zuweisung_ (_augmented assignment_): folgende Statements sind äquivalent zueinander
+
+```js
+a = a + 1;
+```
+
+```js
+a += 1;
+```
+
+```js
+a++;
+```
+
 ## For-Schleifen
 
 Übung: Ausgabe einer Multiplikationstafel

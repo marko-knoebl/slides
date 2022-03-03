@@ -2,7 +2,7 @@
 
 ## JSDoc
 
-Markup-Sprache zum für Dokumentation zu Funktionen / Klassen / ... in entsprechenden Kommentaren
+Markup-Sprache für Dokumentation zu Funktionen / Klassen / ... in entsprechenden Kommentaren
 
 Beispiel:
 

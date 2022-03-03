@@ -108,10 +108,10 @@ exercise:
 
 create and modify data consisting of _dicts_ and _lists_ that represents various objects, e.g.:
 
+- todos
 - calendar events
 - products in an online shop / shopping basket
 - transactions on a bank account
-- data on a country (including neighboring countries)
 
 ## Tuple
 

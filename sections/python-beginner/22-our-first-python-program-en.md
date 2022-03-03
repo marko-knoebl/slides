@@ -59,7 +59,7 @@ _Run_ - _Run Without Debugging_ (Ctrl + F5)
 
 ## Exercise: age from birth year
 
-Write a program called `age.py` which will ask the user for their birth year and will respond with the user's age in the year 2020.
+Write a program called `age.py` which will ask the user for their birth year and will respond with the user's age in the year 2022.
 
 ## Exercise: length of the name
 
