@@ -12,8 +12,8 @@ Beispiele für allgemeine vordefinierte Funktionen:
 
 Beispiele für vordefinierte Funktionen im Browser:
 
-- `alert("foo")` - öffnet einen Pop-Up-Dialog
-- `open()` - öffnet ein neues Fenster
+- `alert("foo")` - öffnet eine Pop-Up-Nachricht
+- `open('https://google.com', '_self')` - öffnet eine Seite
 - `scrollBy(0, 200)` - scrollt horizontal bzw vertikal
 
 ## Funktionen
@@ -22,7 +22,7 @@ Funktionen können _Parameter_ übergeben bekommen und einen _Rückgabewert_ zur
 
 Beispiel: `Math.sqrt(2)` - Zahl als Parameter, Zahl als Rückgabewert
 
-Beispiel: `scrollBy(0, 200)` - zwei Parameter als Zahlen, kein Rückgabewert
+Beispiel: `scrollBy(0, 200)` - zwei Zahlen als Parameter, kein Rückgabewert
 
 ## Methoden
 

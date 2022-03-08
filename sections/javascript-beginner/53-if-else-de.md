@@ -29,43 +29,6 @@ if (ageSeconds <= 100000000) {
 }
 ```
 
-## Codeblöcke
-
-Codeblock = Zusammengehörige Codezeilen, die z.B. als Resultat einer if-Abfrage ausgeführt werden
-
-in den meisten Programmiersprachen: mit geschweiften Klammern begrenzt
-
-typischerweise eingerückt (z.B. mit 2 Leerzeichen)
-
-## Codeblöcke
-
-**Scope**: Variablen sind nur innerhalb von Codeblöcken verfügbar, in denen sie (z.B. mit `let`) deklariert wurden
-
-```js
-let a = 3;
-if (a > 3) {
-  let message = 'a is positive';
-} else {
-  let message = 'a is negative or 0';
-}
-console.log(message); // ReferenceError!
-```
-
-## Codeblöcke
-
-korrigierter Code:
-
-```js
-let a = 3;
-let message;
-if (a > 3) {
-  message = 'a is positive';
-} else {
-  message = 'a is negative or 0';
-}
-console.log(message);
-```
-
 ## Beispiel und Übung: Münzwurf
 
 ```js

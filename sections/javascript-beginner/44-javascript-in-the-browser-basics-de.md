@@ -53,3 +53,11 @@ alert(`Nice to meet you, ${name}!`);
 ## Übung: Alter anhand Geburtsjahr
 
 Schreibe ein Programm, das den Benutzer nach dem Geburtsjahr fragt und dann angibt, wie alt diese Person im Jahr 2022 wird
+
+## Übung: Zufallszahl
+
+Benutzer gibt einen Höchstwert ein (z.B.: 10)
+
+Programm gibt eine Zufallszahl im gewünschten Intervall aus (z.B.: 7)
+
+Verwende hierfür Funktionen aus dem `Math`-Objekt (schlage selbst in der Dokumentation nach)

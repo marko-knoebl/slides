@@ -15,6 +15,7 @@ wichtige "eingebaute" Funktionen in JavaScript
 - `document`
 - `alert`, `prompt`
 - `fetch`
+- ...
 
 ## Builtins: console.log
 
