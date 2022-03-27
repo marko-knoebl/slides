@@ -3,11 +3,11 @@
 ## Create-next-app
 
 ```bash
-npx create-next-app my-app
+npx create-next-app@latest
 ```
 
 ```bash
-npx create-next-app my-app --example typescript
+npx create-next-app@latest --ts
 ```
 
 ## Projektstruktur

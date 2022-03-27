@@ -2121,9 +2121,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Die next.js Website hat sehr gute Materialien: <a href="https://nextjs.org" target="_blank">https://nextjs.org</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Create-next-app</h1>
 </section><section class="slide"><h2>Create-next-app</h2>
-<pre><code class="hljs language-bash">npx create-next-app my-app
+<pre><code class="hljs language-bash">npx create-next-app@latest
 </code></pre>
-<pre><code class="hljs language-bash">npx create-next-app my-app --example typescript
+<pre><code class="hljs language-bash">npx create-next-app@latest --ts
 </code></pre>
 </section><section class="slide"><h2>Projektstruktur</h2>
 <p>mögliche Projektstruktur:</p>
@@ -2153,11 +2153,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>Seiten und Navigation</h1>
 </section><section class="slide"><h2>Seiten und Navigation</h2>
 <p>Beispiel einer Seitendefinition:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// pages/index.js</span>
+<pre><code class="hljs language-js"><span class="hljs-comment">// pages/index.tsx</span>
+<span class="hljs-keyword">import</span> type { NextPage } <span class="hljs-keyword">from</span> <span class="hljs-string">'next'</span>
 <span class="hljs-keyword">import</span> Link <span class="hljs-keyword">from</span> <span class="hljs-string">'next/link'</span>;
 <span class="hljs-keyword">import</span> Head <span class="hljs-keyword">from</span> <span class="hljs-string">'next/head'</span>;
 
-<span class="hljs-keyword">const</span> Index = <span class="hljs-function">() =></span> (
+<span class="hljs-keyword">const</span> Index: NextPage = <span class="hljs-function">() =></span> (
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">Head</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
@@ -2193,43 +2194,29 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Pre-Rendering und API-Abfragen</h2>
 <p>besondere (asynchrone) Funktionen, die wir aus einer Seitendefinitionsdatei exportieren können:</p>
 <ul>
-<li><code>getStaticProps</code> (läuft während des Builds)</li>
 <li><code>getServerSideProps</code> (läuft bei jedem Request)</li>
+<li><code>getStaticProps</code> (läuft während des Builds)</li>
 </ul>
 <p>können Daten laden und sie als Props an die Seitenkomponente übergeben</p>
 <p>werden jeweils nur auf dem Build-Rechner oder dem Server ausgeführt → können Dateien einlesen oder direkte Datenbankabfragen machen</p>
 <p>Funktionalität von <em>fetch</em> ist automatisch durch ein Polyfill vorhanden</p>
 </section><section class="slide"><h2>Pre-Rendering und API-Abfragen</h2>
-<p>Beispiel: Seite, die bei jedem Build zufällig als Inhalt einen neuen Witz erhält</p>
-<pre><code class="hljs language-tsx">const ChuckNorrisJoke = (props: Props) => (
+<p>Beispiel: Seite, die einen zufälligen Witz von einem API lädt</p>
+<pre><code class="hljs language-tsx">import type { GetServerSideProps, NextPage } from 'next';
+
+type JokeProps = { joke: string };
+const Joke: NextPage&#x3C;JokeProps> = (props) => (
   &#x3C;article>{props.joke}&#x3C;/article>
 );
-
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(
-    'https://api.chucknorris.io/jokes/random'
-  );
-  const text = (await res.json()).value;
-  return { props: { joke: text } };
+const getServerSideProps: GetServerSideProps&#x3C;JokeProps> = async () => {
+  const url = 'https://api.chucknorris.io/jokes/random';
+  const res = await fetch(url);
+  const joke = (await res.json()).value;
+  return { props: { joke: joke } };
 };
 
-export default ChuckNorrisJoke;
-</code></pre>
-</section><section class="slide"><h2>Pre-Rendering und API-Abfragen</h2>
-<p>Beispiel: Seite, die bei jedem Aufruf einen neuen Witz enthält</p>
-<pre><code class="hljs language-tsx">const ChuckNorrisJoke = (props: Props) => (
-  &#x3C;article>{props.joke}&#x3C;/article>
-);
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(
-    'https://api.chucknorris.io/jokes/random'
-  );
-  const text = (await res.json()).value;
-  return { props: { joke: text } };
-};
-
-export default ChuckNorrisJoke;
+export default Joke;
+export { getServerSideProps };
 </code></pre>
 </section><section class="slide"><h2>Pre-Rendering und API-Abfragen</h2>
 <p>Übungen:</p>
@@ -2241,22 +2228,33 @@ export default ChuckNorrisJoke;
 </section><section class="slide"><h2>Routenparameter</h2>
 <p>Wir können aus URLs wie den folgenden Parameter auslesen:</p>
 <ul>
-<li><code>/posts/3</code></li>
-<li><code>/posts/?postid=3</code></li>
+<li><code>/todos/3</code></li>
+<li><code>/todos/?todoid=3</code></li>
 </ul>
 </section><section class="slide"><h2>Routenparameter</h2>
-<p>Routenparameter werden in eckigen Klammern im Dateipfad angegeben, z.B.: <code>pages/posts/[id].js</code></p>
+<p>Routenparameter werden in eckigen Klammern im Dateipfad angegeben, z.B.: <code>pages/todos/[id].js</code></p>
+</section><section class="slide"><h2>Routenparameter</h2>
+<p>dynamisches Abfragen von Routenparametern:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { NextPage } <span class="hljs-keyword">from</span> <span class="hljs-string">'next'</span>;
+<span class="hljs-keyword">import</span> { useRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'next/router'</span>;
+
+<span class="hljs-keyword">const</span> TodoDetails: NextPage = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> router = useRouter();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>detail view for todo {router.query.id}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodoDetails;
+</code></pre>
 </section><section class="slide"><h2>Routenparameter</h2>
 <p>Vorrendern von Seiten basierend auf einem Satz Routenparameter - via <code>getStaticPaths</code></p>
-<pre><code class="hljs language-tsx">export const getStaticPaths: GetStaticPaths = async () => {
-  // get a list of paths to pre-render
-  const res = await fetch(
-    'https://api.spacexdata.com/v3/launches/latest'
-  );
-  const latest = (await res.json()).flight_number;
+<pre><code class="hljs language-tsx">export const getStaticPaths: GetStaticPaths = () => {
   const paths = [];
-  for (let i = 1; i &#x3C;= latest; i++) {
-    paths.push({ params: { id: i.toString() } });
+  for (let i = 1; i &#x3C;= 200; i++) {
+    paths.push({ params: { id: String(i) } });
   }
   return { paths, fallback: false };
 };
@@ -2265,30 +2263,7 @@ export default ChuckNorrisJoke;
 </section><section class="slide"><h2>Routenparameter</h2>
 <p>nach der Implementierung von <code>getStaticPaths</code> können wir Seiten mit dynamischen Routen vorrendern</p>
 <pre><code class="hljs language-bash">npm run build
-</code></pre>
-</section><section class="slide"><h2>Routenparameter</h2>
-<p>dynamisches Abfragen von Routenparametern:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'next/router'</span>;
-
-<span class="hljs-keyword">const</span> Post = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> router = useRouter();
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>detail view for post {router.query.id}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Post;
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Deployment</h1>
-</section><section class="slide"><h2>Deployment</h2>
-<p><em>next</em> wird von <em>Vercel</em> entwickelt: bieten gute Integration für Deployment</p>
-</section><section class="slide"><h2>Deployment auf Vercel</h2>
-<ol>
-<li>Upload zu GitHub o.ä.</li>
-<li>Verbindung zwischen GitHub und Vercel und Einrichtung des Projektes</li>
-</ol></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

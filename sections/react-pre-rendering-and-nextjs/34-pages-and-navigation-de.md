@@ -5,11 +5,12 @@
 Beispiel einer Seitendefinition:
 
 ```js
-// pages/index.js
+// pages/index.tsx
+import type { NextPage } from 'next'
 import Link from 'next/link';
 import Head from 'next/head';
 
-const Index = () => (
+const Index: NextPage = () => (
   <div>
     <Head>
       <title>Home</title>

@@ -18,8 +18,8 @@ Manche _pages_ werden ohne zusätzlichen Input gerendert, andere sind mit Datenq
 
 besondere (asynchrone) Funktionen, die wir aus einer Seitendefinitionsdatei exportieren können:
 
-- `getStaticProps` (läuft während des Builds)
 - `getServerSideProps` (läuft bei jedem Request)
+- `getStaticProps` (läuft während des Builds)
 
 können Daten laden und sie als Props an die Seitenkomponente übergeben
 
@@ -29,42 +29,24 @@ Funktionalität von _fetch_ ist automatisch durch ein Polyfill vorhanden
 
 ## Pre-Rendering und API-Abfragen
 
-Beispiel: Seite, die bei jedem Build zufällig als Inhalt einen neuen Witz erhält
+Beispiel: Seite, die einen zufälligen Witz von einem API lädt
 
 ```tsx
-const ChuckNorrisJoke = (props: Props) => (
+import type { GetServerSideProps, NextPage } from 'next';
+
+type JokeProps = { joke: string };
+const Joke: NextPage<JokeProps> = (props) => (
   <article>{props.joke}</article>
 );
-
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(
-    'https://api.chucknorris.io/jokes/random'
-  );
-  const text = (await res.json()).value;
-  return { props: { joke: text } };
+const getServerSideProps: GetServerSideProps<JokeProps> = async () => {
+  const url = 'https://api.chucknorris.io/jokes/random';
+  const res = await fetch(url);
+  const joke = (await res.json()).value;
+  return { props: { joke: joke } };
 };
 
-export default ChuckNorrisJoke;
-```
-
-## Pre-Rendering und API-Abfragen
-
-Beispiel: Seite, die bei jedem Aufruf einen neuen Witz enthält
-
-```tsx
-const ChuckNorrisJoke = (props: Props) => (
-  <article>{props.joke}</article>
-);
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(
-    'https://api.chucknorris.io/jokes/random'
-  );
-  const text = (await res.json()).value;
-  return { props: { joke: text } };
-};
-
-export default ChuckNorrisJoke;
+export default Joke;
+export { getServerSideProps };
 ```
 
 ## Pre-Rendering und API-Abfragen

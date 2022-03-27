@@ -4,27 +4,42 @@
 
 we can query parameters from URLs like these:
 
-- `/posts/3`
-- `/posts/?postid=3`
+- `/todos/3`
+- `/todos/?todoid=3`
 
 ## Route parameters
 
-Route parameters are enclosed in square brackets in the file name, e.g. `pages/spacex-launches/[id].js`
+Route parameters are enclosed in square brackets in the file name, e.g. `pages/todos/[id].js`
+
+## Route parameters
+
+Dynamically querying route parameters:
+
+```js
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
+
+const TodoDetails: NextPage = () => {
+  const router = useRouter();
+  return (
+    <div>
+      <h1>detail view for todo {router.query.id}</h1>
+    </div>
+  );
+};
+
+export default TodoDetails;
+```
 
 ## Route parameters
 
 pre-rendering pages based on a set of route parameters - via `getStaticPaths`
 
 ```tsx
-export const getStaticPaths: GetStaticPaths = async () => {
-  // get a list of paths to pre-render
-  const res = await fetch(
-    'https://api.spacexdata.com/v3/launches/latest'
-  );
-  const latest = (await res.json()).flight_number;
+export const getStaticPaths: GetStaticPaths = () => {
   const paths = [];
-  for (let i = 1; i <= latest; i++) {
-    paths.push({ params: { id: i.toString() } });
+  for (let i = 1; i <= 200; i++) {
+    paths.push({ params: { id: String(i) } });
   }
   return { paths, fallback: false };
 };
@@ -38,23 +53,4 @@ after implementing `getStaticPaths` we can pre-render pages with dynamic routes
 
 ```bash
 npm run build
-```
-
-## Route parameters
-
-Dynamically querying route parameters:
-
-```js
-import { useRouter } from 'next/router';
-
-const Post = () => {
-  const router = useRouter();
-  return (
-    <div>
-      <h1>detail view for post {router.query.id}</h1>
-    </div>
-  );
-};
-
-export default Post;
 ```

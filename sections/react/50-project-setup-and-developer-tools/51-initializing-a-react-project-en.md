@@ -33,8 +33,8 @@ npm create vite@latest
 ```
 
 ```bash
-npx create-next-app todolist
-npx create-next-app todolist --example with-typescript
+npx create-next-app
+npx create-next-app --ts
 ```
 
 <!--
