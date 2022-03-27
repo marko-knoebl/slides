@@ -1,21 +1,20 @@
-# Übung: Registrierungsformular
+# Übung: Newsletter-Formular
 
-## Übung: Registrierungsformular
+## Übung: Newsletter-Formular
 
-Erstelle ein Registrierungsformular für Benutzer
+Erstelle ein Newsletter-Formular
 
 Werte sollten in einem einzigen JS-Objekt mit verschiedenen Keys gespeichert werden:
 
 ```js
 const [userData, setUserData] = useState({
-  username: '',
-  password: '',
-  repeatPassword: '',
+  email: '',
+  repeatEmail: '',
   acceptTerms: false,
 });
 ```
 
-## Übung: Registrierungsformular
+## Übung: Newsletter-Formular
 
 Zeige einen _Register_-Button an, der basierend auf den Benutzereingaben entweder enabled oder disabled ist:
 
@@ -25,10 +24,10 @@ Zeige einen _Register_-Button an, der basierend auf den Benutzereingaben entwede
 
 Bemerkung: versuche, redundante Daten im State zu vermeiden
 
-## Übung: Registrierungsformular
+## Übung: Newsletter-Formular
 
 Weitere Aufgaben:
 
 - _Reset_-Button, um das Formular zurückzusetzen
-- Anzeige der Nachricht "_passwords match_" bzw "_passwords don't match_"
-- Dropdown, um ein Geschlecht auszuwählen (mittels eines _select_-Elements)
+- Anzeige der Nachricht "_e-mails match_" bzw "_e-mails don't match_"
+- Dropdown, um eine Sprache auszuwählen (mittels eines _select_-Elements)

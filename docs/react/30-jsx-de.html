@@ -2145,7 +2145,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 <p>Das Event wird ein <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a>-Objekt sein</p>
 </section><section class="slide"><h2>Events binden</h2>
-<p>Standard-Verhalten eines Submit-Events: Direktes Senden von Daten zum Server</p>
+<p>Standard-Verhalten eines Submit-Events in einem Formular: Direktes Senden von Daten zum Server</p>
 <p>Ersetzen des Standardverhaltens:</p>
 <pre><code class="hljs language-jsx">&#x3C;form
   onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
@@ -2271,7 +2271,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
 ];
 
-<span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
@@ -2337,7 +2337,7 @@ Lösung: <strong>key</strong>:</p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX und Sicherheit</h1>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>
 <p>beim zuweisen von <em>Inhalten</em> werden XML-Tags automatisch escaped</p>
-<p>dies wird nur reinen Textinhalt darstellen - es ist kein Angriffsziel:</p>
+<p>der folgende Code wird nur reinen Textinhalt darstellen - er ist kein Angriffsziel:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userSuppliedValue = <span class="hljs-string">'abc &#x3C;script>alert()&#x3C;/script>'</span>;
 
 element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{userSuppliedValue}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
@@ -2355,7 +2355,7 @@ element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name"
 </section><section class="slide"><h2>JSX: Kompilierung</h2>
 <p>XML-Elemente werden kompiliert zu Aufrufen von:</p>
 <ul>
-<li><code>_jsx()</code> (React 17)</li>
+<li><code>_jsx()</code> (ab React 17)</li>
 <li><code>React.createElement()</code> (React 16 - <code>React</code> muss importiert sein, um JSX zu schreiben)</li>
 </ul>
 </section><section class="slide"><h2>JSX: Kompilierung</h2>

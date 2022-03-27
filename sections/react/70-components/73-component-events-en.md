@@ -5,24 +5,34 @@
 - parent → child: props
 - child → parent: events
 
-## Custom events
+## Component events
+
+Props:
+
+A component (e.g. _App_) may pass data (from its state) down to a child component (e.g. _Rating_)
+
+Events:
+
+A sub-component may trigger an event which will cause the state of a parent to update
+
+## Component events
 
 Event handlers are defined as functions and passed down via props.
 
-## Custom events
+## Component events
 
 Example:
 
 ```jsx
 <Rating
   value={prodRating}
-  onChange={(newRating) => onProdRatingChange(newRating)}
+  onChange={(newRating) => setProdRating(newRating)}
 />
 ```
 
 <img src="assets/rating.png" style="width: 16em" />
 
-## Custom events
+## Component events
 
 example prop types for a rating component:
 
@@ -33,10 +43,10 @@ type RatingProps = {
 };
 ```
 
-## Custom events
+## Component events
 
 ```tsx
-const Rating = (props: RatingProps) => {
+function Rating(props: RatingProps) {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
@@ -54,10 +64,10 @@ const Rating = (props: RatingProps) => {
       ))}
     </div>
   );
-};
+}
 ```
 
-## Custom events
+## Component events
 
 Using the Rating component:
 

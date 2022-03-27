@@ -2181,25 +2181,25 @@ myCar.accelerate();
 <li>jeder Funktionsaufruf setzt <em>this</em> neu (nicht nur Methodenaufrufe)</li>
 <li><em>this</em> wird nur richtig gesetzt, wenn die Methode mit der Syntax <code>object.method()</code> aufgerufen wird</li>
 </ul>
-</section><section class="slide"><h2>Problem: <em>this</em> in anonymen Funktionen</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
+</section><section class="slide"><h2>Problem: "this" in anonymen Funktionen</h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
+    <span class="hljs-comment">// this ist set correctly here</span>
     <span class="hljs-built_in">this</span>.foo = <span class="hljs-literal">true</span>;
     <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-      <span class="hljs-comment">//this wird hier überschrieben (auf window)</span>
+      <span class="hljs-comment">// this will be overwritten here (to 'window')</span>
       <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.foo);
     }, <span class="hljs-number">1000</span>);
   }
 }
 </code></pre>
-</section><section class="slide"><h2>Lösung: <em>Pfeilfunktionen</em></h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
+</section><section class="slide"><h2>Lösung: Pfeilfunktionen</h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
+    <span class="hljs-comment">// this ist set correctly here</span>
     <span class="hljs-built_in">this</span>.foo = <span class="hljs-literal">true</span>;
     <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =></span> {
-      <span class="hljs-comment">// this wird hier *nicht* überschrieben</span>
+      <span class="hljs-comment">// this will *not* be overwritten here</span>
       <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.foo);
     }, <span class="hljs-number">1000</span>);
   }

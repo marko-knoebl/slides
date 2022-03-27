@@ -4,14 +4,19 @@
 
 Props können via `this.props` ausgelesen werden:
 
-```jsx
-class TodoItem extends Component {
+```tsx
+type TodoItemProps = {
+  todo: Todo;
+  onDelete: (id: number) => void;
+};
+
+class TodoItem extends Component<TodoItemProps> {
   render() {
     return (
-      <div>
-        {this.props.completed ? 'DONE: ' : 'TODO: '}
-        {this.props.title}
-      </div>
+      <li>
+        {this.props.todo.completed ? 'DONE: ' : 'TODO: '}
+        {this.props.todo.title}
+      </li>
     );
   }
 }

@@ -4,7 +4,7 @@
 
 when binding _content_, XML tags will be escaped automatically
 
-this will just display plain text content - it is not an attack target:
+the following code will just display plain text content - it is not an attack target:
 
 ```jsx
 const userSuppliedValue = 'abc <script>alert()</script>';
@@ -14,7 +14,7 @@ element = <div>{userSuppliedValue}</div>;
 
 ## JSX and security
 
-some attributes - notably _href_ - offer some attack targets
+some attributes - notably _href_ - offer attack targets
 
 ```jsx
 <h1>profile</h1>

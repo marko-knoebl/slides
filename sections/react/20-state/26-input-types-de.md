@@ -16,15 +16,15 @@ Text und Textarea:
 ```jsx
 <input
   value={title}
-  onChange={(e) => {
-    setTitle(e.target.value);
+  onChange={(event) => {
+    setTitle(event.target.value);
   }}
 />
 
 <textarea
   value={message}
-  onChange={(e) => {
-    setMessage(e.target.value);
+  onChange={(event) => {
+    setMessage(event.target.value);
   }}
 />
 ```
@@ -37,7 +37,7 @@ Checkbox:
 <input
   type="checkbox"
   checked={accept}
-  onChange={(e) => setAccept(e.target.checked)}
+  onChange={(event) => setAccept(event.target.checked)}
 />
 ```
 

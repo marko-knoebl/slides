@@ -2170,6 +2170,18 @@ paperFormat = [<span class="hljs-string">'A'</span>, <span class="hljs-number">4
 </code></pre>
 </section><section class="slide"><h2>Type Aliases und Interfaces</h2>
 <p><em>Interfaces</em> könnten eine Alternative für Type Aliases darstellen - Sie können in ähnlichen Szenarien angewendet werden, haben aber eine andere Syntax</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
+  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+  description?: <span class="hljs-built_in">string</span>;
+};
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> Todo {
+  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+  description?: <span class="hljs-built_in">string</span>;
+}
+</code></pre>
 </section><section class="slide"><h2>Type Aliases exportieren</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Todo = {
   <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
@@ -2196,9 +2208,9 @@ paperFormat = [<span class="hljs-string">'A'</span>, <span class="hljs-number">4
 </code></pre>
 </section><section class="slide"><h2>Funktionssignaturen</h2>
 <p>Funktionen ohne Rückgabewert: <code>void</code></p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> logMessage = (message: <span class="hljs-built_in">string</span>): <span class="hljs-function"><span class="hljs-params">void</span> =></span> {
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logMessage</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">void</span> </span>{
   <span class="hljs-built_in">console</span>.log(message);
-};
+}
 </code></pre>
 </section><section class="slide"><h2>Funktionstypen</h2>
 <p>Deklarieren eines Type Alias für eine Funktion:</p>
@@ -2273,37 +2285,7 @@ rgbColor = [<span class="hljs-number">255</span>, <span class="hljs-number">0</s
 <pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShoppingListItem</span> <span class="hljs-title">implements</span> <span class="hljs-title">Todo</span> </span>{
   <span class="hljs-comment">// ...</span>
 }
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Intersection Types</h1>
-</section><section class="slide"><h2>Intersection Types</h2>
-<p>Mittels <code>&#x26;</code>:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> x = a &#x26; b;
-</code></pre>
-<p>Der Intersection Typ <code>x</code> kann gegenüber <code>a</code>:</p>
-<ul>
-<li>Werte von existierenden Properties weiter einschränken</li>
-<li>zusätzliche verpflichtende Properties hinzufügen</li>
-</ul>
-</section><section class="slide"><h2>Intersection Types: Konkretisierung von Typen</h2>
-<p>Beispiel aus Redux:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Action = {
-  <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>;
-  payload?: <span class="hljs-built_in">any</span>;
-};
-
-<span class="hljs-keyword">type</span> AddTodoAction = Action &#x26; {
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'addTodo'</span>;
-  payload: <span class="hljs-built_in">string</span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Intersection Types: Kombinieren von Typen</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Serializable = {
-  <span class="hljs-attr">serialize</span>: <span class="hljs-function">() =></span> <span class="hljs-built_in">string</span>;
-};
-
-<span class="hljs-keyword">type</span> SerializableAction = Action &#x26; Serializable;
-</code></pre>
-<p>Objekte, die den Typ <code>SerializableAction</code> implementieren, müssen sowohl alle Einträge aus <code>Serializable</code> als auch aus <code>Action</code> implementieren.</p></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

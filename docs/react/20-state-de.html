@@ -2084,7 +2084,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Verwenden des minimalen States</h2>
 <p>Wir sollten immer versuchen, den <em>minimalen</em> State zu verwenden (also keine redundanten Daten speichern)</p>
 <p>Weitere Daten können in der Komponentenfunktion aus dem State abgeleitet werden</p>
-<p>Beispiel: Für die Slideshow ist es genug, die Bild-ID zu speichern - wir müssen nicht die ganze Bild-URL speichern</p>
+<p>Beispiele:</p>
+<ul>
+<li>für die Slideshow speichern wir die Bild-ID - die Bild-URL kann daraus abgeleitet werden</li>
+<li>für ein Textfeld speichern wir den Textinhalt - der Gültigkeitsstatus kann daraus abgeleitet werden</li>
+</ul>
 </section><section class="slide"><h2>Wann werden State-Änderungen angewendet?</h2>
 <p>State-Änderungen werden angewendet, <em>nachdem</em> die Event-Handler-Funktion fertig ausgeführt wurde</p>
 <!-- prettier-ignore -->
@@ -2092,22 +2096,20 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="hljs-built_in">console</span>.log(count); <span class="hljs-comment">// 0</span>
     setCount(count + <span class="hljs-number">1</span>);
     <span class="hljs-built_in">console</span>.log(count); <span class="hljs-comment">// still 0</span>
-    setTitle(<span class="hljs-string">'Demo'</span>);
   }
 </code></pre>
-<p>Wenn mehrere State-Änderungen durch das gleiche Event ausgelöst werden, werden sie zugleich angewendet - die Komponente wird nur einmal neu gerendert</p>
 </section><section class="slide"><h2>Übung: Slideshow</h2>
 <p>Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den bisherigen Code zu blicken</p>
 <ul>
 <li>zeige Bilder wie z.B. <code>https://picsum.photos/300/200?image=0</code></li>
 <li>Buttons für <em>vorwärts</em> und <em>zurück</em></li>
 <li>Button für <em>zurück zum Start</em></li>
+<li>verhindere, dass ins negative gezählt wird</li>
 </ul>
 <p>Zusatz:</p>
 <ul>
-<li>verhindere, dass ins negative gezählt wird</li>
 <li>Button für zufälliges Bild</li>
-<li>Buttons zum Wechseln zwischen verschiedenen Auflösungen</li>
+<li>Buttons, die es ermöglichen, die Breite des Bildes zu erhöhen / verringern</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable State</h1>
 </section><section class="slide"><h2>Immutable State</h2>
@@ -2115,14 +2117,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis der alten generiert</p>
 </section><section class="slide"><h2>Immutable State</h2>
 <p>Wenn unser State Arrays oder Objekte enthält, <em>könnten</em> wir versuchen, diese direkt abzuändern</p>
-<p>Das sollten wir <em>nicht</em> tun - React bemerkt üblicherweise diese Änderungen nicht und aktualisiert die Ansicht nicht</p>
+<p>Das sollten wir <em>nicht</em> tun - React bemerkt diese Änderungen nicht und aktualisiert die Ansicht eventuell nicht</p>
 <p>Objekte im State sollten als <em>unveränderlich</em> erachtet werden</p>
 </section><section class="slide"><h2>Immutable State</h2>
-<p>Wenn ein State-Setter aufgerufen wird, vergleicht React:</p>
-<ul>
-<li>das Objekt, das der alte State referenziert</li>
-<li>das Objekt, das der neue State referenzeirt</li>
-</ul>
+<p>Wenn ein State-Setter aufgerufen wird:</p>
+<p>React vergleicht die <em>alte State-Referenz</em> mit der <em>neuen State-Referenz</em></p>
 <p>Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert</p>
 </section><section class="slide"><h2>Immutable State</h2>
 <p>Demo: <a href="https://codesandbox.io/s/immutable-state-demo-r2x1i" target="_blank">https://codesandbox.io/s/immutable-state-demo-r2x1i</a></p>
@@ -2209,12 +2208,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Übung: Erstelle die folgende <em>reine</em> Funktion:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todo1 = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTitle</span>(<span class="hljs-params">todo: Todo, newTitle: string</span>): <span class="hljs-title">Todo</span> </span>{
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTitle</span>(<span class="hljs-params">todo: Todo, newTitle: string</span>): <span class="hljs-title">Todo</span> </span>{
   <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> FINISH IMPLEMENTATION HERE</span>
 }
 
+<span class="hljs-keyword">const</span> todo1 = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
 <span class="hljs-keyword">const</span> todo2 = changeTitle(todo1, <span class="hljs-string">'bar'</span>);
 <span class="hljs-built_in">console</span>.log(todo2);
 <span class="hljs-comment">// { id: 1, title: 'bar', completed: false}</span>
@@ -2376,15 +2374,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Text und Textarea:</p>
 <pre><code class="hljs language-jsx">&#x3C;input
   value={title}
-  onChange={<span class="hljs-function">(<span class="hljs-params">e</span>) =></span> {
-    setTitle(e.target.value);
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    setTitle(event.target.value);
   }}
 />
 
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">textarea</span>
   <span class="hljs-attr">value</span>=<span class="hljs-string">{message}</span>
-  <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =></span> {
-    setMessage(e.target.value);
+  <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> {
+    setMessage(event.target.value);
   }}
 /></span>
 </code></pre>
@@ -2393,7 +2391,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-jsx">&#x3C;input
   type=<span class="hljs-string">"checkbox"</span>
   checked={accept}
-  onChange={<span class="hljs-function">(<span class="hljs-params">e</span>) =></span> setAccept(e.target.checked)}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setAccept(event.target.checked)}
 />
 </code></pre>
 </section><section class="slide"><h2>Numerische Inputs</h2>
@@ -2429,50 +2427,27 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Formulare und Inputs</h1>
-</section><section class="slide"><h2>Formular-Aktionen</h2>
-<p>Standardverhalten eines Formulars beim Submit: Direktes Senden der Daten an den Server</p>
-<p>Ersetzen des Standardverhaltens:</p>
-<pre><code class="hljs language-jsx">&#x3C;form
-  onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    event.preventDefault();
-    <span class="hljs-comment">// handle submit with custom logic</span>
-  }}
->
-  ...
-&#x3C;/form>
-</code></pre>
-</section><section class="slide"><h2>Input Labels</h2>
-<p>Hinzufügen eines Labels für einen Input, ohne IDs zu verwenden:</p>
-<pre><code class="hljs language-jsx">&#x3C;label>
-  first name:
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-  // <span class="hljs-attr">...</span>
-  /></span></span>
-&#x3C;/label>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Übung: Registrierungsformular</h1>
-</section><section class="slide"><h2>Übung: Registrierungsformular</h2>
-<p>Erstelle ein Registrierungsformular für Benutzer</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Übung: Newsletter-Formular</h1>
+</section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
+<p>Erstelle ein Newsletter-Formular</p>
 <p>Werte sollten in einem einzigen JS-Objekt mit verschiedenen Keys gespeichert werden:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [userData, setUserData] = useState({
-  <span class="hljs-attr">username</span>: <span class="hljs-string">''</span>,
-  <span class="hljs-attr">password</span>: <span class="hljs-string">''</span>,
-  <span class="hljs-attr">repeatPassword</span>: <span class="hljs-string">''</span>,
+  <span class="hljs-attr">email</span>: <span class="hljs-string">''</span>,
+  <span class="hljs-attr">repeatEmail</span>: <span class="hljs-string">''</span>,
   <span class="hljs-attr">acceptTerms</span>: <span class="hljs-literal">false</span>,
 });
 </code></pre>
-</section><section class="slide"><h2>Übung: Registrierungsformular</h2>
+</section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
 <p>Zeige einen <em>Register</em>-Button an, der basierend auf den Benutzereingaben entweder enabled oder disabled ist:</p>
 <pre><code class="hljs language-jsx">&#x3C;button disabled={!canRegister}>register&#x3C;/button>
 </code></pre>
 <p>Bemerkung: versuche, redundante Daten im State zu vermeiden</p>
-</section><section class="slide"><h2>Übung: Registrierungsformular</h2>
+</section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
 <p>Weitere Aufgaben:</p>
 <ul>
 <li><em>Reset</em>-Button, um das Formular zurückzusetzen</li>
-<li>Anzeige der Nachricht "<em>passwords match</em>" bzw "<em>passwords don't match</em>"</li>
-<li>Dropdown, um ein Geschlecht auszuwählen (mittels eines <em>select</em>-Elements)</li>
+<li>Anzeige der Nachricht "<em>e-mails match</em>" bzw "<em>e-mails don't match</em>"</li>
+<li>Dropdown, um eine Sprache auszuwählen (mittels eines <em>select</em>-Elements)</li>
 </ul></section></section></div>
     </div>
     <script>/*!

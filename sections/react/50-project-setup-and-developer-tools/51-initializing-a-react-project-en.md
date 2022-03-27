@@ -16,7 +16,6 @@ possibilities:
 
 - **create-react-app** (most-used method)
 - vite
-- gatsby (includes static site generation)
 - next.js (includes static site generation and server-side rendering)
 
 ## Initializing a React project
@@ -38,15 +37,10 @@ npx create-next-app todolist
 npx create-next-app todolist --example with-typescript
 ```
 
-```bash
-npx gatsby new
-```
-
 <!--
-gatsby and creact-next-app will ask for more config
+vite and creact-next-app will ask for more config
 during creation
-gatsby has built-in support for typescript -
-just change .js to .tsx -->
+-->
 
 see also: https://reactjs.org/docs/create-a-new-react-app.html
 

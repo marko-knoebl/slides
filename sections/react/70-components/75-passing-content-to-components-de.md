@@ -8,6 +8,7 @@ mögliche Verwendung:
 
 ```jsx
 <Notification type="error">
+  <h1>Error</h1>
   <p>Changes could not be saved</p>
 </Notification>
 ```
@@ -16,22 +17,20 @@ mögliche Verwendung:
 
 Komponentendefinition:
 
-```jsx
+```tsx
 type Props = {
   type: string;
   children: React.ReactNode;
 };
 
-const Notification = (props: Props) => {
+function Notification(props: Props) {
+  const color =
+    props.type === 'error' ? 'salmon' : 'lightblue';
+
   return (
-    <div
-      style={{
-        backgroundColor:
-          props.type === 'error' ? 'salmon' : 'lightblue',
-      }}
-    >
+    <div style={{ backgroundColor: color }}>
       {props.children}
     </div>
   );
-};
+}
 ```

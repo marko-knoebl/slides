@@ -70,13 +70,17 @@ Bundler wie webpack können beim Importieren vom JavaScript Standard abweichen:
 
 ## Pfeilfunktionen
 
-Kurzschreibweise für anonyme Funktionen
+Notation für anonyme Funktionen:
 
 ```js
 const multiply = (a, b) => {
   return a * b;
 };
+```
 
+Kurzschreibweise, wenn die Funktion nur einen einzelnen Ausdruck zurückgibt:
+
+```js
 const multiply = (a, b) => a * b;
 ```
 

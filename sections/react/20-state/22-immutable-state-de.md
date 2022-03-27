@@ -10,16 +10,15 @@ Daten werden nicht direkt abgeändert - stattdessen werden neue Daten auf Basis 
 
 Wenn unser State Arrays oder Objekte enthält, _könnten_ wir versuchen, diese direkt abzuändern
 
-Das sollten wir _nicht_ tun - React bemerkt üblicherweise diese Änderungen nicht und aktualisiert die Ansicht nicht
+Das sollten wir _nicht_ tun - React bemerkt diese Änderungen nicht und aktualisiert die Ansicht eventuell nicht
 
 Objekte im State sollten als _unveränderlich_ erachtet werden
 
 ## Immutable State
 
-Wenn ein State-Setter aufgerufen wird, vergleicht React:
+Wenn ein State-Setter aufgerufen wird:
 
-- das Objekt, das der alte State referenziert
-- das Objekt, das der neue State referenzeirt
+React vergleicht die _alte State-Referenz_ mit der _neuen State-Referenz_
 
 Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert
 

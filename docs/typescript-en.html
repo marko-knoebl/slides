@@ -2169,7 +2169,19 @@ paperFormat = [<span class="hljs-string">'A'</span>, <span class="hljs-number">4
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> now: Time = [<span class="hljs-number">10</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>];
 </code></pre>
 </section><section class="slide"><h2>Type aliases and interfaces</h2>
-<p><em>interfaces</em> could be an alternative for type aliases - they can be applied in similar scenarios but have different syntaxes</p>
+<p><em>interfaces</em> could be an alternative for type aliases - they can be applied in similar scenarios but have a different syntax</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
+  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+  description?: <span class="hljs-built_in">string</span>;
+};
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> Todo {
+  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+  description?: <span class="hljs-built_in">string</span>;
+}
+</code></pre>
 </section><section class="slide"><h2>Exporting type aliases</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Todo = {
   <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
@@ -2196,9 +2208,9 @@ paperFormat = [<span class="hljs-string">'A'</span>, <span class="hljs-number">4
 </code></pre>
 </section><section class="slide"><h2>Function signatures</h2>
 <p>Functions without a return value: <code>void</code></p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> logMessage = (message: <span class="hljs-built_in">string</span>): <span class="hljs-function"><span class="hljs-params">void</span> =></span> {
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logMessage</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">void</span> </span>{
   <span class="hljs-built_in">console</span>.log(message);
-};
+}
 </code></pre>
 </section><section class="slide"><h2>Function types</h2>
 <p>declaring a type alias for a function:</p>
@@ -2273,37 +2285,7 @@ rgbColor = [<span class="hljs-number">255</span>, <span class="hljs-number">0</s
 <pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShoppingListItem</span> <span class="hljs-title">implements</span> <span class="hljs-title">Todo</span> </span>{
   <span class="hljs-comment">// ...</span>
 }
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Intersection types</h1>
-</section><section class="slide"><h2>Intersection types</h2>
-<p>Via <code>&#x26;</code>:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> X = A &#x26; B;
-</code></pre>
-<p>With regards to <code>A</code> the intersection type <code>X</code> may:</p>
-<ul>
-<li>restrict the values of existing properties</li>
-<li>add additional required properties</li>
-</ul>
-</section><section class="slide"><h2>Intersection types: restricting values</h2>
-<p>example from Redux:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Action = {
-  <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>;
-  payload?: <span class="hljs-built_in">any</span>;
-};
-
-<span class="hljs-keyword">type</span> AddTodoAction = Action &#x26; {
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'addTodo'</span>;
-  payload: <span class="hljs-built_in">string</span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Intersection types: combining types</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Serializable = {
-  <span class="hljs-attr">serialize</span>: <span class="hljs-function">() =></span> <span class="hljs-built_in">string</span>;
-};
-
-<span class="hljs-keyword">type</span> SerializableAction = Action &#x26; Serializable;
-</code></pre>
-<p>Objects that implement the Type <code>SerializableAction</code> must implement all entries from both <code>Serializable</code> and <code>Action</code>.</p></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

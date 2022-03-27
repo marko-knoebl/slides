@@ -55,7 +55,7 @@ the event will be a [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/AP
 
 ## Binding events
 
-Default behavior of a submit event: directly send data to the server
+Default behavior of a submit event in a form: directly send data to the server
 
 Replacing the default behavior:
 

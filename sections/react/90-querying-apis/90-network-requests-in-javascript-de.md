@@ -7,7 +7,7 @@ _Promises_: moderne Möglichkeit, asynchronen Code zu verwenden:
 - Promises mit `async` / `await`
 - Promises mit `.then()`
 
-moderne Möglichkeiten, um Netzwerkanfragen zu senden:
+moderne Möglichkeiten, um Netzwerkanfragen zu senden (basierend auf Promises):
 
 - `fetch()` (in Browsern inkludiert)
 - _axios_ (library)
@@ -21,7 +21,10 @@ asynchrone Funktion, die Todos von einem API lädt:
 async function fetchTodos(): Promise<Array<Todo>> {
   const url = 'https://jsonplaceholder.typicode.com/todos';
   const res = await fetch(url);
-  const apiTodos = await res.json();
+  if (!res.ok) {
+    throw new Error('could not fetch data from network');
+  }
+  const apiTodos: Array<any> = await res.json();
   // convert data format (don't include userId)
   const todos = apiTodos.map((todo) => ({
     id: todo.id,
@@ -47,6 +50,9 @@ async function fetchExchangeRate(
       '&symbols=' +
       to.toUpperCase()
   );
+  if (!res.ok) {
+    throw new Error('could not fetch data from network');
+  }
   const data = await res.json();
   return data.rates[to.toUpperCase()];
 }

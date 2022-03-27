@@ -55,7 +55,7 @@ Das Event wird ein [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API
 
 ## Events binden
 
-Standard-Verhalten eines Submit-Events: Direktes Senden von Daten zum Server
+Standard-Verhalten eines Submit-Events in einem Formular: Direktes Senden von Daten zum Server
 
 Ersetzen des Standardverhaltens:
 

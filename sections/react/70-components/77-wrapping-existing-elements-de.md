@@ -6,7 +6,7 @@ verbreiteter Use Case: "Wrapper" für bestehende Elemente zwecks Styling:
 
 ```tsx
 function Button(
-  props: React.ComponentPropsWithoutRef<'button'>
+  props: React.ComponentPropsWithRef<'button'>
 ) {
   // return a "button" element with one extra CSS class
   return (

@@ -14,12 +14,25 @@ _this.state_ ist ein JavaScript-Objekt:
 
 ```json
 {
-  "loggedIn": true,
-  "todos": [
-    { "id": 1, "title": "laundry", "completed": false },
-    { "id": 2, "title": "groceries", "completed": true },
-    { "id": 5, "title": "taxes", "completed": false }
-  ]
+  "todos": [],
+  "loadingStatus": "idle"
+}
+```
+
+## Typendeklaration
+
+```ts
+type TodoAppProps = {};
+type TodoAppState = {
+  todo: Array<Todo>;
+  loadingStatus: string;
+};
+
+class TodoApp extends Component<
+  TodoAppProps,
+  TodoAppState
+> {
+  // ...
 }
 ```
 
@@ -31,12 +44,12 @@ Der Konstruktor erhält auch die Props der Komponente als Argument
 
 ## Initialisierung des States
 
-```js
-constructor(props) {
+```ts
+constructor(props: TodoAppProps) {
   super(props);
   this.state = {
-    loggedIn: true,
-    todos: ['laundry', 'groceries', 'taxes'],
+    todos: [],
+    loadingStatus: "idle",
   }
 }
 ```
@@ -48,7 +61,7 @@ In JavaScript _muss_ der Konstruktor der Elternklasse (`Component`) im Konstrukt
 via `this.setState()`
 
 ```js
-this.setState({ loggedIn: false });
+this.setState({ loadingStatus: 'loading' });
 ```
 
 setState überschreibt alle angegebenen Einträge im state-Objekt und lässt den Rest unverändert

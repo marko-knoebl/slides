@@ -4,7 +4,6 @@
 
 - React Bootstrap
 - Material UI: React-Komponenten im _Material Design_
-- React Native & React Native Web: React Komponenten & Framework für mobile Apps & Web Apps
 - Blueprint
 - Ant Design
 - ...

@@ -2067,7 +2067,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>promises and <code>async</code> / <code>await</code></li>
 <li>promises and <code>.then()</code></li>
 </ul>
-<p>modern ways of sending network requests:</p>
+<p>modern ways of sending network requests (based on promises):</p>
 <ul>
 <li><code>fetch()</code> (included in browsers)</li>
 <li><em>axios</em> (library)</li>
@@ -2078,7 +2078,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTodos</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>>> </span>{
   <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">const</span> apiTodos = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">if</span> (!res.ok) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'could not fetch data from network'</span>);
+  }
+  <span class="hljs-keyword">const</span> apiTodos: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">any</span>> = <span class="hljs-keyword">await</span> res.json();
   <span class="hljs-comment">// convert data format (don't include userId)</span>
   <span class="hljs-keyword">const</span> todos = apiTodos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> ({
     <span class="hljs-attr">id</span>: todo.id,
@@ -2100,6 +2103,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       <span class="hljs-string">'&#x26;symbols='</span> +
       to.toUpperCase()
   );
+  <span class="hljs-keyword">if</span> (!res.ok) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'could not fetch data from network'</span>);
+  }
   <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
   <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
 }
@@ -2120,12 +2126,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Examples: querying APIs from React</h2>
 <p>code for adding a loading indicator:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">const</span> [isLoading, setIsLoading] = useState(<span class="hljs-literal">false</span>);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodosAsync</span>(<span class="hljs-params"></span>) </span>{
-  setIsLoading(<span class="hljs-literal">true</span>);
+<span class="hljs-keyword">const</span> [loadingStatus, setLoadingStatus] = useState(<span class="hljs-string">'idle'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+  setLoadingStatus(<span class="hljs-string">'loading'</span>);
   <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
   setTodos(todos);
-  setIsLoading(<span class="hljs-literal">false</span>);
+  setLoadingStatus(<span class="hljs-string">'success'</span>);
 }
 </code></pre>
 </section><section class="slide"><h2>Examples: querying APIs from React</h2>

@@ -108,12 +108,11 @@ type Todo = {
 Übung: Erstelle die folgende _reine_ Funktion:
 
 ```js
-const todo1 = { id: 1, title: 'foo', completed: false };
-
 function changeTitle(todo: Todo, newTitle: string): Todo {
   // TODO: FINISH IMPLEMENTATION HERE
 }
 
+const todo1 = { id: 1, title: 'foo', completed: false };
 const todo2 = changeTitle(todo1, 'bar');
 console.log(todo2);
 // { id: 1, title: 'bar', completed: false}

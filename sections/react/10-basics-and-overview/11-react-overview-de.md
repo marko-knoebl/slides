@@ -38,4 +38,3 @@
 
 - 2013 von Facebook als open source veröffentlicht
 - Februar 2019: React 16.8: Einführung von _Hooks_
-- August 2020: React 17: keine großen Änderungen

@@ -37,6 +37,22 @@ const now: Time = [10, 45, 0];
 
 _Interfaces_ könnten eine Alternative für Type Aliases darstellen - Sie können in ähnlichen Szenarien angewendet werden, haben aber eine andere Syntax
 
+```ts
+type Todo = {
+  title: string;
+  completed: boolean;
+  description?: string;
+};
+```
+
+```ts
+interface Todo {
+  title: string;
+  completed: boolean;
+  description?: string;
+}
+```
+
 ## Type Aliases exportieren
 
 ```ts

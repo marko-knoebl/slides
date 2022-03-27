@@ -4,7 +4,7 @@
 
 XML elements are compiled to calls of:
 
-- `_jsx()` (React 17)
+- `_jsx()` (React 17 and above)
 - `React.createElement()` (React 16 - `React` must be imported when writing JSX)
 
 ## JSX: compilation

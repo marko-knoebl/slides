@@ -38,4 +38,4 @@ options:
 
 ## Component definition
 
-In order to distinguish them from ordinary tags, components start with a capital letter
+In order to distinguish them from ordinary tags, component names start with a capital letter

@@ -7,7 +7,7 @@ _promises_: modern way of handling asynchronous code:
 - promises and `async` / `await`
 - promises and `.then()`
 
-modern ways of sending network requests:
+modern ways of sending network requests (based on promises):
 
 - `fetch()` (included in browsers)
 - _axios_ (library)
@@ -21,7 +21,10 @@ asynchronous function that fetches todos from an API:
 async function fetchTodos(): Promise<Array<Todo>> {
   const url = 'https://jsonplaceholder.typicode.com/todos';
   const res = await fetch(url);
-  const apiTodos = await res.json();
+  if (!res.ok) {
+    throw new Error('could not fetch data from network');
+  }
+  const apiTodos: Array<any> = await res.json();
   // convert data format (don't include userId)
   const todos = apiTodos.map((todo) => ({
     id: todo.id,
@@ -47,6 +50,9 @@ async function fetchExchangeRate(
       '&symbols=' +
       to.toUpperCase()
   );
+  if (!res.ok) {
+    throw new Error('could not fetch data from network');
+  }
   const data = await res.json();
   return data.rates[to.toUpperCase()];
 }

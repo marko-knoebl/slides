@@ -19,9 +19,9 @@ const shorten = (text: string, maxLen: number): string => {
 Funktionen ohne Rückgabewert: `void`
 
 ```ts
-const logMessage = (message: string): void => {
+function logMessage(message: string): void {
   console.log(message);
-};
+}
 ```
 
 ## Funktionstypen

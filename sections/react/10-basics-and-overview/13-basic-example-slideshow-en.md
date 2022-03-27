@@ -2,7 +2,7 @@
 
 ## Basic example: slideshow
 
-example _slideshow_ app that demonstrates:
+example _slideshow_ component that demonstrates:
 
 - component definition as a function
 - component state (image id)
@@ -10,11 +10,27 @@ example _slideshow_ app that demonstrates:
 
 ## Basic example: slideshow
 
+in _App.js_ / _App.tsx_:
+
+<!-- prettier-ignore -->
+```jsx
+import Slideshow from './Slideshow';
+
+// ...
+
+  return (
+    // ...
+      <Slideshow />;
+  )
+```
+
+## Basic example: slideshow
+
 ```jsx
 import { useState } from 'react';
 
 const baseUrl = 'https://picsum.photos/300/200?image=';
-function SlideshowApp() {
+function Slideshow() {
   const [img, setImg] = useState(0);
   const imgUrl = baseUrl + img.toString();
   function goToPrevImg() {
@@ -30,7 +46,7 @@ function SlideshowApp() {
     </div>
   );
 }
-export default SlideshowApp;
+export default Slideshow;
 ```
 
 can be tried on <https://codesandbox.io>

@@ -8,7 +8,7 @@ The state can be referenced in the template. The view will automatically update 
 
 ## State hook
 
-In function components we make use of the _state hook_:
+In function components we use the _state hook_:
 
 ```js
 import { useState } from 'react';
@@ -18,7 +18,7 @@ import { useState } from 'react';
 
 `useState` may be called (repeatedly) inside the component function
 
-- `useState` takes one parameter - the initial state value
+- `useState` takes one parameter: the initial state value
 - on each call `useState` returns an array with two entries: the current state and a function that lets us set the state to a new value
 
 ```js
@@ -36,7 +36,10 @@ We should always try to use the _minimal_ state possible (i.e. no redundant data
 
 Other data can be computed from the minimal state in the component function
 
-Example: For the slideshow, storing the image ID is enough - we don't have to store the entire image URL
+Examples:
+
+- For the slideshow, store the image ID - the image URL can be derived from it
+- For a text input, store its content - the validity status can be derived from it
 
 ## When are state changes applied?
 
@@ -48,11 +51,8 @@ State changes are applied _after_ the event handler function has finished execut
     console.log(count); // 0
     setCount(count + 1);
     console.log(count); // still 0
-    setTitle('Demo');
   }
 ```
-
-If multiple state changes are triggered by the same event, they will be applied at the same time - the component will only re-render once
 
 ## Exercise: Slideshow
 
@@ -61,9 +61,9 @@ Re-implement the slideshow demo we saw before; try not to look at the old code
 - show images like `https://picsum.photos/300/200?image=0`
 - buttons for _previous_ and _next_
 - button for _back to start_
+- prevent the index from becoming negative
 
 optional:
 
-- prevent the index from becoming negative
 - button for _random image_
-- buttons that let the user select different resolutions
+- buttons that let the user increase / decrease the image width

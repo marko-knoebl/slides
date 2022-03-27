@@ -1,21 +1,20 @@
-# Exercise: registration form
+# Exercise: newsletter form
 
-## Exercise: registration form
+## Exercise: newsletter form
 
-Create a user registration form
+Create a user newsletter form
 
 Values should be stored in a single JS object with different keys:
 
 ```js
 const [userData, setUserData] = useState({
-  username: '',
-  password: '',
-  repeatPassword: '',
+  email: '',
+  repeatEmail: '',
   acceptTerms: false,
 });
 ```
 
-## Exercise: registration form
+## Exercise: newsletter form
 
 render a _register_ button that's either enabled or disabled based on the user inputs:
 
@@ -25,10 +24,10 @@ render a _register_ button that's either enabled or disabled based on the user i
 
 note: try to avoid redundant data in the state
 
-## Exercise: registration form
+## Exercise: newsletter form
 
 further tasks:
 
 - button to reset the form
-- status message that says "_passwords match_" or "_passwords don't match_"
-- dropdown for choosing a gender (via a _select_ element)
+- status message that says "_e-mails match_" or "_e-mails don't match_"
+- dropdown to choose a language (via a _select_ element)

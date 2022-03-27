@@ -16,7 +16,7 @@ Gründe für die Verwendung von Hooks:
 
 Gründe für die Verwendung von Klassenkomponenten:
 
-- Klassenmethoden (in Klassenkomponenten) können einfacher sein als verschachtelte Funktionsdefinitionen (in Funktionskomponenten)
+- vermeiden von Problemen mit veraltetem State ("stale closures")
 - Instanzvariablen (in Klassenkomponenten) sind einfacher als Refs (in Funktionskomponenten)
 
 ## Einfaches Beispiel
@@ -25,8 +25,13 @@ Gründe für die Verwendung von Klassenkomponenten:
 import { Component } from 'react';
 
 class App extends Component {
+  constructor(props) {
+    // ...
+    this.state = { name: 'World' };
+  }
+
   render() {
-    return <div>Hello, World!</div>;
+    return <div>Hello, {this.name}!</div>;
   }
 }
 

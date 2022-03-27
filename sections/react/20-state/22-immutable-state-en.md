@@ -10,16 +10,15 @@ Data is not modified directly - instead, new data is derived from existing data 
 
 if there are arrays or objects in the state we _could_ try and mutate them directly
 
-don't do this - React will usually not notice the changes and may not rerender the view
+don't do this - React will not notice the changes and may not rerender the view
 
 state should be considered as _immutabe_ (unchangeable)
 
 ## Immutable state
 
-When a state setter is called, React will compare:
+When a state setter is called:
 
-- the object the old state points to
-- the object the new state points to
+React will compare the _old state reference_ and the _new state reference_
 
 If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.
 

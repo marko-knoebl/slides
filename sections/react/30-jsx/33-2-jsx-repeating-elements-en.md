@@ -48,7 +48,7 @@ const initialTodos = [
   { id: 3, title: 'gardening', completed: false },
 ];
 
-const TodoApp = () => {
+function TodoApp() {
   const [todos, setTodos] = useState(initialTodos);
   return (
     <ul>

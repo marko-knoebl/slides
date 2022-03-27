@@ -2,25 +2,28 @@
 
 ## Eigene Hooks
 
-Bausteine einer React-Anwendung:
-
-- *Komponenten*: für das _View_
-- *Hooks* für das _Modell_ / die _Logik_ hinter dem _View_
-
-Zwecke:
-
-- Strukturierung von Code
-- Wiederverwendung von Code
-
-## Eigene Hooks
-
 Eigene Hooks können als Funktionen definiert werden, deren Name mit `use` beginnt
 
 Eigene Hooks greifen wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurück
 
 ## Eigene Hooks - useExchangeRate
 
-Hook, der den Wechselkurs zwischen ausgewählten Währungen bereitstellt (siehe früheres Beispiel):
+verwendung eines eigenen Hooks zum Laden von Wechselkusdaten:
+
+```js
+function ExchangeRate() {
+  const [from, setFrom] = useState('usd');
+  const [to, setTo] = useState('eur');
+
+  const { status, rate } = useExchangeRate(from, to);
+
+  // ...
+}
+```
+
+## Eigene Hooks - useExchangeRate
+
+Definition von `useExchangeRate`:
 
 ```js
 function useExchangeRate(from, to) {
@@ -97,33 +100,6 @@ function useTodos() {
 }
 ```
 
-## Eigene Hooks - useTodos
-
-`useTodos` mit API-Abfrage:
-
-```js
-function useTodos() {
-  const [todos, setTodos] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  async function reload() {
-    setIsLoading(true);
-    const todos = await fetchTodos();
-    setTodos(todos);
-    setIsLoading(false);
-  }
-  useEffect(() => {
-    reload();
-  }, []);
-  // ... (addTodo, deleteTodo, toggleTodo)
-  return {
-    todos,
-    isLoading,
-    reload,
-    // ... (addTodo, deleteTodo, toggleTodo)
-  };
-}
-```
-
 ## Eigene Hooks - useDate
 
 Beispiel: `useDate` - stellt hier die aktuelle Uhrzeit bereit und aktualisiert die Komponente alle 1000 Millisekunden
@@ -142,7 +118,7 @@ const Clock = () => {
 Einfache Implementierung von `useDate`:
 
 ```js
-const useDate = (interval) => {
+function useDate(interval) {
   const [date, setDate] = useState(new Date());
   useEffect(() => {
     const id = setInterval(() => {

@@ -2073,15 +2073,20 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 <p>reasons for using class components:</p>
 <ul>
-<li>class methods (in class components) can be simpler than defining nested functions (in function components)</li>
+<li>avoiding problem with outdated state (stale closures)</li>
 <li>instance variables (in class components) are simpler than refs (in function components)</li>
 </ul>
 </section><section class="slide"><h2>Class component example</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">props</span>)</span> {
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-built_in">this</span>.state = { <span class="hljs-attr">name</span>: <span class="hljs-string">'World'</span> };
+  }
+
   <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, World!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, {this.name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
   }
 }
 
@@ -2095,8 +2100,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>each function call sets <code>this</code> (not just method calls)</li>
 <li><code>this</code> will only be set correctly if the method is called via the syntax <code>object.method()</code></li>
 </ul>
-</section><section class="slide"><h2>Problem: <em>this</em> in anonymous functions</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
+</section><section class="slide"><h2>Problem: "this" in anonymous functions</h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-comment">// this ist set correctly here</span>
     <span class="hljs-built_in">this</span>.foo = <span class="hljs-literal">true</span>;
@@ -2107,8 +2112,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   }
 }
 </code></pre>
-</section><section class="slide"><h2>Solution: <em>arrow functions</em></h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
+</section><section class="slide"><h2>Solution: arrow functions</h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-comment">// this ist set correctly here</span>
     <span class="hljs-built_in">this</span>.foo = <span class="hljs-literal">true</span>;
@@ -2158,13 +2163,18 @@ greet(); <span class="hljs-comment">// ok</span>
 </section></section><section class="slides-section"><section class="slide"><h1>Props</h1>
 </section><section class="slide"><h2>Props</h2>
 <p>Props can be accessed via <code>this.props</code>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-        {this.props.completed ? 'DONE: ' : 'TODO: '}
-        {this.props.title}
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+<pre><code class="hljs language-tsx">type TodoItemProps = {
+  todo: Todo;
+  onDelete: (id: number) => void;
+};
+
+class TodoItem extends Component&#x3C;TodoItemProps> {
+  render() {
+    return (
+      &#x3C;li>
+        {this.props.todo.completed ? 'DONE: ' : 'TODO: '}
+        {this.props.todo.title}
+      &#x3C;/li>
     );
   }
 }
@@ -2177,49 +2187,42 @@ greet(); <span class="hljs-comment">// ok</span>
 </section><section class="slide"><h2>Structure of this.state</h2>
 <p><em>this.state</em> is always an object:</p>
 <pre><code class="hljs language-json">{
-  <span class="hljs-attr">"loggedIn"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"todos"</span>: [
-    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"laundry"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> },
-    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"groceries"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">true</span> },
-    { <span class="hljs-attr">"id"</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">"title"</span>: <span class="hljs-string">"taxes"</span>, <span class="hljs-attr">"completed"</span>: <span class="hljs-literal">false</span> }
-  ]
+  <span class="hljs-attr">"todos"</span>: [],
+  <span class="hljs-attr">"loadingStatus"</span>: <span class="hljs-string">"idle"</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Type declarations</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoAppProps = {};
+<span class="hljs-keyword">type</span> TodoAppState = {
+  <span class="hljs-attr">todo</span>: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
+  loadingStatus: <span class="hljs-built_in">string</span>;
+};
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoApp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span>&#x3C;
+  <span class="hljs-title">TodoAppProps</span>,
+  <span class="hljs-title">TodoAppState</span>
+> </span>{
+  <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 </section><section class="slide"><h2>Initializing the state</h2>
 <p>The state must be initialized in the constructor</p>
 <p>The constructor will also receive the component's props as an argument</p>
 </section><section class="slide"><h2>Initializing the state</h2>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">props</span>)</span> {
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">props: TodoAppProps</span>)</span> {
   <span class="hljs-built_in">super</span>(props);
   <span class="hljs-built_in">this</span>.state = {
-    <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">todos</span>: [<span class="hljs-string">'laundry'</span>, <span class="hljs-string">'groceries'</span>, <span class="hljs-string">'taxes'</span>],
+    <span class="hljs-attr">todos</span>: [],
+    <span class="hljs-attr">loadingStatus</span>: <span class="hljs-string">"idle"</span>,
   }
 }
 </code></pre>
 <p>JavaScript requires calling the constructor of the parent class (<code>Component</code>) via <code>super()</code> in the constructor</p>
 </section><section class="slide"><h2>Modifying this.state</h2>
-<p>only via <code>setState()</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-built_in">this</span>.setState({ <span class="hljs-attr">loggedIn</span>: <span class="hljs-literal">false</span> });
+<p>via <code>setState()</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-built_in">this</span>.setState({ <span class="hljs-attr">loadingStatus</span>: <span class="hljs-string">'loading'</span> });
 </code></pre>
 <p><code>setState</code> will change all specified entries and leave the rest unchanged</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Class components with TypeScript</h1>
-</section><section class="slide"><h2>Class components with TypeScript</h2>
-<pre><code class="hljs language-tsx">type TodoItemProps = {
-  todo: TodoType;
-  onToggle: (id: int) => void;
-};
-type TodoItemState = {};
-</code></pre>
-<pre><code class="hljs language-tsx">import { Component } from 'react';
-
-class TodoItem extends Component&#x3C;
-  TodoItemProps,
-  TodoItemState
-> {
-  // ...
-}
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
 </section><section class="slide"><h2>Exercises</h2>
 <p>convert existing components (e.g. <code>AddTodo</code>) from function components to class components</p></section></section></div>

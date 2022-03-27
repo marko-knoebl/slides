@@ -2294,7 +2294,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <ul>
 <li>2013 von Facebook als open source veröffentlicht</li>
 <li>Februar 2019: React 16.8: Einführung von <em>Hooks</em></li>
-<li>August 2020: React 17: keine großen Änderungen</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Online Editoren</h1>
 </section><section class="slide"><h2>Online Editoren</h2>
@@ -2314,17 +2313,29 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Grundlegendes Beispiel: Slideshow</h1>
 </section><section class="slide"><h2>Grundlegendes Beispiel: Slideshow</h2>
-<p>Beispiel: <em>slideshow</em>-App, die folgendes demonstriert:</p>
+<p>Beispiel: <em>slideshow</em>-Komponente, die folgendes demonstriert:</p>
 <ul>
 <li>Komponentendefinition als Funktion</li>
 <li>Komponenten-State (Bild-id)</li>
 <li>JSX Templatesprache: Mischung aus JavaScript und XML</li>
 </ul>
 </section><section class="slide"><h2>Grundlegendes Beispiel: Slideshow</h2>
+<p>in <em>App.js</em> / <em>App.tsx</em>:</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> Slideshow <span class="hljs-keyword">from</span> <span class="hljs-string">'./Slideshow'</span>;
+
+<span class="hljs-comment">// ...</span>
+
+  <span class="hljs-keyword">return</span> (
+    <span class="hljs-comment">// ...</span>
+      <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Slideshow</span> /></span></span>;
+  )
+</code></pre>
+</section><section class="slide"><h2>Grundlegendes Beispiel: Slideshow</h2>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-keyword">const</span> baseUrl = <span class="hljs-string">'https://picsum.photos/300/200?image='</span>;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SlideshowApp</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Slideshow</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [img, setImg] = useState(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">const</span> imgUrl = baseUrl + img.toString();
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">goToPrevImg</span>(<span class="hljs-params"></span>) </span>{
@@ -2340,7 +2351,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> SlideshowApp;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Slideshow;
 </code></pre>
 <p>kann auf <a href="https://codesandbox.io" target="_blank">https://codesandbox.io</a> ausprobiert werden</p>
 </section><section class="slide"><h2>Grundlegendes Beispiel: Slideshow</h2>

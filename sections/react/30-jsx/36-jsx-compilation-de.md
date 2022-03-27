@@ -4,7 +4,7 @@
 
 XML-Elemente werden kompiliert zu Aufrufen von:
 
-- `_jsx()` (React 17)
+- `_jsx()` (ab React 17)
 - `React.createElement()` (React 16 - `React` muss importiert sein, um JSX zu schreiben)
 
 ## JSX: Kompilierung

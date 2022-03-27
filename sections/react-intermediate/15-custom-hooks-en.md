@@ -2,25 +2,28 @@
 
 ## Custom hooks
 
-Building blocks in React:
-
-- *components*: handle the _view_
-- *hooks*: handle the _model_ / _logic_ behind the view
-
-purposes:
-
-- structuring code
-- code re-use
-
-## Custom hooks
-
 Custom hooks can be defined as functions whose name starts with `use`
 
 They will in turn rely on existing hooks, like `useState` or `useEffect`
 
 ## Custom hooks - useExchangeRate
 
-hook that provides the exchange rate for selected currencies (see earlier example):
+use of a custom hook for loading exchange rates:
+
+```js
+function ExchangeRate() {
+  const [from, setFrom] = useState('usd');
+  const [to, setTo] = useState('eur');
+
+  const { status, rate } = useExchangeRate(from, to);
+
+  // ...
+}
+```
+
+## Custom hooks - useExchangeRate
+
+definition of `useExchangeRate`:
 
 ```js
 function useExchangeRate(from, to) {
@@ -97,33 +100,6 @@ function useTodos() {
 }
 ```
 
-## Custom hooks - useTodos
-
-`useTodos` with API access:
-
-```js
-function useTodos() {
-  const [todos, setTodos] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  async function reload() {
-    setIsLoading(true);
-    const todos = await fetchTodos();
-    setTodos(todos);
-    setIsLoading(false);
-  }
-  useEffect(() => {
-    reload();
-  }, []);
-  // ... (addTodo, deleteTodo, toggleTodo)
-  return {
-    todos,
-    isLoading,
-    reload,
-    // ... (addTodo, deleteTodo, toggleTodo)
-  };
-}
-```
-
 ## Custom hooks - useDate
 
 Example: `useDate` - provides the current time and updates the component every 1000 milliseconds
@@ -142,7 +118,7 @@ const Clock = () => {
 basic implementation of `useDate`:
 
 ```js
-const useDate = (interval) => {
+function useDate(interval) {
   const [date, setDate] = useState(new Date());
   useEffect(() => {
     const id = setInterval(() => {

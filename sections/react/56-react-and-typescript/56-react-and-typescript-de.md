@@ -38,7 +38,6 @@ const handleClick = (
 häufig verwendete Eventtypen:
 
 - `React.FormEvent`
-- `React.FormEvent<HTMLFormElement>`
 - `React.ChangeEvent<HTMLInputElement>`
 - `React.MouseEvent<HTMLButtonElement>`
 
@@ -54,22 +53,6 @@ mit Annotation:
 
 ```ts
 const [todos, setTodos] = useState<Array<TodoType>>([]);
-```
-
-## Props und Events mit TypeScript
-
-Props und Events in selbst definierten Komponenten
-
-```tsx
-type TodoListProps = {
-  todos: Array<Todo>;
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-};
-
-const TodoList = (props: TodoListProps) => {
-  // ...
-};
 ```
 
 ## Ressource

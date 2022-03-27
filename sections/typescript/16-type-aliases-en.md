@@ -35,7 +35,23 @@ const now: Time = [10, 45, 0];
 
 ## Type aliases and interfaces
 
-_interfaces_ could be an alternative for type aliases - they can be applied in similar scenarios but have different syntaxes
+_interfaces_ could be an alternative for type aliases - they can be applied in similar scenarios but have a different syntax
+
+```ts
+type Todo = {
+  title: string;
+  completed: boolean;
+  description?: string;
+};
+```
+
+```ts
+interface Todo {
+  title: string;
+  completed: boolean;
+  description?: string;
+}
+```
 
 ## Exporting type aliases
 

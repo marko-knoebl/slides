@@ -6,7 +6,7 @@ common use case: wrap existing elements for styling:
 
 ```tsx
 function Button(
-  props: React.ComponentPropsWithoutRef<'button'>
+  props: React.ComponentPropsWithRef<'button'>
 ) {
   // return a "button" element with one extra CSS class
   return (

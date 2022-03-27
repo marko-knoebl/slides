@@ -14,12 +14,25 @@ _this.state_ is always an object:
 
 ```json
 {
-  "loggedIn": true,
-  "todos": [
-    { "id": 1, "title": "laundry", "completed": false },
-    { "id": 2, "title": "groceries", "completed": true },
-    { "id": 5, "title": "taxes", "completed": false }
-  ]
+  "todos": [],
+  "loadingStatus": "idle"
+}
+```
+
+## Type declarations
+
+```ts
+type TodoAppProps = {};
+type TodoAppState = {
+  todo: Array<Todo>;
+  loadingStatus: string;
+};
+
+class TodoApp extends Component<
+  TodoAppProps,
+  TodoAppState
+> {
+  // ...
 }
 ```
 
@@ -31,12 +44,12 @@ The constructor will also receive the component's props as an argument
 
 ## Initializing the state
 
-```js
-constructor(props) {
+```ts
+constructor(props: TodoAppProps) {
   super(props);
   this.state = {
-    loggedIn: true,
-    todos: ['laundry', 'groceries', 'taxes'],
+    todos: [],
+    loadingStatus: "idle",
   }
 }
 ```
@@ -45,10 +58,10 @@ JavaScript requires calling the constructor of the parent class (`Component`) vi
 
 ## Modifying this.state
 
-only via `setState()`:
+via `setState()`:
 
 ```js
-this.setState({ loggedIn: false });
+this.setState({ loadingStatus: 'loading' });
 ```
 
 `setState` will change all specified entries and leave the rest unchanged

@@ -9,30 +9,30 @@ In Objektmethoden bezieht sich `this` üblicherweise auf das aktuelle Objekt
 - jeder Funktionsaufruf setzt _this_ neu (nicht nur Methodenaufrufe)
 - _this_ wird nur richtig gesetzt, wenn die Methode mit der Syntax `object.method()` aufgerufen wird
 
-## Problem: _this_ in anonymen Funktionen
+## Problem: "this" in anonymen Funktionen
 
 ```js
-class myComponent {
+class Foo {
   constructor() {
-    // this ist hier richtig gesetzt
+    // this ist set correctly here
     this.foo = true;
     setTimeout(function () {
-      //this wird hier überschrieben (auf window)
+      // this will be overwritten here (to 'window')
       console.log(this.foo);
     }, 1000);
   }
 }
 ```
 
-## Lösung: _Pfeilfunktionen_
+## Lösung: Pfeilfunktionen
 
 ```js
-class myComponent {
+class Foo {
   constructor() {
-    // this ist hier richtig gesetzt
+    // this ist set correctly here
     this.foo = true;
     setTimeout(() => {
-      // this wird hier *nicht* überschrieben
+      // this will *not* be overwritten here
       console.log(this.foo);
     }, 1000);
   }

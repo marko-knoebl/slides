@@ -70,13 +70,17 @@ Bundlers like webpack can deviate from standard JavaScript import behavior:
 
 ## Arrow functions
 
-short notation for anonymous functions
+notation for anonymous functions:
 
 ```js
 const multiply = (a, b) => {
   return a * b;
 };
+```
 
+short notation if the function only returns a single expression:
+
+```js
 const multiply = (a, b) => a * b;
 ```
 

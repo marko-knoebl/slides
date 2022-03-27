@@ -2,11 +2,15 @@
 
 ## Hooks
 
-Hooks = extension of function components
+Building blocks in React:
 
-A _basic_ function component can render contents based on props and it can trigger events.
+- _components_: handle the _view_
+- _hooks_: handle the _model_ / _logic_ behind the view
 
-Hooks allow for advanced functionality, e.g. having internal component state or listening for lifecycle events.
+purposes:
+
+- structuring code
+- code re-use
 
 ## Hooks
 
@@ -17,13 +21,19 @@ Examples:
 - `useState(...)`
 - `useEffect(...)`
 - `useContext(...)`
-- `useReducer(...)`
 
-## Hooks
+## External Hooks
 
-> "In the longer term, we expect Hooks to be the primary way people write React components."
+Many additional hooks are provided by the React community
 
-\- [React FAQ](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both)
+example use cases:
+
+- querying APIs
+- using global state
+- using _localStorage_ for persistent state
+- media queries
+- querying the scroll position
+- ... (see [awesome-react-hooks](https://github.com/rehooks/awesome-react-hooks))
 
 ## Rules of Hooks
 

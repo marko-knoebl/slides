@@ -36,7 +36,10 @@ Wir sollten immer versuchen, den _minimalen_ State zu verwenden (also keine redu
 
 Weitere Daten können in der Komponentenfunktion aus dem State abgeleitet werden
 
-Beispiel: Für die Slideshow ist es genug, die Bild-ID zu speichern - wir müssen nicht die ganze Bild-URL speichern
+Beispiele:
+
+- für die Slideshow speichern wir die Bild-ID - die Bild-URL kann daraus abgeleitet werden
+- für ein Textfeld speichern wir den Textinhalt - der Gültigkeitsstatus kann daraus abgeleitet werden
 
 ## Wann werden State-Änderungen angewendet?
 
@@ -48,11 +51,8 @@ State-Änderungen werden angewendet, _nachdem_ die Event-Handler-Funktion fertig
     console.log(count); // 0
     setCount(count + 1);
     console.log(count); // still 0
-    setTitle('Demo');
   }
 ```
-
-Wenn mehrere State-Änderungen durch das gleiche Event ausgelöst werden, werden sie zugleich angewendet - die Komponente wird nur einmal neu gerendert
 
 ## Übung: Slideshow
 
@@ -61,9 +61,9 @@ Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den 
 - zeige Bilder wie z.B. `https://picsum.photos/300/200?image=0`
 - Buttons für _vorwärts_ und _zurück_
 - Button für _zurück zum Start_
+- verhindere, dass ins negative gezählt wird
 
 Zusatz:
 
-- verhindere, dass ins negative gezählt wird
 - Button für zufälliges Bild
-- Buttons zum Wechseln zwischen verschiedenen Auflösungen
+- Buttons, die es ermöglichen, die Breite des Bildes zu erhöhen / verringern

@@ -9,10 +9,10 @@ in object methods, `this` usually refers to the current object
 - each function call sets `this` (not just method calls)
 - `this` will only be set correctly if the method is called via the syntax `object.method()`
 
-## Problem: _this_ in anonymous functions
+## Problem: "this" in anonymous functions
 
 ```js
-class myComponent {
+class Foo {
   constructor() {
     // this ist set correctly here
     this.foo = true;
@@ -24,10 +24,10 @@ class myComponent {
 }
 ```
 
-## Solution: _arrow functions_
+## Solution: arrow functions
 
 ```js
-class myComponent {
+class Foo {
   constructor() {
     // this ist set correctly here
     this.foo = true;

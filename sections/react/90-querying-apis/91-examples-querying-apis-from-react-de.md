@@ -24,12 +24,13 @@ Code für das Hinzufügen eines Ladeindikators:
 
 ```js
 const [todos, setTodos] = useState([]);
-const [isLoading, setIsLoading] = useState(false);
-async function loadTodosAsync() {
-  setIsLoading(true);
+const [loadingStatus, setLoadingStatus] = useState('idle');
+
+async function loadTodos() {
+  setLoadingStatus('loading');
   const todos = await fetchTodos();
   setTodos(todos);
-  setIsLoading(false);
+  setLoadingStatus('success');
 }
 ```
 
