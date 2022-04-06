@@ -8,6 +8,8 @@ example _slideshow_ component that demonstrates:
 - component state (image id)
 - JSX template language: mix of JavaScript and XML
 
+online version on Codesandbox: https://codesandbox.io/s/slideshow-cn6m5
+
 ## Basic example: slideshow
 
 in _App.js_ / _App.tsx_:
@@ -48,8 +50,6 @@ function Slideshow() {
 }
 export default Slideshow;
 ```
-
-can be tried on <https://codesandbox.io>
 
 ## Basic example: slideshow
 

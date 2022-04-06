@@ -1,8 +1,10 @@
 # React overview
 
-## What is React?
+## React
 
-one of the 3 big JavaScript UI libraries / frameworks (besides Angular, Vue.js)
+React is a JavaScript library for creating interacive user interfaces in the browser
+
+alternatives: Angular, Vue.js
 
 ## Basics of modern JavaScript UI libraries
 
@@ -33,8 +35,3 @@ one of the 3 big JavaScript UI libraries / frameworks (besides Angular, Vue.js)
 - JavaScript-based template syntax: JSX
 - explicit state changes via setters
 - immutable (unchangeable) state objects
-
-## History of React
-
-- open-sourced by Facebook in 2013
-- February 2019: React 16.8: introduction of _hooks_

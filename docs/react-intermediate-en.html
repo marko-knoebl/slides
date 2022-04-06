@@ -2183,27 +2183,14 @@ ReactDOM.render(
 <p>Context is a means to provide values from a component to all components that are contained within it - without explicitly passing it through all intermediate levels.</p>
 <p>The interface of context can pass both data and event handlers</p>
 </section><section class="slide"><h2>Context</h2>
-<p>possible component structure:</p>
+<p>an application can have many different context types, e.g.:</p>
 <ul>
-<li>LanguageProvider (manages / provides language state)
-<ul>
-<li>ThemeProvider (manages / provides theme state)
-<ul>
-<li>TodosProvider
-<ul>
-<li>App
-<ul>
-<li>TodoList</li>
+<li><code>ThemeContext</code></li>
+<li><code>LanguageContext</code></li>
+<li><code>UserContext</code></li>
+<li><code>TodosContext</code></li>
+<li>...</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>(other approaches are possible)</p>
 </section><section class="slide"><h2>Context</h2>
 <p>steps to provide context:</p>
 <ul>
@@ -2214,24 +2201,126 @@ ReactDOM.render(
 <p>steps to query context:</p>
 <ul>
 <li>call <code>useContext</code> in a component</li>
-<li>optionally: use a custom hook for querying</li>
 </ul>
-</section><section class="slide"><h2>Context - example</h2>
-<p>defining the context:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// ThemeContext.tsx</span>
+</section><section class="slide"><h2>Context definition</h2>
+<p>defining a context in JavaScript:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// ThemeContext.js</span>
+
 <span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-keyword">type</span> ThemeContextType = {
+<span class="hljs-comment">// default value: null</span>
+<span class="hljs-keyword">const</span> ThemeContext = createContext(<span class="hljs-literal">null</span>);
+
+<span class="hljs-keyword">export</span> { ThemeContext };
+</code></pre>
+</section><section class="slide"><h2>Default value</h2>
+<p>A context always has a default / fallback value which will be used when no matching context provider is found</p>
+<p>In TypeScript it can be cumbersome to define a default value to satisfy the type checker</p>
+</section><section class="slide"><h2>Default value</h2>
+<p>defining a context type in TypeScript:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> ThemeContextType = {
   <span class="hljs-attr">theme</span>: <span class="hljs-built_in">string</span>;
   changeTheme: <span class="hljs-function">(<span class="hljs-params">theme: <span class="hljs-built_in">string</span></span>) =></span> <span class="hljs-built_in">void</span>;
 };
-
-<span class="hljs-keyword">const</span> ThemeContext = createContext&#x3C;
-  ThemeContextType | <span class="hljs-literal">undefined</span>
->(<span class="hljs-literal">undefined</span>);
+</code></pre>
+</section><section class="slide"><h2>Default value</h2>
+<p>to satisfy the type checker when creating the context:</p>
+<p>actually provide fallback values:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> ThemeContext = createContext&#x3C;ThemeContextType>({
+  <span class="hljs-attr">theme</span>: <span class="hljs-string">'light'</span>,
+  <span class="hljs-attr">changeTheme</span>: <span class="hljs-function">() =></span> {},
+});
+</code></pre>
+<p>use <code>null</code> and cast to any:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> ThemeContext = createContext&#x3C;ThemeContextType>(
+  <span class="hljs-literal">null</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>
+);
+</code></pre>
+<p>more information / solutions: <a href="https://github.com/typescript-cheatsheets/react/blob/main/README.md#context" target="_blank">React TypeScript cheatsheets</a></p>
+</section><section class="slide"><h2>Context</h2>
+<p>distincition of context providers:</p>
+<ul>
+<li>"pure provider" - receives data via props, does not have internal state</li>
+<li>"stateful provider" - has internal state, uses a "pure provider" make its state available</li>
+</ul>
+<p>mostly, we will use "stateful providers"</p>
+</section><section class="slide"><h2>Context</h2>
+<p>architecture with a "pure provider":</p>
+<ul>
+<li><code>App</code> (manages theme)
+<ul>
+<li><code>ThemeContext.Provider</code> (provides theme)
+<ul>
+<li>...
+<ul>
+<li>consumer (consumes theme)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>architecture with a "stateful provider":</p>
+<ul>
+<li><code>ThemeProvider</code> (manages theme)
+<ul>
+<li><code>ThemeContext.Provider</code> (provides theme)
+<ul>
+<li><code>App</code> (consumes theme)
+<ul>
+<li>...
+<ul>
+<li>consumer (consumes theme)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Context</h2>
+<p>possible structure with "stateful providers":</p>
+<ul>
+<li>LanguageProvider (manages / provides language state)
+<ul>
+<li>ThemeProvider (manages / provides theme state)
+<ul>
+<li>TodosProvider
+<ul>
+<li>App
+<ul>
+<li>TodoList
+<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Context</h2>
+<p>Example: using a "pure provider" (the state is in the App component)</p>
+<pre><code class="hljs language-tsx">function App() {
+  const [theme, setTheme] = useState('light');
+  return (
+    &#x3C;ThemeContext.Provider
+      value={{ theme: theme, changeTheme: setTheme }}
+    >
+      ... sub-components ...
+    &#x3C;/ThemeContext.Provider>
+  );
+}
 </code></pre>
 </section><section class="slide"><h2>Context - example</h2>
-<p>writing a provider that manages and provides state:</p>
+<p>Example: creating a stateful provider that manages and provides state:</p>
 <pre><code class="hljs language-tsx">// ThemeContext.tsx
 function ThemeProvider(props: { children: ReactNode }) {
   const [theme, setTheme] = useState('light');
@@ -2245,7 +2334,7 @@ function ThemeProvider(props: { children: ReactNode }) {
 }
 </code></pre>
 </section><section class="slide"><h2>Context - example</h2>
-<p>including the provider:</p>
+<p>including the stateful provider:</p>
 <pre><code class="hljs language-tsx">// index.tsx
 ...
   &#x3C;ThemeProvider>
@@ -2261,7 +2350,7 @@ function ThemeProvider(props: { children: ReactNode }) {
 <p>optionally: wrap in a custom hook:</p>
 <pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTheme</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> themeContext = useContext(ThemeContext);
-  <span class="hljs-keyword">if</span> (themeContext === <span class="hljs-literal">undefined</span>) {
+  <span class="hljs-keyword">if</span> (themeContext === <span class="hljs-literal">null</span>) {
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'No matching provider found'</span>);
   }
   <span class="hljs-keyword">return</span> themeContext;

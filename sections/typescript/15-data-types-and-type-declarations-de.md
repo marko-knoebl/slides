@@ -7,7 +7,6 @@
 - string
 - array
 - object
-- tuple
 - any
 
 ## Variablentypen
@@ -56,34 +55,33 @@ names.push('Alice');
 
 ## Objekttypen
 
-```ts
-let viewportSize: { width: number; height: number };
+Typendeklaration:
 
-viewportSize = {
-  width: window.innerWidth,
-  height: window.innerHeight,
+```ts
+let todo: {
+  id: number;
+  title: string;
+  completed: boolean;
 };
 ```
 
+Zuweisung:
+
 ```ts
-const todo: {
+todo = { id: 1, title: 'foo', completed: false };
+```
+
+## Objekttypen
+
+optionale Einträge werden mit `?` gekennzeichnet
+
+```ts
+let todo: {
+  id: number;
   title: string;
   completed: boolean;
-  // optional
-  description?: string;
-} = getTodo();
-```
-
-## Tupel-Typen
-
-```ts
-let time: [number, number, number];
-time = [10, 45, 0];
-```
-
-```ts
-let paperFormat: [string, number];
-paperFormat = ['A', 4];
+  date?: string;
+};
 ```
 
 ## Any

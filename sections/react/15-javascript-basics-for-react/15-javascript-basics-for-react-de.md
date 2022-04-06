@@ -84,18 +84,6 @@ Kurzschreibweise, wenn die Funktion nur einen einzelnen Ausdruck zurückgibt:
 const multiply = (a, b) => a * b;
 ```
 
-## Template Literals
-
-- Syntax zum _Erstellen_ von Strings
-- Werden mit Backticks begrenzt
-- Erlauben mehrzeilige Strings und Interpolation:
-
-```js
-const name = 'Mike';
-const greeting = `Hello, ${name}!
-                  This is ES2015!`;
-```
-
 ## Das Semikolon in JavaScript
 
 Das Semikolon zum Abschluss von Statements ist größtenteils in JavaScript optional (_automatic semicolon insertion_)

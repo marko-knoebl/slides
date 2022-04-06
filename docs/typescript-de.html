@@ -2089,7 +2089,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>string</li>
 <li>array</li>
 <li>object</li>
-<li>tuple</li>
 <li>any</li>
 </ul>
 </section><section class="slide"><h2>Variablentypen</h2>
@@ -2118,26 +2117,24 @@ names.push(<span class="hljs-string">'Alice'</span>);
 names.push(<span class="hljs-string">'Alice'</span>);
 </code></pre>
 </section><section class="slide"><h2>Objekttypen</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> viewportSize: { <span class="hljs-attr">width</span>: <span class="hljs-built_in">number</span>; height: <span class="hljs-built_in">number</span> };
-
-viewportSize = {
-  <span class="hljs-attr">width</span>: <span class="hljs-built_in">window</span>.innerWidth,
-  <span class="hljs-attr">height</span>: <span class="hljs-built_in">window</span>.innerHeight,
+<p>Typendeklaration:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> todo: {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
 };
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> todo: {
-  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
+<p>Zuweisung:</p>
+<pre><code class="hljs language-ts">todo = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
+</code></pre>
+</section><section class="slide"><h2>Objekttypen</h2>
+<p>optionale Einträge werden mit <code>?</code> gekennzeichnet</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> todo: {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
   completed: <span class="hljs-built_in">boolean</span>;
-  <span class="hljs-comment">// optional</span>
-  description?: <span class="hljs-built_in">string</span>;
-} = getTodo();
-</code></pre>
-</section><section class="slide"><h2>Tupel-Typen</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> time: [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>];
-time = [<span class="hljs-number">10</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>];
-</code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> paperFormat: [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>];
-paperFormat = [<span class="hljs-string">'A'</span>, <span class="hljs-number">4</span>];
+  date?: <span class="hljs-built_in">string</span>;
+};
 </code></pre>
 </section><section class="slide"><h2>Any</h2>
 <p>Manchmals möchten wir die Typenüberprüfung aufheben:</p>
@@ -2147,54 +2144,44 @@ paperFormat = [<span class="hljs-string">'A'</span>, <span class="hljs-number">4
 <span class="hljs-built_in">console</span>.log(nameInput.value);
 </code></pre>
 <p>Deklarieren wir eine Variable asl <code>any</code>, können wir auf beliebige Properties zugreifen</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Type Aliases</h1>
-</section><section class="slide"><h2>Type Aliases</h2>
-<p>Mit <em>Type Aliases</em> können wir eine Typendeklaration unter einem Namen speichern</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Type Aliases und Interfaces</h1>
+</section><section class="slide"><h2>Type Aliases und Interfaces</h2>
+<p>Mit <em>Type Aliases</em> oder <em>Interfaces</em> können wir eine Typendeklaration unter einem Namen speichern</p>
+<p>Type Aliases können etwas einfacher und flexibler sein als Interfaces</p>
+</section><section class="slide"><h2>Type Aliases und Interfaces</h2>
+<p>Type Alias:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
-  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
   completed: <span class="hljs-built_in">boolean</span>;
-  description?: <span class="hljs-built_in">string</span>;
 };
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&#x3C;Todo>;
+<p>Interface:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> Todo {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+}
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Time = [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>];
-</code></pre>
-</section><section class="slide"><h2>Type Aliases</h2>
+</section><section class="slide"><h2>Verwendung von Type Aliases / Interfaces</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> todo: Todo = {
+  <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">title</span>: <span class="hljs-string">'learn TypeScript'</span>,
   <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>,
 };
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> now: Time = [<span class="hljs-number">10</span>, <span class="hljs-number">45</span>, <span class="hljs-number">0</span>];
-</code></pre>
-</section><section class="slide"><h2>Type Aliases und Interfaces</h2>
-<p><em>Interfaces</em> könnten eine Alternative für Type Aliases darstellen - Sie können in ähnlichen Szenarien angewendet werden, haben aber eine andere Syntax</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
-  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-  description?: <span class="hljs-built_in">string</span>;
+</section><section class="slide"><h2>Exportieren</h2>
+<p>direkte Exports:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Foo = {
+  <span class="hljs-comment">// ...</span>
 };
-</code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> Todo {
-  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-  description?: <span class="hljs-built_in">string</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Bar {
+  <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Type Aliases exportieren</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Todo = {
-  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-};
-</code></pre>
-<p>oder</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
-  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-};
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> { Todo };
+<p>separate Exports:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> { Foo, Bar };
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Funktionssignaturen und Funktionstypen</h1>
 </section><section class="slide"><h2>Funktionssignaturen</h2>
@@ -2259,32 +2246,11 @@ paperFormat = [<span class="hljs-string">'A'</span>, <span class="hljs-number">4
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Union Types</h1>
 </section><section class="slide"><h2>Union Types</h2>
-<p>für eine Variable, die mehrere Typen annehmen kann:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> rgbColor: <span class="hljs-built_in">string</span> | [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>] | <span class="hljs-literal">null</span>;
+<p>Variablen, die mehrere Typen annehmen können:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> width: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span> | <span class="hljs-literal">undefined</span>;
 
-rgbColor = <span class="hljs-string">'#ff0000'</span>;
-rgbColor = [<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>];
-</code></pre>
-</section><section class="slide"><h2>Union Types und Type Aliases</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> RgbColor = <span class="hljs-built_in">string</span> | [<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>];
-</code></pre>
-<p>Alternative Schreibweise über mehrere Zeilen:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoAction =
-  | AddTodoAction
-  | DeleteTodoAction
-  | ToggleTodoAction;
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Type-Aliases und Interfaces</h1>
-</section><section class="slide"><h2>Type-Aliases und Interfaces</h2>
-<p><em>Type-Aliases</em>: ermöglichen das speichern einer Typendeklaration unter einem Namen</p>
-<p><em>Interfaces</em>: ähnliche Funktionalität, andere Syntax, etwas eingeschränktere Funktionalität</p>
-</section><section class="slide"><h2>Type-Aliases und Interfaces</h2>
-<p>detaillierter Vergleich zwischen Type Aliases und Interfaces:</p>
-<p><a href="https://stackoverflow.com/a/52682220/" target="_blank">https://stackoverflow.com/a/52682220/</a></p>
-</section><section class="slide"><h2>Type-Aliases / Interfaces und Klassen</h2>
-<pre><code class="hljs language-ts"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShoppingListItem</span> <span class="hljs-title">implements</span> <span class="hljs-title">Todo</span> </span>{
-  <span class="hljs-comment">// ...</span>
-}
+width = <span class="hljs-string">'16px'</span>;
+width = <span class="hljs-number">16</span>;
 </code></pre></section></section></div>
     </div>
     <script>/*!

@@ -2,7 +2,7 @@
 
 ## Assertions
 
-Assertions can be written in two main styles:
+Assertions can be written in different styles:
 
 **assert**:
 
@@ -10,10 +10,16 @@ Assertions can be written in two main styles:
 assert.equal(a, b);
 ```
 
-**expect** (sometimes called _behavior-driven_):
+**expect** (example from _jest_):
 
 ```js
 expect(a).toEqual(b);
+```
+
+**should** (example from _cypress_):
+
+```js
+inputField.should('have.value', '');
 ```
 
 ## Assertions in node.js

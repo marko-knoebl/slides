@@ -22,7 +22,7 @@ import { useState } from 'react';
 - `useState` gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
 
 ```js
-const App = () => {
+function App() {
   const [count, setCount] = useState(0);
   const [title, setTitle] = useState('React app');
 
@@ -40,19 +40,6 @@ Beispiele:
 
 - für die Slideshow speichern wir die Bild-ID - die Bild-URL kann daraus abgeleitet werden
 - für ein Textfeld speichern wir den Textinhalt - der Gültigkeitsstatus kann daraus abgeleitet werden
-
-## Wann werden State-Änderungen angewendet?
-
-State-Änderungen werden angewendet, _nachdem_ die Event-Handler-Funktion fertig ausgeführt wurde
-
-<!-- prettier-ignore -->
-```js
-  function changeSomeStateEntries() {
-    console.log(count); // 0
-    setCount(count + 1);
-    console.log(count); // still 0
-  }
-```
 
 ## Übung: Slideshow
 

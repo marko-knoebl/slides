@@ -2,26 +2,11 @@
 
 ## Union Types
 
-für eine Variable, die mehrere Typen annehmen kann:
+Variablen, die mehrere Typen annehmen können:
 
 ```ts
-let rgbColor: string | [number, number, number] | null;
+let width: string | number | undefined;
 
-rgbColor = '#ff0000';
-rgbColor = [255, 0, 0];
-```
-
-## Union Types und Type Aliases
-
-```ts
-type RgbColor = string | [number, number, number];
-```
-
-Alternative Schreibweise über mehrere Zeilen:
-
-```ts
-type TodoAction =
-  | AddTodoAction
-  | DeleteTodoAction
-  | ToggleTodoAction;
+width = '16px';
+width = 16;
 ```
