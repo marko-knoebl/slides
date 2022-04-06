@@ -56,9 +56,7 @@ constructor(props: TodoAppProps) {
 
 In JavaScript _muss_ der Konstruktor der Elternklasse (`Component`) im Konstruktor aufgerufen werden (geschieht via `super()`)
 
-## Änderung von this.state
-
-via `this.setState()`
+## Änderung von State
 
 ```js
 this.setState({ loadingStatus: 'loading' });

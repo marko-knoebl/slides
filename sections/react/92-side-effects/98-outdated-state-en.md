@@ -141,32 +141,3 @@ function Counter() {
   // ...
 }
 ```
-
-## Example: TransitioningImage
-
-Example: Slideshow with transitioning image (with timeout)
-
-<https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3>
-
-Try and see what happens if you don't use a state update function in the timeout
-
-## Example: Exchange Rates
-
-Example: State containing multiple USD exchange rates
-
-```js
-const [usdRates, setUsdRates] = useState({});
-```
-
-```js
-setUsdRates({ ...usdRates, [currency]: rate });
-```
-
-This will have bugs if multiple rates are requested from an API in parallel
-
-## Outdated state and setInterval
-
-see:
-
-- [Dan Abramov: Making setInterval Declarative with React Hooks](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
-- [use-interval on GitHub](https://github.com/donavon/use-interval)

@@ -23,9 +23,8 @@ possibilities:
 possible commands for initializing a project named "todolist":
 
 ```bash
-npx create-react-app todolist
-npx create-react-app todolist --template typescript
-npx create-react-app todolist --template cra-template-pwa-typescript
+npx create-react-app@latest todolist
+npx create-react-app@latest todolist --template typescript
 ```
 
 ```bash
@@ -33,14 +32,9 @@ npm create vite@latest
 ```
 
 ```bash
-npx create-next-app
-npx create-next-app --ts
+npx create-next-app@latest
+npx create-next-app@latest --ts
 ```
-
-<!--
-vite and creact-next-app will ask for more config
-during creation
--->
 
 see also: https://reactjs.org/docs/create-a-new-react-app.html
 

@@ -2,15 +2,11 @@
 
 ## Side Effects
 
-Wenn sich Komponenten-Props bzw State ändern:
+Wenn sich Komponenten-Props bzw State ändern oder die Komponente zum ersten Mal eingebunden wird:
 
 "Main Effect": Komponente wir mit aktuellen Daten (neu) gerendert
 
-mögliche "Side Effects": Auslösen von API-Abfragen, Speichern von Daten, Explizite Änderungen am DOM, ...
-
-## Side Effects
-
-Typischerweise möchten wir Side Effects auslösen, wenn _sich bestimmte Props oder State geändert haben_ oder wenn _die Komponente zum ersten Mal eingebunden wurde_
+mögliche "Side Effects": Auslösen von API-Abfragen, Speichern von Daten, Explizite Änderungen am Dokument, Starten von Timern, ...
 
 ## Side Effects
 
@@ -20,8 +16,16 @@ typische Fälle von Side Effects:
   - wenn eine Komponente zum ersten Mal eingebunden wird
   - wenn sich bestimmte Daten (State / Props) geändert haben (z.B. wenn der Benutzer ein bestimmtes Element auswählt, um dessen Details zu sehen)
 - Speichern von Daten in _localStorage_, wenn sie sich geändert haben
+- Explizite Änderungen am Dokument (DOM)
 - Starten von Timern
 - ...
+
+## Side Effects
+
+manche Side Effects müssen später "aufgeräumt" werden:
+
+- Abbrechen von API-Anfragen, wenn sie nicht mehr benötigt werden (z.B. wenn sich ein Suchbegriff erneut geändert hat)
+- Stoppen von Timern
 
 ## Side Effects
 

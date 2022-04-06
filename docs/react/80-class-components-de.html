@@ -2086,79 +2086,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   }
 
   <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, {this.name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Hello, {this.state.name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
   }
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>"this" und seine Quirks in JavaScript</h1>
-</section><section class="slide"><h2>"this" und seine Quirks</h2>
-<p>In Objektmethoden bezieht sich <code>this</code> üblicherweise auf das aktuelle Objekt</p>
-<p><strong>allerdings</strong>:</p>
-<ul>
-<li>jeder Funktionsaufruf setzt <em>this</em> neu (nicht nur Methodenaufrufe)</li>
-<li><em>this</em> wird nur richtig gesetzt, wenn die Methode mit der Syntax <code>object.method()</code> aufgerufen wird</li>
-</ul>
-</section><section class="slide"><h2>Problem: "this" in anonymen Funktionen</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-comment">// this ist set correctly here</span>
-    <span class="hljs-built_in">this</span>.foo = <span class="hljs-literal">true</span>;
-    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-      <span class="hljs-comment">// this will be overwritten here (to 'window')</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.foo);
-    }, <span class="hljs-number">1000</span>);
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Lösung: Pfeilfunktionen</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-comment">// this ist set correctly here</span>
-    <span class="hljs-built_in">this</span>.foo = <span class="hljs-literal">true</span>;
-    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =></span> {
-      <span class="hljs-comment">// this will *not* be overwritten here</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.foo);
-    }, <span class="hljs-number">1000</span>);
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Problem: Methodenaufrufe ohne Methodensyntax</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.message = <span class="hljs-string">'hello'</span>;
-  }
-  <span class="hljs-function"><span class="hljs-title">greet</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.message);
-  }
-}
-<span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
-foo.greet(); <span class="hljs-comment">// ok</span>
-<span class="hljs-keyword">const</span> greet = foo.greet;
-greet(); <span class="hljs-comment">// not ok ("this" is undefined)</span>
-</code></pre>
-</section><section class="slide"><h2>Lösung: Pfeil-Methoden</h2>
-<p>Seit ES2018 einsetzbar:</p>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.message = <span class="hljs-string">'hello'</span>;
-  }
-  greet = <span class="hljs-function">() =></span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.message);
-  };
-}
-</code></pre>
-</section><section class="slide"><h2>Lösung: Binden von Methoden</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
-foo.greet(); <span class="hljs-comment">// ok</span>
-<span class="hljs-keyword">const</span> greet = foo.greet.bind(foo);
-greet(); <span class="hljs-comment">// ok</span>
-</code></pre>
-<p>Üblicherweise Zuweisung im Konstruktor:</p>
-<pre><code class="hljs language-js">  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-    <span class="hljs-built_in">this</span>.greet = <span class="hljs-built_in">this</span>.greet.bind(<span class="hljs-built_in">this</span>);
-  }
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Props</h1>
 </section><section class="slide"><h2>Props</h2>
@@ -2218,11 +2150,57 @@ class TodoItem extends Component&#x3C;TodoItemProps> {
 }
 </code></pre>
 <p>In JavaScript <em>muss</em> der Konstruktor der Elternklasse (<code>Component</code>) im Konstruktor aufgerufen werden (geschieht via <code>super()</code>)</p>
-</section><section class="slide"><h2>Änderung von this.state</h2>
-<p>via <code>this.setState()</code></p>
+</section><section class="slide"><h2>Änderung von State</h2>
 <pre><code class="hljs language-js"><span class="hljs-built_in">this</span>.setState({ <span class="hljs-attr">loadingStatus</span>: <span class="hljs-string">'loading'</span> });
 </code></pre>
 <p>setState überschreibt alle angegebenen Einträge im state-Objekt und lässt den Rest unverändert</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Probleme mit "this"</h1>
+</section><section class="slide"><h2>Probleme mit "this"</h2>
+<p>in Klassenkomponenten - insbesondere in Eventhandlern - kann <code>this</code> manchmals falsch gesetzt sein</p>
+</section><section class="slide"><h2>Probleme mit "this"</h2>
+<p>allgemeines Problem: Methodenaufrufe ohne Methodensyntax:</p>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.message = <span class="hljs-string">'hello'</span>;
+  }
+  <span class="hljs-function"><span class="hljs-title">greet</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.message);
+  }
+}
+<span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
+foo.greet(); <span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> greet = foo.greet;
+greet(); <span class="hljs-comment">// not ok ("this" is undefined)</span>
+</code></pre>
+</section><section class="slide"><h2>Probleme mit "this"</h2>
+<p>Problem in einem React-Rendering:</p>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  <span class="hljs-comment">// ...</span>
+
+  <span class="hljs-function"><span class="hljs-title">greet</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.message);
+  }
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.greet}</span>></span>hello<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>;
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Probleme mit "this"</h2>
+<p>Lösung A: Pfeil-Methoden:</p>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  <span class="hljs-comment">// ...</span>
+  greet = <span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.message);
+  };
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p>Lösung B: binden der Methode im Constructor:</p>
+<pre><code class="hljs language-js">  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-built_in">this</span>.greet = <span class="hljs-built_in">this</span>.greet.bind(<span class="hljs-built_in">this</span>);
+  }
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Konvertiere bestehende Komponenten (z.B. <code>AddTodo</code>) von Funktionskomponenten zu Klassenkomponenten</p></section></section></div>

@@ -2062,11 +2062,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Side Effects</h1>
 </section><section class="slide"><h2>Side Effects</h2>
-<p>Wenn sich Komponenten-Props bzw State ändern:</p>
+<p>Wenn sich Komponenten-Props bzw State ändern oder die Komponente zum ersten Mal eingebunden wird:</p>
 <p>"Main Effect": Komponente wir mit aktuellen Daten (neu) gerendert</p>
-<p>mögliche "Side Effects": Auslösen von API-Abfragen, Speichern von Daten, Explizite Änderungen am DOM, ...</p>
-</section><section class="slide"><h2>Side Effects</h2>
-<p>Typischerweise möchten wir Side Effects auslösen, wenn <em>sich bestimmte Props oder State geändert haben</em> oder wenn <em>die Komponente zum ersten Mal eingebunden wurde</em></p>
+<p>mögliche "Side Effects": Auslösen von API-Abfragen, Speichern von Daten, Explizite Änderungen am Dokument, Starten von Timern, ...</p>
 </section><section class="slide"><h2>Side Effects</h2>
 <p>typische Fälle von Side Effects:</p>
 <ul>
@@ -2077,8 +2075,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </li>
 <li>Speichern von Daten in <em>localStorage</em>, wenn sie sich geändert haben</li>
+<li>Explizite Änderungen am Dokument (DOM)</li>
 <li>Starten von Timern</li>
 <li>...</li>
+</ul>
+</section><section class="slide"><h2>Side Effects</h2>
+<p>manche Side Effects müssen später "aufgeräumt" werden:</p>
+<ul>
+<li>Abbrechen von API-Anfragen, wenn sie nicht mehr benötigt werden (z.B. wenn sich ein Suchbegriff erneut geändert hat)</li>
+<li>Stoppen von Timern</li>
 </ul>
 </section><section class="slide"><h2>Side Effects</h2>
 <p>Implementierung:</p>
@@ -2179,32 +2184,23 @@ useEffect(<span class="hljs-function">() =></span> {
 });
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Effect Hook: Cleanup</h1>
-</section><section class="slide"><h2>Effect Hook: Cleanup</h2>
-<p>manche Side Effects müssen später "aufgeräumt" werden:</p>
-<ul>
-<li>Abbrechen von API-Anfragen, wenn sie nicht mehr benötigt werden (z.B. wenn sich ein Suchbegriff geändert hat)</li>
-<li>Stoppen von Timern</li>
-</ul>
 </section><section class="slide"><h2>Cleanup-Funktionen</h2>
 <p>Eine Effect-Funktion kann eine "Cleanup-Funktion" zurückgeben</p>
 <p>Diese Funktion wird ausgeführt, bevor der Effect zum nächsten Mal läuft oder bevor die Komponente entfernt wird</p>
 </section><section class="slide"><h2>Cleanup-Funktionen</h2>
-<p>Beispiel: Struktur für eine Suchanfrage mit unmittelbarem Feedback / Laden, wenn der Benutzer tippt:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [query, setQuery] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> [results, setResults] = useState([]);
-
+<p>Beispiel: Komponente, die veraltete Queries abbricht:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
   useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">const</span> initiateQuery = <span class="hljs-keyword">async</span> () => {
-      <span class="hljs-comment">// ...</span>
-    };
-    <span class="hljs-keyword">const</span> cancelThisQuery = <span class="hljs-function">() =></span> {
-      <span class="hljs-comment">// ...</span>
-    };
-    initiateQuery();
-    <span class="hljs-keyword">return</span> cancelThisQuery;
-  }, [query]);
-
+    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">// ... (initiate a new query)</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cancel</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">// ... (cancel this query)</span>
+    }
+    loadExchangeRate();
+    <span class="hljs-keyword">return</span> cancel;
+  }, [<span class="hljs-keyword">from</span>, to]);
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
@@ -2459,24 +2455,7 @@ useEffect(<span class="hljs-function">() =></span> {
   }
   <span class="hljs-comment">// ...</span>
 }
-</code></pre>
-</section><section class="slide"><h2>Beispiel: TransitioningImage</h2>
-<p>Beispiel: Slideshow mit Übergang bei Bild (mit Timeout)</p>
-<p><a href="https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3" target="_blank">https://codesandbox.io/s/side-effects-slideshow-transition-0c9f3</a></p>
-<p>Teste, was geschieht, wenn im Timeout keine State-Update-Funktion verwendet wird</p>
-</section><section class="slide"><h2>Beispiel: Wechselkurse</h2>
-<p>Beispiel: State, der mehrere USD-Wechselkurse enthalten kann</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [usdRates, setUsdRates] = useState({});
-</code></pre>
-<pre><code class="hljs language-js">setUsdRates({ ...usdRates, [currency]: rate });
-</code></pre>
-<p>Dies wird zu Fehlern führen, wenn mehrere Wechselkurse gleichzeitig vom API geladen werden</p>
-</section><section class="slide"><h2>Veralteter State und setInterval</h2>
-<p>siehe:</p>
-<ul>
-<li><a href="https://overreacted.io/making-setinterval-declarative-with-react-hooks/" target="_blank">Dan Abramov: Making setInterval Declarative with React Hooks</a></li>
-<li><a href="https://github.com/donavon/use-interval" target="_blank">use-interval on GitHub</a></li>
-</ul></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

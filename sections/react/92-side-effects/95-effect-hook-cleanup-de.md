@@ -1,12 +1,5 @@
 # Effect Hook: Cleanup
 
-## Effect Hook: Cleanup
-
-manche Side Effects müssen später "aufgeräumt" werden:
-
-- Abbrechen von API-Anfragen, wenn sie nicht mehr benötigt werden (z.B. wenn sich ein Suchbegriff geändert hat)
-- Stoppen von Timern
-
 ## Cleanup-Funktionen
 
 Eine Effect-Funktion kann eine "Cleanup-Funktion" zurückgeben
@@ -15,24 +8,21 @@ Diese Funktion wird ausgeführt, bevor der Effect zum nächsten Mal läuft oder 
 
 ## Cleanup-Funktionen
 
-Beispiel: Struktur für eine Suchanfrage mit unmittelbarem Feedback / Laden, wenn der Benutzer tippt:
+Beispiel: Komponente, die veraltete Queries abbricht:
 
 ```js
-function App() {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-
+function ExchangeRate() {
+  // ...
   useEffect(() => {
-    const initiateQuery = async () => {
-      // ...
-    };
-    const cancelThisQuery = () => {
-      // ...
-    };
-    initiateQuery();
-    return cancelThisQuery;
-  }, [query]);
-
+    async function loadExchangeRate() {
+      // ... (initiate a new query)
+    }
+    function cancel() {
+      // ... (cancel this query)
+    }
+    loadExchangeRate();
+    return cancel;
+  }, [from, to]);
   // ...
 }
 ```

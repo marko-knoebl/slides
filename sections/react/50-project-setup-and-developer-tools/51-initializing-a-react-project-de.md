@@ -23,9 +23,8 @@ Möglichkeiten:
 Mögliche Befehle zum Initialisieren eines Projekts namens "todolist":
 
 ```bash
-npx create-react-app todolist
-npx create-react-app todolist --template typescript
-npx create-react-app todolist --template cra-template-pwa-typescript
+npx create-react-app@latest todolist
+npx create-react-app@latest todolist --template typescript
 ```
 
 ```bash
@@ -33,14 +32,9 @@ npm create vite@latest
 ```
 
 ```bash
-npx create-next-app
-npx create-next-app --ts
+npx create-next-app@latest
+npx create-next-app@latest --ts
 ```
-
-<!--
-vite and creact-next-app will ask for more config
-during creation
--->
 
 siehe auch: https://reactjs.org/docs/create-a-new-react-app.html
 
@@ -50,7 +44,7 @@ Viele Aspekte können vorkonfiguriert sein:
 
 - Webpack und Babel für den Build
 - lokaler Entwicklungsserver
-- Unittest-Framework jest
+- Unittest-Framework
 - SCSS und CSS Module
 - ...
 

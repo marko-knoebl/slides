@@ -1,12 +1,5 @@
 # Effect hook: cleanup
 
-## Effect cleanup
-
-some side effects may need to be "cleaned up":
-
-- aborting API queries if they are not needed anymore (e.g. if a search term has changed)
-- stopping timers
-
 ## Cleanup functions
 
 An effect function may return a "cleanup function"
@@ -15,24 +8,21 @@ This function will be executed before the next run of the effect or before the c
 
 ## Cleanup functions
 
-example: structure for a query with immediate feedback / loading when the user types:
+example: exchange rate component that cancels any outdated queries:
 
 ```js
-function App() {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-
+function ExchangeRate() {
+  // ...
   useEffect(() => {
-    const initiateQuery = async () => {
-      // ...
-    };
-    const cancelThisQuery = () => {
-      // ...
-    };
-    initiateQuery();
-    return cancelThisQuery;
-  }, [query]);
-
+    async function loadExchangeRate() {
+      // ... (initiate a new query)
+    }
+    function cancel() {
+      // ... (cancel this query)
+    }
+    loadExchangeRate();
+    return cancel;
+  }, [from, to]);
   // ...
 }
 ```

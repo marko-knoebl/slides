@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   render() {
-    return <div>Hello, {this.name}!</div>;
+    return <div>Hello, {this.state.name}!</div>;
   }
 }
 
