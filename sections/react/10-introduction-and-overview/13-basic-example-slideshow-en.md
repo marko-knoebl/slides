@@ -54,7 +54,7 @@ export default Slideshow;
 ## Basic example: slideshow
 
 ```jsx
-function SlideshowApp() {
+function Slideshow() {
   // ...
 }
 ```

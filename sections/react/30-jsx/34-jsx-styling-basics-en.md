@@ -30,6 +30,16 @@ there are helper libraries that will generate the _className_ property dynamical
 
 ## JSX and styling basics
 
+CSS-in-JS: styles are defined inside JavaScript
+
+options:
+
+- basic solution: `style`-property (some downsides: no media queries, no autoprefixing, ...)
+- library: _emotion_
+- library: _styled-components_
+
+## JSX and styling basics
+
 In JSX the _style_ property takes an object, e.g.:
 
 ```jsx
@@ -54,6 +64,19 @@ const imageStyle = {
 
 ## JSX and styling basics
 
-note:
+simple example with the _emotion_ library:
 
-Binding to the _style_ property directly has some drawbacks and is usually avoided in practice; instead, libraries like _styled-components_ or _emotion_ are used to write style declarations inside JavaScript
+```js
+import { css } from '@emotion/css';
+```
+
+```js
+<div
+  className={css`
+    display: flex;
+    justify-content: center;
+  `}
+>
+  ...
+</div>
+```

@@ -25,3 +25,7 @@ Erstelle eine Todo-Anwendung mit der folgenden Funktionalität:
 Extras:
 
 - Statistiken zu erledigten / nicht-erledigten Todos
+
+## Übung: Todo-Anwendung
+
+mögliche Lösung: https://codesandbox.io/s/todo-list-state-jsx-xkeu5k

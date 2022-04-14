@@ -45,7 +45,7 @@ function StopWatch() {
     timeRef.current = 0;
     intervalId.current = setInterval(() => {
       timeRef.current++;
-      setTime(timeRef);
+      setTime(timeRef.current);
     }, 1000);
   }
   function stop() {

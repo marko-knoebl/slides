@@ -16,19 +16,44 @@ alternatives: Angular, Vue.js
 - data model which describes the entire application state
 - user interactions change the data model, causing the view to update automatically
 
+## State-based / declarative
+
+Example: complete state of a todo application
+
+```json
+{
+  "newTitleInput": "learn Rea",
+  "todos": [
+    { "id": 1, "title": "laundry", "completed": true },
+    { "id": 4, "title": "shopping", "completed": true },
+    { "id": 7, "title": "gardening", "completed": false }
+  ]
+}
+```
+
+## State-based / declarative
+
+possible appearance of a todo application:
+
+<img src="assets/todolist.png" alt="screenshot of a todo list application" style="height: 400px" />
+
 ## Component-based
 
 - "custom" HTML-Tags
 - data flow via props and events
 - usually unidirectional dataflow (from parent to child)
 
-## Example: components and state in a todo app
+## Component-based
 
-<img src="assets/todo-components-state.svg" />
+example: component structure in a todo application
 
-## Example: props and events in a todo app
+<img src="assets/todolist-component-structure.png" alt="screenshot of a todo list application with components outlined in red" style="height: 400px" />
 
-<img src="assets/todo-components-state-props-events.svg" />
+## Component-based
+
+Example: components, state and props in a todo application
+
+<img src="assets/todo-components-state-props.svg" />
 
 ## What makes React special?
 

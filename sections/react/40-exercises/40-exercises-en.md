@@ -25,3 +25,7 @@ Create a todo list application with the following functionality:
 extras:
 
 - statistics on number of completed / incomplete todos
+
+## Exercise: todo list
+
+example solution: https://codesandbox.io/s/todo-list-state-jsx-xkeu5k

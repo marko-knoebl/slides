@@ -51,7 +51,7 @@ accessing the event object as a function parameter:
 </button>
 ```
 
-the event will be a [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) object
+here the event will be a [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) object
 
 ## Binding events
 

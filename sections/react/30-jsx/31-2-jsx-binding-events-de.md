@@ -51,7 +51,7 @@ Zugriff auf das Event-Objekt als Funktionsparameter:
 </button>
 ```
 
-Das Event wird ein [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent)-Objekt sein
+hier wird das Event ein [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent)-Objekt sein
 
 ## Events binden
 

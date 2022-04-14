@@ -2,27 +2,40 @@
 
 ## JSX and security
 
-when binding _content_, XML tags will be escaped automatically
+potential threat on the front-end: **XSS attacks**
+
+a malicious user submits some content to our website (e.g. in a post or on their profile page) - when others visit the site, the malicious code will be executed in the user's browser while visiting our website
+
+## JSX and security
+
+🙂 when binding _content_, XML tags will be escaped automatically
 
 the following code will just display plain text content - it is not an attack target:
 
 ```jsx
-const userSuppliedValue = 'abc <script>alert()</script>';
+const userAddress =
+  'foo <script>prompt("enter credit card number:");</script>';
+```
 
-element = <div>{userSuppliedValue}</div>;
+```jsx
+<h1>profile</h1>
+<p>address: {userAddress}</p>
 ```
 
 ## JSX and security
 
-some attributes - notably _href_ - offer attack targets
+🙁 the attribute _href_ does offer attack targets:
+
+```jsx
+const userWebsite =
+  'javascript:prompt("enter credit card number:");';
+```
 
 ```jsx
 <h1>profile</h1>
-<p>name: {userName}</p>
+<p>address: {userAddress}</p>
 <p><a href={userWebsite}>website</a></p>
 ```
-
-an attacker may have set their website to e.g.: `javascript:alert("foo")`
 
 possible solution: make sure user-supplied external URLs start with _http://_ or _https://_
 

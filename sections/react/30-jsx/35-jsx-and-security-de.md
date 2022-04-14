@@ -2,27 +2,40 @@
 
 ## JSX und Sicherheit
 
-beim zuweisen von _Inhalten_ werden XML-Tags automatisch escaped
+mögliches Angriffsziel am Front-End: **XSS-Angriffe**
+
+ein böswilliger Benutzer stellt Inhalte auf unserer Website online (z.B. in einem Post oder auf der Profilseite) - wenn andere die Website besuchen, wird der böswillige Code im Browser des Beutzers ausgeführt, während dieser unsere Website besucht
+
+## JSX und Sicherheit
+
+🙂 beim zuweisen von _Inhalten_ werden XML-Tags automatisch escaped
 
 der folgende Code wird nur reinen Textinhalt darstellen - er ist kein Angriffsziel:
 
 ```jsx
-const userSuppliedValue = 'abc <script>alert()</script>';
+const userAddress =
+  'foo <script>prompt("enter credit card number:");</script>';
+```
 
-element = <div>{userSuppliedValue}</div>;
+```jsx
+<h1>profile</h1>
+<p>address: {userAddress}</p>
 ```
 
 ## JSX und Sicherheit
 
-manche Attribute - insbesondere _href_ - bieten Angriffziele
+🙁 das Attribut _href_ bietet Angriffsziele:
+
+```jsx
+const userWebsite =
+  'javascript:prompt("enter credit card number:");';
+```
 
 ```jsx
 <h1>profile</h1>
-<p>name: {userName}</p>
+<p>address: {userAddress}</p>
 <p><a href={userWebsite}>website</a></p>
 ```
-
-Ein Angreifer könnte seine Website auf `javascript:alert("foo")` gesetzt haben
 
 mögliche Lösung: stelle sicher, dass User-generierte externe URLs mit _http://_ oder _https://_ beginnen
 

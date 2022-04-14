@@ -2143,7 +2143,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   click me
 &#x3C;/button>
 </code></pre>
-<p>the event will be a <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a> object</p>
+<p>here the event will be a <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a> object</p>
 </section><section class="slide"><h2>Binding events</h2>
 <p>Default behavior of a submit event in a form: directly send data to the server</p>
 <p>Replacing the default behavior:</p>
@@ -2314,6 +2314,14 @@ solution: <strong>key</strong>:</p>
 </code></pre>
 <p>there are helper libraries that will generate the <em>className</em> property dynamically</p>
 </section><section class="slide"><h2>JSX and styling basics</h2>
+<p>CSS-in-JS: styles are defined inside JavaScript</p>
+<p>options:</p>
+<ul>
+<li>basic solution: <code>style</code>-property (some downsides: no media queries, no autoprefixing, ...)</li>
+<li>library: <em>emotion</em></li>
+<li>library: <em>styled-components</em></li>
+</ul>
+</section><section class="slide"><h2>JSX and styling basics</h2>
 <p>In JSX the <em>style</em> property takes an object, e.g.:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> containerStyle = {
   <span class="hljs-attr">display</span>: <span class="hljs-string">'flex'</span>,
@@ -2332,23 +2340,40 @@ solution: <strong>key</strong>:</p>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 </code></pre>
 </section><section class="slide"><h2>JSX and styling basics</h2>
-<p>note:</p>
-<p>Binding to the <em>style</em> property directly has some drawbacks and is usually avoided in practice; instead, libraries like <em>styled-components</em> or <em>emotion</em> are used to write style declarations inside JavaScript</p>
+<p>simple example with the <em>emotion</em> library:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/css'</span>;
+</code></pre>
+<pre><code class="hljs language-js">&#x3C;div
+  className={css`<span class="css">
+    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
+    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
+  `</span>}
+>
+  ...
+&#x3C;/div>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX and security</h1>
 </section><section class="slide"><h2>JSX and security</h2>
-<p>when binding <em>content</em>, XML tags will be escaped automatically</p>
+<p>potential threat on the front-end: <strong>XSS attacks</strong></p>
+<p>a malicious user submits some content to our website (e.g. in a post or on their profile page) - when others visit the site, the malicious code will be executed in the user's browser while visiting our website</p>
+</section><section class="slide"><h2>JSX and security</h2>
+<p>🙂 when binding <em>content</em>, XML tags will be escaped automatically</p>
 <p>the following code will just display plain text content - it is not an attack target:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userSuppliedValue = <span class="hljs-string">'abc &#x3C;script>alert()&#x3C;/script>'</span>;
-
-element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{userSuppliedValue}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userAddress =
+  <span class="hljs-string">'foo &#x3C;script>prompt("enter credit card number:");&#x3C;/script>'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;h1>profile&#x3C;/h1>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>address: {userAddress}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
 </code></pre>
 </section><section class="slide"><h2>JSX and security</h2>
-<p>some attributes - notably <em>href</em> - offer attack targets</p>
+<p>🙁 the attribute <em>href</em> does offer attack targets:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userWebsite =
+  <span class="hljs-string">'javascript:prompt("enter credit card number:");'</span>;
+</code></pre>
 <pre><code class="hljs language-jsx">&#x3C;h1>profile&#x3C;/h1>
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>name: {userName}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>address: {userAddress}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">{userWebsite}</span>></span>website<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
 </code></pre>
-<p>an attacker may have set their website to e.g.: <code>javascript:alert("foo")</code></p>
 <p>possible solution: make sure user-supplied external URLs start with <em>http://</em> or <em>https://</em></p>
 <p><small>see also: <a href="https://pragmaticwebsecurity.com/articles/spasecurity/react-xss-part1.html" target="_blank">article on pragmaticwebsecurity.com</a>, <a href="https://medium.com/javascript-security/avoiding-xss-in-react-is-still-hard-d2b5c7ad9412" target="_blank">article by Ron Perris</a>, <a href="https://github.com/facebook/react/pull/15047" target="_blank">React pull request with more details</a></small></p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: compilation</h1>

@@ -2,18 +2,14 @@
 
 ## Online editors
 
-recommended:
+options:
 
-<https://codesandbox.io>
+- <https://codesandbox.io>
+- <https://stackblitz.com>
 
-- has templates for _React_ and _React TypeScript_
+common functionality:
+
 - based on _VS Code_
+- templates for _React_ and _React TypeScript_
 - Prettier-based formatting via _Shift_ + _Alt_ + _F_
-- hosting under e.g. _https://abcde.csb.app_
-
-## Online editors
-
-other options:
-
-- Glitch: <https://glitch.com/edit/#!/remix/starter-react-template>
-- CodePen: <https://reactjs.org/redirect-to-codepen/hello-world>
+- public hosting of results

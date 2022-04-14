@@ -2143,7 +2143,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   click me
 &#x3C;/button>
 </code></pre>
-<p>Das Event wird ein <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a>-Objekt sein</p>
+<p>hier wird das Event ein <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a>-Objekt sein</p>
 </section><section class="slide"><h2>Events binden</h2>
 <p>Standard-Verhalten eines Submit-Events in einem Formular: Direktes Senden von Daten zum Server</p>
 <p>Ersetzen des Standardverhaltens:</p>
@@ -2314,6 +2314,14 @@ Lösung: <strong>key</strong>:</p>
 </code></pre>
 <p>es gibt Hilfslibraries, die die <em>className</em>-Property dynamisch generieren</p>
 </section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
+<p>CSS-in-JS: Stile werden in JavaScript definiert</p>
+<p>Möglichkeiten:</p>
+<ul>
+<li>grundlege Lösung: <code>style</code>-Property (einige Nachteile: keine Media-Queries, kein Autoprefixing, ...)</li>
+<li>Library: <em>emotion</em></li>
+<li>Library: <em>styled-components</em></li>
+</ul>
+</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
 <p>In JSX weisen wir der <em>style</em>-Property ein Objekt zu, z.B.:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> containerStyle = {
   <span class="hljs-attr">display</span>: <span class="hljs-string">'flex'</span>,
@@ -2332,23 +2340,40 @@ Lösung: <strong>key</strong>:</p>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 </code></pre>
 </section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
-<p>Bemerkung:</p>
-<p>Das direkte binden an die <em>style</em>-Property hat Nachteile und wird in der Praxis meist vermieden; stattdessen werden Libraries wie <em>styled-components</em> oder <em>emotion</em> verwendet, um Stildeklarationen in JavaScript zu schreiben.</p>
+<p>einfaches Beispiel mit der Library <em>emotion</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/css'</span>;
+</code></pre>
+<pre><code class="hljs language-js">&#x3C;div
+  className={css`<span class="css">
+    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
+    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
+  `</span>}
+>
+  ...
+&#x3C;/div>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX und Sicherheit</h1>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>
-<p>beim zuweisen von <em>Inhalten</em> werden XML-Tags automatisch escaped</p>
+<p>mögliches Angriffsziel am Front-End: <strong>XSS-Angriffe</strong></p>
+<p>ein böswilliger Benutzer stellt Inhalte auf unserer Website online (z.B. in einem Post oder auf der Profilseite) - wenn andere die Website besuchen, wird der böswillige Code im Browser des Beutzers ausgeführt, während dieser unsere Website besucht</p>
+</section><section class="slide"><h2>JSX und Sicherheit</h2>
+<p>🙂 beim zuweisen von <em>Inhalten</em> werden XML-Tags automatisch escaped</p>
 <p>der folgende Code wird nur reinen Textinhalt darstellen - er ist kein Angriffsziel:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userSuppliedValue = <span class="hljs-string">'abc &#x3C;script>alert()&#x3C;/script>'</span>;
-
-element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{userSuppliedValue}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userAddress =
+  <span class="hljs-string">'foo &#x3C;script>prompt("enter credit card number:");&#x3C;/script>'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;h1>profile&#x3C;/h1>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>address: {userAddress}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
 </code></pre>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>
-<p>manche Attribute - insbesondere <em>href</em> - bieten Angriffziele</p>
+<p>🙁 das Attribut <em>href</em> bietet Angriffsziele:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> userWebsite =
+  <span class="hljs-string">'javascript:prompt("enter credit card number:");'</span>;
+</code></pre>
 <pre><code class="hljs language-jsx">&#x3C;h1>profile&#x3C;/h1>
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>name: {userName}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>address: {userAddress}<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">{userWebsite}</span>></span>website<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
 </code></pre>
-<p>Ein Angreifer könnte seine Website auf <code>javascript:alert("foo")</code> gesetzt haben</p>
 <p>mögliche Lösung: stelle sicher, dass User-generierte externe URLs mit <em>http://</em> oder <em>https://</em> beginnen</p>
 <p><small>siehe auch: <a href="https://pragmaticwebsecurity.com/articles/spasecurity/react-xss-part1.html" target="_blank">Artikel auf pragmaticwebsecurity.com</a>, <a href="https://medium.com/javascript-security/avoiding-xss-in-react-is-still-hard-d2b5c7ad9412" target="_blank">Artikel von Ron Perris</a>, <a href="https://github.com/facebook/react/pull/15047" target="_blank">React pull request mit mehr Details</a></small></p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: Kompilierung</h1>
