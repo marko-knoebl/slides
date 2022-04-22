@@ -6,10 +6,9 @@ Code kann automatisch getestet werden, um sicherzustellen, dass er wie erwartet 
 
 ## Tools für das Testen
 
-- _node_ wird als Runtime benötigt
-- _assert_: einfache Assertions, in node beinhaltet
-- _Jest_: test runner und assertion library
-- _Mocha_ und _Chai_: test runner und assertion library
+- Runtime: _node_
+- Test Runner: _node:test_ (seit node 18), _jest_, _mocha_
+- Assertion Libraries: _assert_ (in node beinhaltet), _jest_, _chai_
 
 Popularität:
 
@@ -24,11 +23,6 @@ Wir werden eine Funktion schreiben und testen, die einen String auf eine vorgege
 shorten('loremipsum', 6);
 // should return 'lor...'
 ```
-
-Mögliche Zugänge:
-
-- mit Implementierung beginnen
-- mit Tests beginnen (test-driven development)
 
 ## Einfaches Beispiel: shorten
 
@@ -54,7 +48,7 @@ einfache Tests:
 
 ```js
 // shorten.test.js
-import assert from 'assert';
+import assert from 'assert/strict';
 import shorten from './shorten';
 
 assert.equal(shorten('loremipsum', 4), 'l...');

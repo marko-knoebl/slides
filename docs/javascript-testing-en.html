@@ -2065,10 +2065,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>code may be tested automatically to ensure it behaves as expected</p>
 </section><section class="slide"><h2>Tools for testing JavaScript</h2>
 <ul>
-<li><em>node</em> is needed to provide a runtime</li>
-<li><em>assert</em>: basic assertion package, built into node</li>
-<li><em>Jest</em>: test runner and assertion library</li>
-<li><em>Mocha</em> and <em>Chai</em>: test runner and assertion library</li>
+<li>runtime: <em>node</em></li>
+<li>test runners: <em>node:test</em> (since node 18), <em>jest</em>, <em>mocha</em></li>
+<li>assertion libraries: <em>assert</em> (built into node), <em>jest</em>, <em>chai</em></li>
 </ul>
 <p>popularity:</p>
 <ul>
@@ -2080,11 +2079,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-js">shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
 <span class="hljs-comment">// should return 'lor...'</span>
 </code></pre>
-<p>Possible approaches:</p>
-<ul>
-<li>write implementation first</li>
-<li>write tests first (test-driven development)</li>
-</ul>
 </section><section class="slide"><h2>Example: shorten</h2>
 <p>Implementation that should be tested:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">/**
@@ -2102,7 +2096,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Example: shorten</h2>
 <p>simple tests:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// shorten.test.js</span>
-<span class="hljs-keyword">import</span> assert <span class="hljs-keyword">from</span> <span class="hljs-string">'assert'</span>;
+<span class="hljs-keyword">import</span> assert <span class="hljs-keyword">from</span> <span class="hljs-string">'assert/strict'</span>;
 <span class="hljs-keyword">import</span> shorten <span class="hljs-keyword">from</span> <span class="hljs-string">'./shorten'</span>;
 
 assert.equal(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">4</span>), <span class="hljs-string">'l...'</span>);
@@ -2145,9 +2139,17 @@ expect(a).toBeGreaterThan(<span class="hljs-number">3</span>);
 expect(a).toBeInstanceOf(<span class="hljs-built_in">Number</span>);
 expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">''</span>)).toThrow();
 </code></pre>
-</section><section class="slide"><h2>Assertions with Jest</h2>
-<p><code>.toEqual</code>: may be used with both primitives and objects</p>
-<p><code>.toBe</code>: behaves like <code>===</code> - may be used with primitives (or for asserting object identity)</p>
+</section><section class="slide"><h2>Assertions</h2>
+<p>deep equality: compares <em>contents</em> of objects / arrays</p>
+<pre><code class="hljs language-js">assert.deepEqual([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+expect([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]).to.eql([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+expect([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]).toEqual([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+</code></pre>
+<p>strict equality: behaves like <code>===</code> - may be used with primitives (or for asserting object identity)</p>
+<pre><code class="hljs language-js">assert.equal(<span class="hljs-string">'abc'</span>, <span class="hljs-string">'abc'</span>);
+expect(<span class="hljs-string">'abc'</span>).to.equal(<span class="hljs-string">'abc'</span>);
+expect(<span class="hljs-string">'abc'</span>).toBe(<span class="hljs-string">'abc'</span>);
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Test runners</h1>
 </section><section class="slide"><h2>Test runners</h2>
 <ul>
@@ -2159,35 +2161,53 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
 <ul>
 <li>Jest (comes with assertion tools)</li>
 <li>Mocha (commonly used with <em>chai</em>)</li>
-<li>Jasmine (comes with assertion tools)</li>
+<li><em>node:test</em></li>
 </ul>
 </section><section class="slide"><h2>Running tests</h2>
 <p>Tests are commonly run via an npm script - e.g. via <code>npm run test</code> (or <code>npm test</code> for short)</p>
-<p>Note: running tests should be cancelled before installing new npm packages - otherwise the installation may fail</p>
 </section><section class="slide"><h2>Finding test files</h2>
 <p>Jest: by default looks for files inside of directories named <code>__tests__</code> and for files ending in <code>.test.js</code> or <code>.spec.js</code></p>
 <p>Mocha: by default looks for files inside the directory <code>test</code> (custom pattern via e.g.: <code>mocha "src/**/*.{test,spec}.{js,jsx}"</code>)</p>
-</section><section class="slide"><h2>Structuring tests</h2>
-<p>A test is commonly defined via the <code>it</code> function, which takes two arguments:</p>
+</section><section class="slide"><h2>Defining tests</h2>
+<p>the definition of a test usually includes:</p>
 <ul>
 <li>a string describing the test</li>
 <li>a function that executes test code</li>
 </ul>
-</section><section class="slide"><h2>Structuring tests</h2>
-<pre><code class="hljs language-js">it(<span class="hljs-string">'shortens "loremipsum" to "lor..." with limit 6'</span>, <span class="hljs-function">() =></span> {
-  expect(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>)).toEqual(<span class="hljs-string">'lor...'</span>);
+<p>tests are commonly defined via by calling <code>test()</code> or <code>it()</code></p>
+</section><section class="slide"><h2>Defining tests</h2>
+<p>example with node's built-in tools:</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js">test(
+  <span class="hljs-string">'shortens "loremipsum" to "lor..." with limit 6'</span>,
+  <span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> shortened = shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">6</span>);
+    assert.equal(shortened, <span class="hljs-string">"lor..."</span>);
+  }
+)
+</code></pre>
+</section><section class="slide"><h2>Grouping tests</h2>
+<p>tests can be organized into groups (and sub-groups, ...)</p>
+</section><section class="slide"><h2>Grouping tests</h2>
+<p>grouping tests with <em>node:test</em>:</p>
+<pre><code class="hljs language-js">test(<span class="hljs-string">'strings that are short enough'</span>, <span class="hljs-function">(<span class="hljs-params">t</span>) =></span> {
+  <span class="hljs-comment">// t: test context</span>
+  t.test(<span class="hljs-string">'leaves "abc" unchanged with limit 3'</span>, <span class="hljs-function">() =></span> {
+    assert.equal(shorten(<span class="hljs-string">'abc'</span>, <span class="hljs-number">3</span>), <span class="hljs-string">'abc'</span>);
+  });
+  t.test(<span class="hljs-string">'leaves "a" unchanged with limit 1'</span>, <span class="hljs-function">() =></span> {
+    assert.equal(shorten(<span class="hljs-string">'a'</span>, <span class="hljs-number">1</span>), <span class="hljs-string">'a'</span>);
+  });
 });
 </code></pre>
-<p>an <code>it</code>-block may contain multiple calls of <code>expect</code> (or none)</p>
-<p>In <em>Jest</em>, <code>test</code> is a more common alias for <code>it</code></p>
-</section><section class="slide"><h2>Structuring tests</h2>
-<p>Tests can be structured into groups (and sub-groups ...) by using <code>describe</code>:</p>
+</section><section class="slide"><h2>Grouping tests</h2>
+<p>grouping tests with <em>jest</em>:</p>
 <pre><code class="hljs language-js">describe(<span class="hljs-string">'strings that are short enough'</span>, <span class="hljs-function">() =></span> {
-  it(<span class="hljs-string">'leaves "abc" unchanged with limit 5'</span>, <span class="hljs-function">() =></span> {
-    expect(shorten(<span class="hljs-string">'abc'</span>, <span class="hljs-number">5</span>)).toEqual(<span class="hljs-string">'abc'</span>);
+  test(<span class="hljs-string">'leaves "abc" unchanged with limit 3'</span>, <span class="hljs-function">() =></span> {
+    expect(shorten(<span class="hljs-string">'abc'</span>, <span class="hljs-number">3</span>)).toEqual(<span class="hljs-string">'abc'</span>);
   });
-  it(<span class="hljs-string">'leaves "loremipsum" unchanged with limit 10'</span>, <span class="hljs-function">() =></span> {
-    expect(shorten(<span class="hljs-string">'loremipsum'</span>, <span class="hljs-number">10</span>)).toEqual(<span class="hljs-string">'loremipsum'</span>);
+  test(<span class="hljs-string">'leaves "a" unchanged with limit 1'</span>, <span class="hljs-function">() =></span> {
+    expect(shorten(<span class="hljs-string">'a'</span>, <span class="hljs-number">3</span>)).toEqual(<span class="hljs-string">'a'</span>);
   });
 });
 </code></pre>
@@ -2212,6 +2232,8 @@ expect(<span class="hljs-function">() =></span> <span class="hljs-built_in">JSON
   it(<span class="hljs-comment">/*...*/</span>);
 });
 </code></pre>
+</section><section class="slide"><h2>Exercise</h2>
+<p>write tests for the behavior of the string method <code>.replace()</code></p>
 </section></section><section class="slides-section"><section class="slide"><h1>End-to-end tests</h1>
 </section><section class="slide"><h2>End-to-end tests</h2>
 <p>End-to-end tests: an instance of a browser is controlled to interact with a website and verify its behavior</p>

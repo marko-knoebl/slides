@@ -54,8 +54,20 @@ expect(a).toBeInstanceOf(Number);
 expect(() => JSON.parse('')).toThrow();
 ```
 
-## Assertions with Jest
+## Assertions
 
-`.toEqual`: may be used with both primitives and objects
+deep equality: compares _contents_ of objects / arrays
 
-`.toBe`: behaves like `===` - may be used with primitives (or for asserting object identity)
+```js
+assert.deepEqual([1, 2], [1, 2]);
+expect([1, 2]).to.eql([1, 2]);
+expect([1, 2]).toEqual([1, 2]);
+```
+
+strict equality: behaves like `===` - may be used with primitives (or for asserting object identity)
+
+```js
+assert.equal('abc', 'abc');
+expect('abc').to.equal('abc');
+expect('abc').toBe('abc');
+```

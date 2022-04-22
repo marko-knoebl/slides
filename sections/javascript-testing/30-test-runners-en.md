@@ -10,13 +10,11 @@
 
 - Jest (comes with assertion tools)
 - Mocha (commonly used with _chai_)
-- Jasmine (comes with assertion tools)
+- _node:test_
 
 ## Running tests
 
 Tests are commonly run via an npm script - e.g. via `npm run test` (or `npm test` for short)
-
-Note: running tests should be cancelled before installing new npm packages - otherwise the installation may fail
 
 ## Finding test files
 
@@ -24,36 +22,61 @@ Jest: by default looks for files inside of directories named `__tests__` and for
 
 Mocha: by default looks for files inside the directory `test` (custom pattern via e.g.: `mocha "src/**/*.{test,spec}.{js,jsx}"`)
 
-## Structuring tests
+## Defining tests
 
-A test is commonly defined via the `it` function, which takes two arguments:
+the definition of a test usually includes:
 
 - a string describing the test
 - a function that executes test code
 
-## Structuring tests
+tests are commonly defined via by calling `test()` or `it()`
+
+## Defining tests
+
+example with node's built-in tools:
+
+<!-- prettier-ignore -->
+```js
+test(
+  'shortens "loremipsum" to "lor..." with limit 6',
+  () => {
+    const shortened = shorten('loremipsum', 6);
+    assert.equal(shortened, "lor...");
+  }
+)
+```
+
+## Grouping tests
+
+tests can be organized into groups (and sub-groups, ...)
+
+## Grouping tests
+
+grouping tests with _node:test_:
 
 ```js
-it('shortens "loremipsum" to "lor..." with limit 6', () => {
-  expect(shorten('loremipsum', 6)).toEqual('lor...');
+test('strings that are short enough', (t) => {
+  // t: test context
+  t.test('leaves "abc" unchanged with limit 3', () => {
+    assert.equal(shorten('abc', 3), 'abc');
+  });
+  t.test('leaves "a" unchanged with limit 1', () => {
+    assert.equal(shorten('a', 1), 'a');
+  });
 });
 ```
 
-an `it`-block may contain multiple calls of `expect` (or none)
+## Grouping tests
 
-In _Jest_, `test` is a more common alias for `it`
-
-## Structuring tests
-
-Tests can be structured into groups (and sub-groups ...) by using `describe`:
+grouping tests with _jest_:
 
 ```js
 describe('strings that are short enough', () => {
-  it('leaves "abc" unchanged with limit 5', () => {
-    expect(shorten('abc', 5)).toEqual('abc');
+  test('leaves "abc" unchanged with limit 3', () => {
+    expect(shorten('abc', 3)).toEqual('abc');
   });
-  it('leaves "loremipsum" unchanged with limit 10', () => {
-    expect(shorten('loremipsum', 10)).toEqual('loremipsum');
+  test('leaves "a" unchanged with limit 1', () => {
+    expect(shorten('a', 3)).toEqual('a');
   });
 });
 ```
@@ -89,3 +112,7 @@ describe('database', () => {
   it(/*...*/);
 });
 ```
+
+## Exercise
+
+write tests for the behavior of the string method `.replace()`

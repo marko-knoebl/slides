@@ -6,10 +6,9 @@ code may be tested automatically to ensure it behaves as expected
 
 ## Tools for testing JavaScript
 
-- _node_ is needed to provide a runtime
-- _assert_: basic assertion package, built into node
-- _Jest_: test runner and assertion library
-- _Mocha_ and _Chai_: test runner and assertion library
+- runtime: _node_
+- test runners: _node:test_ (since node 18), _jest_, _mocha_
+- assertion libraries: _assert_ (built into node), _jest_, _chai_
 
 popularity:
 
@@ -24,11 +23,6 @@ We are going to write and test a function that will shorten a string to a specif
 shorten('loremipsum', 6);
 // should return 'lor...'
 ```
-
-Possible approaches:
-
-- write implementation first
-- write tests first (test-driven development)
 
 ## Example: shorten
 
@@ -54,7 +48,7 @@ simple tests:
 
 ```js
 // shorten.test.js
-import assert from 'assert';
+import assert from 'assert/strict';
 import shorten from './shorten';
 
 assert.equal(shorten('loremipsum', 4), 'l...');

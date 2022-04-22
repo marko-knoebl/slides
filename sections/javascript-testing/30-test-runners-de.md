@@ -10,13 +10,11 @@
 
 - Jest (beinhaltet Assertion-Tools)
 - Mocha (oft gemeinsam mit _Chai_ verwendet)
-- Jasmine (beinhaltet Assertion-Tools)
+- _node:test_
 
 ## Ausführen von Tests
 
 Tests werden meist mittels eines npm Scripts ausgeführt - z.B. via `npm run test` (oder abgekürzt `npm test`)
-
-Bemerkung: Laufende Tests sollten abgebrochen werden, bevor neue npm-Pakete installiert werden - ansonsten kann die Installation fehlschlagen
 
 ## Finden von Tests
 
@@ -24,36 +22,61 @@ Jest: sucht standardmäßig nach Dateien in `__tests__`-Ordnern und nach Dateien
 
 Mocha: sucht standardmäßig nach Dateien in dem Ordner `test` (eigenes Muster z.B. via: `mocha "src/**/*.{test,spec}.{js,jsx}"`)
 
-## Strukturierung von Tests
+## Definieren von Tests
 
-Tests werden üblicherweise mittels der Funktion `it` definitiert, die zwei Argumente erhält:
+Die Definition eines Tests beinhaltet üblicherweise:
 
 - einen String, der den Test beschreibt
 - eine Funktion, die den Testcode ausführt
 
-## Strukturierung von Tests
+Tests werden üblicherweise durch einen Aufruf von `test()` oder `it()` definiert
+
+## Definieren von Tests
+
+Beispiel mit den eingebauten Tools von node:
+
+<!-- prettier-ignore -->
+```js
+test(
+  'shortens "loremipsum" to "lor..." with limit 6',
+  () => {
+    const shortened = shorten('loremipsum', 6);
+    assert.equal(shortened, "lor...");
+  }
+)
+```
+
+## Gruppierung von Tests
+
+Tests können in Gruppen (und Untergruppen, ...) organisiert werden
+
+## Gruppieren von Tests
+
+Guppierung von Tests mittels _node:test_:
 
 ```js
-it('shortens "loremipsum" to "lor..." with limit 6', () => {
-  expect(shorten('loremipsum', 6)).toEqual('lor...');
+test('strings that are short enough', (t) => {
+  // t: test context
+  t.test('leaves "abc" unchanged with limit 3', () => {
+    assert.equal(shorten('abc', 3), 'abc');
+  });
+  t.test('leaves "a" unchanged with limit 1', () => {
+    assert.equal(shorten('a', 1), 'a');
+  });
 });
 ```
 
-Ein `it`-Block kann mehrere `expect`-Aufrufe enthalten (oder auch gar keine)
+## Gruppieren von Tests
 
-In _Jest_ ist auch die Verwendung des Alias `test` anstatt von `it` möglich.
-
-## Strukturierung von Tests
-
-Mittels `describe` können Tests in Gruppen (und Untergruppen, ...) eingeteilt werden:
+Gruppieren von Tests mit _Jest_:
 
 ```js
 describe('strings that are short enough', () => {
-  it('leaves "abc" unchanged with limit 5', () => {
-    expect(shorten('abc', 5)).toEqual('abc');
+  test('leaves "abc" unchanged with limit 3', () => {
+    expect(shorten('abc', 3)).toEqual('abc');
   });
-  it('leaves "loremipsum" unchanged with limit 10', () => {
-    expect(shorten('loremipsum', 10)).toEqual('loremipsum');
+  test('leaves "a" unchanged with limit 1', () => {
+    expect(shorten('a', 3)).toEqual('a');
   });
 });
 ```
@@ -74,7 +97,7 @@ npm test -- --coverage
 
 ## Setup und teardown
 
-Für Code, der vor und jedem Test in einer Gruppe ausgeführt werden soll:
+Für Code, der vor bzw. nach jedem Test in einer Gruppe ausgeführt werden soll:
 
 ```js
 describe('database', () => {
@@ -89,3 +112,7 @@ describe('database', () => {
   it(/*...*/);
 });
 ```
+
+## Übung
+
+schreibe Tests, die das Verhalten der String-Methode `.replace()` testen
