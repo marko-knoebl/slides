@@ -2095,89 +2095,100 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Viele zusätzliche Hooks werden von der React-Community entwickelt</p>
 <p>Einsatzgebiete z.B.:</p>
 <ul>
-<li>Abfragen von APIs</li>
-<li>Verwenden von globalem State</li>
-<li>Verwenden von <em>localStorage</em> für den state</li>
-<li>Media Queries</li>
-<li>Abfrage der Scrollposition</li>
-<li>... (siehe <a href="https://github.com/rehooks/awesome-react-hooks" target="_blank">awesome-react-hooks</a>)</li>
+<li>Abfragen von APIs (z.B. <a href="https://github.com/tannerlinsley/react-query" target="_blank">react-query</a>, <a href="https://github.com/vercel/swr" target="_blank">swr</a>)</li>
+<li>Verwalten von Formularen (z.B. <a href="https://github.com/react-hook-form/react-hook-form" target="_blank">react-hook-form</a>, <a href="https://github.com/wsmd/react-use-form-state" target="_blank">react-use-form-state</a>)</li>
+<li>Media Queries (z.B. <a href="https://github.com/yocontra/react-responsive" target="_blank">react-responsive</a>)</li>
+<li>Verwenden von <em>localStorage</em> (z.B. <a href="https://github.com/rehooks/local-storage" target="_blank">rehooks/local-storage</a>)</li>
+<li>... (siehe <a href="https://github.com/rehooks/awesome-react-hooks" target="_blank">awesome-react-hooks</a>, <a href="https://github.com/streamich/react-use" target="_blank">react-use</a>)</li>
 </ul>
 </section><section class="slide"><h2>Regeln für Hooks</h2>
 <p>Hooks in einer Komponentendefinition müssen bei jedem Rendering in der gleichen Reihenfolge aufgerufen werden - React unterscheidet z.B. mehrere <code>useState</code>-Aufrufe anhand ihrer Reihenfolge</p>
 <p>Die gleichen Regeln wie in einer Komponente gelten auch für Hook-Aufrufe in einem selbst definierten Hook</p>
 <p><a href="https://reactjs.org/docs/hooks-rules.html" target="_blank">Rules of Hooks auf reactjs.org</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>React Query</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Libraries für API-Abfragen</h1>
+</section><section class="slide"><h2>Libraries für API-Abfragen</h2>
+<p>verbreitete Libraries zum Abfragen von APIs:</p>
+<ul>
+<li><em>react-query</em></li>
+<li><em>swr</em></li>
+<li><em>apollo</em> (für GraphQL APIs)</li>
+</ul>
+</section><section class="slide"><h2>Libraries für API-Abfragen</h2>
+<p>Funktionalität:</p>
+<ul>
+<li>mitverfolgen des Lade-Status (<em>success</em> / <em>loading</em> / <em>error</em>)</li>
+<li>automatisches Caching</li>
+<li>automatische Reloads</li>
+<li>...</li>
+</ul>
 </section><section class="slide"><h2>React Query</h2>
-<p><strong>React Query</strong>: Library zum Interagieren mit Web APIs (z.B. REST APIs)</p>
+<p>Beispiel: Laden von Daten mit <em>react query</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useQuery } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
+<span class="hljs-keyword">import</span> { fetchTodos } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> todosQuery = useQuery([<span class="hljs-string">'todos'</span>], fetchTodos);
+  <span class="hljs-keyword">if</span> (todosQuery.isLoading) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading ...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (todosQuery.isError) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Could not load todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+  }
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todosQuery.data}</span> /></span></span>;
+}
+</code></pre>
 </section><section class="slide"><h2>React Query Setup</h2>
-<p>in <em>index.js</em>:</p>
+<p>globales Setup für React Query in <em>index.js/.tsx</em>:</p>
+<!-- prettier-ignore -->
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> {
   QueryClient,
   QueryClientProvider,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
 
+<span class="hljs-comment">// ...</span>
+
 <span class="hljs-keyword">const</span> queryClient = <span class="hljs-keyword">new</span> QueryClient();
 
-ReactDOM.render(
+<span class="hljs-comment">// ...</span>
+
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">QueryClientProvider</span> <span class="hljs-attr">client</span>=<span class="hljs-string">{queryClient}</span>></span>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>,
-  rootElement
-);
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>
 </code></pre>
-</section><section class="slide"><h2>Queries definieren</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useQuery } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
-<span class="hljs-keyword">import</span> { fetchTodos } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
+</section><section class="slide"><h2>React Query</h2>
+<p>aktivieren eines Devtools-Popups::</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ReactQueryDevtools } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query/devtools'</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> { isLoading, error, <span class="hljs-attr">data</span>: todos } = useQuery(
-    [<span class="hljs-string">'todos'</span>],
-    fetchTodos
-  );
-  <span class="hljs-keyword">if</span> (isLoading) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading ...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (error) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Could not load todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  }
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todos}</span> /></span></span>;
-}
+<span class="hljs-comment">// ...</span>
+
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">QueryClientProvider</span> <span class="hljs-attr">client</span>=<span class="hljs-string">{queryClient}</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">ReactQueryDevtools</span> <span class="hljs-attr">initialIsOpen</span>=<span class="hljs-string">{false}</span> /></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>
 </code></pre>
-</section><section class="slide"><h2>Mutationen definieren</h2>
+</section><section class="slide"><h2>React Query: Übung</h2>
+<p>Erstelle eine Wechselkurs-Anwendung, die Daten von einem API wie diesem lädt:</p>
+<p><em><a href="https://api.exchangerate.host/latest?base=USD&#x26;symbols=EUR" target="_blank">https://api.exchangerate.host/latest?base=USD&#x26;symbols=EUR</a></em></p>
+</section><section class="slide"><h2>React Query</h2>
+<p>Definieren von Mutationen:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useMutation, useQueryClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
 <span class="hljs-keyword">import</span> { addTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// ...</span>
-  <span class="hljs-keyword">const</span> queryClient = useQueryClient();
-  <span class="hljs-keyword">const</span> addTodoMutation = useMutation(addTodo, {
-    <span class="hljs-attr">onSuccess</span>: <span class="hljs-function">() =></span> {
-      <span class="hljs-comment">// initiate a refetch of todos</span>
-      queryClient.invalidateQueries(<span class="hljs-string">'todos'</span>);
-    },
-  });
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onAddTodo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleAddTodo</span>(<span class="hljs-params"></span>) </span>{
     addTodoMutation.mutate({ <span class="hljs-attr">title</span>: newTitle });
+  }
+  <span class="hljs-keyword">const</span> addTodoMutation = useMutation(addTodo, {
+    <span class="hljs-attr">onSuccess</span>: refetchTodos,
+  });
+  <span class="hljs-keyword">const</span> queryClient = useQueryClient();
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">refetchTodos</span>(<span class="hljs-params"></span>) </span>{
+    queryClient.invalidateQueries(<span class="hljs-string">'todos'</span>);
   }
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Devtools</h2>
-<p>aktivieren eines Devtools-Popups::</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
-<span class="hljs-keyword">import</span> { ReactQueryDevtools } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query/devtools'</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">QueryClientProvider</span> <span class="hljs-attr">client</span>=<span class="hljs-string">{queryClient}</span>></span>
-      {/* The rest of your application */}
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">ReactQueryDevtools</span> <span class="hljs-attr">initialIsOpen</span>=<span class="hljs-string">{false}</span> /></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Übung</h2>
-<p>Erstelle eine Wechselkurs-Anwendung, die Daten von einem API wie diesem lädt:</p>
-<p><em><a href="https://api.exchangerate.host/latest?base=USD&#x26;symbols=EUR" target="_blank">https://api.exchangerate.host/latest?base=USD&#x26;symbols=EUR</a></em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Context</h1>
 </section><section class="slide"><h2>Context</h2>
 <p>Möglichkeit, Werte aus einer Komponente direkt allen weiter unten im Dokumentenbaum liegenden Komponenten zur Verfügung zu stellen - ohne diese über jede Ebene übergeben zu müssen</p>

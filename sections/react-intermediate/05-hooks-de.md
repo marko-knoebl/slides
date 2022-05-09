@@ -28,12 +28,11 @@ Viele zusätzliche Hooks werden von der React-Community entwickelt
 
 Einsatzgebiete z.B.:
 
-- Abfragen von APIs
-- Verwenden von globalem State
-- Verwenden von _localStorage_ für den state
-- Media Queries
-- Abfrage der Scrollposition
-- ... (siehe [awesome-react-hooks](https://github.com/rehooks/awesome-react-hooks))
+- Abfragen von APIs (z.B. [react-query](https://github.com/tannerlinsley/react-query), [swr](https://github.com/vercel/swr))
+- Verwalten von Formularen (z.B. [react-hook-form](https://github.com/react-hook-form/react-hook-form), [react-use-form-state](https://github.com/wsmd/react-use-form-state))
+- Media Queries (z.B. [react-responsive](https://github.com/yocontra/react-responsive))
+- Verwenden von _localStorage_ (z.B. [rehooks/local-storage](https://github.com/rehooks/local-storage))
+- ... (siehe [awesome-react-hooks](https://github.com/rehooks/awesome-react-hooks), [react-use](https://github.com/streamich/react-use))
 
 ## Regeln für Hooks
 

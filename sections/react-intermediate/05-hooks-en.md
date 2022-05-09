@@ -28,12 +28,11 @@ Many additional hooks are provided by the React community
 
 example use cases:
 
-- querying APIs
-- using global state
-- using _localStorage_ for persistent state
-- media queries
-- querying the scroll position
-- ... (see [awesome-react-hooks](https://github.com/rehooks/awesome-react-hooks))
+- querying APIs (e.g. [react-query](https://github.com/tannerlinsley/react-query), [swr](https://github.com/vercel/swr))
+- managing forms (e.g. [react-hook-form](https://github.com/react-hook-form/react-hook-form), [react-use-form-state](https://github.com/wsmd/react-use-form-state))
+- media queries (e.g. [react-responsive](https://github.com/yocontra/react-responsive))
+- using _localStorage_ (e.g. [rehooks/local-storage](https://github.com/rehooks/local-storage))
+- ... (see [awesome-react-hooks](https://github.com/rehooks/awesome-react-hooks), [react-use](https://github.com/streamich/react-use))
 
 ## Rules of Hooks
 

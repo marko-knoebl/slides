@@ -53,7 +53,7 @@ Beispiel: Komponentenstruktur einer Todo-Anwendung
 
 Beispiel: Komponenten, State und Props in einer Todo-Anwendung
 
-<img src="assets/todo-components-state.svg" />
+<img src="assets/todo-components-state-props.svg" />
 
 ## Was macht React besonders?
 
