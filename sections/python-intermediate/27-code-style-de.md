@@ -1,18 +1,4 @@
-# Codequalität und Linting
-
-## Codequalität und Linting
-
-Aspekte:
-
-- allgemeines Linting
-- Stil-Konventionen (PEP8)
-- Docstrings
-
-## Allgemeines Linting: Pylint
-
-Finden allgemeiner Fehler
-
-VS Code Konfiguration via `python.linting.pylintEnabled` und `python.linting.pylintUseMinimalCheckers`
+# Coding-Stil
 
 ## PEP8
 
@@ -55,31 +41,3 @@ Auszüge aus dem _Zen of Python_ (anzeigbar via `import this`):
 - _Readability counts._
 - _Special cases aren't special enough to break the rules._
 - _There should be one-- and preferably only one --obvious way to do it._
-
-## Docstrings
-
-Dokumentationsstrings, die z.B. Funktionen genauer beschreiben
-
-Kommentare in einer Funktion: helfen Programmierern, die an dieser Funktion arbeiten
-
-Docstring einer Funktion: hilft Programmierern, die diese Funktion verwenden
-
-## Docstrings
-
-Beispiel:
-
-```py
-def fib(n):
-    """Compute the n-th fibonacci number.
-
-    n must be a nonnegative integer
-    """
-    ...
-```
-
-## Docstrings ausgeben
-
-```py
-help(fib)
-help(round)
-```

@@ -2,7 +2,6 @@
 
 ## Python
 
-- dynamic programming language
 - simple syntax, relatively easy to learn
 - useful in many areas (science, web development, GUI programming)
 - big standard library, many additional packages

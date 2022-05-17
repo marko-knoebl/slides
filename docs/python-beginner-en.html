@@ -2083,7 +2083,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>Python: Overview</h1>
 </section><section class="slide"><h2>Python</h2>
 <ul>
-<li>dynamic programming language</li>
 <li>simple syntax, relatively easy to learn</li>
 <li>useful in many areas (science, web development, GUI programming)</li>
 <li>big standard library, many additional packages</li>
@@ -2404,15 +2403,71 @@ b = a + [<span class="hljs-number">4</span>]
 <p>Documentation on built-ins and the standard library:</p>
 <p><a href="https://docs.python.org/3/library/index.html" target="_blank">https://docs.python.org/3/library/index.html</a></p>
 <p>Similar to the <code>help</code> function, but often has slightly more detailed descriptions</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Development environments</h1>
-</section><section class="slide"><h2>Development environments</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>VS Code for Python</h1>
+</section><section class="slide"><h2>VS Code for Python</h2>
+<p>popular development environments for Python:</p>
 <ul>
 <li><em>VS Code</em> (open source)</li>
 <li><em>PyCharm Community</em> (open source)</li>
 <li><em>PyCharm Professional</em></li>
 </ul>
 </section><section class="slide"><h2>VS Code</h2>
-<p>See the presentation <a href="./vs-code-en.html" target="_blank">VS Code</a></p>
+<p>Basic functionality:</p>
+<ul>
+<li>opening a folder</li>
+<li>file explorer</li>
+<li>creating a new (Python) file</li>
+<li>split editor</li>
+</ul>
+</section><section class="slide"><h2>Python extension</h2>
+<p>functionality:</p>
+<ul>
+<li>show errors / warnings (via <em>pylint</em>, <em>flake8</em>)</li>
+<li>automatic formatting (via <em>black</em> / <em>autopep8</em>, <em>yapf</em>)</li>
+<li>debugging</li>
+<li>Jupyter notebooks</li>
+</ul>
+</section><section class="slide"><h2>Python extension</h2>
+<p>installation:</p>
+<ul>
+<li>open the extensions view in the left sidebar (fifth icon)</li>
+<li>install the extension named <em>Python</em> by <em>Microsoft</em></li>
+</ul>
+<p>registering your Python installation with VS Code:</p>
+<ul>
+<li>open the command palette (<em>F1</em> or <em>Ctrl</em> + <em>Shift</em> + <em>P</em>)</li>
+<li>search for "Python: select interpreter"</li>
+<li>Enter</li>
+<li>wait...</li>
+<li>choose the desired Python version (probably only 1 choice)</li>
+</ul>
+</section><section class="slide"><h2>Configuration</h2>
+<p>via <em>File</em> - <em>Preferences</em> - <em>Settings</em></p>
+<p>possible settings:</p>
+<ul>
+<li>Auto Save</li>
+<li>Format on Save</li>
+<li>Word Wrap</li>
+<li>Python > Formatting: Provider (recommendation: <em>black</em>)</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Command palette</h2>
+<p>command palette: via <em>F1</em> or <em>Ctrl</em> + <em>Shift</em> + <em>P</em></p>
+<ul>
+<li>searchable</li>
+<li>shows shortcuts</li>
+</ul>
+<p>example commands (some are only available for specific file types):</p>
+<ul>
+<li><em>View: Toggle Terminal</em></li>
+<li><em>Find</em></li>
+<li><em>Format Document</em></li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Python extension: running programs</h2>
+<p><em>Debug</em> - <em>Start Without Debugging (Ctrl + F5)</em> (will run program in the project directory)</p>
+<p>or</p>
+<p>green "Play" button in the editor view (will run program in the current working directory)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Our first Python program</h1>
 </section><section class="slide"><h2>Our first Python program</h2>
 <p>We'll create a file called <code>greeting.py</code></p>
@@ -2644,28 +2699,6 @@ age_seconds = age * <span class="hljs-number">365</span> * <span class="hljs-num
 <p>start with a list of numbers, e.g. <code>[2, 5, -3, 8, 1, -5]</code></p>
 <p>print all positive entries, e.g. <code>2, 5, 8, 1</code></p>
 <p>print the biggest element, e.g. <code>8</code></p>
-</section><section class="slide"><h2>Example: login system</h2>
-<!-- might be too hard for programming beginners -->
-<pre><code class="hljs language-py">users = [
-    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Alice"</span>, <span class="hljs-string">"password"</span>: <span class="hljs-string">"1234"</span>},
-    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"password"</span>: <span class="hljs-string">"password"</span>},
-    {<span class="hljs-string">"name"</span>: <span class="hljs-string">"Charlie"</span>, <span class="hljs-string">"password"</span>: <span class="hljs-string">"paris41"</span>}
-]
-</code></pre>
-</section><section class="slide"><h2>Example: login system</h2>
-<p>example program run:</p>
-<pre><code class="hljs language-txt">Enter your username:
-lice
-No such user.
-Enter your username:
-Alice
-Enter your password:
-123
-Wrong password
-Enter your password:
-1234
-Logged in as Alice!
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>While loops</h1>
 </section><section class="slide"><h2>While loops</h2>
 <p>An if clause will execute a code block <em>once</em> if a criterion holds</p>
@@ -2701,10 +2734,11 @@ x
 your shopping list is:
 ["milk", "bread", "apples"]
 </code></pre>
-</section><section class="slide"><h2>Continue &#x26; break</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Break and continue</h1>
+</section><section class="slide"><h2>Break and continue</h2>
 <p>The keywords <code>continue</code> and <code>break</code> may be used to end the current iteration or the entire loop respectively.</p>
 <p>In nested loops they refer to the innermost loop.</p>
-</section><section class="slide"><h2>Continue &#x26; break</h2>
+</section><section class="slide"><h2>Break and continue</h2>
 <p>example:</p>
 <pre><code class="hljs language-py">a = <span class="hljs-number">1</span>
 
@@ -2828,7 +2862,7 @@ print(m) <span class="hljs-comment"># prints "Hello, world"</span>
 <li>function that creates a list of lottery numbers</li>
 <li>function that can asks the user a yes/no question and returns either <code>True</code> or <code>False</code></li>
 </ul>
-<p>For bar codes / primes: use the % operator</p>
+<p>For bar codes / primes: look up the % operator</p>
 <p>see <a href="https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner" target="_blank">https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Modules and packages</h1>
 </section><section class="slide"><h2>Modules and packages</h2>
@@ -2851,14 +2885,12 @@ print(m) <span class="hljs-comment"># prints "Hello, world"</span>
 </section><section class="slide"><h2>Example imports</h2>
 <p>Typical imports:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> module1
-<span class="hljs-keyword">import</span> module2
-<span class="hljs-keyword">from</span> package3 <span class="hljs-keyword">import</span> module3a, module3b
-<span class="hljs-keyword">from</span> module4 <span class="hljs-keyword">import</span> object4a, object4b
-<span class="hljs-keyword">from</span> package5.module5 <span class="hljs-keyword">import</span> object5a, object5b
+<span class="hljs-keyword">from</span> package2 <span class="hljs-keyword">import</span> module2a, module2b
+<span class="hljs-keyword">from</span> module3 <span class="hljs-keyword">import</span> object3a, object3b
+<span class="hljs-keyword">from</span> package4.module4 <span class="hljs-keyword">import</span> object4a, object4b
 </code></pre>
 <p>Specific examples:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> os
-<span class="hljs-keyword">import</span> sys
 <span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request, response
 <span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> sqrt, pi
 <span class="hljs-keyword">from</span> http.client <span class="hljs-keyword">import</span> HTTPConnection, HTTPSConnection
@@ -2954,130 +2986,7 @@ print(greetings.greeting1)
 <li>standard library</li>
 <li>external libraries</li>
 </ul>
-<p>Avoid name clashes with existing modules / packages!</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Code quality and linting</h1>
-</section><section class="slide"><h2>Code quality and linting</h2>
-<p>aspects:</p>
-<ul>
-<li>general linting</li>
-<li>style conventions (PEP8)</li>
-<li>docstrings</li>
-</ul>
-</section><section class="slide"><h2>General linting: Pylint</h2>
-<p>Finding and displaying general errors</p>
-<p>VS Code configuration via <code>python.linting.pylintEnabled</code> and <code>python.linting.pylintUseMinimalCheckers</code></p>
-</section><section class="slide"><h2>PEP8</h2>
-<p>standard styleguide for Python code</p>
-<p>official document: <a href="https://www.python.org/dev/peps/pep-0008/" target="_blank">https://www.python.org/dev/peps/pep-0008/</a></p>
-<p>cheatsheet: <a href="https://gist.github.com/RichardBronosky/454964087739a449da04" target="_blank">https://gist.github.com/RichardBronosky/454964087739a449da04</a></p>
-</section><section class="slide"><h2>Code formatters</h2>
-<ul>
-<li><strong>black</strong></li>
-<li>autopep8</li>
-<li>yapf</li>
-</ul>
-<p>In VS Code config: <code>"python.formatting.provider": "black"</code></p>
-</section><section class="slide"><h2>Code formatters</h2>
-<p>input:</p>
-<pre><code class="hljs language-py">a=<span class="hljs-string">'Hello'</span>; b=<span class="hljs-string">"Have you read \"1984\"?"</span>
-c=a[<span class="hljs-number">0</span>+<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]
-</code></pre>
-<p>output via black:</p>
-<pre><code class="hljs language-py">a = <span class="hljs-string">"Hello"</span>
-b = <span class="hljs-string">'Have you read "1984"?'</span>
-c = a[<span class="hljs-number">0</span> + <span class="hljs-number">1</span> : <span class="hljs-number">3</span>]
-</code></pre>
-</section><section class="slide"><h2>Python philosophy, Zen of Python</h2>
-<p>Quotes from the <em>zen of Python</em> (full text via <code>import this</code>):</p>
-<ul>
-<li><em>Explicit is better than implicit.</em></li>
-<li><em>Readability counts.</em></li>
-<li><em>Special cases aren't special enough to break the rules.</em></li>
-<li><em>There should be one-- and preferably only one --obvious way to do it.</em></li>
-</ul>
-</section><section class="slide"><h2>Docstrings</h2>
-<p>Docstrings = Strings that describe functions / classes / modules in more detail</p>
-<p>comments in a function: help programmers who develop that function</p>
-<p>docstring of a function: help programmers who use that function</p>
-</section><section class="slide"><h2>Docstrings</h2>
-<p>Example:</p>
-<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>):</span>
-    <span class="hljs-string">"""Compute the n-th fibonacci number.
-
-    n must be a nonnegative integer
-    """</span>
-    ...
-</code></pre>
-</section><section class="slide"><h2>Viewing docstrings</h2>
-<pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(fib)
-<span class="hljs-built_in">help</span>(<span class="hljs-built_in">round</span>)
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Debugging</h1>
-</section><section class="slide"><h2>Debugging</h2>
-<p>Breakpoints can be set to pause execution at a certain point.</p>
-<p>Possibilities to set breakpoints:</p>
-<ul>
-<li>in VS Code: click next to the line number</li>
-<li>directly in Python Code via <code>breakpoint()</code> (since Python 3.7)</li>
-</ul>
-<p>Executing in VS Code:</p>
-<ul>
-<li>
-<p>Symbol "Run and Debug" in the left toolbar</p>
-</li>
-<li>
-<p>select "create a launch.json file" - "Python" - "Python File"</p>
-<p>via <em>Debug - Start Debugging</em> or <em>F5</em>.</p>
-</li>
-</ul>
-</section><section class="slide"><h2>Debugging</h2>
-<p>Continuing manually:</p>
-<ul>
-<li>proceed until the next breakpoint:
-<ul>
-<li><em>Continue</em> in VS Code</li>
-<li><code>c</code> for <em>continue</em> in the Python debugger</li>
-</ul>
-</li>
-<li>end debugging:
-<ul>
-<li><em>Stop</em> in VS Code</li>
-<li><code>q</code> for <em>quit</em> in the Python debugger</li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Debugging</h2>
-<p>Continuing manually:</p>
-<ul>
-<li>proceed to the next line:
-<ul>
-<li><em>Step Over</em> in VS Code</li>
-<li><code>n</code> for <em>next</em> in the Python debugger</li>
-</ul>
-</li>
-<li>proceed to the next line - potentially following function calls
-<ul>
-<li><em>Step Into</em> in VS Code</li>
-<li><code>s</code> for <em>step</em> in the Python debugger</li>
-</ul>
-</li>
-<li>run the current function to its end:
-<ul>
-<li><em>Step Out</em> in VS Code</li>
-<li><code>r</code> for <em>return</em> in the Python debugger</li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Debugging</h2>
-<p>Examining values in VS Code:</p>
-<ul>
-<li>local variables in the <em>variables</em> widget</li>
-<li>watch custom expressions in the <em>watch</em> widget</li>
-</ul>
-<p>Printing values in the Python debugger via <code>p</code>:</p>
-<pre><code class="hljs language-py">p mylist
-p mylist[<span class="hljs-number">0</span>]
-</code></pre></section></section></div>
+<p>Avoid name clashes with existing modules / packages!</p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

@@ -45,23 +45,3 @@ x
 your shopping list is:
 ["milk", "bread", "apples"]
 ```
-
-## Continue & break
-
-The keywords `continue` and `break` may be used to end the current iteration or the entire loop respectively.
-
-In nested loops they refer to the innermost loop.
-
-## Continue & break
-
-example:
-
-```py
-a = 1
-
-while True:
-    a = a * 2
-    print(a)
-    if (a > 1000):
-        break
-```

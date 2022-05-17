@@ -10,6 +10,6 @@
 - Funktion, die eine Liste von Lotteriezahlen generiert
 - Funktion, die dem Benutzer eine ja/nein-Frage stellt und `True` oder `False` zurückgibt
 
-für Strichcodes / Primzahlen: % - Operator
+für Strichcodes / Primzahlen: Recherchiere den % - Operator
 
 Siehe: <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>

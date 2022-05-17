@@ -4,7 +4,7 @@
 
 _Anaconda_ = Python Distribution, die viele vorkompilierte Pakete und Entwicklerwerkzeuge enthält
 
-Benötigt ~3GB Platz auf der Festplatte
+Benötigt ~5GB Platz auf der Festplatte
 
 beinhaltet _Conda_ als Environment- und Paketmanager (ermöglicht Installation mehrerer Python-Versionen und Python-Pakete)
 
@@ -13,6 +13,11 @@ beinhaltet _Conda_ als Environment- und Paketmanager (ermöglicht Installation m
 Download von https://www.anaconda.com/products/individual
 
 Unter Windows sollte der Installationspfad keine Leerzeichen enthalten (Empfehlung: `C:/anaconda`) - siehe https://docs.anaconda.com/anaconda/user-guide/faq/#distribution-faq-windows-folder
+
+Optionen während der Installation
+
+- Häkchen bei "Add Anaconda3 to my PATH environment variable" (auch wenn angegeben wird, dass dies nicht empfohlen wird)
+- Häkchen bei "Register Anaconda3 as my default Python 3.x"
 
 ## Anaconda
 

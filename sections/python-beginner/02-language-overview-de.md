@@ -2,7 +2,6 @@
 
 ## Python
 
-- dynamische Programmiersprache
 - einfache Syntax, einfach zu lernen
 - vielfältig einsetzbar (Wissenschaft, Web-Entwicklung, GUI-Programmierung)
 - umfangreiche Standardlibrary und viele zusätzlich installierbare Module

@@ -2746,6 +2746,120 @@ tdl.stats() <span class="hljs-comment"># {open: 1, completed: 1}</span>
     question_text = models.CharField(max_length=<span class="hljs-number">200</span>)
     pub_date = models.DateTimeField(<span class="hljs-string">'date published'</span>)
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Code style</h1>
+</section><section class="slide"><h2>PEP8</h2>
+<p>standard styleguide for Python code</p>
+<p>official document: <a href="https://www.python.org/dev/peps/pep-0008/" target="_blank">https://www.python.org/dev/peps/pep-0008/</a></p>
+<p>cheatsheet: <a href="https://gist.github.com/RichardBronosky/454964087739a449da04" target="_blank">https://gist.github.com/RichardBronosky/454964087739a449da04</a></p>
+</section><section class="slide"><h2>Code formatters</h2>
+<ul>
+<li><strong>black</strong></li>
+<li>autopep8</li>
+<li>yapf</li>
+</ul>
+<p>In VS Code config: <code>"python.formatting.provider": "black"</code></p>
+</section><section class="slide"><h2>Code formatters</h2>
+<p>input:</p>
+<pre><code class="hljs language-py">a=<span class="hljs-string">'Hello'</span>; b=<span class="hljs-string">"Have you read \"1984\"?"</span>
+c=a[<span class="hljs-number">0</span>+<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]
+</code></pre>
+<p>output via black:</p>
+<pre><code class="hljs language-py">a = <span class="hljs-string">"Hello"</span>
+b = <span class="hljs-string">'Have you read "1984"?'</span>
+c = a[<span class="hljs-number">0</span> + <span class="hljs-number">1</span> : <span class="hljs-number">3</span>]
+</code></pre>
+</section><section class="slide"><h2>Python philosophy, Zen of Python</h2>
+<p>Quotes from the <em>zen of Python</em> (full text via <code>import this</code>):</p>
+<ul>
+<li><em>Explicit is better than implicit.</em></li>
+<li><em>Readability counts.</em></li>
+<li><em>Special cases aren't special enough to break the rules.</em></li>
+<li><em>There should be one-- and preferably only one --obvious way to do it.</em></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Docstrings</h1>
+</section><section class="slide"><h2>Docstrings</h2>
+<p>Docstrings = Strings that describe functions / classes / modules in more detail</p>
+<p>comments in a function: help programmers who develop that function</p>
+<p>docstring of a function: help programmers who use that function</p>
+</section><section class="slide"><h2>Docstrings</h2>
+<p>Example:</p>
+<pre><code class="hljs language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span>(<span class="hljs-params">n</span>):</span>
+    <span class="hljs-string">"""Compute the n-th fibonacci number.
+
+    n must be a nonnegative integer
+    """</span>
+    ...
+</code></pre>
+</section><section class="slide"><h2>Viewing docstrings</h2>
+<pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(fib)
+<span class="hljs-built_in">help</span>(<span class="hljs-built_in">round</span>)
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Debugging</h1>
+</section><section class="slide"><h2>Debugging</h2>
+<p>Breakpoints can be set to pause execution at a certain point.</p>
+<p>Possibilities to set breakpoints:</p>
+<ul>
+<li>in VS Code: click next to the line number</li>
+<li>directly in Python Code via <code>breakpoint()</code> (since Python 3.7)</li>
+</ul>
+<p>Executing in VS Code:</p>
+<ul>
+<li>
+<p>Symbol "Run and Debug" in the left toolbar</p>
+</li>
+<li>
+<p>select "create a launch.json file" - "Python" - "Python File"</p>
+<p>via <em>Debug - Start Debugging</em> or <em>F5</em>.</p>
+</li>
+</ul>
+</section><section class="slide"><h2>Debugging</h2>
+<p>Continuing manually:</p>
+<ul>
+<li>proceed until the next breakpoint:
+<ul>
+<li><em>Continue</em> in VS Code</li>
+<li><code>c</code> for <em>continue</em> in the Python debugger</li>
+</ul>
+</li>
+<li>end debugging:
+<ul>
+<li><em>Stop</em> in VS Code</li>
+<li><code>q</code> for <em>quit</em> in the Python debugger</li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Debugging</h2>
+<p>Continuing manually:</p>
+<ul>
+<li>proceed to the next line:
+<ul>
+<li><em>Step Over</em> in VS Code</li>
+<li><code>n</code> for <em>next</em> in the Python debugger</li>
+</ul>
+</li>
+<li>proceed to the next line - potentially following function calls
+<ul>
+<li><em>Step Into</em> in VS Code</li>
+<li><code>s</code> for <em>step</em> in the Python debugger</li>
+</ul>
+</li>
+<li>run the current function to its end:
+<ul>
+<li><em>Step Out</em> in VS Code</li>
+<li><code>r</code> for <em>return</em> in the Python debugger</li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Debugging</h2>
+<p>Examining values in VS Code:</p>
+<ul>
+<li>local variables in the <em>variables</em> widget</li>
+<li>watch custom expressions in the <em>watch</em> widget</li>
+</ul>
+<p>Printing values in the Python debugger via <code>p</code>:</p>
+<pre><code class="hljs language-py">p mylist
+p mylist[<span class="hljs-number">0</span>]
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Control structures</h1>
 </section><section class="slide"><h2>Control structures</h2>
 <ul>

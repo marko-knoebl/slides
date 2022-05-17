@@ -24,17 +24,15 @@ Typical imports:
 
 ```py
 import module1
-import module2
-from package3 import module3a, module3b
-from module4 import object4a, object4b
-from package5.module5 import object5a, object5b
+from package2 import module2a, module2b
+from module3 import object3a, object3b
+from package4.module4 import object4a, object4b
 ```
 
 Specific examples:
 
 ```py
 import os
-import sys
 from urllib import request, response
 from math import sqrt, pi
 from http.client import HTTPConnection, HTTPSConnection

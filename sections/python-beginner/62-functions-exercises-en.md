@@ -10,6 +10,6 @@
 - function that creates a list of lottery numbers
 - function that can asks the user a yes/no question and returns either `True` or `False`
 
-For bar codes / primes: use the % operator
+For bar codes / primes: look up the % operator
 
 see <https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner>
