@@ -14,12 +14,6 @@
 - NumPy array basics
 - creating arrays and operating with arrays
 
-## Pyplot
-
-- plotting basics
-- plot configuration and styling
-- plot types
-
 ## Pandas
 
 - overview
@@ -31,6 +25,12 @@
 - handling missing data
 - plotting in pandas
 - advanced pandas topics: cross tabulation, grouping, multi index
+
+## Pyplot
+
+- plotting basics
+- plot configuration and styling
+- plot types
 
 ## Machine learning: theory
 

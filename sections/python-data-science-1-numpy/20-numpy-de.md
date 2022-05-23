@@ -91,7 +91,7 @@ array_a * array_a
 
 Vergleiche die Ausführungszeit einer Operation in reinem Python und in NumPy mittels `time.perf_counter()`
 
-z.B. berechne die Quadrate aller Zahlen von 0 bis 1 000 000
+z.B. berechne die Quadratwurzeln aller Zahlen von 0 bis 1 000 000
 
 ## Array Shape
 

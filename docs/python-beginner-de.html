@@ -2136,6 +2136,12 @@ why not use windows store version?
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Python im interaktiven Modus</h1>
 </section><section class="slide"><h2>Python im interaktiven Modus</h2>
+<p>Optionen, um Python-Code auszuführen:</p>
+<ul>
+<li>Schreiben eines Programms als Datei / Sammlung von Dateien, Ausführen dieses Programms (z.B. graphische Benutzeroberflächen, Web-Anwendungen, Datenverarbeitungs-Prozesse)</li>
+<li>Schreiben von Code in eine interaktive Konsole / Notebook (z.B. für schnelle Berechnungen, Experimente, Datenanlyse)</li>
+</ul>
+</section><section class="slide"><h2>Python im interaktiven Modus</h2>
 <p>Möglichkeiten:</p>
 <ul>
 <li>lokale Installation</li>
@@ -2153,11 +2159,9 @@ why not use windows store version?
 </section><section class="slide"><h2>Python im interaktiven Modus (online)</h2>
 <p>einfach:</p>
 <p><a href="https://www.python.org/shell/" target="_blank">https://www.python.org/shell/</a></p>
-<!-- dated -->
 <p><em>Jupyter</em> Notebooks:</p>
 <ul>
-<li>Binder (begrenzte Sessions): <a href="https://jupyter.org/try" target="_blank">https://jupyter.org/try</a></li>
-<li><a href="https://www.kaggle.com/notebooks" target="_blank">https://www.kaggle.com/notebooks</a></li>
+<li><a href="https://jupyter.org/try-jupyter/" target="_blank">https://jupyter.org/try-jupyter/</a> (läuft lokal im Browser)</li>
 <li><a href="https://colab.research.google.com" target="_blank">https://colab.research.google.com</a> (Google Login benötigt)</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Variablen</h1>
@@ -2286,6 +2290,7 @@ message = <span class="hljs-string">"Pi is approximately "</span> + <span class=
 <p>Übung:</p>
 <p>Erstelle und verändere Dictionaries, die verschiedene Objekte repräsentieren - z.B.:</p>
 <ul>
+<li>ein Datum (z.B. 23. Oktober 1971)</li>
 <li>einen Kalendereintrag</li>
 <li>eine Person</li>
 <li>ein Produkt in einem Online-Shop</li>
@@ -2399,11 +2404,13 @@ b = a + [<span class="hljs-number">4</span>]
 <p>Interaktive Hilfe zu Objekten in der Python-Konsole:</p>
 <pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(<span class="hljs-built_in">list</span>)
 </code></pre>
-<p>(Navigieren durch lange Ausgaben via <em>Enter</em>, Beenden via <em>Q</em>)</p>
+<p>(Navigieren durch lange Ausgaben via <em>Leertaste</em> und <em>Enter</em>, Beenden via <em>Q</em>)</p>
 </section><section class="slide"><h2>Hilfe und Dokumentation</h2>
 <p>Dokumentation zu Built-Ins und der Standard Library:</p>
-<p><a href="https://docs.python.org/3/library/index.html" target="_blank">https://docs.python.org/3/library/index.html</a></p>
+<p><a href="https://docs.python.org/3/library/index.html" target="_blank">https://docs.python.org/3/library/index.html</a> (Google: "python library")</p>
 <p>Bietet ähnliches wie die Funktion <code>help</code>, oft mit etwas ausführlicheren Beschreibungen</p>
+</section><section class="slide"><h2>Hilfe und Dokumentation</h2>
+<p>hilfreiche Website mit Antworten für viele häufige Fragen: <em>StackOverflow</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code für Python</h1>
 </section><section class="slide"><h2>VS Code für Python</h2>
 <p>verbreitete Entwicklungsumgebungen für Python:</p>
@@ -2577,31 +2584,29 @@ pprint.pprint([<span class="hljs-string">'Mercuy'</span>, <span class="hljs-stri
 <p>Textdatei zum Schreiben öffnen:</p>
 <pre><code class="hljs language-py">file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 file.write(<span class="hljs-string">"hello\n"</span>)
-file.write(<span class="hljs-string">"world\n)
+file.write(<span class="hljs-string">"world\n"</span>)
 file.close()
-</span></code></pre>
+</code></pre>
 <p>Datei muss zuvor nicht existieren</p>
+</section><section class="slide"><h2>urllib.request</h2>
+<p>Abfrage von Web-Inhalten (und Speichern in einer Datei)</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> urllib.request <span class="hljs-keyword">import</span> urlopen
+
+<span class="hljs-comment"># make a HTTP request</span>
+req = urlopen(<span class="hljs-string">"https://en.wikipedia.org"</span>)
+<span class="hljs-comment"># read content as utf-8 string</span>
+content = req.read().decode(<span class="hljs-string">"utf-8"</span>)
+
+<span class="hljs-comment"># save to file</span>
+file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"wikipedia.html"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+file.write(content)
+file.close()
+</code></pre>
 </section><section class="slide"><h2>random</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> random
 
 print(random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>))
 print(random.choice([<span class="hljs-string">"heads"</span>, <span class="hljs-string">"tails"</span>]))
-</code></pre>
-</section><section class="slide"><h2>urllib.request</h2>
-<p>Abfrage von Web-Inhalten</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> urllib.request <span class="hljs-keyword">import</span> urlopen
-
-content = urlopen(<span class="hljs-string">"https://google.com"</span>).read()
-print(content)
-print(<span class="hljs-built_in">len</span>(content))
-</code></pre>
-</section><section class="slide"><h2>webbrowser</h2>
-<p>Beispiel:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> webbrowser
-
-webbrowser.<span class="hljs-built_in">open</span>(
-    <span class="hljs-string">"https://docs.python.org/3/library/webbrowser.html"</span>
-)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Kontrollstrukturen</h1>
 </section><section class="slide"><h2>Kontrollstrukturen</h2>
@@ -2797,6 +2802,16 @@ your shopping list is:
 <pre><code class="hljs language-py">a = <span class="hljs-number">2</span> + <span class="hljs-number">3</span> + <span class="hljs-number">4</span> + <span class="hljs-number">5</span> + <span class="hljs-number">6</span> + \
     <span class="hljs-number">7</span> + <span class="hljs-number">8</span> + <span class="hljs-number">9</span> + <span class="hljs-number">10</span>
 </code></pre>
+</section><section class="slide"><h2>Ausdrücke (Expressions)</h2>
+<p><em>Ausdruck</em> = etwas, das einen Wert ergibt (der Wert könnte <code>None</code> sein)</p>
+<p><em>Ausdruck</em> = alles, was auf der rechten Seite einer Zuweisung (<code>=</code>) stehen kann</p>
+<p>Beispiele für <em>Ausdrücke</em></p>
+<ul>
+<li><code>(7 - 3) * 0.5</code></li>
+<li><code>(7 - 3)</code></li>
+<li><code>7</code></li>
+<li><code>round(3.5)</code></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Kontrollstrukturen - Übungen</h1>
 </section><section class="slide"><h2>Kontrollstrukturen - Übungen</h2>
 <ul>
@@ -2858,7 +2873,7 @@ print(m) <span class="hljs-comment"># prints "Hello, world"</span>
 <li>Funktion, die überprüft, ob ein Jahr ein Schaltjahr ist</li>
 <li>Funktion, die überprüft, ob eine Zahl eine Primzahl ist</li>
 <li>Funktion, die alle Primzahlen in einem Intervall zurückgibt</li>
-<li>Funktion, die die Prüfziffer eines Strichcodes validiert (GTIN Prüfziffer)</li>
+<li>Funktion, die die Prüfziffer eines Strichcodes validiert (GTIN Prüfziffer) (knifflig)</li>
 <li>Funktion, die die Fibonacci-Zahlen berechnet</li>
 <li>Funktion, die eine Liste von Lotteriezahlen generiert</li>
 <li>Funktion, die dem Benutzer eine ja/nein-Frage stellt und <code>True</code> oder <code>False</code> zurückgibt</li>
@@ -2935,7 +2950,7 @@ urllib.request.urlopen(...)
 </section><section class="slide"><h2>PIP und PyPI</h2>
 <ul>
 <li><em>PyPI</em>: Python Package Index: offizielles Repository für installierbare Python-Pakete</li>
-<li><em>PIP</em>: Paketmanager, der in Python-Installationen beinhaltet ist</li>
+<li><em>PIP</em>: Paketmanager</li>
 </ul>
 </section><section class="slide"><h2>PIP</h2>
 <p>einfache Verwendung aus dem Terminal:</p>

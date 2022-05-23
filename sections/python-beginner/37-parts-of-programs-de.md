@@ -33,3 +33,16 @@ Alternative: Escapen von Zeilenumbrüchen mit `\`
 a = 2 + 3 + 4 + 5 + 6 + \
     7 + 8 + 9 + 10
 ```
+
+## Ausdrücke (Expressions)
+
+_Ausdruck_ = etwas, das einen Wert ergibt (der Wert könnte `None` sein)
+
+_Ausdruck_ = alles, was auf der rechten Seite einer Zuweisung (`=`) stehen kann
+
+Beispiele für _Ausdrücke_
+
+- `(7 - 3) * 0.5`
+- `(7 - 3)`
+- `7`
+- `round(3.5)`

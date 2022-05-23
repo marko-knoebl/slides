@@ -21,17 +21,11 @@ IPython = advanced interactive Python console, supports features like autocomple
 free online Jupyter environments:
 
 - _Google Colab_: <a href="https://colab.research.google.com" target="_blank">https://colab.research.google.com</a> (login required)
+- <https://jupyter.org/try>
+  - _JupyterLite_: Jupyter notebooks that run directly in the browser (via WebAssembly)
+  - _Binder_: limited sessions
 - _kaggle_ (login required to edit / create notebooks): <a href="https://www.kaggle.com" target="_blank">https://www.kaggle.com</a>
   - popular public notebooks on _kaggle_: <a href="https://www.kaggle.com/code?sortBy=voteCount" target="_blank">https://www.kaggle.com/code?sortBy=voteCount</a>
-- _Binder_ (limited sessions): <a href="https://jupyter.org/try" target="_blank">https://jupyter.org/try</a>
-
-## Jupyter packages
-
-Python packages:
-
-- _ipykernel_ - needed for VS Code support
-- _notebook_ - old standalone browser interface
-- _jupyterlab_ - new standalone browser interface
 
 ## Jupyter notebook - VS Code
 

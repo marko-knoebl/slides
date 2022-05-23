@@ -14,12 +14,6 @@
 - NumPy Array Grundlagen
 - Erstellen von Arrays und Arbeiten mit Arrays
 
-## Pyplot
-
-- Plotting Grundlagen
-- Konfiguration und Styling von Plots
-- Plottypen
-
 ## Pandas
 
 - Überblick
@@ -31,6 +25,12 @@
 - Behandlung fehlender Daten
 - Plotting in Pandas
 - vertiefende Themen zu Pandas: Kreuztabelle, Gruppierung, Multiindex
+
+## Pyplot
+
+- Plotting Grundlagen
+- Konfiguration und Styling von Plots
+- Plottypen
 
 ## Machine Learning: Theorie
 

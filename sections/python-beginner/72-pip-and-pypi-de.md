@@ -3,7 +3,7 @@
 ## PIP und PyPI
 
 - _PyPI_: Python Package Index: offizielles Repository für installierbare Python-Pakete
-- _PIP_: Paketmanager, der in Python-Installationen beinhaltet ist
+- _PIP_: Paketmanager
 
 ## PIP
 

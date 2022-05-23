@@ -2135,6 +2135,12 @@ why not use windows store version?
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Interactive Python console</h1>
 </section><section class="slide"><h2>Interactive Python console</h2>
+<p>options for running Python code:</p>
+<ul>
+<li>write a program as a file / collection of files, run that program (e.g. GUI applications, web applications, data processing pipelines)</li>
+<li>type code into an interactive console or notebook line by line (e.g. for quick calculations, experimenting, data exploration / analysis)</li>
+</ul>
+</section><section class="slide"><h2>Interactive Python console</h2>
 <p>options:</p>
 <ul>
 <li>local installation</li>
@@ -2152,11 +2158,9 @@ why not use windows store version?
 </section><section class="slide"><h2>Online Python consoles</h2>
 <p>simple:</p>
 <p><a href="https://www.python.org/shell/" target="_blank">https://www.python.org/shell/</a></p>
-<!-- dated -->
 <p><em>Jupyter notebooks</em>:</p>
 <ul>
-<li>Binder (limited sessions): <a href="https://jupyter.org/try" target="_blank">https://jupyter.org/try</a></li>
-<li><a href="https://www.kaggle.com/notebooks" target="_blank">https://www.kaggle.com/notebooks</a></li>
+<li><a href="https://jupyter.org/try-jupyter/" target="_blank">https://jupyter.org/try-jupyter/</a> (runs locally in the browser)</li>
 <li><a href="https://colab.research.google.com" target="_blank">https://colab.research.google.com</a> (Google login required)</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Variables</h1>
@@ -2285,6 +2289,7 @@ message = <span class="hljs-string">"Pi is approximately "</span> + <span class=
 <p>exercise:</p>
 <p>create and modify dictionaries that represent various objects, e.g.:</p>
 <ul>
+<li>a date (e.g. October 23, 1971)</li>
 <li>a calendar event</li>
 <li>a person</li>
 <li>a product in an online shop</li>
@@ -2398,11 +2403,13 @@ b = a + [<span class="hljs-number">4</span>]
 <p>Interactive help on objects in the Python console:</p>
 <pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(<span class="hljs-built_in">list</span>)
 </code></pre>
-<p>(navigate through long outputs via <em>Enter</em>, exit via <em>Q</em>)</p>
+<p>(navigate through long outputs via <em>Space</em> and <em>Enter</em>, exit via <em>Q</em>)</p>
 </section><section class="slide"><h2>Help and documentation</h2>
 <p>Documentation on built-ins and the standard library:</p>
-<p><a href="https://docs.python.org/3/library/index.html" target="_blank">https://docs.python.org/3/library/index.html</a></p>
+<p><a href="https://docs.python.org/3/library/index.html" target="_blank">https://docs.python.org/3/library/index.html</a> (Google: "python library")</p>
 <p>Similar to the <code>help</code> function, but often has slightly more detailed descriptions</p>
+</section><section class="slide"><h2>Help and documentation</h2>
+<p>helpful website with answers for many common questions: <em>StackOverflow</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code for Python</h1>
 </section><section class="slide"><h2>VS Code for Python</h2>
 <p>popular development environments for Python:</p>
@@ -2576,31 +2583,29 @@ pprint.pprint([<span class="hljs-string">'Mercuy'</span>, <span class="hljs-stri
 <p>opening a text file for writing:</p>
 <pre><code class="hljs language-py">file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 file.write(<span class="hljs-string">"hello\n"</span>)
-file.write(<span class="hljs-string">"world\n)
+file.write(<span class="hljs-string">"world\n"</span>)
 file.close()
-</span></code></pre>
+</code></pre>
 <p>file does not have to exist beforehand</p>
+</section><section class="slide"><h2>urllib.request</h2>
+<p>Querying web contents (and saving to a file)</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> urllib.request <span class="hljs-keyword">import</span> urlopen
+
+<span class="hljs-comment"># make a HTTP request</span>
+req = urlopen(<span class="hljs-string">"https://en.wikipedia.org"</span>)
+<span class="hljs-comment"># read content as utf-8 string</span>
+content = req.read().decode(<span class="hljs-string">"utf-8"</span>)
+
+<span class="hljs-comment"># save to file</span>
+file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"wikipedia.html"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+file.write(content)
+file.close()
+</code></pre>
 </section><section class="slide"><h2>random</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> random
 
 print(random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>))
 print(random.choice([<span class="hljs-string">"heads"</span>, <span class="hljs-string">"tails"</span>]))
-</code></pre>
-</section><section class="slide"><h2>urllib.request</h2>
-<p>Querying web contents</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> urllib.request <span class="hljs-keyword">import</span> urlopen
-
-content = urlopen(<span class="hljs-string">"https://google.com"</span>).read()
-print(content)
-print(<span class="hljs-built_in">len</span>(content))
-</code></pre>
-</section><section class="slide"><h2>webbrowser</h2>
-<p>example:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> webbrowser
-
-webbrowser.<span class="hljs-built_in">open</span>(
-    <span class="hljs-string">"https://docs.python.org/3/library/os.html"</span>
-)
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Control structures</h1>
 </section><section class="slide"><h2>Control structures</h2>
@@ -2796,6 +2801,16 @@ your shopping list is:
 <pre><code class="hljs language-py">a = <span class="hljs-number">2</span> + <span class="hljs-number">3</span> + <span class="hljs-number">4</span> + <span class="hljs-number">5</span> + <span class="hljs-number">6</span> + \
     <span class="hljs-number">7</span> + <span class="hljs-number">8</span> + <span class="hljs-number">9</span> + <span class="hljs-number">10</span>
 </code></pre>
+</section><section class="slide"><h2>Expressions</h2>
+<p><em>expression</em> = something that produces a value (the value might be <code>None</code>)</p>
+<p><em>expression</em> = anything that can be on the right-hand side of an assignment (<code>=</code>)</p>
+<p>examples of expressions:</p>
+<ul>
+<li><code>(7 - 3) * 0.5</code></li>
+<li><code>(7 - 3)</code></li>
+<li><code>7</code></li>
+<li><code>round(3.5)</code></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Control structures - exercises</h1>
 </section><section class="slide"><h2>Control structures - exercises</h2>
 <ul>
@@ -2857,7 +2872,7 @@ print(m) <span class="hljs-comment"># prints "Hello, world"</span>
 <li>function that checks if a year is a leap year</li>
 <li>function that checks if a number is a prime number</li>
 <li>function that returns all prime numbers in an interval</li>
-<li>function that verifies a bar code check digit (GTIN check digit)</li>
+<li>function that verifies a bar code check digit (GTIN check digit) (tricky)</li>
 <li>function that computes the fibonacci numbers</li>
 <li>function that creates a list of lottery numbers</li>
 <li>function that can asks the user a yes/no question and returns either <code>True</code> or <code>False</code></li>
@@ -2934,7 +2949,7 @@ urllib.request.urlopen(...)
 </section><section class="slide"><h2>PIP and PyPI</h2>
 <ul>
 <li><em>PyPI</em>: Python Package Index: official repository for installable Python packages</li>
-<li><em>PIP</em>: package manager that comes with Python</li>
+<li><em>PIP</em>: package manager for Python</li>
 </ul>
 </section><section class="slide"><h2>PIP</h2>
 <p>simple use from the terminal:</p>

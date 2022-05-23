@@ -31,6 +31,7 @@ person["first_name"] = "Jane"
 
 Erstelle und verändere Dictionaries, die verschiedene Objekte repräsentieren - z.B.:
 
+- ein Datum (z.B. 23. Oktober 1971)
 - einen Kalendereintrag
 - eine Person
 - ein Produkt in einem Online-Shop

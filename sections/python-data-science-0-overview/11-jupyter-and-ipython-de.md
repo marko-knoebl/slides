@@ -21,17 +21,11 @@ IPython = Fortgeschrittene interaktive Python Konsole, beinhaltet u.a. Autovervo
 kostenlose online Jupyter Notebooks:
 
 - _Google Colab_: <a href="https://colab.research.google.com" target="_blank">https://colab.research.google.com</a> (Login erforderlich)
+- <https://jupyter.org/try>
+  - _JupyterLite_: Jupyter-Notebooks, die direkt im Browser laufen (via WebAssembly)
+  - _Binder_: begrenzte Sessions
 - _kaggle_ (Login zum Ändern / Erstellen erforderlich): <a href="https://www.kaggle.com" target="_blank">https://www.kaggle.com</a>
   - populäre öffentliche Notebooks auf _kaggle_: <a href="https://www.kaggle.com/code?sortBy=voteCount" target="_blank">https://www.kaggle.com/code?sortBy=voteCount</a>
-- _Binder_ (begrenzte Sessions): <a href="https://jupyter.org/try" target="_blank">https://jupyter.org/try</a>
-
-## Jupyter Pakete
-
-Python-Pakte:
-
-- _ipykernel_ - benötigt für Unterstützung von VS Code
-- _notebook_ - altes eigenständiges Browserinterface
-- _jupyterlab_ - neues Browserinterface
 
 ## Jupyter Notebook - VS Code
 

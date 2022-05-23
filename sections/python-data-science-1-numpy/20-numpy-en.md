@@ -91,7 +91,7 @@ Exercise:
 
 Compare the execution time of an operation in pure Python and in NumPy by using `time.perf_counter()`
 
-e.g. compute the squares of all numbers from 0 to 1,000,000
+e.g. compute the square roots of all numbers from 0 to 1,000,000
 
 ## Array shape
 

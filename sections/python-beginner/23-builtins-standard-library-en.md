@@ -97,11 +97,29 @@ opening a text file for writing:
 ```py
 file = open("message.txt", "w", encoding="utf-8")
 file.write("hello\n")
-file.write("world\n)
+file.write("world\n")
 file.close()
 ```
 
 file does not have to exist beforehand
+
+## urllib.request
+
+Querying web contents (and saving to a file)
+
+```py
+from urllib.request import urlopen
+
+# make a HTTP request
+req = urlopen("https://en.wikipedia.org")
+# read content as utf-8 string
+content = req.read().decode("utf-8")
+
+# save to file
+file = open("wikipedia.html", "w", encoding="utf-8")
+file.write(content)
+file.close()
+```
 
 ## random
 
@@ -110,28 +128,4 @@ import random
 
 print(random.randint(1, 6))
 print(random.choice(["heads", "tails"]))
-```
-
-## urllib.request
-
-Querying web contents
-
-```py
-from urllib.request import urlopen
-
-content = urlopen("https://google.com").read()
-print(content)
-print(len(content))
-```
-
-## webbrowser
-
-example:
-
-```py
-import webbrowser
-
-webbrowser.open(
-    "https://docs.python.org/3/library/os.html"
-)
 ```

@@ -33,3 +33,16 @@ Alternative: _escaping_ newlines with `\`
 a = 2 + 3 + 4 + 5 + 6 + \
     7 + 8 + 9 + 10
 ```
+
+## Expressions
+
+_expression_ = something that produces a value (the value might be `None`)
+
+_expression_ = anything that can be on the right-hand side of an assignment (`=`)
+
+examples of expressions:
+
+- `(7 - 3) * 0.5`
+- `(7 - 3)`
+- `7`
+- `round(3.5)`

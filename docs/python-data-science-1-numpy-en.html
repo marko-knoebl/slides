@@ -2112,7 +2112,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>NumPy arrays vs Python lists</h2>
 <p>Exercise:</p>
 <p>Compare the execution time of an operation in pure Python and in NumPy by using <code>time.perf_counter()</code></p>
-<p>e.g. compute the squares of all numbers from 0 to 1,000,000</p>
+<p>e.g. compute the square roots of all numbers from 0 to 1,000,000</p>
 </section><section class="slide"><h2>Array shape</h2>
 <p>We can query these attributes:</p>
 <ul>
@@ -2151,156 +2151,6 @@ a2d.<span class="hljs-built_in">round</span>()
 <pre><code class="hljs language-py">np.sin(a2d)
 np.exp(a2d)
 np.expand_dims(a2d, <span class="hljs-number">2</span>)
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Numeric types</h1>
-</section><section class="slide"><h2>Numeric types</h2>
-<ul>
-<li><strong>int</strong></li>
-<li><strong>float</strong></li>
-<li>decimal</li>
-</ul>
-</section><section class="slide"><h2>Int</h2>
-<p>an <em>int8</em> consists of 8 bits and can store 2^8 (256) different numbers</p>
-<p>number of representable values for integer types:</p>
-<ul>
-<li><em>int8</em>: 256 (-128 to +127)</li>
-<li><em>int16</em>: 65,536 (-32,768 to +32,767)</li>
-<li><em>int32</em>: 4,294,967,296</li>
-<li><em>int64</em>: 18,446,744,073,709,551,616</li>
-</ul>
-</section><section class="slide"><h2>Int</h2>
-<p>an <em>unsigned integer (uint)</em> can only represent non-negative numbers</p>
-<p>e.g. <em>uint8</em>: 0 to 255</p>
-</section><section class="slide"><h2>Float</h2>
-<p>standardized way of representing real numbers in computers: <em>IEEE 754</em></p>
-<ul>
-<li><strong>binary floating point numbers</strong></li>
-<li>decimal floating point numbers</li>
-</ul>
-</section><section class="slide"><h2>Float</h2>
-<p>common floating point types:</p>
-<ul>
-<li><em>float32</em> (<em>single</em>): exact for ~7 decimal digits</li>
-<li><em>float64</em> (<em>double</em>): exact for ~16 decimal digits</li>
-</ul>
-</section><section class="slide"><h2>Float</h2>
-<p><strong>rounding errors</strong>: some numbers cannot be represented as floating point numbers, they will always be approximations</p>
-<p>examples in the decimal system: 1/3, 1/7, π</p>
-<p>examples in the binary system (i.e. <em>floats</em>): 1/10, 1/5, 1/3, π</p>
-<p>example: π + π evaluates to <code>6.2</code> when using decimal numbers with a precision of 2 (a more exact result would be <code>6.3</code>)</p>
-<p>example: <code>0.1 + 0.2</code> evaluates to ~ <code>0.30000000000000004</code> when using 64 bit floats</p>
-</section><section class="slide"><h2>Float</h2>
-<p>some operations result in loss of precision - e.g. subtracting numbers that are close to each other</p>
-<p>example:</p>
-<pre><code class="hljs language-apache"><span class="hljs-attribute">a</span> = <span class="hljs-number">0</span>.<span class="hljs-number">001234567</span> (<span class="hljs-number">7</span> significant decimal places)
-<span class="hljs-attribute">b</span> = <span class="hljs-number">0</span>.<span class="hljs-number">001234321</span> (<span class="hljs-number">7</span> significant decimal places)
-
-<span class="hljs-attribute">c</span> = a - b
-<span class="hljs-attribute">c</span> = <span class="hljs-number">0</span>.<span class="hljs-number">000000246</span> (<span class="hljs-number">3</span> significant decimal places)
-</code></pre>
-</section><section class="slide"><h2>Float</h2>
-<p>Special values in IEEE 754:</p>
-<ul>
-<li><code>inf</code> and <code>-inf</code> (infinite values)</li>
-<li><code>nan</code> (not-a-number: undefined / unknown value)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Floats in IEEE 754</h1>
-</section><section class="slide"><h2>Floats in IEEE 754</h2>
-<p>storage format:</p>
-<pre><code class="hljs language-txt">(-) 2^e * s
-</code></pre>
-<ul>
-<li>e ... <em>exponent</em></li>
-<li>s ... <em>significand</em> / <em>coefficient</em></li>
-</ul>
-</section><section class="slide"><h2>Examples</h2>
-<p>pi as <em>float32</em>:</p>
-<p><code>0 10000000 10010010000111111011011</code></p>
-<p>2*pi as <em>float32</em>:</p>
-<p><code>0 10000001 10010010000111111011011</code></p>
-<p>pi/2 as <em>float32</em>:</p>
-<p><code>0 01111111 10010010000111111011011</code></p>
-</section><section class="slide"><h2>Examples</h2>
-<p>numbers <em>0.20000000</em>, <em>0.20000001</em>, ... <em>0.20000005</em> expressed as closest <em>float32</em> numbers:</p>
-<ul>
-<li><code>0 01111100 10011001100110011001101</code></li>
-<li><code>0 01111100 10011001100110011001101</code></li>
-<li><code>0 01111100 10011001100110011001110</code></li>
-<li><code>0 01111100 10011001100110011001111</code></li>
-<li><code>0 01111100 10011001100110011001111</code></li>
-<li><code>0 01111100 10011001100110011010000</code></li>
-</ul>
-</section><section class="slide"><h2>Examples</h2>
-<p>Avogadro constant (6.02214076 * 10^23):</p>
-<p><code>0 11001101 11111110000110001000001</code></p>
-<p>planck length (1.61625518 * 10^-35):</p>
-<p><code>0 00001011 01010111101011110110100</code></p>
-</section><section class="slide"><h2>Overflow and underflow</h2>
-<p>largest <em>float32</em> number:</p>
-<p><code>0 11111110 11111111111111111111111</code></p>
-<p><code>~ 2^127.9999 ~ 3.403e38</code></p>
-<p>smallest positive <em>float32</em> number with full precision:</p>
-<p><code>0 00000001 00000000000000000000000</code></p>
-<p><code>= 2^-126 ~ 1.175e-36</code></p>
-<p>larger numbers will yield <code>inf</code></p>
-<p>smaller numbers will lose precision or yield <code>0.0</code></p>
-</section><section class="slide"><h2>Special values</h2>
-<p>inf: <code>0 11111111 00000000000000000000000</code></p>
-<p>nan: <code>0 11111111 00000000000000000000001</code></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Array types</h1>
-</section><section class="slide"><h2>Array types</h2>
-<p>Each NumPy array can only hold data of one type (e.g. only 64 bit floats or only bytes)</p>
-</section><section class="slide"><h2>Array types</h2>
-<p>Each array has a predefined data type for all entries</p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>])
-a.dtype <span class="hljs-comment"># int32</span>
-b = np.array([<span class="hljs-number">1.0</span>])
-b.dtype <span class="hljs-comment"># float64</span>
-c = np.array([<span class="hljs-string">'abc'</span>])
-c.dtype <span class="hljs-comment"># &#x3C;U3</span>
-d = np.array([<span class="hljs-string">b'abc'</span>])
-d.dtype <span class="hljs-comment"># |S3</span>
-</code></pre>
-</section><section class="slide"><h2>Array types</h2>
-<p>Types may be stated explicitly:</p>
-<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], dtype=<span class="hljs-string">'int64'</span>)
-b = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], dtype=<span class="hljs-string">'uint8'</span>)
-</code></pre>
-<p>If possible, types are converted automatically:</p>
-<pre><code class="hljs language-py">c = a + b
-c.dtype <span class="hljs-comment"># int64</span>
-</code></pre>
-</section><section class="slide"><h2>Array types</h2>
-<p>common types:</p>
-<ul>
-<li><em>bool</em> / <em>bool_</em> (stored as 8 bits)</li>
-<li><em>int8</em>, <em>int16</em>, <em>int32</em>, <em>int64</em></li>
-<li><em>uint8</em>, <em>uint16</em>, <em>uint32</em>, <em>uint64</em></li>
-<li><em>float16</em>, <em>float32</em>, <em>float64</em></li>
-</ul>
-</section><section class="slide"><h2>Float types</h2>
-<p>precision for float types:</p>
-<ul>
-<li><em>float16</em>: ~3 decimal digits</li>
-<li><em>float32</em>: ~7 decimal digits</li>
-<li><em>float64</em>: ~16 decimal digits</li>
-</ul>
-</section><section class="slide"><h2>Float types</h2>
-<p>float16: exact for ~3 decimal digits</p>
-<pre><code class="hljs language-py">np.array([<span class="hljs-number">2.71828</span>, <span class="hljs-number">0.271828</span>], dtype=<span class="hljs-string">"float16"</span>)
-<span class="hljs-comment"># array([2.719 , 0.2717])</span>
-</code></pre>
-</section><section class="slide"><h2>Float types</h2>
-<p>float16: overflow</p>
-<pre><code class="hljs language-py">np.array([<span class="hljs-number">65450</span>, <span class="hljs-number">65500</span>, <span class="hljs-number">65550</span>], dtype=<span class="hljs-string">"float16"</span>)
-<span class="hljs-comment"># array([65440, 65500, inf])</span>
-</code></pre>
-<p>float16: underflow</p>
-<pre><code class="hljs language-py">np.array(
-    [<span class="hljs-number">3.141e-5</span>, <span class="hljs-number">3.141e-6</span>, <span class="hljs-number">3.141e-7</span>, <span class="hljs-number">3.141e-8</span>, <span class="hljs-number">3.141e-9</span>],
-    dtype=<span class="hljs-string">"float16"</span>
-)
-<span class="hljs-comment"># array([3.14e-05, 3.16e-06, 2.98e-07, 5.96e-08, 0.00e+00])</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Creating arrays</h1>
 </section><section class="slide"><h2>Creating arrays</h2>
@@ -2470,8 +2320,8 @@ np.array([[<span class="hljs-number">0.0</span>, <span class="hljs-number">0.01<
 <p>using this data, verify the following equation: <em>sin(x)^2 + cos(x)^2 = 1</em></p>
 </section><section class="slide"><h2>Exercises</h2>
 <p>Simulate 1 million dice rolls with 10 dice each</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Advanced indexing and filtering</h1>
-</section><section class="slide"><h2>Boolean indexing</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Boolean indexing</h1>
+</section><section class="slide"><h2>Boolean indexing (long form)</h2>
 <pre><code class="hljs language-py">a = np.array([<span class="hljs-number">4.1</span>, <span class="hljs-number">2.7</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">3.8</span>, -<span class="hljs-number">1</span>])
 
 a_valid = a > <span class="hljs-number">0</span>
@@ -2491,6 +2341,156 @@ a_filtered = a[a >= <span class="hljs-number">0</span>]
 
 a_with_nans = np.copy(a)
 a_with_nans[a_with_nans &#x3C; <span class="hljs-number">0</span>] = np.nan
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Numeric types</h1>
+</section><section class="slide"><h2>Numeric types</h2>
+<ul>
+<li><strong>int</strong></li>
+<li><strong>float</strong></li>
+<li>decimal</li>
+</ul>
+</section><section class="slide"><h2>Int</h2>
+<p>an <em>int8</em> consists of 8 bits and can store 2^8 (256) different numbers</p>
+<p>number of representable values for integer types:</p>
+<ul>
+<li><em>int8</em>: 256 (-128 to +127)</li>
+<li><em>int16</em>: 65,536 (-32,768 to +32,767)</li>
+<li><em>int32</em>: 4,294,967,296</li>
+<li><em>int64</em>: 18,446,744,073,709,551,616</li>
+</ul>
+</section><section class="slide"><h2>Int</h2>
+<p>an <em>unsigned integer (uint)</em> can only represent non-negative numbers</p>
+<p>e.g. <em>uint8</em>: 0 to 255</p>
+</section><section class="slide"><h2>Float</h2>
+<p>standardized way of representing real numbers in computers: <em>IEEE 754</em></p>
+<ul>
+<li><strong>binary floating point numbers</strong></li>
+<li>decimal floating point numbers</li>
+</ul>
+</section><section class="slide"><h2>Float</h2>
+<p>common floating point types:</p>
+<ul>
+<li><em>float32</em> (<em>single</em>): exact for ~7 decimal digits</li>
+<li><em>float64</em> (<em>double</em>): exact for ~16 decimal digits</li>
+</ul>
+</section><section class="slide"><h2>Float</h2>
+<p><strong>rounding errors</strong>: some numbers cannot be represented as floating point numbers, they will always be approximations</p>
+<p>examples in the decimal system: 1/3, 1/7, π</p>
+<p>examples in the binary system (i.e. <em>floats</em>): 1/10, 1/5, 1/3, π</p>
+<p>example: π + π evaluates to <code>6.2</code> when using decimal numbers with a precision of 2 (a more exact result would be <code>6.3</code>)</p>
+<p>example: <code>0.1 + 0.2</code> evaluates to ~ <code>0.30000000000000004</code> when using 64 bit floats</p>
+</section><section class="slide"><h2>Float</h2>
+<p>some operations result in loss of precision - e.g. subtracting numbers that are close to each other</p>
+<p>example:</p>
+<pre><code class="hljs language-apache"><span class="hljs-attribute">a</span> = <span class="hljs-number">0</span>.<span class="hljs-number">001234567</span> (<span class="hljs-number">7</span> significant decimal places)
+<span class="hljs-attribute">b</span> = <span class="hljs-number">0</span>.<span class="hljs-number">001234321</span> (<span class="hljs-number">7</span> significant decimal places)
+
+<span class="hljs-attribute">c</span> = a - b
+<span class="hljs-attribute">c</span> = <span class="hljs-number">0</span>.<span class="hljs-number">000000246</span> (<span class="hljs-number">3</span> significant decimal places)
+</code></pre>
+</section><section class="slide"><h2>Float</h2>
+<p>Special values in IEEE 754:</p>
+<ul>
+<li><code>inf</code> and <code>-inf</code> (infinite values)</li>
+<li><code>nan</code> (not-a-number: undefined / unknown value)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Floats in IEEE 754</h1>
+</section><section class="slide"><h2>Floats in IEEE 754</h2>
+<p>storage format:</p>
+<pre><code class="hljs language-txt">(-) 2^e * s
+</code></pre>
+<ul>
+<li>e ... <em>exponent</em></li>
+<li>s ... <em>significand</em> / <em>coefficient</em></li>
+</ul>
+</section><section class="slide"><h2>Examples</h2>
+<p>pi as <em>float32</em>:</p>
+<p><code>0 10000000 10010010000111111011011</code></p>
+<p>2*pi as <em>float32</em>:</p>
+<p><code>0 10000001 10010010000111111011011</code></p>
+<p>pi/2 as <em>float32</em>:</p>
+<p><code>0 01111111 10010010000111111011011</code></p>
+</section><section class="slide"><h2>Examples</h2>
+<p>numbers <em>0.20000000</em>, <em>0.20000001</em>, ... <em>0.20000005</em> expressed as closest <em>float32</em> numbers:</p>
+<ul>
+<li><code>0 01111100 10011001100110011001101</code></li>
+<li><code>0 01111100 10011001100110011001101</code></li>
+<li><code>0 01111100 10011001100110011001110</code></li>
+<li><code>0 01111100 10011001100110011001111</code></li>
+<li><code>0 01111100 10011001100110011001111</code></li>
+<li><code>0 01111100 10011001100110011010000</code></li>
+</ul>
+</section><section class="slide"><h2>Examples</h2>
+<p>Avogadro constant (6.02214076 * 10^23):</p>
+<p><code>0 11001101 11111110000110001000001</code></p>
+<p>planck length (1.61625518 * 10^-35):</p>
+<p><code>0 00001011 01010111101011110110100</code></p>
+</section><section class="slide"><h2>Overflow and underflow</h2>
+<p>largest <em>float32</em> number:</p>
+<p><code>0 11111110 11111111111111111111111</code></p>
+<p><code>~ 2^127.9999 ~ 3.403e38</code></p>
+<p>smallest positive <em>float32</em> number with full precision:</p>
+<p><code>0 00000001 00000000000000000000000</code></p>
+<p><code>= 2^-126 ~ 1.175e-36</code></p>
+<p>larger numbers will yield <code>inf</code></p>
+<p>smaller numbers will lose precision or yield <code>0.0</code></p>
+</section><section class="slide"><h2>Special values</h2>
+<p>inf: <code>0 11111111 00000000000000000000000</code></p>
+<p>nan: <code>0 11111111 00000000000000000000001</code></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Array types</h1>
+</section><section class="slide"><h2>Array types</h2>
+<p>Each NumPy array can only hold data of one type (e.g. only 64 bit floats or only bytes)</p>
+</section><section class="slide"><h2>Array types</h2>
+<p>Each array has a predefined data type for all entries</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>])
+a.dtype <span class="hljs-comment"># int32</span>
+b = np.array([<span class="hljs-number">1.0</span>])
+b.dtype <span class="hljs-comment"># float64</span>
+c = np.array([<span class="hljs-string">'abc'</span>])
+c.dtype <span class="hljs-comment"># &#x3C;U3</span>
+d = np.array([<span class="hljs-string">b'abc'</span>])
+d.dtype <span class="hljs-comment"># |S3</span>
+</code></pre>
+</section><section class="slide"><h2>Array types</h2>
+<p>Types may be stated explicitly:</p>
+<pre><code class="hljs language-py">a = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], dtype=<span class="hljs-string">'int64'</span>)
+b = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], dtype=<span class="hljs-string">'uint8'</span>)
+</code></pre>
+<p>If possible, types are converted automatically:</p>
+<pre><code class="hljs language-py">c = a + b
+c.dtype <span class="hljs-comment"># int64</span>
+</code></pre>
+</section><section class="slide"><h2>Array types</h2>
+<p>common types:</p>
+<ul>
+<li><em>bool</em> / <em>bool_</em> (stored as 8 bits)</li>
+<li><em>int8</em>, <em>int16</em>, <em>int32</em>, <em>int64</em></li>
+<li><em>uint8</em>, <em>uint16</em>, <em>uint32</em>, <em>uint64</em></li>
+<li><em>float16</em>, <em>float32</em>, <em>float64</em></li>
+</ul>
+</section><section class="slide"><h2>Float types</h2>
+<p>precision for float types:</p>
+<ul>
+<li><em>float16</em>: ~3 decimal digits</li>
+<li><em>float32</em>: ~7 decimal digits</li>
+<li><em>float64</em>: ~16 decimal digits</li>
+</ul>
+</section><section class="slide"><h2>Float types</h2>
+<p>float16: exact for ~3 decimal digits</p>
+<pre><code class="hljs language-py">np.array([<span class="hljs-number">2.71828</span>, <span class="hljs-number">0.271828</span>], dtype=<span class="hljs-string">"float16"</span>)
+<span class="hljs-comment"># array([2.719 , 0.2717])</span>
+</code></pre>
+</section><section class="slide"><h2>Float types</h2>
+<p>float16: overflow</p>
+<pre><code class="hljs language-py">np.array([<span class="hljs-number">65450</span>, <span class="hljs-number">65500</span>, <span class="hljs-number">65550</span>], dtype=<span class="hljs-string">"float16"</span>)
+<span class="hljs-comment"># array([65440, 65500, inf])</span>
+</code></pre>
+<p>float16: underflow</p>
+<pre><code class="hljs language-py">np.array(
+    [<span class="hljs-number">3.141e-5</span>, <span class="hljs-number">3.141e-6</span>, <span class="hljs-number">3.141e-7</span>, <span class="hljs-number">3.141e-8</span>, <span class="hljs-number">3.141e-9</span>],
+    dtype=<span class="hljs-string">"float16"</span>
+)
+<span class="hljs-comment"># array([3.14e-05, 3.16e-06, 2.98e-07, 5.96e-08, 0.00e+00])</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>NumPy advanced</h1>
 </section><section class="slide"><h2>Views</h2>

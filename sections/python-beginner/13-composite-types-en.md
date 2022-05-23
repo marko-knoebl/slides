@@ -31,6 +31,7 @@ exercise:
 
 create and modify dictionaries that represent various objects, e.g.:
 
+- a date (e.g. October 23, 1971)
 - a calendar event
 - a person
 - a product in an online shop

@@ -9,7 +9,7 @@ const DIST_BASE_DIR = "docs";
 
 function main() {
   // empty out dist directory
-  fs.rmdirSync(DIST_BASE_DIR, { recursive: true, force: true } as any);
+  fs.rmSync(DIST_BASE_DIR, { recursive: true, force: true });
   fs.mkdirSync(DIST_BASE_DIR, { recursive: true });
   console.log("# loading contents");
   // load contents, parse markdown in linear presentations
