@@ -13,7 +13,11 @@ The function call `range(10)` creates an object that behaves like the list `[0, 
 
 ## Counting loops
 
-exercise: creating a "multiplication table"
+typical variable name in counting loops: `i`
+
+## Counting loops
+
+exercise: create a "multiplication table"
 
 ```txt
 1 x 7 = 7

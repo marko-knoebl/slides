@@ -13,7 +13,11 @@ Der Aufruf `range(10)` erstellt ein Objekt, das sich wie die Liste `[0, 1, 2, 3,
 
 ## Zählschleifen
 
-Übung: Ausgabe einer Multiplikationstafel
+typischer Variablenname in Zählschleifen: `i`
+
+## Zählschleifen
+
+Übung: Erstelle eine Multiplikationstafel
 
 ```txt
 1 x 7 = 7

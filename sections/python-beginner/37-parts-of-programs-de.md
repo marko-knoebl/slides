@@ -46,3 +46,4 @@ Beispiele für _Ausdrücke_
 - `(7 - 3)`
 - `7`
 - `round(3.5)`
+- `x == 1`

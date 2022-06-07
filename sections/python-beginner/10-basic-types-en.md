@@ -8,7 +8,7 @@
 - `bool` (boolean): yes / no
 - none: missing / unknown value
 
-## int & float
+## int and float
 
 example:
 
@@ -24,13 +24,13 @@ Strings can be enclosed in single or double quotes
 
 ```py
 greeting = "Hello"
-name = 'Tom'
+name = 'John'
 ```
 
 ## Building strings
 
 ```py
-name = "Tom"
+name = "John"
 ```
 
 Inserting a variable (f-strings):
@@ -92,7 +92,7 @@ note the capitalization
 None represents a value that is unknown or missing
 
 ```py
-first_name = "Mike"
+first_name = "John"
 middle_name = None
-last_name = "Jones"
+last_name = "Doe"
 ```

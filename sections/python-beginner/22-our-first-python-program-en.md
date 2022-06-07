@@ -8,17 +8,10 @@ Our program will ask the user their name and greet them.
 
 ## Input and output of text
 
-Output: via the `print()` function:
-
-```py
-print("Hello. What is your name?")
-```
-
-## Input and output of text
-
 Input: via `input()`:
 
 ```py
+print("What is your name?")
 name = input()
 ```
 

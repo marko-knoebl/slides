@@ -108,15 +108,15 @@ file does not have to exist beforehand
 Querying web contents (and saving to a file)
 
 ```py
-from urllib.request import urlopen
+import urllib.request
 
 # make a HTTP request
-req = urlopen("https://en.wikipedia.org")
+req = urllib.request.urlopen("https://en.wikipedia.org")
 # read content as utf-8 string
 content = req.read().decode("utf-8")
 
 # save to file
-file = open("wikipedia.html", "w", encoding="utf-8")
+file = open("wikipedia.html", mode="w", encoding="utf-8")
 file.write(content)
 file.close()
 ```

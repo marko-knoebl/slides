@@ -2187,7 +2187,7 @@ a = a + <span class="hljs-number">1</span>
 <li><code>bool</code> (boolean): yes / no</li>
 <li>none: missing / unknown value</li>
 </ul>
-</section><section class="slide"><h2>int &#x26; float</h2>
+</section><section class="slide"><h2>int and float</h2>
 <p>example:</p>
 <pre><code class="hljs language-py">(<span class="hljs-number">7</span> - <span class="hljs-number">3</span>) * <span class="hljs-number">0.5</span> / <span class="hljs-number">3.5</span>
 </code></pre>
@@ -2195,10 +2195,10 @@ a = a + <span class="hljs-number">1</span>
 <p>A <em>string</em> represents text</p>
 <p>Strings can be enclosed in single or double quotes</p>
 <pre><code class="hljs language-py">greeting = <span class="hljs-string">"Hello"</span>
-name = <span class="hljs-string">'Tom'</span>
+name = <span class="hljs-string">'John'</span>
 </code></pre>
 </section><section class="slide"><h2>Building strings</h2>
-<pre><code class="hljs language-py">name = <span class="hljs-string">"Tom"</span>
+<pre><code class="hljs language-py">name = <span class="hljs-string">"John"</span>
 </code></pre>
 <p>Inserting a variable (f-strings):</p>
 <pre><code class="hljs language-py">message1 = <span class="hljs-string">f"Hello, <span class="hljs-subst">{name}</span>!"</span>
@@ -2229,9 +2229,9 @@ name = <span class="hljs-string">'Tom'</span>
 <p>note the capitalization</p>
 </section><section class="slide"><h2>None</h2>
 <p>None represents a value that is unknown or missing</p>
-<pre><code class="hljs language-py">first_name = <span class="hljs-string">"Mike"</span>
+<pre><code class="hljs language-py">first_name = <span class="hljs-string">"John"</span>
 middle_name = <span class="hljs-literal">None</span>
-last_name = <span class="hljs-string">"Jones"</span>
+last_name = <span class="hljs-string">"Doe"</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Types and type conversions</h1>
 </section><section class="slide"><h2>Types</h2>
@@ -2400,6 +2400,13 @@ b = a + [<span class="hljs-number">4</span>]
 <p>Examples: <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>tuple</code></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Help and documentation</h1>
 </section><section class="slide"><h2>Help and documentation</h2>
+<p>resources:</p>
+<ul>
+<li>official guides</li>
+<li>official API reference</li>
+<li>answers for questions: Stack Overflow</li>
+</ul>
+</section><section class="slide"><h2>Help and documentation</h2>
 <p>Interactive help on objects in the Python console:</p>
 <pre><code class="hljs language-py"><span class="hljs-built_in">help</span>(<span class="hljs-built_in">list</span>)
 </code></pre>
@@ -2410,6 +2417,50 @@ b = a + [<span class="hljs-number">4</span>]
 <p>Similar to the <code>help</code> function, but often has slightly more detailed descriptions</p>
 </section><section class="slide"><h2>Help and documentation</h2>
 <p>helpful website with answers for many common questions: <em>StackOverflow</em></p>
+</section><section class="slide"><h2>Help and documentation</h2>
+<p>other free resources:</p>
+<ul>
+<li><a href="https://ehmatthes.github.io/pcc_2e/cheat_sheets/cheat_sheets/" target="_blank">Python cheat sheets</a> von <em>Eric Matthes</em></li>
+<li><a href="https://automatetheboringstuff.com/" target="_blank">Automate the boring stuff with Python, 1st edition</a> von <em>Al Sweigart</em></li>
+<li><a href="https://greenteapress.com/thinkpython2/html/index.html" target="_blank">Think Python, 2nd edition</a> von <em>Allen B. Downey</em></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Error messages and tracebacks</h1>
+</section><section class="slide"><h2>Error messages and tracebacks</h2>
+<p>example code that creates an error message:</p>
+<pre><code class="hljs language-py"><span class="hljs-built_in">open</span>(<span class="hljs-string">"foo.txt"</span>)
+</code></pre>
+<p>error message:</p>
+<pre><code class="hljs language-txt">Traceback (most recent call last):
+  File "xyz.py", line 1, in &#x3C;module>
+    open("foo.txt")
+FileNotFoundError: [Errno 2] No such file or directory: 'foo.txt'
+</code></pre>
+<p>Last line: description of the error</p>
+<p>above: where the error came from</p>
+</section><section class="slide"><h2>Error messages and tracebacks</h2>
+<p>example code with a chain of function calls:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> shutil
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">demo_remove_dir_error</span>():</span>
+    shutil.rmtree(<span class="hljs-string">"./does_not_exist"</span>)
+
+demo_remove_dir_error()
+</code></pre>
+</section><section class="slide"><h2>Error messages and tracebacks</h2>
+<p>error message involving a chain of function calls:</p>
+<pre><code class="hljs language-txt">Traceback (most recent call last):
+  File "...\demo_remove_dir_error.py", line 5, in &#x3C;module>
+    demo_remove_dir_error()
+  File "...\demo_remove_dir_error.py", line 3, in demo_remove_dir_error
+    shutil.rmtree("./does_not_exist")
+  File "...\lib\shutil.py", line 748, in rmtree
+    return _rmtree_unsafe(path, onerror)
+  File "...\lib\shutil.py", line 607, in _rmtree_unsafe
+    onerror(os.scandir, path, sys.exc_info())
+  File "...\lib\shutil.py", line 604, in _rmtree_unsafe
+    with os.scandir(path) as scandir_it:
+FileNotFoundError: [WinError 3] The system cannot find the
+    path specified: './does_not_exist'
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code for Python</h1>
 </section><section class="slide"><h2>VS Code for Python</h2>
 <p>popular development environments for Python:</p>
@@ -2475,17 +2526,22 @@ b = a + [<span class="hljs-number">4</span>]
 <p><em>Debug</em> - <em>Start Without Debugging (Ctrl + F5)</em> (will run program in the project directory)</p>
 <p>or</p>
 <p>green "Play" button in the editor view (will run program in the current working directory)</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Text output</h1>
+</section><section class="slide"><h2>Text output</h2>
+<p>in the interactive console / notebook:</p>
+<p>if the last command in a cell produces a value, it will be automatically written ("printed") as the output</p>
+</section><section class="slide"><h2>Text output</h2>
+<p>general way to create text output from anywhere: <code>print()</code></p>
+<pre><code class="hljs language-py">print(<span class="hljs-string">"Hello, world!"</span>)
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Our first Python program</h1>
 </section><section class="slide"><h2>Our first Python program</h2>
 <p>We'll create a file called <code>greeting.py</code></p>
 <p>Our program will ask the user their name and greet them.</p>
 </section><section class="slide"><h2>Input and output of text</h2>
-<p>Output: via the <code>print()</code> function:</p>
-<pre><code class="hljs language-py">print(<span class="hljs-string">"Hello. What is your name?"</span>)
-</code></pre>
-</section><section class="slide"><h2>Input and output of text</h2>
 <p>Input: via <code>input()</code>:</p>
-<pre><code class="hljs language-py">name = <span class="hljs-built_in">input</span>()
+<pre><code class="hljs language-py">print(<span class="hljs-string">"What is your name?"</span>)
+name = <span class="hljs-built_in">input</span>()
 </code></pre>
 <p><code>input</code> will always return a string</p>
 </section><section class="slide"><h2>Input and output of text</h2>
@@ -2589,15 +2645,15 @@ file.close()
 <p>file does not have to exist beforehand</p>
 </section><section class="slide"><h2>urllib.request</h2>
 <p>Querying web contents (and saving to a file)</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> urllib.request <span class="hljs-keyword">import</span> urlopen
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> urllib.request
 
 <span class="hljs-comment"># make a HTTP request</span>
-req = urlopen(<span class="hljs-string">"https://en.wikipedia.org"</span>)
+req = urllib.request.urlopen(<span class="hljs-string">"https://en.wikipedia.org"</span>)
 <span class="hljs-comment"># read content as utf-8 string</span>
 content = req.read().decode(<span class="hljs-string">"utf-8"</span>)
 
 <span class="hljs-comment"># save to file</span>
-file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"wikipedia.html"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"wikipedia.html"</span>, mode=<span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 file.write(content)
 file.close()
 </code></pre>
@@ -2704,6 +2760,23 @@ age_seconds = age * <span class="hljs-number">365</span> * <span class="hljs-num
 <p>start with a list of numbers, e.g. <code>[2, 5, -3, 8, 1, -5]</code></p>
 <p>print all positive entries, e.g. <code>2, 5, 8, 1</code></p>
 <p>print the biggest element, e.g. <code>8</code></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Counting loops</h1>
+</section><section class="slide"><h2>Counting loops</h2>
+<p>This is how we can count from 0 to 9 in Python:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
+    print(i)
+</code></pre>
+<p>The function call <code>range(10)</code> creates an object that behaves like the list <code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code>.</p>
+</section><section class="slide"><h2>Counting loops</h2>
+<p>typical variable name in counting loops: <code>i</code></p>
+</section><section class="slide"><h2>Counting loops</h2>
+<p>exercise: create a "multiplication table"</p>
+<pre><code class="hljs language-txt">1 x 7 = 7
+2 x 7 = 14
+3 x 7 = 21
+4 x 7 = 28
+...
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>While loops</h1>
 </section><section class="slide"><h2>While loops</h2>
 <p>An if clause will execute a code block <em>once</em> if a criterion holds</p>
@@ -2739,12 +2812,11 @@ x
 your shopping list is:
 ["milk", "bread", "apples"]
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Break and continue</h1>
-</section><section class="slide"><h2>Break and continue</h2>
-<p>The keywords <code>continue</code> and <code>break</code> may be used to end the current iteration or the entire loop respectively.</p>
-<p>In nested loops they refer to the innermost loop.</p>
-</section><section class="slide"><h2>Break and continue</h2>
-<p>example:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Break</h1>
+</section><section class="slide"><h2>Break</h2>
+<p>keyword <code>break</code>: may be used to end the current loop</p>
+</section><section class="slide"><h2>Break</h2>
+<p>example (do-while-loop):</p>
 <pre><code class="hljs language-py">a = <span class="hljs-number">1</span>
 
 <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
@@ -2752,21 +2824,6 @@ your shopping list is:
     print(a)
     <span class="hljs-keyword">if</span> (a > <span class="hljs-number">1000</span>):
         <span class="hljs-keyword">break</span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Counting loops</h1>
-</section><section class="slide"><h2>Counting loops</h2>
-<p>This is how we can count from 0 to 9 in Python:</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
-    print(i)
-</code></pre>
-<p>The function call <code>range(10)</code> creates an object that behaves like the list <code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code>.</p>
-</section><section class="slide"><h2>Counting loops</h2>
-<p>exercise: creating a "multiplication table"</p>
-<pre><code class="hljs language-txt">1 x 7 = 7
-2 x 7 = 14
-3 x 7 = 21
-4 x 7 = 28
-...
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Parts of programs</h1>
 </section><section class="slide"><h2>Parts of programs</h2>
@@ -2810,16 +2867,17 @@ your shopping list is:
 <li><code>(7 - 3)</code></li>
 <li><code>7</code></li>
 <li><code>round(3.5)</code></li>
+<li><code>x == 1</code></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Control structures - exercises</h1>
 </section><section class="slide"><h2>Control structures - exercises</h2>
 <ul>
 <li>guess the number</li>
+<li>interest calculator</li>
 <li>laws by age</li>
 <li>math trainer (with random tasks)</li>
 <li>login system</li>
 <li>leap year</li>
-<li>babylonian method (for finding the square root)</li>
 </ul>
 <p>see <a href="https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner" target="_blank">https://github.com/marko-knoebl/slides/tree/master/exercises/python-beginner</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Function parameters</h1>

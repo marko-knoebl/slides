@@ -95,7 +95,7 @@ pprint.pprint(['Mercuy', 'Venus', 'Earth', 'Mars', 'Jupiter',
 Textdatei zum Schreiben öffnen:
 
 ```py
-file = open("message.txt", "w", encoding="utf-8")
+file = open("message.txt", mode="w", encoding="utf-8")
 file.write("hello\n")
 file.write("world\n")
 file.close()
@@ -108,10 +108,10 @@ Datei muss zuvor nicht existieren
 Abfrage von Web-Inhalten (und Speichern in einer Datei)
 
 ```py
-from urllib.request import urlopen
+import urllib.request
 
 # make a HTTP request
-req = urlopen("https://en.wikipedia.org")
+req = urllib.request.urlopen("https://en.wikipedia.org")
 # read content as utf-8 string
 content = req.read().decode("utf-8")
 

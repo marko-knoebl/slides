@@ -8,7 +8,7 @@
 - `bool` (boolean): Ja/Nein - Wert (Wahrheitswert)
 - none: fehlender / unbekannter Wert
 
-## int & float
+## int and float
 
 Beispiel:
 
@@ -24,13 +24,13 @@ Begrenzung durch einfache oder doppelte Anführungszeichen
 
 ```py
 greeting = "Hello"
-name = 'Tom'
+name = 'John'
 ```
 
 ## Strings zusammensetzen
 
 ```py
-name = 'Tom'
+name = 'John'
 ```
 
 Variablen einsetzen (f-Strings):
@@ -92,7 +92,7 @@ beachte Großschreibung
 Wert ist unbekannt oder fehlt
 
 ```py
-first_name = "Mike"
+first_name = "John"
 middle_name = None
-last_name = "Jones"
+last_name = "Doe"
 ```
