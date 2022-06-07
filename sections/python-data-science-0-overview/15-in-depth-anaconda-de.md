@@ -6,7 +6,12 @@ _Anaconda_ = Python Distribution, die viele vorkompilierte Pakete und Entwickler
 
 Benötigt ~5GB Platz auf der Festplatte
 
-beinhaltet _Conda_ als Environment- und Paketmanager (ermöglicht Installation mehrerer Python-Versionen und Python-Pakete)
+## Conda
+
+_Conda_: Environment- und Paketmanager für Anaconda
+
+- vorgefertigte Binaries für viele Pakete
+- Environments: Installation von verschiedenen Paketen und unterschiedlichen Versionen von Paketen für verschiedene Projekte
 
 ## Installation von Anaconda
 

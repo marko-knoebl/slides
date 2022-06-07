@@ -6,7 +6,12 @@ _Anaconda_ = Python distribution that includes many pre-built packages and devel
 
 Uses ~5GB of disk space
 
-includes _Conda_: environment and package manager (enables installation multiple versions of Python and Python packages)
+## Conda
+
+_Conda_: environment and package manager for Anaconda
+
+- pre-built binaries for many packages
+- environments: installation of different packages and different versions of packages for different projects
 
 ## Anaconda installation
 
