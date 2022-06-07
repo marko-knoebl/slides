@@ -54,7 +54,7 @@ plt.plot(x, np.cos(x))
 
 ## Exercise
 
-Create a Python function that plots a _gaussian function_ based on its parameters _mu_ and _sigma_:
+Create a Python function that plots a [gaussian function](https://en.wikipedia.org/wiki/Gaussian_function) based on its parameters _mu_ and _sigma_:
 
 ```py
 plot_gaussian_function(mu, sigma)

@@ -63,7 +63,13 @@ important parameters:
 
 ## Styling graphs
 
-combined short form (less flexible):
+long form:
+
+```py
+plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
+```
+
+short form (less flexible):
 
 ```py
 plt.plot(x, y, "C0X--")

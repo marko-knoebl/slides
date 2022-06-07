@@ -49,6 +49,14 @@ mehrere Zeilen als DataFrame (beide Grenzen inklusive):
 sp500.loc["1872-01-01" : "1872-12-31"]
 ```
 
+## Zeilen nach Indexwert auswählen
+
+wenn die Indexspalte als Datum geparsed wurde:
+
+```py
+sp500.loc["2009"]
+```
+
 ## Zeilen nach Zeilennummer auswählen
 
 einzelne Zeile als Series:
@@ -123,8 +131,12 @@ sp500_max_row = sp500.loc[sp500["SP500"].idxmax()]
 
 - alle Überlebenden
 - alle 60-Jährigen
+- Anzahl an Überlebenden und Nicht-Überlebenden
+- Anzahl an Überlebenden und Nicht-Überlebenden in der ersten Klasse
 
 ## Lösungen: Titanic
 
-- alle Überlebenden: `titanic[titanic["Survived"] == "Yes"]`
+- alle Überlebenden: `titanic[titanic["Survived"] == 0]`
 - alle 60-Jährigen: `titanic[titanic["Age"] == 60]`
+- Anzahl an Überlebenden und Nicht-Überlebenden: `titanic["Survived"].value_counts()`
+- Anzahl an Überlebenden und Nicht-Überlebenden in der ersten Klasse: `titanic[titanic["Pclass"] == 1]["Survived"].value_counts()`

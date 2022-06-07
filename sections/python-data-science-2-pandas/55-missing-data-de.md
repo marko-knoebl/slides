@@ -24,7 +24,7 @@ titanic["Age"].count()
 Anzeigen aller Zeilen mit fehlenden _age_-Einträgen:
 
 ```py
-titanic.loc[titanic["Age"].isna()]
+titanic[titanic["Age"].isna()]
 ```
 
 ## Fehlende Daten

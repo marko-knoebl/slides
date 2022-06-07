@@ -54,7 +54,7 @@ plt.plot(x, np.cos(x))
 
 ## Übung
 
-Erstelle eine Python-Funktion, die eine _Gaußsche Glockenkurve_ basierend auf ihren Parametern _mu_ und _sigma_ zeichnet:
+Erstelle eine Python-Funktion, die eine [Gaußsche Glockenkurve](https://en.wikipedia.org/wiki/Gaussian_function) basierend auf ihren Parametern _mu_ und _sigma_ zeichnet:
 
 ```py
 plot_gaussian_function(mu, sigma)

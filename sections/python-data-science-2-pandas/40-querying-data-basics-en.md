@@ -49,6 +49,14 @@ multiple rows as a DataFrame (both limits inclusive):
 sp500.loc["1872-01-01" : "1872-12-31"]
 ```
 
+## Selecting rows by index value
+
+if the index column was parsed as dates:
+
+```py
+sp500.loc["2009"]
+```
+
 ## Selecting rows by row number
 
 single row as a Series:
@@ -123,8 +131,12 @@ sp500_max_row = sp500.loc[sp500["SP500"].idxmax()]
 
 - all survivors
 - all 60-year-olds
+- number of survivors and non-survivors
+- number of survivors and non-survivors in first class
 
 ## Solutions: Titanic
 
-- all survivors: `titanic[titanic["Survived"] == "Yes"]`
+- all survivors: `titanic[titanic["Survived"] == 0]`
 - all 60-year-olds: `titanic[titanic["Age"] == 60]`
+- number of survivors and non-survivors: `titanic["Survived"].value_counts()`
+- number of survivors and non-survivors in first class: `titanic[titanic["Pclass"] == 1]["Survived"].value_counts()`

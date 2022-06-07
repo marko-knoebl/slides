@@ -63,6 +63,12 @@ wichtige Parameter:
 
 ## Stile von Graphen
 
+Langform:
+
+```py
+plt.plot(x, y, color="C0", marker="X", linestyle="dashed")
+```
+
 Kurzform (weniger flexibel):
 
 ```py

@@ -24,7 +24,7 @@ titanic["Age"].count()
 show all rows with missing _age_ entries:
 
 ```py
-titanic.loc[titanic["Age"].isna()]
+titanic[titanic["Age"].isna()]
 ```
 
 ## Removing rows
