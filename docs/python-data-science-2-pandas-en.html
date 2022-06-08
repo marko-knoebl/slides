@@ -2178,7 +2178,6 @@ population = pd.Series([<span class="hljs-number">1386</span>, <span class="hljs
 <p>Task: Import the following data sources, ensuring the data is formatted nicely:</p>
 <ul>
 <li>S&#x26;P 500 monthly prices (US stock index): <a href="https://datahub.io/core/s-and-p-500/r/data.csv" target="_blank">https://datahub.io/core/s-and-p-500/r/data.csv</a></li>
-<li>Exchange rates: <a href="https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv" target="_blank">https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv</a></li>
 <li>Iris dataset (statistics of leaf sizes for iris flowers): <a href="http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data" target="_blank">http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data</a></li>
 <li>Titanic passenger data: <a href="https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv" target="_blank">https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv</a></li>
 </ul>
@@ -2189,14 +2188,7 @@ population = pd.Series([<span class="hljs-number">1386</span>, <span class="hljs
     index_col=<span class="hljs-string">"Date"</span>,
     parse_dates=[<span class="hljs-string">"Date"</span>],
 )
-exchange_rates = pd.read_csv(
-    <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
-    parse_dates=[<span class="hljs-string">"Date"</span>],
-)
-</code></pre>
-</section><section class="slide"><h2>Importing CSV</h2>
-<p>possible solutions:</p>
-<pre><code class="hljs language-py">iris = pd.read_csv(
+iris = pd.read_csv(
     <span class="hljs-string">"http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"</span>,
     header=<span class="hljs-literal">None</span>,
     names=[<span class="hljs-string">"sepal_length"</span>, <span class="hljs-string">"sepal_width"</span>, <span class="hljs-string">"petal_length"</span>,
@@ -2872,10 +2864,13 @@ pclass
     aggfunc=np.mean)
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
-<ul>
-<li>mean values for each of the four iris measurements within each type of flower</li>
-<li>mean USD exchange rates for each currency in the 90s</li>
-</ul>
+<p>mean values for each of the four iris measurements within each type of flower</p>
+<p>mean USD exchange rates for each currency in the 90s based on the following data:</p>
+<pre><code class="hljs language-py">exchange_rates = pd.read_csv(
+    <span class="hljs-string">"https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv"</span>,
+    index_col=[<span class="hljs-string">"Country"</span>, <span class="hljs-string">"Date"</span>],
+    parse_dates=[<span class="hljs-string">"Date"</span>])
+</code></pre>
 </section><section class="slide"><h2>Exercises - Solutions</h2>
 <pre><code class="hljs language-py">iris.groupby(<span class="hljs-string">"species"</span>).mean()
 </code></pre>

@@ -91,8 +91,16 @@ pd.pivot_table(
 
 ## Übungen
 
-- Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art
-- Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern
+Durchschnittswerte der Iris-Daten basierend auf dem Namen der Art
+
+Durchschnittliche USD-Wechselkurse für jede Währung in den 90ern basierend auf den folgenden Daten:
+
+```py
+exchange_rates = pd.read_csv(
+    "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
+    index_col=["Country", "Date"],
+    parse_dates=["Date"])
+```
 
 ## Übungen - Lösungen
 

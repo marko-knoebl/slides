@@ -80,17 +80,6 @@ sp500 = pd.read_csv(
     index_col="Date",
     parse_dates=["Date"],
 )
-exchange_rates = pd.read_csv(
-    "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
-    parse_dates=["Date"],
-)
-```
-
-## CSV importieren
-
-mögliche Lösungen:
-
-```py
 iris = pd.read_csv(
     "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
     header=None,

@@ -66,7 +66,6 @@ euribor = pd.read_csv(
 Task: Import the following data sources, ensuring the data is formatted nicely:
 
 - S&P 500 monthly prices (US stock index): https://datahub.io/core/s-and-p-500/r/data.csv
-- Exchange rates: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
 - Iris dataset (statistics of leaf sizes for iris flowers): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data
 - Titanic passenger data: https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv
 
@@ -80,17 +79,6 @@ sp500 = pd.read_csv(
     index_col="Date",
     parse_dates=["Date"],
 )
-exchange_rates = pd.read_csv(
-    "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
-    parse_dates=["Date"],
-)
-```
-
-## Importing CSV
-
-possible solutions:
-
-```py
 iris = pd.read_csv(
     "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
     header=None,

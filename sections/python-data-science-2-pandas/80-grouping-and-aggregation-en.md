@@ -91,8 +91,16 @@ pd.pivot_table(
 
 ## Exercises
 
-- mean values for each of the four iris measurements within each type of flower
-- mean USD exchange rates for each currency in the 90s
+mean values for each of the four iris measurements within each type of flower
+
+mean USD exchange rates for each currency in the 90s based on the following data:
+
+```py
+exchange_rates = pd.read_csv(
+    "https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv",
+    index_col=["Country", "Date"],
+    parse_dates=["Date"])
+```
 
 ## Exercises - Solutions
 
