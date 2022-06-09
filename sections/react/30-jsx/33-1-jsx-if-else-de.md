@@ -34,7 +34,7 @@ return <div>{statusMessage}</div>;
 ## if
 
 ```jsx
-<div>{error ? <div>{error.message}</div> : null}</div>
+<div>{isError ? <div>{errorMessage}</div> : null}</div>
 ```
 
 ## if
@@ -42,7 +42,7 @@ return <div>{statusMessage}</div>;
 kürzere Version:
 
 ```jsx
-<div>{error && <div>error.message</div>}</div>
+<div>{isError && <div>{errorMessage}</div>}</div>
 ```
 
 Der Operator `&&` in JavaScript:

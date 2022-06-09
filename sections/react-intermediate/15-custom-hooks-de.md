@@ -52,21 +52,17 @@ Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Kom
 
 ```jsx
 function TodoApp() {
-  const {
-    todos,
-    toggleTodo,
-    deleteTodo,
-    addTodo,
-  } = useTodos();
+  const todoData = useTodos();
   return (
     <div>
       <h1>Todos</h1>
+      <AddTodo onAdd={todoData.addTodo} />
       <TodoList
-        todos={todos}
-        onToggle={toggleTodo}
-        onDelete={deleteTodo}
+        todos={todoData.todos}
+        onChangeCompleted={todoData.setTodoCompleted}
+        onDelete={todoData.deleteTodo}
       />
-      <AddTodo onAdd={addTodo} />
+      <Statistics todos={todoData.todos} />
     </div>
   );
 }
@@ -80,23 +76,23 @@ Definition von `useTodos`:
 function useTodos() {
   const [todos, setTodos] = useState([]);
   function addTodo(title) {
-    const id = Math.max(0, ...todos.map((t) => t.id + 1));
+    const maxId = Math.max(0, ...todos.map((t) => t.id));
     setTodos([
       ...todos,
-      { id: id, title: title, completed: false },
+      { id: maxId + 1, title: title, completed: false },
     ]);
   }
   function deleteTodo(id) {
     setTodos(todos.filter((t) => t.id !== id));
   }
-  function toggleTodo(id) {
+  function setTodoCompleted(id, completed) {
     setTodos(
       todos.map((t) =>
-        t.id === id ? { ...t, completed: !t.completed } : t
+        t.id === id ? { ...t, completed: completed } : t
       )
     );
   }
-  return { todos, addTodo, deleteTodo, toggleTodo };
+  return { todos, addTodo, deleteTodo, setTodoCompleted };
 }
 ```
 
@@ -127,5 +123,5 @@ function useDate(interval) {
     return () => clearInterval(id);
   }, []);
   return date;
-};
+}
 ```

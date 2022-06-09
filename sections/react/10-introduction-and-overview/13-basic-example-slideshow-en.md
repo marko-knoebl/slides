@@ -63,6 +63,8 @@ A component is defined as a function that returns an XML tree
 
 The function is called every time the component needs to be (re-)rendered
 
+Component names always start with capital letters
+
 ## Basic example: slideshow
 
 <!-- prettier-ignore -->

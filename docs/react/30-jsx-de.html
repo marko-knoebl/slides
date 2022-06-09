@@ -2112,50 +2112,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>className</code> (anstatt <code>class</code>)</li>
 <li><code>htmlFor</code> (anstatt <code>for</code>)</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX: Binden von Events</h1>
-</section><section class="slide"><h2>Events binden</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params"></span>) </span>{
-  alert(<span class="hljs-string">'hello world'</span>);
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> sayHello()}>Say Hello&#x3C;/button>
-</code></pre>
-<p>Liste von Browser-Events:<br />
-<a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
-</section><section class="slide"><h2>Events binden</h2>
-<p>Achtung: Ein Event Handler muss eine <strong>Funktion</strong> sein, und nicht ein Funktionsaufruf</p>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
-</code></pre>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;/button>
-</code></pre>
-<p>nicht OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Events binden</h2>
-<p>Zugriff auf das Event-Objekt als Funktionsparameter:</p>
-<pre><code class="hljs language-js">&#x3C;button
-  onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    <span class="hljs-built_in">console</span>.log(event);
-  }}
->
-  click me
-&#x3C;/button>
-</code></pre>
-<p>hier wird das Event ein <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a>-Objekt sein</p>
-</section><section class="slide"><h2>Events binden</h2>
-<p>Standard-Verhalten eines Submit-Events in einem Formular: Direktes Senden von Daten zum Server</p>
-<p>Ersetzen des Standardverhaltens:</p>
-<pre><code class="hljs language-jsx">&#x3C;form
-  onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    event.preventDefault();
-    <span class="hljs-comment">// handle submit with custom logic</span>
-  }}
->
-  ...
-&#x3C;/form>
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: Whitespace, Kommentare und Fragmente</h1>
 </section><section class="slide"><h2>Whitespace</h2>
 <p>in HTML sind die folgenden Beispiele äquivalent (und enthalten je ein Leerzeichen zwischen den Bildern):</p>
@@ -2201,6 +2157,50 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-tag">&#x3C;/></span></span>
 );
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: Binden von Events</h1>
+</section><section class="slide"><h2>Events binden</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params"></span>) </span>{
+  alert(<span class="hljs-string">'hello world'</span>);
+}
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> sayHello()}>Say Hello&#x3C;/button>
+</code></pre>
+<p>Liste von Browser-Events:<br />
+<a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
+</section><section class="slide"><h2>Events binden</h2>
+<p>Achtung: Ein Event Handler muss eine <strong>Funktion</strong> sein, und nicht ein Funktionsaufruf</p>
+<p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
+</code></pre>
+<p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;/button>
+</code></pre>
+<p>nicht OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
+</code></pre>
+</section><section class="slide"><h2>Events binden</h2>
+<p>Zugriff auf das Event-Objekt als Funktionsparameter:</p>
+<pre><code class="hljs language-js">&#x3C;button
+  onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(event);
+  }}
+>
+  click me
+&#x3C;/button>
+</code></pre>
+<p>hier wird das Event ein <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a>-Objekt sein</p>
+</section><section class="slide"><h2>Events binden</h2>
+<p>Standard-Verhalten eines Submit-Events in einem Formular: Direktes Senden von Daten zum Server</p>
+<p>Ersetzen des Standardverhaltens:</p>
+<pre><code class="hljs language-jsx">&#x3C;form
+  onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    event.preventDefault();
+    <span class="hljs-comment">// handle submit with custom logic</span>
+  }}
+>
+  ...
+&#x3C;/form>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX: if / else</h1>
 </section><section class="slide"><h2>if / else</h2>
 <p>inline-Bedingung:</p>
@@ -2226,11 +2226,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{statusMessage}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
 </code></pre>
 </section><section class="slide"><h2>if</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>{error ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{error.message}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>}&#x3C;/div>
+<pre><code class="hljs language-jsx">&#x3C;div>{isError ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{errorMessage}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>}&#x3C;/div>
 </code></pre>
 </section><section class="slide"><h2>if</h2>
 <p>kürzere Version:</p>
-<pre><code class="hljs language-jsx">&#x3C;div>{error &#x26;&#x26; <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>error.message<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}&#x3C;/div>
+<pre><code class="hljs language-jsx">&#x3C;div>{isError &#x26;&#x26; <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{errorMessage}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}&#x3C;/div>
 </code></pre>
 <p>Der Operator <code>&#x26;&#x26;</code> in JavaScript:</p>
 <pre><code class="hljs language-js"><span class="hljs-literal">true</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// 'my message'</span>
@@ -2241,14 +2241,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Elemente wiederholen</h2>
 <p>Mehrere Elemente können via Arrays eingebunden werden:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>alfa<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>bravo<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>charlie<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>bar<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>foobar<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
 ];
 </code></pre>
 <pre><code class="hljs language-jsx">&#x3C;h1>three elements&#x3C;/h1>
 <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-  { elements }
+  {elements}
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
 </code></pre>
 </section><section class="slide"><h2>Elemente wiederholen</h2>
@@ -2280,7 +2280,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       ))}
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
   );
-};
+}
 </code></pre>
 </section><section class="slide"><h2>Elemente wiederholen</h2>
 <p>Bei obigem Code:<br />
@@ -2317,7 +2317,7 @@ Lösung: <strong>key</strong>:</p>
 <p>CSS-in-JS: Stile werden in JavaScript definiert</p>
 <p>Möglichkeiten:</p>
 <ul>
-<li>grundlege Lösung: <code>style</code>-Property (einige Nachteile: keine Media-Queries, kein Autoprefixing, ...)</li>
+<li>grundlege Lösung: <code>style</code>-Property (Nachteile: keine Media-Queries, kein Autoprefixing, ...)</li>
 <li>Library: <em>emotion</em></li>
 <li>Library: <em>styled-components</em></li>
 </ul>
@@ -2356,6 +2356,7 @@ Lösung: <strong>key</strong>:</p>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>
 <p>mögliches Angriffsziel am Front-End: <strong>XSS-Angriffe</strong></p>
 <p>ein böswilliger Benutzer stellt Inhalte auf unserer Website online (z.B. in einem Post oder auf der Profilseite) - wenn andere die Website besuchen, wird der böswillige Code im Browser des Beutzers ausgeführt, während dieser unsere Website besucht</p>
+<p><a href="https://codesandbox.io/s/jsx-xss-attack-gzb21j" target="_blank">Demo für Experimente</a></p>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>
 <p>🙂 beim zuweisen von <em>Inhalten</em> werden XML-Tags automatisch escaped</p>
 <p>der folgende Code wird nur reinen Textinhalt darstellen - er ist kein Angriffsziel:</p>

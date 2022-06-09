@@ -63,6 +63,8 @@ Eine Komponente wird als Funktion definiert, die einen XML-Baum zurückgibt
 
 Die Funktion wird jedes Mal aufgerufen, wenn die Komponente (neu) gerendert werden muss
 
+Komponentennamen beginnen immer mit einem Großbuchstaben
+
 ## Grundlegendes Beispiel: Slideshow
 
 <!-- prettier-ignore -->

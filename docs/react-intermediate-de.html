@@ -2408,21 +2408,17 @@ function ThemeProvider(props: { children: ReactNode }) {
 </section><section class="slide"><h2>Eigene Hooks - useTodos</h2>
 <p>Beispiel: <code>useTodos</code> - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen (Trennung von <em>model</em> und <em>view</em>)</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> {
-    todos,
-    toggleTodo,
-    deleteTodo,
-    addTodo,
-  } = useTodos();
+  <span class="hljs-keyword">const</span> todoData = useTodos();
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> <span class="hljs-attr">onAdd</span>=<span class="hljs-string">{todoData.addTodo}</span> /></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span>
-        <span class="hljs-attr">todos</span>=<span class="hljs-string">{todos}</span>
-        <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{toggleTodo}</span>
-        <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{deleteTodo}</span>
+        <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span>
+        <span class="hljs-attr">onChangeCompleted</span>=<span class="hljs-string">{todoData.setTodoCompleted}</span>
+        <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{todoData.deleteTodo}</span>
       /></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> <span class="hljs-attr">onAdd</span>=<span class="hljs-string">{addTodo}</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Statistics</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span> /></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
@@ -2432,23 +2428,23 @@ function ThemeProvider(props: { children: ReactNode }) {
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">title</span>) </span>{
-    <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id + <span class="hljs-number">1</span>));
+    <span class="hljs-keyword">const</span> maxId = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id));
     setTodos([
       ...todos,
-      { <span class="hljs-attr">id</span>: id, <span class="hljs-attr">title</span>: title, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+      { <span class="hljs-attr">id</span>: maxId + <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: title, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
     ]);
   }
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteTodo</span>(<span class="hljs-params">id</span>) </span>{
     setTodos(todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id !== id));
   }
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toggleTodo</span>(<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTodoCompleted</span>(<span class="hljs-params">id, completed</span>) </span>{
     setTodos(
       todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span>
-        t.id === id ? { ...t, <span class="hljs-attr">completed</span>: !t.completed } : t
+        t.id === id ? { ...t, <span class="hljs-attr">completed</span>: completed } : t
       )
     );
   }
-  <span class="hljs-keyword">return</span> { todos, addTodo, deleteTodo, toggleTodo };
+  <span class="hljs-keyword">return</span> { todos, addTodo, deleteTodo, setTodoCompleted };
 }
 </code></pre>
 </section><section class="slide"><h2>Eigene Hooks - useDate</h2>
@@ -2471,7 +2467,7 @@ function ThemeProvider(props: { children: ReactNode }) {
     <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(id);
   }, []);
   <span class="hljs-keyword">return</span> date;
-};
+}
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Styling Tools</h1>
 </section><section class="slide"><h2>Styling Tools</h2>

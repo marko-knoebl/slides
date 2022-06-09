@@ -6,16 +6,16 @@ Mehrere Elemente können via Arrays eingebunden werden:
 
 ```jsx
 const elements = [
-  <li>alfa</li>,
-  <li>bravo</li>,
-  <li>charlie</li>,
+  <li>foo</li>,
+  <li>bar</li>,
+  <li>foobar</li>,
 ];
 ```
 
 ```jsx
 <h1>three elements</h1>
 <ul>
-  { elements }
+  {elements}
 </ul>
 ```
 
@@ -57,7 +57,7 @@ function TodoApp() {
       ))}
     </ul>
   );
-};
+}
 ```
 
 ## Elemente wiederholen

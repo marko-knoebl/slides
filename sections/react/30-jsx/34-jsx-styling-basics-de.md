@@ -34,7 +34,7 @@ CSS-in-JS: Stile werden in JavaScript definiert
 
 Möglichkeiten:
 
-- grundlege Lösung: `style`-Property (einige Nachteile: keine Media-Queries, kein Autoprefixing, ...)
+- grundlege Lösung: `style`-Property (Nachteile: keine Media-Queries, kein Autoprefixing, ...)
 - Library: _emotion_
 - Library: _styled-components_
 

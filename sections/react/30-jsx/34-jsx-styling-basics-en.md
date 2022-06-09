@@ -34,7 +34,7 @@ CSS-in-JS: styles are defined inside JavaScript
 
 options:
 
-- basic solution: `style`-property (some downsides: no media queries, no autoprefixing, ...)
+- basic solution: `style`-property (downsides: no media queries, no autoprefixing, ...)
 - library: _emotion_
 - library: _styled-components_
 
