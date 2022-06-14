@@ -2,11 +2,45 @@
 
 ## JavaScript basics for React
 
-- **destructuring assignment** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment))
 - **"bare" return statements** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return#automatic_semicolon_insertion))
+- **destructuring assignment** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment))
 - imports and exports
 - arrow functions
 - template strings
+
+## "Bare" return statements
+
+this will not work as intended in JavaScript:
+
+<!-- prettier-ignore -->
+```js
+return
+  <div>foo</div>;
+```
+
+it would be interpreted as:
+
+```js
+return;
+<div>foo</div>;
+```
+
+(automatic semicolon insertion)
+
+## "Bare" return statements
+
+versions that work:
+
+```js
+return <div>foo</div>;
+```
+
+<!-- prettier-ignore -->
+```js
+return (
+  <div>foo</div>
+);
+```
 
 ## Destructuring assignment
 
@@ -41,40 +75,6 @@ const [result, logs] = someLongComputation();
 ```js
 // swapping values of a and b
 [a, b] = [b, a];
-```
-
-## "Bare" return statements
-
-this will not work as intended in JavaScript:
-
-<!-- prettier-ignore -->
-```js
-return
-  <div>foo</div>;
-```
-
-it would be interpreted as:
-
-```js
-return;
-<div>foo</div>;
-```
-
-(automatic semicolon insertion)
-
-## "Bare" return statements
-
-versions that work:
-
-```js
-return <div>foo</div>;
-```
-
-<!-- prettier-ignore -->
-```js
-return (
-  <div>foo</div>
-);
 ```
 
 ## Imports and exports

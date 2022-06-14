@@ -2,11 +2,45 @@
 
 ## JavaScript-Grundlagen für React
 
-- **destrukturierende Zuweisung** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment))
 - **"leere" Return Statements** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return#automatic_semicolon_insertion))
+- **destrukturierende Zuweisung** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment))
 - Imports und Exports
 - Pfeilfunktionen
 - Template-Strings
+
+## "Leere" Return Statements
+
+funktioniert in JavaScript nicht wie gewünscht:
+
+<!-- prettier-ignore -->
+```js
+return
+  <div>foo</div>;
+```
+
+dies wird interpretiert als:
+
+```js
+return;
+<div>foo</div>;
+```
+
+(Automatic Semicolon Insertion)
+
+## "Leere" Return Statements
+
+Varianten, die funktionieren:
+
+```js
+return <div>foo</div>;
+```
+
+<!-- prettier-ignore -->
+```js
+return (
+  <div>foo</div>
+);
+```
 
 ## Destrukturierende Zuweisung
 
@@ -41,40 +75,6 @@ const [result, logs] = someLongComputation();
 ```js
 // swapping values of a and b
 [a, b] = [b, a];
-```
-
-## "Leere" Return Statements
-
-funktioniert in JavaScript nicht wie gewünscht:
-
-<!-- prettier-ignore -->
-```js
-return
-  <div>foo</div>;
-```
-
-dies wird interpretiert als:
-
-```js
-return;
-<div>foo</div>;
-```
-
-(Automatic Semicolon Insertion)
-
-## "Leere" Return Statements
-
-Varianten, die funktionieren:
-
-```js
-return <div>foo</div>;
-```
-
-<!-- prettier-ignore -->
-```js
-return (
-  <div>foo</div>
-);
 ```
 
 ## Imports und Exports
