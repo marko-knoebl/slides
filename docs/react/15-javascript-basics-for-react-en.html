@@ -2063,53 +2063,90 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>JavaScript basics for React</h1>
 </section><section class="slide"><h2>JavaScript basics for React</h2>
 <ul>
-<li>JavaScript standardization and versions</li>
+<li><strong>destructuring assignment</strong> (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank">MDN docs</a>)</li>
+<li><strong>"bare" return statements</strong> (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return#automatic_semicolon_insertion" target="_blank">MDN docs</a>)</li>
 <li>imports and exports</li>
 <li>arrow functions</li>
-<li>template literals</li>
-<li>automatic semicolon insertion</li>
-<li>destructuring assignment</li>
+<li>template strings</li>
 </ul>
-</section><section class="slide"><h2>JavaScript standardization</h2>
-<p>JavaScript is standardized under the name <a href="https://www.ecma-international.org/ecma-262/" target="_blank"><em>ECMAScript</em> (ES)</a></p>
-</section><section class="slide"><h2>JavaScript versions</h2>
-<p><em>ES5</em>: Supported by all browsers, including Internet Explorer (standardized in 2009)</p>
-<p>Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)</p>
-<p>Common practice: Modern JavaScript is transpiled to older versions with better support (via Babel, webpack)</p>
+</section><section class="slide"><h2>Destructuring assignment</h2>
+<p>assigning the contents of an object or array to multiple variables simultaneously</p>
+</section><section class="slide"><h2>Destructuring assignment with objects</h2>
+<p>long version (without destructuring):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> protocol = <span class="hljs-built_in">window</span>.location.protocol;
+<span class="hljs-keyword">const</span> host = <span class="hljs-built_in">window</span>.location.host;
+<span class="hljs-keyword">const</span> pathname = <span class="hljs-built_in">window</span>.location.pathname;
+</code></pre>
+<p>version with destructuring assignment:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { protocol, host, pathname } = <span class="hljs-built_in">window</span>.location;
+</code></pre>
+</section><section class="slide"><h2>Destructuring assignment with arrays</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [a, b, c] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [result, logs] = someLongComputation();
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// swapping values of a and b</span>
+[a, b] = [b, a];
+</code></pre>
+</section><section class="slide"><h2>"Bare" return statements</h2>
+<p>this will not work as intended in JavaScript:</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js"><span class="hljs-keyword">return</span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+<p>it would be interpreted as:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">return</span>;
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+<p>(automatic semicolon insertion)</p>
+</section><section class="slide"><h2>"Bare" return statements</h2>
+<p>versions that work:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+</code></pre>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js"><span class="hljs-keyword">return</span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+);
+</code></pre>
 </section><section class="slide"><h2>Imports and exports</h2>
-<p>named imports and exports:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
-<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
-<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
+<p>named exports:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
+}
 
-<span class="hljs-keyword">export</span> { foo, bar, baz };
+<span class="hljs-keyword">export</span> { foo, bar };
 </code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
-<span class="hljs-keyword">import</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mymodule.js'</span>;
+<p>or</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
+}
 </code></pre>
 </section><section class="slide"><h2>Imports and exports</h2>
-<p>there may be one default export</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// mymodule.js</span>
-<span class="hljs-keyword">const</span> foo = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">const</span> bar = <span class="hljs-number">2</span>;
-<span class="hljs-keyword">const</span> baz = <span class="hljs-number">3</span>;
-
-<span class="hljs-keyword">export</span> { foo, bar, baz };
-
-<span class="hljs-keyword">const</span> main = <span class="hljs-number">0</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> main;
+<p>named imports in another file:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mymodule.js'</span>;
 </code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// index.js</span>
-<span class="hljs-keyword">import</span> main, { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
+<p>when using a bundler like webpack:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mymodule'</span>;
 </code></pre>
-</section><section class="slide"><h2>Imports in webpack</h2>
-<p>Bundlers like webpack can deviate from standard JavaScript import behavior:</p>
-<ul>
-<li>the import does not require a file name extension like <code>.js</code></li>
-<li>if the import leads to a folder webpack will look for an <code>index.js</code> file in the folder</li>
-</ul>
+</section><section class="slide"><h2>Imports and exports</h2>
+<p>there may be one default export per module:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Main<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Main<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Main;
+</code></pre>
+</section><section class="slide"><h2>Imports and exports</h2>
+<p>imports (default and named):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> Main, { foo, bar } <span class="hljs-keyword">from</span> <span class="hljs-string">'mymodule.js'</span>;
+</code></pre>
+<p>the default can be imported under any name</p>
 </section><section class="slide"><h2>Arrow functions</h2>
 <p>notation for anonymous functions:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> {
@@ -2119,44 +2156,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>short notation if the function only returns a single expression:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> multiply = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =></span> a * b;
 </code></pre>
-</section><section class="slide"><h2>The semicolon in JavaScript</h2>
-<p>The semicolon for terminating statements is mostly optional in JavaScript (<em>automatic semicolon insertion</em>)</p>
-<!-- prettier-ignore -->
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>
-<span class="hljs-built_in">console</span>.log(a)
-</code></pre>
-<p>is treated as:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>;
-<span class="hljs-built_in">console</span>.log(a);
-</code></pre>
-</section><section class="slide"><h2>The semicolon in JavaScript</h2>
-<p>Sometimes the behavior is not as intended:</p>
-<!-- prettier-ignore -->
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">return</span>
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-<p>would be treated as:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> Foo = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">return</span>;
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>some content<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Destructuring assignment with arrays</h2>
-<p>assigning to multiple variables at the same time</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [a, b, c] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [result, errors] = someComputation();
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-comment">// swapping values</span>
-<span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>;
-[a, b] = [b, a];
+</section><section class="slide"><h2>Template strings</h2>
+<p><em>template strings</em> allow for <em>interpolation</em> (via <code>${}</code>)</p>
+<p>are delimited by backticks (`)</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> message = <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>;
 </code></pre></section></section></div>
     </div>
     <script>/*!

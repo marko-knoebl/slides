@@ -2,71 +2,144 @@
 
 ## JavaScript basics for React
 
-- JavaScript standardization and versions
+- **destructuring assignment** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment))
+- **"bare" return statements** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return#automatic_semicolon_insertion))
 - imports and exports
 - arrow functions
-- template literals
-- automatic semicolon insertion
-- destructuring assignment
+- template strings
 
-## JavaScript standardization
+## Destructuring assignment
 
-JavaScript is standardized under the name [_ECMAScript_ (ES)](https://www.ecma-international.org/ecma-262/)
+assigning the contents of an object or array to multiple variables simultaneously
 
-## JavaScript versions
+## Destructuring assignment with objects
 
-_ES5_: Supported by all browsers, including Internet Explorer (standardized in 2009)
-
-Since 2015: yearly updates in June of each year (ES2015, ES2016, ...)
-
-Common practice: Modern JavaScript is transpiled to older versions with better support (via Babel, webpack)
-
-## Imports and exports
-
-named imports and exports:
+long version (without destructuring):
 
 ```js
-// mymodule.js
-const foo = 1;
-const bar = 2;
-const baz = 3;
+const protocol = window.location.protocol;
+const host = window.location.host;
+const pathname = window.location.pathname;
+```
 
-export { foo, bar, baz };
+version with destructuring assignment:
+
+```js
+const { protocol, host, pathname } = window.location;
+```
+
+## Destructuring assignment with arrays
+
+```js
+const [a, b, c] = [1, 2, 3];
 ```
 
 ```js
-// index.js
+const [result, logs] = someLongComputation();
+```
+
+```js
+// swapping values of a and b
+[a, b] = [b, a];
+```
+
+## "Bare" return statements
+
+this will not work as intended in JavaScript:
+
+<!-- prettier-ignore -->
+```js
+return
+  <div>foo</div>;
+```
+
+it would be interpreted as:
+
+```js
+return;
+<div>foo</div>;
+```
+
+(automatic semicolon insertion)
+
+## "Bare" return statements
+
+versions that work:
+
+```js
+return <div>foo</div>;
+```
+
+<!-- prettier-ignore -->
+```js
+return (
+  <div>foo</div>
+);
+```
+
+## Imports and exports
+
+named exports:
+
+```js
+const foo = 1;
+function bar() {
+  return 2;
+}
+
+export { foo, bar };
+```
+
+or
+
+```js
+export const foo = 1;
+export function bar() {
+  return 2;
+}
+```
+
+## Imports and exports
+
+named imports in another file:
+
+```js
 import { foo, bar } from './mymodule.js';
 ```
 
+when using a bundler like webpack:
+
+```js
+import { foo, bar } from './mymodule';
+```
+
 ## Imports and exports
 
-there may be one default export
+there may be one default export per module:
 
 ```js
-// mymodule.js
-const foo = 1;
-const bar = 2;
-const baz = 3;
-
-export { foo, bar, baz };
-
-const main = 0;
-
-export default main;
+export default function Main() {
+  return <div>Main</div>;
+}
 ```
 
 ```js
-// index.js
-import main, { foo, bar } from 'mymodule.js';
+function Main() {
+  return <div>Main</div>;
+}
+
+export default Main;
 ```
 
-## Imports in webpack
+## Imports and exports
 
-Bundlers like webpack can deviate from standard JavaScript import behavior:
+imports (default and named):
 
-- the import does not require a file name extension like `.js`
-- if the import leads to a folder webpack will look for an `index.js` file in the folder
+```js
+import Main, { foo, bar } from 'mymodule.js';
+```
+
+the default can be imported under any name
 
 ## Arrow functions
 
@@ -84,63 +157,12 @@ short notation if the function only returns a single expression:
 const multiply = (a, b) => a * b;
 ```
 
-## The semicolon in JavaScript
+## Template strings
 
-The semicolon for terminating statements is mostly optional in JavaScript (_automatic semicolon insertion_)
+_template strings_ allow for _interpolation_ (via `${}`)
 
-<!-- prettier-ignore -->
-```js
-const a = 3
-console.log(a)
-```
-
-is treated as:
+are delimited by backticks (\`)
 
 ```js
-const a = 3;
-console.log(a);
-```
-
-## The semicolon in JavaScript
-
-Sometimes the behavior is not as intended:
-
-<!-- prettier-ignore -->
-```jsx
-const Foo = () => {
-  return
-    <div>
-      <h1>some content</h1>
-    </div>;
-};
-```
-
-would be treated as:
-
-```jsx
-const Foo = () => {
-  return;
-  <div>
-    <h1>some content</h1>
-  </div>;
-};
-```
-
-## Destructuring assignment with arrays
-
-assigning to multiple variables at the same time
-
-```js
-const [a, b, c] = [1, 2, 3];
-```
-
-```js
-const [result, errors] = someComputation();
-```
-
-```js
-// swapping values
-let a = 1;
-let b = 2;
-[a, b] = [b, a];
+const message = `Hello, ${name}!`;
 ```

@@ -2,71 +2,144 @@
 
 ## JavaScript-Grundlagen für React
 
-- JavaScript-Standardisierung und Versionen
+- **destrukturierende Zuweisung** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment))
+- **"leere" Return Statements** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return#automatic_semicolon_insertion))
 - Imports und Exports
 - Pfeilfunktionen
-- Template Literals
-- Automatic Semicolon Insertion
-- destrukturierende Zuweisung
+- Template-Strings
 
-## JavaScript Standardisierung
+## Destrukturierende Zuweisung
 
-JavaScript wird unter dem Namen [_ECMAScript_ (ES)](https://www.ecma-international.org/ecma-262/) standardisiert
+gleichzeitige Zuweisung von Inhalten von Objekten oder Arrays zu mehreren Variablen
 
-## JavaScript Versionen
+## Destrukturierende Zuweisung mit Objekten
 
-_ES5_: Von allen Browsern, inklusive Internet Explorer, unterstützt (2009 standardisiert)
-
-Seit 2015: jährliche Updates im Juni jeden Jahres (ES2015, ES2016, ...)
-
-In der Praxis: Modernes JavaScript wird in ältere Versionen transpiliert (via Babel, webpack)
-
-## Imports und Exports
-
-benannte Imports und Exports:
+lange Version (ohne Destrukturierung):
 
 ```js
-// mymodule.js
-const foo = 1;
-const bar = 2;
-const baz = 3;
+const protocol = window.location.protocol;
+const host = window.location.host;
+const pathname = window.location.pathname;
+```
 
-export { foo, bar, baz };
+Version mit Destrukturierung:
+
+```js
+const { protocol, host, pathname } = window.location;
+```
+
+## Destrukturierende Zuweisung mit Arrays
+
+```js
+const [a, b, c] = [1, 2, 3];
 ```
 
 ```js
-// index.js
+const [result, logs] = someLongComputation();
+```
+
+```js
+// swapping values of a and b
+[a, b] = [b, a];
+```
+
+## "Leere" Return Statements
+
+funktioniert in JavaScript nicht wie gewünscht:
+
+<!-- prettier-ignore -->
+```js
+return
+  <div>foo</div>;
+```
+
+dies wird interpretiert als:
+
+```js
+return;
+<div>foo</div>;
+```
+
+(Automatic Semicolon Insertion)
+
+## "Leere" Return Statements
+
+Varianten, die funktionieren:
+
+```js
+return <div>foo</div>;
+```
+
+<!-- prettier-ignore -->
+```js
+return (
+  <div>foo</div>
+);
+```
+
+## Imports und Exports
+
+benannte Exports:
+
+```js
+const foo = 1;
+function bar() {
+  return 2;
+}
+
+export { foo, bar };
+```
+
+oder
+
+```js
+export const foo = 1;
+export function bar() {
+  return 2;
+}
+```
+
+## Imports und Exports
+
+benannte Imports in einer anderen Datei:
+
+```js
 import { foo, bar } from './mymodule.js';
 ```
 
+bei Verwendung eines Bundlers wie Webpack:
+
+```js
+import { foo, bar } from './mymodule';
+```
+
 ## Imports und Exports
 
-Es kann einen default Export geben:
+Es kann einen default Export pro Modul geben:
 
 ```js
-// mymodule.js
-const foo = 1;
-const bar = 2;
-const baz = 3;
-
-export { foo, bar, baz };
-
-const main = 0;
-
-export default main;
+export default function Main() {
+  return <div>Main</div>;
+}
 ```
 
 ```js
-// index.js
-import main, { foo, bar } from 'mymodule.js';
+function Main() {
+  return <div>Main</div>;
+}
+
+export default Main;
 ```
 
-## Imports in webpack
+## Imports und Exports
 
-Bundler wie webpack können beim Importieren vom JavaScript Standard abweichen:
+Imports (default und benannt):
 
-- Dateiendungen wie `.js` können optional sein
-- wenn der Import auf einen Ordner verweist, sucht webpack nach einer `index.js` Datei in diesem Ordner
+```js
+import Main, { foo, bar } from 'mymodule.js';
+```
+
+der Default kann unter beliebigem Namen importiert werden
 
 ## Pfeilfunktionen
 
@@ -84,63 +157,12 @@ Kurzschreibweise, wenn die Funktion nur einen einzelnen Ausdruck zurückgibt:
 const multiply = (a, b) => a * b;
 ```
 
-## Das Semikolon in JavaScript
+## Template Strings
 
-Das Semikolon zum Abschluss von Statements ist größtenteils in JavaScript optional (_automatic semicolon insertion_)
+_Template Strings_ erlauben Interpolation (via `${}`)
 
-<!-- prettier-ignore -->
-```js
-const a = 3
-console.log(a)
-```
-
-wird behandelt wie:
+werden mit _Backticks_ begrenzt (\`)
 
 ```js
-const a = 3;
-console.log(a);
-```
-
-## Das Semikolon in JavaScript
-
-Manchmals ist das Verhalten nicht wie gewünscht:
-
-<!-- prettier-ignore -->
-```jsx
-const Foo = () => {
-  return
-    <div>
-      <h1>some content</h1>
-    </div>;
-};
-```
-
-wird behandelt wie:
-
-```jsx
-const Foo = () => {
-  return;
-  <div>
-    <h1>some content</h1>
-  </div>;
-};
-```
-
-## Destrukturierende Zuweisung
-
-gleichzeitige Zuweisung zu mehreren Variablen
-
-```js
-const [a, b, c] = [1, 2, 3];
-```
-
-```js
-const [result, errors] = someComputation();
-```
-
-```js
-// swapping values
-let a = 1;
-let b = 2;
-[a, b] = [b, a];
+const message = `Hello, ${name}!`;
 ```
