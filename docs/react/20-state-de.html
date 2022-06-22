@@ -2062,45 +2062,54 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>State (Komponentenzustand)</h1>
 </section><section class="slide"><h2>State</h2>
-<p>React Komponenten können einen internen Zustand (<em>state</em>) haben</p>
-<p>Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.</p>
+<p>Komponenten können einen internen Zustand (<em>State</em>) haben</p>
+<p>Auf den State kann im Template verwiesen werden</p>
+<p>Die Anzeige wird automatisch aktualisiert, wenn Teile des States neu gesetzt werden</p>
 </section><section class="slide"><h2>State Hook</h2>
-<p>In Funktionskomponenten verwenden wir den <em>State Hook</em>:</p>
+<p>State Hook in Funktionskomponenten:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-</code></pre>
-</section><section class="slide"><h2>State Hook</h2>
-<p><code>useState</code> kann in der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:</p>
-<ul>
-<li><code>useState</code> nimmt einen Parameter entgegen - den initialen Zustand</li>
-<li><code>useState</code> gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann</li>
-</ul>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);
-  <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">'React app'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [imgId, setImgId] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> [imgWidth, setImgWidth] = useState(<span class="hljs-number">300</span>);
+  <span class="hljs-keyword">const</span> [imgHeight, setImgHeight] = useState(<span class="hljs-number">200</span>);
 
   <span class="hljs-keyword">return</span> ...
 };
 </code></pre>
+</section><section class="slide"><h2>State Hook</h2>
+<p><code>useState</code> kann in der Komponentenfunktion (wiederholt) aufgerufen werden, um State-Einträge zu deklarieren</p>
+<p><strong>Parameter</strong>: ursprünglicher State</p>
+<p><strong>Array von Rückgabewerten</strong>: aktueller State, Setter-Funktion</p>
 </section><section class="slide"><h2>Verwenden des minimalen States</h2>
-<p>Wir sollten immer versuchen, den <em>minimalen</em> State zu verwenden (also keine redundanten Daten speichern)</p>
-<p>Weitere Daten können in der Komponentenfunktion aus dem State abgeleitet werden</p>
+<p>Richlinie: Verwende den <em>minimalen</em> State (d.h. keine redundanten Daten)</p>
+<p>Weitere Daten können aus dem State abgeleitet werden</p>
 <p>Beispiele:</p>
 <ul>
-<li>für die Slideshow speichern wir die Bild-ID - die Bild-URL kann daraus abgeleitet werden</li>
-<li>für ein Textfeld speichern wir den Textinhalt - der Gültigkeitsstatus kann daraus abgeleitet werden</li>
+<li><em>Slideshow</em>: speichere die Bild-ID - die Bild-URL kann davon abgeleitet werden</li>
+<li><em>Todos</em>: speichere ein Array von Todos mit ihrem Status - die Anzahl an erledigten oder nicht-erledigten Todos kann davon abgeleitet werden</li>
+<li><em>Textfeld</em>: speichere den Inhalte - der Gültigkeitsstatus kann davon abgeleitet werden</li>
 </ul>
-</section><section class="slide"><h2>Übung: Slideshow</h2>
-<p>Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den bisherigen Code zu blicken</p>
+</section><section class="slide"><h2>Übung: Slideshow (Teil 1)</h2>
+<p>Implementiere die zuvor gesehene Slideshow-Komponente erneut; versuche, nicht auf den bisherigen Code zu blicken</p>
 <ul>
 <li>zeige Bilder wie z.B. <code>https://picsum.photos/300/200?image=0</code></li>
 <li>Buttons für <em>vorwärts</em> und <em>zurück</em></li>
 <li>Button für <em>zurück zum Start</em></li>
 <li>verhindere, dass ins negative gezählt wird</li>
 </ul>
-<p>Zusatz:</p>
+</section><section class="slide"><h2>Übung: Slideshow (Teil 2)</h2>
+<p>Füge weitere Features hinzu:</p>
 <ul>
 <li>Button für zufälliges Bild</li>
-<li>Buttons, die es ermöglichen, die Breite des Bildes zu erhöhen / verringern</li>
+<li>Buttons zum Ändern der Breite des Bildes (z.B. Umschalten zwischen <em>300x200</em> und <em>400x200</em>)</li>
+<li>kleines Vorschaubild für das vorherige und nächste Bild</li>
+<li>... (deine eigene Ideen)</li>
+</ul>
+<p><em>vermeide</em> vorerst folgendes:</p>
+<ul>
+<li>Arrays / Objekte im State</li>
+<li>verwenden von Timern (<code>setTimeout</code>, <code>setInterval</code>)</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable State</h1>
 </section><section class="slide"><h2>Immutable State</h2>
@@ -2158,6 +2167,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>die <code>.map</code>-Methode:</p>
 <ul>
 <li>bestimmt für jeden Eintrag in einem Array einen neuen, abgeletiteten, Eintrag</li>
+<li>verwendet eine Funktion, um die "Transformation" jedes Eintrags anzugeben</li>
 <li>gibt ein neues Array mit diesen Einträgen zurück</li>
 </ul>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
@@ -2174,9 +2184,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
 
-<span class="hljs-keyword">const</span> isEven = <span class="hljs-function">(<span class="hljs-params">n</span>) =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
-
-<span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(isEven);
+<span class="hljs-keyword">const</span> evenNumbers = myNumbers.filter(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> n % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>);
 <span class="hljs-comment">// [2, 4]</span>
 </code></pre>
 </section><section class="slide"><h2>Datenverwaltung ohne Mutationen</h2>
@@ -2191,31 +2199,32 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Wir erstellen <em>reine</em> Funktionen, die mit Todos arbeiten</p>
 <p>TypeScript-Deklaration, die ein Todo repräsentiert:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> Todo {
   <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
   title: <span class="hljs-built_in">string</span>;
   completed: <span class="hljs-built_in">boolean</span>;
-};
+}
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
-<p>Übung: Erstelle die folgende <em>reine</em> Funktion:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTitle</span>(<span class="hljs-params">todo: Todo, newTitle: string</span>): <span class="hljs-title">Todo</span> </span>{
+<p>Übung: Erstelle die folgende <em>reine</em> Funktion, die ein Todo verarbeitet:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todo1 = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTitle</span>(<span class="hljs-params">todo, newTitle</span>) </span>{
   <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> FINISH IMPLEMENTATION HERE</span>
 }
 
-<span class="hljs-keyword">const</span> todo1 = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
 <span class="hljs-keyword">const</span> todo2 = changeTitle(todo1, <span class="hljs-string">'bar'</span>);
 <span class="hljs-built_in">console</span>.log(todo2);
 <span class="hljs-comment">// { id: 1, title: 'bar', completed: false}</span>
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Lösung:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTitle</span>(<span class="hljs-params">todo: Todo, newTitle: string</span>): <span class="hljs-title">Todo</span> </span>{
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTitle</span>(<span class="hljs-params">todo, newTitle</span>) </span>{
   <span class="hljs-keyword">return</span> { ...todo, <span class="hljs-attr">title</span>: newTitle };
 }
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
-<p>Übung: Erstelle die folgenden <em>reinen</em> Funktionen, die ein Array von Todo-Objekten behandeln:</p>
+<p>Übungen: Erstelle <em>reine</em> Funktionen, die ein Array von Todo-Objekten behandeln:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todos = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
   { <span class="hljs-attr">id</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'bar'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
@@ -2223,11 +2232,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 ];
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
-<p>Vervollständige diesen Code, sodass er ein Todo mit einem gegebenen Titel und einer neuen ID hinzufügt:</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">
-  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
-  newTitle: <span class="hljs-built_in">string</span>
-</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
+<p>Vervollständige diesen Code, sodass er ein neues, unerledigtes Todo mit einem gegebenen Titel und einer neuen ID hinzufügt:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">todos, newTitle</span>) </span>{
   <span class="hljs-keyword">let</span> maxId = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> todo <span class="hljs-keyword">of</span> todos) {
     maxId = <span class="hljs-built_in">Math</span>.max(maxId, todo.id);
@@ -2241,10 +2247,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <p>mögliche Lösung:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">
-  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
-  newTitle: string
-</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">todos, newTitle</span>) </span>{
   <span class="hljs-keyword">let</span> maxId = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> todo <span class="hljs-keyword">of</span> todos) {
     maxId = <span class="hljs-built_in">Math</span>.max(maxId, todo.id);
@@ -2256,54 +2259,50 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
-<p>Vervollständige diesen Code, sodass er den completed-Zustand eines bestimmten Todos ändert</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTodoCompleted</span>(<span class="hljs-params">
-  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
-  id: <span class="hljs-built_in">number</span>,
-  completed: <span class="hljs-built_in">boolean</span>
-</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
+<p>Vervollständige diesen Code, sodass er ein bestimmtes Todo anhand der ID löscht:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeTodo</span>(<span class="hljs-params">todos, id</span>) </span>{
   <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> FINISH IMPLEMENTATION HERE</span>
 }
 
-<span class="hljs-comment">// change the completed status of todo 1 to true</span>
-<span class="hljs-keyword">const</span> todosB = changeTodoCompleted(todos, <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">const</span> todosB = removeTodo(todos, <span class="hljs-number">1</span>);
 <span class="hljs-built_in">console</span>.log(todosB);
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <p>mögliche Lösung:</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTodoCompleted</span>(<span class="hljs-params">
-  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
-  id: <span class="hljs-built_in">number</span>,
-  completed: <span class="hljs-built_in">boolean</span>
-</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
-  <span class="hljs-keyword">return</span> todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span>
-    todo.id === id
-      ? { ...todo, <span class="hljs-attr">completed</span>: completed }
-      : todo
-  );
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeTodo</span>(<span class="hljs-params">todos, id</span>) </span>{
+  <span class="hljs-keyword">return</span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> todo.id !== id);
 }
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
-<p>Vervollständige diesen Code, sodass er ein bestimmtes Todo anhand der ID löscht:</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeTodo</span>(<span class="hljs-params">
-  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
-  id: <span class="hljs-built_in">number</span>
-</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
+<p>Vervollständige diesen Code, sodass er den completed-Zustand eines bestimmten Todos ändert</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTodoCompleted</span>(<span class="hljs-params">todos, id, completed</span>) </span>{
   <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> FINISH IMPLEMENTATION HERE</span>
 }
 
-<span class="hljs-keyword">const</span> todosC = removeTodo(todos, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// change the completed status of todo 1 to true</span>
+<span class="hljs-keyword">const</span> todosC = changeTodoCompleted(todos, <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>);
 <span class="hljs-built_in">console</span>.log(todosC);
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <p>mögliche Lösung:</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeTodo</span>(<span class="hljs-params">
-  todos: <span class="hljs-built_in">Array</span>&#x3C;Todo>,
-  id: <span class="hljs-built_in">number</span>
-</span>): <span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>> </span>{
-  <span class="hljs-keyword">return</span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> todo.id !== id);
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeTodoCompleted</span>(<span class="hljs-params">todos, id, completed</span>) </span>{
+  <span class="hljs-keyword">return</span> todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> {
+    <span class="hljs-keyword">if</span> todo.id === id {
+      <span class="hljs-keyword">return</span> {...todo, <span class="hljs-attr">completed</span>: completed}
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> todo;
+    }
+  })
 }
 </code></pre>
+</section><section class="slide"><h2>Übungen</h2>
+<p>weitere Aufgaben:</p>
+<ul>
+<li><code>changeTodoTitle</code></li>
+<li><code>toggleTodo</code> (umschalten zwischen erledigt und nicht-erledigt)</li>
+<li><code>updateTodo</code> (ändern von <code>title</code> und <code>completed</code> in einem Aufruf)</li>
+<li><code>removeAllCompletedTodos</code></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Input State</h1>
 </section><section class="slide"><h2>Input State</h2>
 <p>In React-Anwendungen sollte alles, was sich im UI ändern kann, Teil des <em>States</em> sein</p>

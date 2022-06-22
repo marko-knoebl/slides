@@ -2,55 +2,67 @@
 
 ## State
 
-Components may have an internal _state_
+components may have an internal _state_
 
-The state can be referenced in the template. The view will automatically update if parts of the state are changed.
+state can be referenced in the template
+
+the view will automatically update if state entries change
 
 ## State hook
 
-In function components we use the _state hook_:
+state hook in function components:
 
 ```js
 import { useState } from 'react';
-```
 
-## State hook
-
-`useState` may be called (repeatedly) inside the component function
-
-- `useState` takes one parameter: the initial state value
-- on each call `useState` returns an array with two entries: the current state and a function that lets us set the state to a new value
-
-```js
 function App() {
-  const [count, setCount] = useState(0);
-  const [title, setTitle] = useState('React app');
+  const [imgId, setImgId] = useState(0);
+  const [imgWidth, setImgWidth] = useState(300);
+  const [imgHeight, setImgHeight] = useState(200);
 
   return ...
 };
 ```
 
+## State hook
+
+`useState` may be called (repeatedly) inside the component function to declare state entries
+
+**parameter**: initial state
+
+**array of return values**: current state, setter function
+
 ## Using the minimal state
 
-We should always try to use the _minimal_ state possible (i.e. no redundant data)
+guideline: use the _minimal_ state (i.e. no redundant data)
 
-Other data can be computed from the minimal state in the component function
+other data can be computed based on the state
 
 Examples:
 
-- For the slideshow, store the image ID - the image URL can be derived from it
-- For a text input, store its content - the validity status can be derived from it
+- _slideshow_: store the image ID - the image URL can be derived from it
+- _todos_: store an array of todos with their status - the number of completed or incomplete items can be derived from them
+- _text input field_: store its content - the validity status can be derived from it
 
-## Exercise: Slideshow
+## Exercise: Slideshow (part 1)
 
-Re-implement the slideshow demo we saw before; try not to look at the old code
+Re-implement the slideshow component we saw before; try not to look at the old code
 
-- show images like `https://picsum.photos/300/200?image=0`
+- show images like _https://picsum.photos/300/200?image=0_
 - buttons for _previous_ and _next_
 - button for _back to start_
 - prevent the index from becoming negative
 
-optional:
+## Exercise: Slideshow (part 2)
+
+add features to the slideshow:
 
 - button for _random image_
-- buttons that let the user increase / decrease the image width
+- buttons that let the user change the image width (e.g. switching between _300x200_ and _400x200_)
+- small thumbnail for the next and previous images
+- ... (your own ideas)
+
+_avoid_ this for now:
+
+- putting arrays / objects in the state
+- using timers (`setTimeout`, `setInterval`)

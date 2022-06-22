@@ -52,7 +52,8 @@ const newPerson = { ...person, email: 'j@d.com', age: 32 };
 
 the `.map` method:
 
-- derives a new value for each entry in an array
+- creates a new value for each entry in an array
+- uses a function to specify the "transformation" of each entry
 - returns a new array with those values
 
 ```js
@@ -73,9 +74,7 @@ the `.filter` method:
 ```js
 const myNumbers = [1, 2, 3, 4];
 
-const isEven = (n) => n % 2 === 0;
-
-const evenNumbers = myNumbers.filter(isEven);
+const evenNumbers = myNumbers.filter((n) => n % 2 === 0);
 // [2, 4]
 ```
 
@@ -93,14 +92,14 @@ mechanisms:
 
 We will create _pure_ functions that deal with todos
 
-TypeScript declaration to represent a todo:
+possible TypeScript declaration to represent a todo:
 
 ```ts
-type Todo = {
+interface Todo {
   id: number;
   title: string;
   completed: boolean;
-};
+}
 ```
 
 ## Exercises
@@ -108,11 +107,12 @@ type Todo = {
 exercise: create the following _pure_ function that handles a todo item:
 
 ```js
-function changeTitle(todo: Todo, newTitle: string): Todo {
+const todo1 = { id: 1, title: 'foo', completed: false };
+
+function changeTitle(todo, newTitle) {
   // TODO: FINISH IMPLEMENTATION HERE
 }
 
-const todo1 = { id: 1, title: 'foo', completed: false };
 const todo2 = changeTitle(todo1, 'bar');
 console.log(todo2);
 // { id: 1, title: 'bar', completed: false}
@@ -123,14 +123,14 @@ console.log(todo2);
 solution:
 
 ```js
-function changeTitle(todo: Todo, newTitle: string): Todo {
+function changeTitle(todo, newTitle) {
   return { ...todo, title: newTitle };
 }
 ```
 
 ## Exercises
 
-exercise: create _pure_ functions that handle an array of todos
+exercises: create _pure_ functions that handle an array of todos
 
 ```js
 const todos = [
@@ -142,13 +142,10 @@ const todos = [
 
 ## Exercises
 
-Complete this code so it adds a todo with a given title and a new id:
+Complete this code so it adds a new incomplete todo with a given title and a new id:
 
-```ts
-function addTodo(
-  todos: Array<Todo>,
-  newTitle: string
-): Array<Todo> {
+```js
+function addTodo(todos, newTitle) {
   let maxId = 0;
   for (let todo of todos) {
     maxId = Math.max(maxId, todo.id);
@@ -166,10 +163,7 @@ console.log(todosA);
 possible solution:
 
 ```js
-function addTodo(
-  todos: Array<Todo>,
-  newTitle: string
-): Array<Todo> {
+function addTodo(todos, newTitle) {
   let maxId = 0;
   for (let todo of todos) {
     maxId = Math.max(maxId, todo.id);
@@ -183,19 +177,14 @@ function addTodo(
 
 ## Exercises
 
-Complete this code so it sets the completed status of a specific todo
+Complete this code so it removes a specific todo by its id:
 
-```ts
-function changeTodoCompleted(
-  todos: Array<Todo>,
-  id: number,
-  completed: boolean
-): Array<Todo> {
+```js
+function removeTodo(todos, id) {
   // TODO: FINISH IMPLEMENTATION HERE
 }
 
-// change the completed status of todo 1 to true
-const todosB = changeTodoCompleted(todos, 1, true);
+const todosB = removeTodo(todos, 1);
 console.log(todosB);
 ```
 
@@ -204,32 +193,22 @@ console.log(todosB);
 possible solution:
 
 ```ts
-function changeTodoCompleted(
-  todos: Array<Todo>,
-  id: number,
-  completed: boolean
-): Array<Todo> {
-  return todos.map((todo) =>
-    todo.id === id
-      ? { ...todo, completed: completed }
-      : todo
-  );
+function removeTodo(todos, id) {
+  return todos.filter((todo) => todo.id !== id);
 }
 ```
 
 ## Exercises
 
-Complete this code so it removes a specific todo by its id:
+Complete this code so it sets the completed status of a specific todo
 
-```ts
-function removeTodo(
-  todos: Array<Todo>,
-  id: number
-): Array<Todo> {
+```js
+function changeTodoCompleted(todos, id, completed) {
   // TODO: FINISH IMPLEMENTATION HERE
 }
 
-const todosC = removeTodo(todos, 1);
+// change the completed status of todo 1 to true
+const todosC = changeTodoCompleted(todos, 1, true);
 console.log(todosC);
 ```
 
@@ -238,10 +217,22 @@ console.log(todosC);
 possible solution:
 
 ```ts
-function removeTodo(
-  todos: Array<Todo>,
-  id: number
-): Array<Todo> {
-  return todos.filter((todo) => todo.id !== id);
+function changeTodoCompleted(todos, id, completed) {
+  return todos.map((todo) => {
+    if todo.id === id {
+      return {...todo, completed: completed}
+    } else {
+      return todo;
+    }
+  })
 }
 ```
+
+## Exercises
+
+further tasks:
+
+- `changeTodoTitle`
+- `toggleTodo` (switch between completed and not completed)
+- `updateTodo` (change `title` and `completed` in one go)
+- `removeAllCompoletedTodos`

@@ -123,6 +123,8 @@ export default function Main() {
 }
 ```
 
+oder
+
 ```js
 function Main() {
   return <div>Main</div>;

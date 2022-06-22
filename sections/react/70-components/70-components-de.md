@@ -9,9 +9,9 @@ Motivation:
 - Wiederverwendung von Code
 - Organisation von Code
 
-## State, Props und Events
+## Komponenten und State
 
-Komponenten können Einträge ihres States an Unterkomponenten weitergeben (via _Props_)
+Komponenten können Daten aus ihrem State via _Props_ an Unterkomponenten weitergeben (unidirektionaler Datenfluss)
 
 Unterkomponenten können Events auslösen, die dazu führen, dass sich der State in der Elternkomponente ändert
 

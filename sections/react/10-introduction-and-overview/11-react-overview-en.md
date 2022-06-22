@@ -1,10 +1,8 @@
 # React overview
 
-## React
+## React overview
 
-React is a JavaScript library for creating interacive user interfaces in the browser
-
-alternatives: Angular, Vue.js
+_React_: JavaScript library for creating interactive user interfaces in the browser
 
 ## Basics of modern JavaScript UI libraries
 
@@ -14,7 +12,7 @@ alternatives: Angular, Vue.js
 ## State-based / declarative
 
 - data model which describes the entire application state
-- user interactions change the data model, causing the view to update automatically
+- user interactions change the state, causing the UI to update automatically
 
 ## State-based / declarative
 
@@ -40,8 +38,7 @@ possible appearance of a todo application:
 ## Component-based
 
 - "custom" HTML-Tags
-- data flow via props and events
-- usually unidirectional dataflow (from parent to child)
+- communication between parent and child elements via _props_ and _events_
 
 ## Component-based
 

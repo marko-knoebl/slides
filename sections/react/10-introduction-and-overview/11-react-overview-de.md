@@ -2,9 +2,7 @@
 
 ## React
 
-React ist eine JavaScript-Library zum erstellen interaktiver Benutzeroberflächen im Browser
-
-Alternativen: Angular, Vue.js
+_React_: JavaScript-Library zum Erstellen interaktiver Benutzeroberflächen im Browser
 
 ## Grundlagen moderner JavaScript UI Libraries
 
@@ -14,7 +12,7 @@ Alternativen: Angular, Vue.js
 ## State-basiert / deklarativ
 
 - Datenmodell, das den gesamten Anwendungszustand (State) abbildet
-- User-Interaktionen ändern das Modell, das View wird automatisch aktualisiert
+- User-Interaktionen ändern den State, die Anzeige wird automatisch aktualisiert
 
 ## State-basiert / deklarativ
 
@@ -40,8 +38,7 @@ mögliches Erscheinungsbild einer Todo-Anwendung:
 ## Komponenten-Struktur
 
 - "eigene" HTML-Tags
-- Datenfluss via Properties und Events
-- Üblicherweise unidirektionaler Datenfluss (vom Eltern- zum Kindelement)
+- Kommunikation zwischen Eltern- und Kindelement via _Props_ und _Events_
 
 ## Komponenten-Struktur
 

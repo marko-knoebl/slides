@@ -2,13 +2,13 @@
 
 ## JavaScript basics for React
 
-- **"bare" return statements** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return#automatic_semicolon_insertion))
+- **"bare" / "blank" return statements** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return#automatic_semicolon_insertion))
 - **destructuring assignment** ([MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment))
 - imports and exports
 - arrow functions
 - template strings
 
-## "Bare" return statements
+## "Bare" / "blank" return statements
 
 this will not work as intended in JavaScript:
 
@@ -27,7 +27,7 @@ return;
 
 (automatic semicolon insertion)
 
-## "Bare" return statements
+## "Bare" / "blank" return statements
 
 versions that work:
 
@@ -122,6 +122,8 @@ export default function Main() {
   return <div>Main</div>;
 }
 ```
+
+or
 
 ```js
 function Main() {

@@ -2,55 +2,67 @@
 
 ## State
 
-React Komponenten können einen internen Zustand (_state_) haben
+Komponenten können einen internen Zustand (_State_) haben
 
-Auf den state kann im Template verwiesen werden. Damit ändert sich die Anzeige automatisch, wenn Teile des States neu gesetzt werden.
+Auf den State kann im Template verwiesen werden
+
+Die Anzeige wird automatisch aktualisiert, wenn Teile des States neu gesetzt werden
 
 ## State Hook
 
-In Funktionskomponenten verwenden wir den _State Hook_:
+State Hook in Funktionskomponenten:
 
 ```js
 import { useState } from 'react';
-```
 
-## State Hook
-
-`useState` kann in der Komponentenfunktion (wiederholt) aufgerufen werden; es hat die folgende Signatur:
-
-- `useState` nimmt einen Parameter entgegen - den initialen Zustand
-- `useState` gibt bei jedem Aufruf ein Array mit zwei Einträgen zurück: Den aktuellen Zustand sowie eine Funktion, mit der der Zustand neu gesetzt werden kann
-
-```js
 function App() {
-  const [count, setCount] = useState(0);
-  const [title, setTitle] = useState('React app');
+  const [imgId, setImgId] = useState(0);
+  const [imgWidth, setImgWidth] = useState(300);
+  const [imgHeight, setImgHeight] = useState(200);
 
   return ...
 };
 ```
 
+## State Hook
+
+`useState` kann in der Komponentenfunktion (wiederholt) aufgerufen werden, um State-Einträge zu deklarieren
+
+**Parameter**: ursprünglicher State
+
+**Array von Rückgabewerten**: aktueller State, Setter-Funktion
+
 ## Verwenden des minimalen States
 
-Wir sollten immer versuchen, den _minimalen_ State zu verwenden (also keine redundanten Daten speichern)
+Richlinie: Verwende den _minimalen_ State (d.h. keine redundanten Daten)
 
-Weitere Daten können in der Komponentenfunktion aus dem State abgeleitet werden
+Weitere Daten können aus dem State abgeleitet werden
 
 Beispiele:
 
-- für die Slideshow speichern wir die Bild-ID - die Bild-URL kann daraus abgeleitet werden
-- für ein Textfeld speichern wir den Textinhalt - der Gültigkeitsstatus kann daraus abgeleitet werden
+- _Slideshow_: speichere die Bild-ID - die Bild-URL kann davon abgeleitet werden
+- _Todos_: speichere ein Array von Todos mit ihrem Status - die Anzahl an erledigten oder nicht-erledigten Todos kann davon abgeleitet werden
+- _Textfeld_: speichere den Inhalte - der Gültigkeitsstatus kann davon abgeleitet werden
 
-## Übung: Slideshow
+## Übung: Slideshow (Teil 1)
 
-Implementiere die zuvor gesehene Slideshow-Demo erneut; versuche, nicht auf den bisherigen Code zu blicken
+Implementiere die zuvor gesehene Slideshow-Komponente erneut; versuche, nicht auf den bisherigen Code zu blicken
 
 - zeige Bilder wie z.B. `https://picsum.photos/300/200?image=0`
 - Buttons für _vorwärts_ und _zurück_
 - Button für _zurück zum Start_
 - verhindere, dass ins negative gezählt wird
 
-Zusatz:
+## Übung: Slideshow (Teil 2)
+
+Füge weitere Features hinzu:
 
 - Button für zufälliges Bild
-- Buttons, die es ermöglichen, die Breite des Bildes zu erhöhen / verringern
+- Buttons zum Ändern der Breite des Bildes (z.B. Umschalten zwischen _300x200_ und _400x200_)
+- kleines Vorschaubild für das vorherige und nächste Bild
+- ... (deine eigene Ideen)
+
+_vermeide_ vorerst folgendes:
+
+- Arrays / Objekte im State
+- verwenden von Timern (`setTimeout`, `setInterval`)

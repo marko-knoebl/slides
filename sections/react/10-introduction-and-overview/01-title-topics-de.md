@@ -1,22 +1,14 @@
 # React
 
-## Hauptthemen
-
-- State (Deklaratives Rendering)
-- JSX (Templatesprache)
-- Komponenten (eigene HTML-Tags)
-
-## Themen im Detail
+## Themen
 
 - Überblick und einfaches Beispiel
 - JavaScript-Grundlagen für React
-- State
-- JSX
-- Inputs und Formulare
-- VS Code und React-Projekte
-- React Developer Tools
+- **State** (deklaratives Rendering)
+- **JSX** (Templatesprache)
 - React und TypeScript
-- Komponenten
+- Entwicklerwerkzeuge
+- **Komponenten**
 - Abfragen von APIs
 - Side Effects
-- React Router
+- Routing

@@ -11,7 +11,7 @@ purposes:
 
 ## Components and state
 
-parent components can pass down parts of their state to child components
+parent components can pass down data from their state to child components via props(unidirectional data flow)
 
 child components can trigger events that cause the state in their parent component to update
 
