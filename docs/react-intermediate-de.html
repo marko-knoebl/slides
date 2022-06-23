@@ -2481,6 +2481,7 @@ function ThemeProvider(props: { children: ReactNode }) {
 <ul>
 <li>emotion</li>
 <li>styled-components</li>
+<li>linaria</li>
 <li>...</li>
 </ul>
 </section><section class="slide"><h2>classnames</h2>
@@ -2517,130 +2518,93 @@ function ThemeProvider(props: { children: ReactNode }) {
   [styles.completed]: props.completed
 })}>
 </code></pre>
-</section><section class="slide"><h2>SCSS</h2>
-<p>SCSS in einem create-react-app Projekt einbinden:</p>
-<pre><code class="hljs language-bash">npm install node-sass
-</code></pre>
-<p>Verwendung:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.scss'</span>;
-</code></pre>
 </section><section class="slide"><h2>CSS-in-JS</h2>
 <p><strong>CSS-in-JS</strong>: JavaScript wird verwendet, um Stylesheets zu erzeugen und anzufügen</p>
 <p>Heutzutage wird es als <em>ok</em> angesehen, Styling-Informationen in der gleichen Datei abzulegen, wie JavaScript / HTML</p>
-</section><section class="slide"><h2>CSS-in-JS</h2>
-<p>Zugänge:</p>
-<ul>
-<li>Erweiterung von Elementen-Properties (z.B. <code>css=...</code> in <em>Emotion</em>)</li>
-<li>Erstellen von React-Komponenten, die nur für das Styling zuständig sind (z.B. <code>PrimaryButton</code>)</li>
-</ul>
 </section><section class="slide"><h2>CSS-in-JS</h2>
 <p>Libraries:</p>
 <ul>
 <li>emotion</li>
 <li>styled-components</li>
+<li>linaria</li>
 <li>...</li>
 </ul>
-</section><section class="slide"><h2>Tagged Template Literals</h2>
-<p><strong>Tagged</strong> Template Literals ermöglichen zusätzliche Verarbeitung, wenn Werte eingebunden werden</p>
-<p>Beispiele für Verwendungszwecke:</p>
-<ul>
-<li>"Escaping" von Werten aus unsicheren Quellen</li>
-<li>Anpasen der Einrückung</li>
-<li>Einbinden von Stilen in React</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Tagged Template Literals</h2>
-<p>Beispiel: "Escaping" von HTML:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { safeHtml } <span class="hljs-keyword">from</span> <span class="hljs-string">'common-tags'</span>;
+</section><section class="slide"><h2>CSS-in-JS</h2>
+<p>grundlegendes Beispiel in Emotion:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/css'</span>;
 
-<span class="hljs-keyword">const</span> message = <span class="hljs-string">'I &#x3C;3 U'</span>;
-
-<span class="hljs-keyword">const</span> post = safeHtml<span class="hljs-string">`
-  &#x3C;div><span class="hljs-subst">${message}</span>&#x3C;/div>
-`</span>;
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+  <span class="hljs-attr">className</span>=<span class="hljs-string">{css({</span>
+    <span class="hljs-attr">color:</span> '<span class="hljs-attr">blue</span>',
+    '@<span class="hljs-attr">media</span> (<span class="hljs-attr">min-width:</span> <span class="hljs-attr">600px</span>)'<span class="hljs-attr">:</span> { <span class="hljs-attr">color:</span> '<span class="hljs-attr">green</span>' },
+    '&#x26;<span class="hljs-attr">:hover</span>'<span class="hljs-attr">:</span> { <span class="hljs-attr">color:</span> '<span class="hljs-attr">red</span>' },
+  })}
+></span>
+  foo
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>;
 </code></pre>
-<p>Ergebnis:</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>I <span class="hljs-symbol">&#x26;lt;</span>3 U<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-</code></pre>
-<p>Bemerkung: In React geschieht "Escaping" von HTMl automatisch, wir müssen diese Funktion in React nicht verwenden</p>
-</section><section class="slide"><h2>Emotion</h2>
-<p>In Emotion werden Stile üblicherweise direkt im Template mittels eines <em>Tagged Template Literals</em> eingebunden.</p>
-</section><section class="slide"><h2>Emotion</h2>
-<p>allgemeine Verwendung:</p>
-<pre><code class="hljs language-jsx">&#x3C;div
+</section><section class="slide"><h2>CSS-in-JS</h2>
+<p>alternative Notation: via "tagged template strings"</p>
+<pre><code class="hljs language-js">&#x3C;button
   className={css`<span class="css">
-    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
-    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
+    <span class="hljs-selector-tag">color</span>: <span class="hljs-selector-tag">blue</span>;
+    &#x26;<span class="hljs-selector-pseudo">:hover</span> {
+      <span class="hljs-attribute">color</span>: red;
+    }
   `</span>}
 >
-  ...
-&#x3C;/div>
+  foo
+&#x3C;/button>
 </code></pre>
-</section><section class="slide"><h2>Emotion</h2>
-<p>empfohlene Verwendung in <em>React</em> (benötigt zusätzliche Source-Code-Transformation):</p>
-<pre><code class="hljs language-jsx">&#x3C;div
-  css={css`<span class="css">
-    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
-    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
-  `</span>}
->
-  ...
-&#x3C;/div>
-</code></pre>
-<p>beachte: neue Property <code>css</code> anstatt <code>className</code></p>
-</section><section class="slide"><h2>Emotion</h2>
-<p>allgemeiner Import:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/css'</span>;
-</code></pre>
-<p>Import und Source-Code-Transformation in React 17:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-comment">/** <span class="hljs-doctag">@jsxImportSource </span><span class="hljs-doctag">@emotion</span>/react */</span>
+</section><section class="slide"><h2>CSS-in-JS</h2>
+<p>Empfehlung: Verwenden der <code>css</code>-Property statt <code>className</code> (benötigt zusätzliche Source-Code-Transformation):</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">/** <span class="hljs-doctag">@jsxImportSource </span><span class="hljs-doctag">@emotion</span>/react */</span>
 <span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/react'</span>;
+
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">css</span>=<span class="hljs-string">{css({</span> <span class="hljs-attr">color:</span> '<span class="hljs-attr">blue</span>' })}></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>;
 </code></pre>
-<p>Import und Source-Code-Transformation in React 16:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-comment">/** <span class="hljs-doctag">@jsx </span>jsx */</span>
-<span class="hljs-keyword">import</span> { jsx, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/react'</span>;
+</section><section class="slide"><h2>Styled components</h2>
+<p><em>styled components</em>: Zugang, bei dem Komponenten erstellt werden, deren einzige Aufgabe es ist, Styling auf bestehende HTML-Elemente anzuwenden</p>
+<p>Beispiel: <code>PrimaryButoon</code> = ein <code>button</code>-Element mit zusätzlichem Styling</p>
+</section><section class="slide"><h2>Styled components</h2>
+<p>Erstellen eines "styled component" mit emotion:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/styled'</span>;
+
+<span class="hljs-keyword">const</span> PrimaryButton = styled.button({
+  <span class="hljs-attr">color</span>: <span class="hljs-string">'blue'</span>,
+  <span class="hljs-string">'&#x26;:hover'</span>: { <span class="hljs-attr">color</span>: <span class="hljs-string">'red'</span> },
+});
 </code></pre>
-</section><section class="slide"><h2>styled-components</h2>
-<p>Library, die es ermöglicht, bestehende HTML-Elemente mit eigenen Stilen zu versehen</p>
-<p>npm-Pakete: <code>styled-components</code>, <code>@types/styled-components</code></p>
-</section><section class="slide"><h2>styled-components</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> styled <span class="hljs-keyword">from</span> <span class="hljs-string">'styled-components'</span>;
-
-<span class="hljs-keyword">const</span> BlockImg = styled.img<span class="hljs-string">`
-  display: block;
-`</span>;
-
-<span class="hljs-keyword">const</span> Container = styled.div<span class="hljs-string">`
-  display: flex;
-  justify-content: center;
-`</span>;
-
-<span class="hljs-keyword">const</span> Slideshow = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Container</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">BlockImg</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"..."</span> /></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Container</span>></span></span>
-);
+</section><section class="slide"><h2>Styled components</h2>
+<p>theoretische manuelle Variante:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PrimaryButton</span>(<span class="hljs-params">props</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>
+      {<span class="hljs-attr">...props</span>}
+      <span class="hljs-attr">className</span>=<span class="hljs-string">{css({</span>
+        <span class="hljs-attr">color:</span> '<span class="hljs-attr">blue</span>',
+        '&#x26;<span class="hljs-attr">:hover</span>'<span class="hljs-attr">:</span> { <span class="hljs-attr">color:</span> '<span class="hljs-attr">red</span>' },
+      })}
+    /></span></span>
+  );
+}
 </code></pre>
-</section><section class="slide"><h2>styled-components</h2>
-<p>dynamische Stile via props:</p>
-<pre><code class="hljs language-tsx">import styled from 'styled-components';
-
-const Button = styled.button&#x3C;{ primary: boolean }>`
-  color: ${(props) => (props.primary ? 'black' : 'white')};
-  background-color: ${(props) =>
-    props.primary ? 'white' : 'navy'};
-`;
-
-const Slideshow = (props) => (
-  &#x3C;Container>
-    &#x3C;Button primary={true}>prev&#x3C;/Button>
-    &#x3C;BlockImg src="..." alt="..." />
-    &#x3C;Button primary={true}>next&#x3C;/Button>
-  &#x3C;/Container>
-);
+</section><section class="slide"><h2>Styled components</h2>
+<p>dynamische Stile via Props:</p>
+<p>mit JavaScript:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Button = styled.button({
+  <span class="hljs-attr">padding</span>: <span class="hljs-number">8</span>,
+  <span class="hljs-attr">color</span>: <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> (props.primary ? <span class="hljs-string">'blue'</span> : <span class="hljs-string">'black'</span>),
+});
 </code></pre>
+<p>mit TypeScript:</p>
+<pre><code class="hljs language-tsx">const Button = styled.button&#x3C;{ primary: boolean }>({
+  padding: 8,
+  color: (props) => (props.primary ? 'blue' : 'black'),
+});
+</code></pre>
+</section><section class="slide"><h2>Übung</h2>
+<p>Übung: Verwende Styling-Tools, um zusätzliches Styling zu einer bestehenden Anwendung hinzuzufügen (z.B. zur Slideshow)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Animationen</h1>
 </section><section class="slide"><h2>Animationen</h2>
 <ul>

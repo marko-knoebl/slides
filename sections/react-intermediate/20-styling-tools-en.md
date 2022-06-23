@@ -12,6 +12,7 @@ CSS-in-JS libraries:
 
 - emotion
 - styled-components
+- linaria
 - ...
 
 ## classnames
@@ -62,20 +63,6 @@ possible output in the HTML:
 })}>
 ```
 
-## SCSS
-
-enabling SCSS in a create-react-app project:
-
-```bash
-npm install node-sass
-```
-
-then we can use:
-
-```js
-import './TodoItem.scss';
-```
-
 ## CSS-in-JS
 
 **CSS-in-JS**: JavaScript is used to generate and attach stylesheets
@@ -84,157 +71,118 @@ Nowadays it's considered _ok_ to put styling in the same file as JavaScript / HT
 
 ## CSS-in-JS
 
-approaches:
-
-- extend HTML element props (e.g. `css=...` in _emotion_)
-- create React components that are only used for styling (e.g `PrimaryButton`)
-
-## CSS-in-JS
-
 libraries:
 
 - emotion
 - styled-components
+- linaria
 - ...
 
-## Tagged template literals
+## CSS-in-JS
 
-**Tagged** template literals enable additional processing when values are included
-
-use cases:
-
-- escaping values from "unsafe" sources
-- changing indentation
-- including styles in React
-- ...
-
-## Tagged template literals
-
-example: escaping HTML
+basic example in emotion:
 
 ```js
-import { safeHtml } from 'common-tags';
-
-const message = 'I <3 U';
-
-const post = safeHtml`
-  <div>${message}</div>
-`;
-```
-
-result:
-
-```html
-<div>I &lt;3 U</div>
-```
-
-Note: React will automatically escape HTML, so we don't need to use this function with React
-
-## Emotion
-
-In Emotion, styles are commonly included in the template via a tagged template literal
-
-## Emotion
-
-generic use:
-
-```jsx
-<div
-  className={css`
-    display: flex;
-    justify-content: center;
-  `}
->
-  ...
-</div>
-```
-
-## Emotion
-
-recommended use in _React_ (requires an extra source transform):
-
-```jsx
-<div
-  css={css`
-    display: flex;
-    justify-content: center;
-  `}
->
-  ...
-</div>
-```
-
-note: new property `css` instead of `className`
-
-## Emotion
-
-generic import:
-
-```jsx
 import { css } from '@emotion/css';
+
+<button
+  className={css({
+    color: 'blue',
+    '@media (min-width: 600px)': { color: 'green' },
+    '&:hover': { color: 'red' },
+  })}
+>
+  foo
+</button>;
 ```
 
-import and source transform for React 17:
+## CSS-in-JS
 
-```jsx
+alternative notation: via "tagged template strings"
+
+```js
+<button
+  className={css`
+    color: blue;
+    &:hover {
+      color: red;
+    }
+  `}
+>
+  foo
+</button>
+```
+
+## CSS-in-JS
+
+recommended: use the `css` property instead of `className` (requires an extra source transform)
+
+```js
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+
+<button css={css({ color: 'blue' })}>foo</button>;
 ```
 
-import and source transform for React 16:
+## Styled components
 
-```jsx
-/** @jsx jsx */
-import { jsx, css } from '@emotion/react';
+_styled components_: approach where components are created whose only task is adding styling to HTML elements
+
+example: `PrimaryButton` = a `button` element with extra styling
+
+## Styled components
+
+creating a styled component with emotion:
+
+```js
+import styled from '@emotion/styled';
+
+const PrimaryButton = styled.button({
+  color: 'blue',
+  '&:hover': { color: 'red' },
+});
 ```
 
-## styled-components
+## Styled components
 
-library that enables creating styled versions of existing HTML elements
+theoretical manual version:
 
-npm packages: `styled-components`, `@types/styled-components`
-
-## styled-components
-
-```jsx
-import styled from 'styled-components';
-
-const BlockImg = styled.img`
-  display: block;
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const Slideshow = (props) => (
-  <Container>
-    <button>prev</button>
-    <BlockImg src="..." alt="..." />
-    <button>next</button>
-  </Container>
-);
+```js
+function PrimaryButton(props) {
+  return (
+    <button
+      {...props}
+      className={css({
+        color: 'blue',
+        '&:hover': { color: 'red' },
+      })}
+    />
+  );
+}
 ```
 
-## styled-components
+## Styled components
 
 dynamic styles via props:
 
-```tsx
-import styled from 'styled-components';
+with JavaScript:
 
-const Button = styled.button<{ primary: boolean }>`
-  color: ${(props) => (props.primary ? 'black' : 'white')};
-  background-color: ${(props) =>
-    props.primary ? 'white' : 'navy'};
-`;
-
-const Slideshow = (props) => (
-  <Container>
-    <Button primary={true}>prev</Button>
-    <BlockImg src="..." alt="..." />
-    <Button primary={true}>next</Button>
-  </Container>
-);
+```js
+const Button = styled.button({
+  padding: 8,
+  color: (props) => (props.primary ? 'blue' : 'black'),
+});
 ```
+
+with TypeScript:
+
+```tsx
+const Button = styled.button<{ primary: boolean }>({
+  padding: 8,
+  color: (props) => (props.primary ? 'blue' : 'black'),
+});
+```
+
+## Exercise
+
+exercise: use some styling tools to add extra styling to an existing application (e.g. to the slideshow)

@@ -2061,6 +2061,29 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>JavaScript Intermediate</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Tagged Template strings</h1>
+</section><section class="slide"><h2>Tagged Template Strings</h2>
+<p><strong>Tagged</strong> Template Strings ermöglichen zusätzliche Verarbeitung, wenn Werte eingebunden werden</p>
+<p>Beispiele für Verwendungszwecke:</p>
+<ul>
+<li>"Escaping" von Werten aus unsicheren Quellen</li>
+<li>Anpasen der Einrückung</li>
+<li>Einbinden von Stilen in React</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Tagged Template Strings</h2>
+<p>Beispiel: "Escaping" von HTML:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { safeHtml } <span class="hljs-keyword">from</span> <span class="hljs-string">'common-tags'</span>;
+
+<span class="hljs-keyword">const</span> message = <span class="hljs-string">'I &#x3C;3 U'</span>;
+
+<span class="hljs-keyword">const</span> post = safeHtml<span class="hljs-string">`
+  &#x3C;div><span class="hljs-subst">${message}</span>&#x3C;/div>
+`</span>;
+</code></pre>
+<p>Ergebnis:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>I <span class="hljs-symbol">&#x26;lt;</span>3 U<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>map, filter, reduce</h1>
 <!-- note: this is partially duplicated in javascript-basics-for-react -->
 <h3>Array-Methoden für die funktionale Programmierung</h3>
