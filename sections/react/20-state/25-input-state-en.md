@@ -2,19 +2,17 @@
 
 ## Input state
 
-In a React application, everything that can change in the UI should be part of the _state_
-
-If we include a simple input element:
+"uncontrolled" input in React:
 
 ```jsx
 <input />
 ```
 
-there would be an aspect of the UI state which would not be captured in the React state.
+React does not know the input's content and cannot change it
 
 ## Input state
 
-This is how we can capture the value of an input and track it in the state:
+connecting an input to the state:
 
 ```js
 const [inputText, setInputText] = useState('');
@@ -57,7 +55,6 @@ Example: Input that also displays the number of characters:
 ```js
 function App() {
   const [text, setText] = useState('');
-  const len = text.length;
 
   return (
     <div>
@@ -65,8 +62,17 @@ function App() {
         value={text}
         onChange={(event) => setText(event.target.value)}
       />
-      <p>This string has {len} characters.</p>
+      <button onClick={() => setText('')}>clear</button>
+      <p>This string has {text.length} characters.</p>
     </div>
   );
 }
 ```
+
+## Input state
+
+other options for working with input state:
+
+- handle multiple inputs via their name (see [React documentation](https://reactjs.org/docs/forms.html#handling-multiple-inputs))
+- only read input contents on a form submit event (via `FormData`)
+- use an external library (e.g. _react-hook-form_, _formik_)

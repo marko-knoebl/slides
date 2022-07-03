@@ -1,5 +1,11 @@
 # State
 
+## Topics
+
+- state basics
+- input state
+- immutable state - arrays and objects in the state
+
 ## State
 
 components may have an internal _state_
@@ -15,7 +21,7 @@ state hook in function components:
 ```js
 import { useState } from 'react';
 
-function App() {
+function Slideshow() {
   const [imgId, setImgId] = useState(0);
   const [imgWidth, setImgWidth] = useState(300);
   const [imgHeight, setImgHeight] = useState(200);
@@ -25,6 +31,10 @@ function App() {
 ```
 
 ## State hook
+
+```js
+const [imgId, setImgId] = useState(0);
+```
 
 `useState` may be called (repeatedly) inside the component function to declare state entries
 
@@ -55,7 +65,7 @@ Re-implement the slideshow component we saw before; try not to look at the old c
 
 ## Exercise: Slideshow (part 2)
 
-add features to the slideshow:
+add some features to the slideshow, e.g.:
 
 - button for _random image_
 - buttons that let the user change the image width (e.g. switching between _300x200_ and _400x200_)
@@ -64,5 +74,7 @@ add features to the slideshow:
 
 _avoid_ this for now:
 
-- putting arrays / objects in the state
+- having arrays / objects in the state
+- using inputs (text fields)
 - using timers (`setTimeout`, `setInterval`)
+- styling

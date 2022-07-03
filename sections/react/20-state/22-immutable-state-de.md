@@ -20,7 +20,7 @@ Wenn ein State-Setter aufgerufen wird:
 
 React vergleicht die _alte State-Referenz_ mit der _neuen State-Referenz_
 
-Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert
+Wenn die Referenz die gleiche ist, wird die Komponente nicht neu gerendert
 
 ## Immutable State
 

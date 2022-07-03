@@ -80,3 +80,7 @@ import { css } from '@emotion/css';
   ...
 </div>
 ```
+
+## Übung
+
+Übung: Füge (weiteres) Styling zur Bilder-Slideshow hinzu

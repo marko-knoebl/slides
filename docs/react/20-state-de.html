@@ -2061,6 +2061,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>State (Komponentenzustand)</h1>
+</section><section class="slide"><h2>Themen</h2>
+<ul>
+<li>State-Grundlagen</li>
+<li>Input-State</li>
+<li>Immutability - Arrays und Objekte im State</li>
+</ul>
 </section><section class="slide"><h2>State</h2>
 <p>Komponenten können einen internen Zustand (<em>State</em>) haben</p>
 <p>Auf den State kann im Template verwiesen werden</p>
@@ -2069,7 +2075,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>State Hook in Funktionskomponenten:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Slideshow</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [imgId, setImgId] = useState(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">const</span> [imgWidth, setImgWidth] = useState(<span class="hljs-number">300</span>);
   <span class="hljs-keyword">const</span> [imgHeight, setImgHeight] = useState(<span class="hljs-number">200</span>);
@@ -2078,6 +2084,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 };
 </code></pre>
 </section><section class="slide"><h2>State Hook</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [imgId, setImgId] = useState(<span class="hljs-number">0</span>);
+</code></pre>
 <p><code>useState</code> kann in der Komponentenfunktion (wiederholt) aufgerufen werden, um State-Einträge zu deklarieren</p>
 <p><strong>Parameter</strong>: ursprünglicher State</p>
 <p><strong>Array von Rückgabewerten</strong>: aktueller State, Setter-Funktion</p>
@@ -2099,7 +2107,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>verhindere, dass ins negative gezählt wird</li>
 </ul>
 </section><section class="slide"><h2>Übung: Slideshow (Teil 2)</h2>
-<p>Füge weitere Features hinzu:</p>
+<p>Füge weitere Features hinzu, z.B.:</p>
 <ul>
 <li>Button für zufälliges Bild</li>
 <li>Buttons zum Ändern der Breite des Bildes (z.B. Umschalten zwischen <em>300x200</em> und <em>400x200</em>)</li>
@@ -2109,7 +2117,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p><em>vermeide</em> vorerst folgendes:</p>
 <ul>
 <li>Arrays / Objekte im State</li>
-<li>verwenden von Timern (<code>setTimeout</code>, <code>setInterval</code>)</li>
+<li>Verwenden von Inputs (Textfeldern)</li>
+<li>Verwenden von Timern (<code>setTimeout</code>, <code>setInterval</code>)</li>
+<li>Styling</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable State</h1>
 </section><section class="slide"><h2>Immutable State</h2>
@@ -2122,7 +2132,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Immutable State</h2>
 <p>Wenn ein State-Setter aufgerufen wird:</p>
 <p>React vergleicht die <em>alte State-Referenz</em> mit der <em>neuen State-Referenz</em></p>
-<p>Wenn der alte und neue State das gleiche Objekt referenzieren (auch wenn dieses verändert wurde), wird die Komponente nicht neu gerendert</p>
+<p>Wenn die Referenz die gleiche ist, wird die Komponente nicht neu gerendert</p>
 </section><section class="slide"><h2>Immutable State</h2>
 <p>Demo: <a href="https://codesandbox.io/s/immutable-state-demo-r2x1i" target="_blank">https://codesandbox.io/s/immutable-state-demo-r2x1i</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Datenverwaltung ohne Mutationen</h1>
@@ -2174,6 +2184,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">const</span> tripledNumbers = myNumbers.map(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n);
 <span class="hljs-comment">// [3, 6, 9, 12]</span>
+<span class="hljs-keyword">const</span> squareRoots = myNumbers.map(<span class="hljs-built_in">Math</span>.sqrt);
+<span class="hljs-comment">// [1, 1.41, 1.73, 2]</span>
 </code></pre>
 </section><section class="slide"><h2>Datenverwaltung ohne Mutationen</h2>
 <p>die <code>.filter</code>-Methode:</p>
@@ -2197,14 +2209,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Entfernen von Elementen aus einem Array: <em>filter</em></li>
 </ul>
 </section><section class="slide"><h2>Übungen</h2>
-<p>Wir erstellen <em>reine</em> Funktionen, die mit Todos arbeiten</p>
-<p>TypeScript-Deklaration, die ein Todo repräsentiert:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> Todo {
-  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-  title: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-}
-</code></pre>
+<p><strong>Arbeiten mit Todos</strong></p>
+<p>Aufgabe: Vervollständige Funktionen, die Todos verwalten (ohne Mutationen)</p>
+<p><a href="https://codesandbox.io/s/todo-data-without-mutations-ocvne6?file=/src/manageTodos.js" target="_blank">Codesandbox Ausgangspunkt</a></p>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Übung: Erstelle die folgende <em>reine</em> Funktion, die ein Todo verarbeitet:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todo1 = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
@@ -2296,20 +2303,27 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
-<p>weitere Aufgaben:</p>
+<p><strong>Newsletter-Anmeldung</strong> von zuvor: Speichere den State in einem einzelnen Objekt mit drei Einträgen</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [data, setData] = useState({
+  <span class="hljs-attr">email</span>: <span class="hljs-string">''</span>,
+  <span class="hljs-attr">repeatEmail</span>: <span class="hljs-string">''</span>,
+  <span class="hljs-attr">acceptTerms</span>: <span class="hljs-literal">false</span>,
+});
+</code></pre>
+<p><strong>Todos</strong>: Schreibe weitere reine Funktionen, die mit Todos arbeiten:</p>
 <ul>
 <li><code>changeTodoTitle</code></li>
 <li><code>toggleTodo</code> (umschalten zwischen erledigt und nicht-erledigt)</li>
 <li><code>updateTodo</code> (ändern von <code>title</code> und <code>completed</code> in einem Aufruf)</li>
 <li><code>removeAllCompletedTodos</code></li>
+<li>...</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Input State</h1>
 </section><section class="slide"><h2>Input State</h2>
-<p>In React-Anwendungen sollte alles, was sich im UI ändern kann, Teil des <em>States</em> sein</p>
-<p>Wenn wir ein einfaches Input-Element einbinden würden:</p>
+<p>ein "uncontrolled input" in React:</p>
 <pre><code class="hljs language-jsx">&#x3C;input />
 </code></pre>
-<p>dann würde es Aspekte des UI-States geben, die nicht im React State mitverfolgt werden</p>
+<p>React kennt den Inhalt des Inputs nicht und kann ihn nicht ändern</p>
 </section><section class="slide"><h2>Input State</h2>
 <p>So können wir den Wert eines Inputs im State erfassen:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [inputText, setInputText] = useState(<span class="hljs-string">''</span>);
@@ -2337,7 +2351,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Beispiel: Input, bei dem auch die Textlänge angezeigt wird:</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [text, setText] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> len = text.length;
 
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
@@ -2345,11 +2358,19 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
         <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
         <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setText(event.target.value)}
       />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {len} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setText('')}>clear<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {text.length} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
 </code></pre>
+</section><section class="slide"><h2>Input State</h2>
+<p>andere Möglichkeiten zum Arbeiten mit Input-State:</p>
+<ul>
+<li>Verwalten von mehreren Inputs über ihre Namen (siehe <a href="https://reactjs.org/docs/forms.html#handling-multiple-inputs" target="_blank">React Dokumentation</a>)</li>
+<li>Auslesen von Input-Inhalten nur beim <em>Submit</em> eines Formulars (via <code>FormData</code>)</li>
+<li>Verwenden einer externen Library (z.B. <em>react-hook-form</em>, <em>formik</em>)</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Input-Typen</h1>
 </section><section class="slide"><h2>Input-Typen</h2>
 <ul>
@@ -2364,17 +2385,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Text und Textarea:</p>
 <pre><code class="hljs language-jsx">&#x3C;input
   value={title}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    setTitle(event.target.value);
-  }}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setTitle(event.target.value)}
 />
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">textarea</span>
-  <span class="hljs-attr">value</span>=<span class="hljs-string">{message}</span>
-  <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> {
-    setMessage(event.target.value);
-  }}
-/></span>
 </code></pre>
 </section><section class="slide"><h2>Input-Typen</h2>
 <p>Checkbox:</p>
@@ -2385,7 +2397,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 />
 </code></pre>
 </section><section class="slide"><h2>Numerische Inputs</h2>
-<p>Der Wert eines numerischen Inputs sollte üblicherweise als string gespeichert werden (nicht als Zahl)</p>
+<p>Grundlegender Rat für numerische Inputs:</p>
+<p>speichere den Inhalt als String (nicht als Zahl)</p>
 <p>Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):</p>
 <pre><code class="hljs language-txt">""
 "-"
@@ -2393,52 +2406,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 "-3."
 "-3.0"
 </code></pre>
-</section><section class="slide"><h2>Numerische Inputs mit direkten "Auswirkungen"</h2>
-<p>Beispiel: Speichern des numerischen Inhalts eines Inputs als ein String, aktualisieren eines zugehörigen numerischen Wertes, wenn dies möglich ist:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FontSizeDemo</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [size, setSize] = useState(<span class="hljs-number">16</span>);
-  <span class="hljs-keyword">const</span> [sizeStr, setSizeStr] = useState(size.toString());
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateSize</span>(<span class="hljs-params">s</span>) </span>{
-    setSizeStr(s);
-    <span class="hljs-comment">// source: https://stackoverflow.com/questions/18082</span>
-    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">parseFloat</span>(s)) &#x26;&#x26; <span class="hljs-built_in">isFinite</span>(s)) {
-      setSize(<span class="hljs-built_in">Number</span>(s));
-    }
-  }
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{sizeStr}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> updateSize(event.target.value)}
-      />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">fontSize:</span> <span class="hljs-attr">size</span> }}></span>Sample text<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Übung: Newsletter-Formular</h1>
+</section><section class="slide"><h2>Numerische Inputs</h2>
+<p>Beispiel für numerischen Input mit direkten "Auswirkungen":</p>
+<p><a href="https://codesandbox.io/s/numeric-input-direct-results-5vde88" target="_blank">https://codesandbox.io/s/numeric-input-direct-results-5vde88</a></p>
+</section><section class="slide"><h2>Andere Input-Typen</h2>
+<p>siehe <a href="https://reactjs.org/docs/forms.html" target="_blank">https://reactjs.org/docs/forms.html</a></p>
 </section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
-<p>Erstelle ein Newsletter-Formular</p>
-<p>Werte sollten in einem einzigen JS-Objekt mit verschiedenen Keys gespeichert werden:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [userData, setUserData] = useState({
-  <span class="hljs-attr">email</span>: <span class="hljs-string">''</span>,
-  <span class="hljs-attr">repeatEmail</span>: <span class="hljs-string">''</span>,
-  <span class="hljs-attr">acceptTerms</span>: <span class="hljs-literal">false</span>,
-});
-</code></pre>
+<p>Erstelle eine Komponente namens <code>NewsletterSignup</code> mit drei State-Einträgen:</p>
+<p><code>email</code>, <code>repeatEmail</code>, <code>acceptTerms</code></p>
+<p>Demo einer vollständigen Version: <a href="https://codesandbox.io/s/newsletter-form-pvgs6l" target="_blank">https://codesandbox.io/s/newsletter-form-pvgs6l</a></p>
+<p>Bemerkung: aktivieren / deaktivieren eines buttons in JSX: <code>&#x3C;button disabled={...}>...&#x3C;/button></code></p>
 </section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
-<p>Zeige einen <em>Register</em>-Button an, der basierend auf den Benutzereingaben entweder enabled oder disabled ist:</p>
-<pre><code class="hljs language-jsx">&#x3C;button disabled={!canRegister}>register&#x3C;/button>
-</code></pre>
-<p>Bemerkung: versuche, redundante Daten im State zu vermeiden</p>
-</section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
-<p>Weitere Aufgaben:</p>
-<ul>
-<li><em>Reset</em>-Button, um das Formular zurückzusetzen</li>
-<li>Anzeige der Nachricht "<em>e-mails match</em>" bzw "<em>e-mails don't match</em>"</li>
-<li>Dropdown, um eine Sprache auszuwählen (mittels eines <em>select</em>-Elements)</li>
-</ul></section></section></div>
+<p>Extra: füge ein Dropdown hinzu, mit dem eine Sprache für den Newsletter ausgewählt werden kann</p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

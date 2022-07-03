@@ -2061,6 +2061,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>State</h1>
+</section><section class="slide"><h2>Topics</h2>
+<ul>
+<li>state basics</li>
+<li>input state</li>
+<li>immutable state - arrays and objects in the state</li>
+</ul>
 </section><section class="slide"><h2>State</h2>
 <p>components may have an internal <em>state</em></p>
 <p>state can be referenced in the template</p>
@@ -2069,7 +2075,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>state hook in function components:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Slideshow</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [imgId, setImgId] = useState(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">const</span> [imgWidth, setImgWidth] = useState(<span class="hljs-number">300</span>);
   <span class="hljs-keyword">const</span> [imgHeight, setImgHeight] = useState(<span class="hljs-number">200</span>);
@@ -2078,6 +2084,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 };
 </code></pre>
 </section><section class="slide"><h2>State hook</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [imgId, setImgId] = useState(<span class="hljs-number">0</span>);
+</code></pre>
 <p><code>useState</code> may be called (repeatedly) inside the component function to declare state entries</p>
 <p><strong>parameter</strong>: initial state</p>
 <p><strong>array of return values</strong>: current state, setter function</p>
@@ -2099,7 +2107,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>prevent the index from becoming negative</li>
 </ul>
 </section><section class="slide"><h2>Exercise: Slideshow (part 2)</h2>
-<p>add features to the slideshow:</p>
+<p>add some features to the slideshow, e.g.:</p>
 <ul>
 <li>button for <em>random image</em></li>
 <li>buttons that let the user change the image width (e.g. switching between <em>300x200</em> and <em>400x200</em>)</li>
@@ -2108,8 +2116,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 <p><em>avoid</em> this for now:</p>
 <ul>
-<li>putting arrays / objects in the state</li>
+<li>having arrays / objects in the state</li>
+<li>using inputs (text fields)</li>
 <li>using timers (<code>setTimeout</code>, <code>setInterval</code>)</li>
+<li>styling</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
 </section><section class="slide"><h2>Immutable state</h2>
@@ -2122,7 +2132,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Immutable state</h2>
 <p>When a state setter is called:</p>
 <p>React will compare the <em>old state reference</em> and the <em>new state reference</em></p>
-<p>If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.</p>
+<p>If the reference is the same, the component will not be rerendered</p>
 </section><section class="slide"><h2>Immutable state</h2>
 <p>demo: <a href="https://codesandbox.io/s/immutable-state-demo-r2x1i" target="_blank">https://codesandbox.io/s/immutable-state-demo-r2x1i</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Data management without mutations</h1>
@@ -2174,12 +2184,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">const</span> tripledNumbers = myNumbers.map(<span class="hljs-function">(<span class="hljs-params">n</span>) =></span> <span class="hljs-number">3</span> * n);
 <span class="hljs-comment">// [3, 6, 9, 12]</span>
+<span class="hljs-keyword">const</span> squareRoots = myNumbers.map(<span class="hljs-built_in">Math</span>.sqrt);
+<span class="hljs-comment">// [1, 1.41, 1.73, 2]</span>
 </code></pre>
 </section><section class="slide"><h2>Data management without mutations</h2>
 <p>the <code>.filter</code> method:</p>
 <ul>
 <li>creates a new array where only specific entries are kept in</li>
-<li>uses a function to specify the condition</li>
+<li>uses a function to specify the criterion</li>
 <li>returns a new array</li>
 </ul>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
@@ -2197,14 +2209,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>removing elements from an array: <em>filter</em></li>
 </ul>
 </section><section class="slide"><h2>Exercises</h2>
-<p>We will create <em>pure</em> functions that deal with todos</p>
-<p>possible TypeScript declaration to represent a todo:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> Todo {
-  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-  title: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-}
-</code></pre>
+<p><strong>Working with todos</strong></p>
+<p>Task: Complete some functions that manage todos without mutating them</p>
+<p><a href="https://codesandbox.io/s/todo-data-without-mutations-ocvne6?file=/src/manageTodos.js" target="_blank">Codesandbox starting point</a></p>
 </section><section class="slide"><h2>Exercises</h2>
 <p>exercise: create the following <em>pure</em> function that handles a todo item:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> todo1 = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
@@ -2296,22 +2303,29 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Exercises</h2>
-<p>further tasks:</p>
+<p><strong>newsletter signup</strong>: update the newsletter signup to use one state object instead of three separate state entries:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [data, setData] = useState({
+  <span class="hljs-attr">email</span>: <span class="hljs-string">''</span>,
+  <span class="hljs-attr">repeatEmail</span>: <span class="hljs-string">''</span>,
+  <span class="hljs-attr">acceptTerms</span>: <span class="hljs-literal">false</span>,
+});
+</code></pre>
+<p><strong>todos</strong>: write more pure functions that handle todos:</p>
 <ul>
 <li><code>changeTodoTitle</code></li>
 <li><code>toggleTodo</code> (switch between completed and not completed)</li>
 <li><code>updateTodo</code> (change <code>title</code> and <code>completed</code> in one go)</li>
 <li><code>removeAllCompoletedTodos</code></li>
+<li>...</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Input state</h1>
 </section><section class="slide"><h2>Input state</h2>
-<p>In a React application, everything that can change in the UI should be part of the <em>state</em></p>
-<p>If we include a simple input element:</p>
+<p>"uncontrolled" input in React:</p>
 <pre><code class="hljs language-jsx">&#x3C;input />
 </code></pre>
-<p>there would be an aspect of the UI state which would not be captured in the React state.</p>
+<p>React does not know the input's content and cannot change it</p>
 </section><section class="slide"><h2>Input state</h2>
-<p>This is how we can capture the value of an input and track it in the state:</p>
+<p>connecting an input to the state:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [inputText, setInputText] = useState(<span class="hljs-string">''</span>);
 </code></pre>
 <pre><code class="hljs language-jsx">&#x3C;input
@@ -2337,7 +2351,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Example: Input that also displays the number of characters:</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [text, setText] = useState(<span class="hljs-string">''</span>);
-  <span class="hljs-keyword">const</span> len = text.length;
 
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
@@ -2345,11 +2358,19 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
         <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
         <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setText(event.target.value)}
       />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {len} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setText('')}>clear<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {text.length} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
 </code></pre>
+</section><section class="slide"><h2>Input state</h2>
+<p>other options for working with input state:</p>
+<ul>
+<li>handle multiple inputs via their name (see <a href="https://reactjs.org/docs/forms.html#handling-multiple-inputs" target="_blank">React documentation</a>)</li>
+<li>only read input contents on a form submit event (via <code>FormData</code>)</li>
+<li>use an external library (e.g. <em>react-hook-form</em>, <em>formik</em>)</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Input types</h1>
 </section><section class="slide"><h2>Input types</h2>
 <ul>
@@ -2363,17 +2384,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>text and text area:</p>
 <pre><code class="hljs language-jsx">&#x3C;input
   value={title}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    setTitle(event.target.value);
-  }}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setTitle(event.target.value)}
 />
-
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">textarea</span>
-  <span class="hljs-attr">value</span>=<span class="hljs-string">{message}</span>
-  <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> {
-    setMessage(event.target.value);
-  }}
-/></span>
 </code></pre>
 </section><section class="slide"><h2>Input types</h2>
 <p>checkbox:</p>
@@ -2384,7 +2396,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 />
 </code></pre>
 </section><section class="slide"><h2>Numeric input fields</h2>
-<p>The value of a numeric input field should usually be stored as a string (not as a number)</p>
+<p>Basic advice for numeric input fields:</p>
+<p>store the content as a string (not as a number)</p>
 <p>Reasoning: possible contents of a numeric input field (while the user is typing):</p>
 <pre><code class="hljs language-txt">""
 "-"
@@ -2392,52 +2405,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 "-3."
 "-3.0"
 </code></pre>
-</section><section class="slide"><h2>Numeric inputs with direct "results"</h2>
-<p>example: keeping the content of a numeric input field as a string, updating an associated numeric value whenever possible:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">FontSizeDemo</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [size, setSize] = useState(<span class="hljs-number">16</span>);
-  <span class="hljs-keyword">const</span> [sizeStr, setSizeStr] = useState(size.toString());
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateSize</span>(<span class="hljs-params">s</span>) </span>{
-    setSizeStr(s);
-    <span class="hljs-comment">// source: https://stackoverflow.com/questions/18082</span>
-    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">parseFloat</span>(s)) &#x26;&#x26; <span class="hljs-built_in">isFinite</span>(s)) {
-      setSize(<span class="hljs-built_in">Number</span>(s));
-    }
-  }
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{sizeStr}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> updateSize(event.target.value)}
-      />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">fontSize:</span> <span class="hljs-attr">size</span> }}></span>Sample text<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Exercise: newsletter form</h1>
+</section><section class="slide"><h2>Numeric input fields</h2>
+<p>example: numeric input with direct "result":</p>
+<p><a href="https://codesandbox.io/s/numeric-input-direct-results-5vde88" target="_blank">https://codesandbox.io/s/numeric-input-direct-results-5vde88</a></p>
+</section><section class="slide"><h2>Other input types</h2>
+<p>see <a href="https://reactjs.org/docs/forms.html" target="_blank">https://reactjs.org/docs/forms.html</a></p>
 </section><section class="slide"><h2>Exercise: newsletter form</h2>
-<p>Create a user newsletter form</p>
-<p>Values should be stored in a single JS object with different keys:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [userData, setUserData] = useState({
-  <span class="hljs-attr">email</span>: <span class="hljs-string">''</span>,
-  <span class="hljs-attr">repeatEmail</span>: <span class="hljs-string">''</span>,
-  <span class="hljs-attr">acceptTerms</span>: <span class="hljs-literal">false</span>,
-});
-</code></pre>
+<p>Create a component called <code>NewsletterSignup</code> with three state entries:</p>
+<p><code>email</code>, <code>repeatEmail</code>, <code>acceptTerms</code></p>
+<p>demo of finished version: <a href="https://codesandbox.io/s/newsletter-form-pvgs6l" target="_blank">https://codesandbox.io/s/newsletter-form-pvgs6l</a></p>
+<p>note: enabling / disabling a button in JSX: <code>&#x3C;button disabled={...}>...&#x3C;/button></code></p>
 </section><section class="slide"><h2>Exercise: newsletter form</h2>
-<p>render a <em>register</em> button that's either enabled or disabled based on the user inputs:</p>
-<pre><code class="hljs language-jsx">&#x3C;button disabled={!canRegister}>register&#x3C;/button>
-</code></pre>
-<p>note: try to avoid redundant data in the state</p>
-</section><section class="slide"><h2>Exercise: newsletter form</h2>
-<p>further tasks:</p>
-<ul>
-<li>button to reset the form</li>
-<li>status message that says "<em>e-mails match</em>" or "<em>e-mails don't match</em>"</li>
-<li>dropdown to choose a language (via a <em>select</em> element)</li>
-</ul></section></section></div>
+<p>extra: add a dropdown to choose a language for the newsletter</p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

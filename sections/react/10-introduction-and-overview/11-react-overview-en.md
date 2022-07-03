@@ -57,3 +57,24 @@ Example: components, state and props in a todo application
 - JavaScript-based template syntax: JSX
 - explicit state changes via setters
 - immutable (unchangeable) state objects
+
+## JSX
+
+simple code example with state and JSX:
+
+```js
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <div>current count: {count}</div>
+      <div>
+        <button onClick={() => setCount(count + 1)}>
+          increment
+        </button>
+      </div>
+    </div>
+  );
+}
+```

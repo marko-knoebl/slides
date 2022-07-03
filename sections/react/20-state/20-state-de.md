@@ -1,5 +1,11 @@
 # State (Komponentenzustand)
 
+## Themen
+
+- State-Grundlagen
+- Input-State
+- Immutability - Arrays und Objekte im State
+
 ## State
 
 Komponenten können einen internen Zustand (_State_) haben
@@ -15,7 +21,7 @@ State Hook in Funktionskomponenten:
 ```js
 import { useState } from 'react';
 
-function App() {
+function Slideshow() {
   const [imgId, setImgId] = useState(0);
   const [imgWidth, setImgWidth] = useState(300);
   const [imgHeight, setImgHeight] = useState(200);
@@ -25,6 +31,10 @@ function App() {
 ```
 
 ## State Hook
+
+```js
+const [imgId, setImgId] = useState(0);
+```
 
 `useState` kann in der Komponentenfunktion (wiederholt) aufgerufen werden, um State-Einträge zu deklarieren
 
@@ -55,7 +65,7 @@ Implementiere die zuvor gesehene Slideshow-Komponente erneut; versuche, nicht au
 
 ## Übung: Slideshow (Teil 2)
 
-Füge weitere Features hinzu:
+Füge weitere Features hinzu, z.B.:
 
 - Button für zufälliges Bild
 - Buttons zum Ändern der Breite des Bildes (z.B. Umschalten zwischen _300x200_ und _400x200_)
@@ -65,4 +75,6 @@ Füge weitere Features hinzu:
 _vermeide_ vorerst folgendes:
 
 - Arrays / Objekte im State
-- verwenden von Timern (`setTimeout`, `setInterval`)
+- Verwenden von Inputs (Textfeldern)
+- Verwenden von Timern (`setTimeout`, `setInterval`)
+- Styling

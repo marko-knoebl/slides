@@ -50,7 +50,7 @@ oder
 
 ## Property-Namen
 
-Manche Properties von Elementen haben andere Namen als in standard HTML (spiegeln teilweise die standard DOM-Properties wider)
+Manche Properties von Elementen haben andere Namen als in standard HTML (spiegeln standard DOM-Properties wider)
 
 - `className` (anstatt `class`)
 - `htmlFor` (anstatt `for`)

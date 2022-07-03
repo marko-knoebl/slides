@@ -20,7 +20,7 @@ When a state setter is called:
 
 React will compare the _old state reference_ and the _new state reference_
 
-If the old state and the new state reference the same object (even if it has changed), the component will not be rerendered.
+If the reference is the same, the component will not be rerendered
 
 ## Immutable state
 

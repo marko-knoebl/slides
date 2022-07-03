@@ -80,3 +80,7 @@ import { css } from '@emotion/css';
   ...
 </div>
 ```
+
+## Exercise
+
+Exercise: Add (more) styling to the image slideshow application

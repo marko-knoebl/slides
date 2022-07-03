@@ -57,3 +57,24 @@ Beispiel: Komponenten, State und Props in einer Todo-Anwendung
 - JavaScript-basierte Template-Syntax: JSX
 - Explizite Änderung des Anwendungszustands mittels Settern
 - State-Objekte sind unveränderlich (immutable)
+
+## JSX
+
+einfaches Codebeispiel mit State und JSX:
+
+```js
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <div>current count: {count}</div>
+      <div>
+        <button onClick={() => setCount(count + 1)}>
+          increment
+        </button>
+      </div>
+    </div>
+  );
+}
+```

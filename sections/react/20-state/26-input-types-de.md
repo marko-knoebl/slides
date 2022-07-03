@@ -16,16 +16,7 @@ Text und Textarea:
 ```jsx
 <input
   value={title}
-  onChange={(event) => {
-    setTitle(event.target.value);
-  }}
-/>
-
-<textarea
-  value={message}
-  onChange={(event) => {
-    setMessage(event.target.value);
-  }}
+  onChange={(event) => setTitle(event.target.value)}
 />
 ```
 
@@ -43,7 +34,9 @@ Checkbox:
 
 ## Numerische Inputs
 
-Der Wert eines numerischen Inputs sollte üblicherweise als string gespeichert werden (nicht als Zahl)
+Grundlegender Rat für numerische Inputs:
+
+speichere den Inhalt als String (nicht als Zahl)
 
 Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):
 
@@ -55,30 +48,26 @@ Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):
 "-3.0"
 ```
 
-## Numerische Inputs mit direkten "Auswirkungen"
+## Numerische Inputs
 
-Beispiel: Speichern des numerischen Inhalts eines Inputs als ein String, aktualisieren eines zugehörigen numerischen Wertes, wenn dies möglich ist:
+Beispiel für numerischen Input mit direkten "Auswirkungen":
 
-```jsx
-function FontSizeDemo() {
-  const [size, setSize] = useState(16);
-  const [sizeStr, setSizeStr] = useState(size.toString());
-  function updateSize(s) {
-    setSizeStr(s);
-    // source: https://stackoverflow.com/questions/18082
-    if (!isNaN(parseFloat(s)) && isFinite(s)) {
-      setSize(Number(s));
-    }
-  }
-  return (
-    <div>
-      <input
-        type="number"
-        value={sizeStr}
-        onChange={(event) => updateSize(event.target.value)}
-      />
-      <div style={{ fontSize: size }}>Sample text</div>
-    </div>
-  );
-}
-```
+https://codesandbox.io/s/numeric-input-direct-results-5vde88
+
+## Andere Input-Typen
+
+siehe https://reactjs.org/docs/forms.html
+
+## Übung: Newsletter-Formular
+
+Erstelle eine Komponente namens `NewsletterSignup` mit drei State-Einträgen:
+
+`email`, `repeatEmail`, `acceptTerms`
+
+Demo einer vollständigen Version: https://codesandbox.io/s/newsletter-form-pvgs6l
+
+Bemerkung: aktivieren / deaktivieren eines buttons in JSX: `<button disabled={...}>...</button>`
+
+## Übung: Newsletter-Formular
+
+Extra: füge ein Dropdown hinzu, mit dem eine Sprache für den Newsletter ausgewählt werden kann

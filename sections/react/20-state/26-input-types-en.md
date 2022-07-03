@@ -15,16 +15,7 @@ text and text area:
 ```jsx
 <input
   value={title}
-  onChange={(event) => {
-    setTitle(event.target.value);
-  }}
-/>
-
-<textarea
-  value={message}
-  onChange={(event) => {
-    setMessage(event.target.value);
-  }}
+  onChange={(event) => setTitle(event.target.value)}
 />
 ```
 
@@ -42,7 +33,9 @@ checkbox:
 
 ## Numeric input fields
 
-The value of a numeric input field should usually be stored as a string (not as a number)
+Basic advice for numeric input fields:
+
+store the content as a string (not as a number)
 
 Reasoning: possible contents of a numeric input field (while the user is typing):
 
@@ -54,30 +47,26 @@ Reasoning: possible contents of a numeric input field (while the user is typing)
 "-3.0"
 ```
 
-## Numeric inputs with direct "results"
+## Numeric input fields
 
-example: keeping the content of a numeric input field as a string, updating an associated numeric value whenever possible:
+example: numeric input with direct "result":
 
-```jsx
-function FontSizeDemo() {
-  const [size, setSize] = useState(16);
-  const [sizeStr, setSizeStr] = useState(size.toString());
-  function updateSize(s) {
-    setSizeStr(s);
-    // source: https://stackoverflow.com/questions/18082
-    if (!isNaN(parseFloat(s)) && isFinite(s)) {
-      setSize(Number(s));
-    }
-  }
-  return (
-    <div>
-      <input
-        type="number"
-        value={sizeStr}
-        onChange={(event) => updateSize(event.target.value)}
-      />
-      <div style={{ fontSize: size }}>Sample text</div>
-    </div>
-  );
-}
-```
+https://codesandbox.io/s/numeric-input-direct-results-5vde88
+
+## Other input types
+
+see https://reactjs.org/docs/forms.html
+
+## Exercise: newsletter form
+
+Create a component called `NewsletterSignup` with three state entries:
+
+`email`, `repeatEmail`, `acceptTerms`
+
+demo of finished version: https://codesandbox.io/s/newsletter-form-pvgs6l
+
+note: enabling / disabling a button in JSX: `<button disabled={...}>...</button>`
+
+## Exercise: newsletter form
+
+extra: add a dropdown to choose a language for the newsletter

@@ -61,6 +61,8 @@ const myNumbers = [1, 2, 3, 4];
 
 const tripledNumbers = myNumbers.map((n) => 3 * n);
 // [3, 6, 9, 12]
+const squareRoots = myNumbers.map(Math.sqrt);
+// [1, 1.41, 1.73, 2]
 ```
 
 ## Datenverwaltung ohne Mutationen
@@ -90,17 +92,11 @@ Mechanismen:
 
 ## Übungen
 
-Wir erstellen _reine_ Funktionen, die mit Todos arbeiten
+**Arbeiten mit Todos**
 
-TypeScript-Deklaration, die ein Todo repräsentiert:
+Aufgabe: Vervollständige Funktionen, die Todos verwalten (ohne Mutationen)
 
-```ts
-interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
-```
+[Codesandbox Ausgangspunkt](https://codesandbox.io/s/todo-data-without-mutations-ocvne6?file=/src/manageTodos.js)
 
 ## Übungen
 
@@ -230,9 +226,20 @@ function changeTodoCompleted(todos, id, completed) {
 
 ## Übungen
 
-weitere Aufgaben:
+**Newsletter-Anmeldung** von zuvor: Speichere den State in einem einzelnen Objekt mit drei Einträgen
+
+```js
+const [data, setData] = useState({
+  email: '',
+  repeatEmail: '',
+  acceptTerms: false,
+});
+```
+
+**Todos**: Schreibe weitere reine Funktionen, die mit Todos arbeiten:
 
 - `changeTodoTitle`
 - `toggleTodo` (umschalten zwischen erledigt und nicht-erledigt)
 - `updateTodo` (ändern von `title` und `completed` in einem Aufruf)
 - `removeAllCompletedTodos`
+- ...
