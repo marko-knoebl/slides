@@ -2060,384 +2060,111 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Komponenten</h1>
-</section><section class="slide"><h2>Komponenten</h2>
-<p>React-Anwendungen können in einzelne Komponenten aufgeteilt werden</p>
-<p>Motivation:</p>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Components and Hooks</h1>
+</section><section class="slide"><h2>Components and Hooks</h2>
+<p>The UI can be built / structured via <em>components</em></p>
+<p>The logic and model behind the UI can be built / structured via <em>hooks</em></p>
+</section><section class="slide"><h2>Hooks</h2>
+<p>Hooks = special functions that can be called inside a component definition</p>
+<p>Examples: <code>useState</code>, <code>useEffect</code>, <code>useContext</code></p>
+</section><section class="slide"><h2>Rules of Hooks</h2>
+<p>inside a component defintion:<br />
+hooks must be called in same order on every render</p>
+<p>(React uses call order to keep track of hook state)</p>
+<p><a href="https://reactjs.org/docs/hooks-rules.html" target="_blank">Rules of Hooks on reactjs.org</a></p>
+</section><section class="slide"><h2>Components and Hooks</h2>
+<p>basic HTML elements:</p>
 <ul>
-<li>Wiederverwendung von Code</li>
-<li>Organisation von Code</li>
-</ul>
-</section><section class="slide"><h2>Komponenten und State</h2>
-<p>Komponenten können Daten aus ihrem State via <em>Props</em> an Unterkomponenten weitergeben (unidirektionaler Datenfluss)</p>
-<p>Unterkomponenten können Events auslösen, die dazu führen, dass sich der State in der Elternkomponente ändert</p>
-</section><section class="slide"><h2>Wo sollte State gespeichert werden?</h2>
-<p>Wenn mehrere Komponenten auf den gleichen State zugreifen können sollen, wird dieser Üblicherweise in einer gemeinsamen übergeordneten Komponente gespeichert und wird via Props nach unten übergeben (siehe: <a href="https://reactjs.org/docs/lifting-state-up.html" target="_blank">React docs: lifting state up</a>)</p>
-<p>Oft wird der Großteil des States in der obersten Komponente gespeichert (z.B. in <code>App</code>)</p>
-</section><section class="slide"><h2>Beispiel: Komponenten und State in einer Todo-Anwendung</h2>
-<svg width="200mm" height="100mm" viewBox="0 0 200 100" version="1.1" id="svg8" inkscape:version="1.1.2 (b8e25be833, 2022-02-05)" sodipodi:docname="todo-components-state.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <defs id="defs2"></defs>
-  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="0.9899495" inkscape:cx="530.83516" inkscape:cy="203.54574" inkscape:document-units="mm" inkscape:current-layer="layer1" showgrid="false" inkscape:window-width="1920" inkscape:window-height="1001" inkscape:window-x="-9" inkscape:window-y="-9" inkscape:window-maximized="1" inkscape:snap-global="false" inkscape:pagecheckerboard="0"></sodipodi:namedview>
-  <metadata id="metadata5">
-    <rdf:rdf>
-      <cc:work rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
-        <dc:title></dc:title>
-      </cc:work>
-    </rdf:rdf>
-  </metadata>
-  <g inkscape:label="Ebene 1" inkscape:groupmode="layer" id="layer1" transform="translate(0,-197)">
-    <g id="g4656" transform="translate(-54.389348,79.379046)">
-      <rect y="192.09799" x="61.52689" height="10.420975" width="41.183342" id="rect4485-7-2-6-1" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.08117273;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="64.187866" y="200.24106" id="text4825"><tspan sodipodi:role="line" x="64.187866" y="200.24106" id="tspan4823" style="stroke-width:0.192448"><tspan x="64.187866" y="200.24106" id="tspan4821" style="stroke-width:0.192448">TodoItem</tspan></tspan></text>
-    </g>
-    <g id="g4677" transform="translate(-4.1426777,64.679225)">
-      <rect y="176.78355" x="10.350194" height="10.310303" width="108.81847" id="rect4485-7" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.19183654;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="12.955827" y="184.87131" id="text4807"><tspan sodipodi:role="line" x="12.955827" y="184.87131" id="tspan4805" style="stroke-width:0.192448"><tspan x="12.955827" y="184.87131" id="tspan4803" style="stroke-width:0.192448">TodoList</tspan></tspan></text>
-    </g>
-    <g id="g4684" transform="translate(-12.160763,64.679225)">
-      <rect y="176.57292" x="134.81993" height="10.39143" width="68.353493" id="rect4485-7-2" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.11070967;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="136.93158" y="184.70125" id="text4813"><tspan sodipodi:role="line" x="136.93158" y="184.70125" id="tspan4811" style="stroke-width:0.192448"><tspan x="136.93158" y="184.70125" id="tspan4809" style="stroke-width:0.192448">AddTodo</tspan></tspan></text>
-    </g>
-    <g id="g4691" transform="translate(-3.6081386,52.117557)">
-      <rect y="159.58748" x="10.432021" height="10.273884" width="184.54591" id="rect4485" style="fill:#01579b;fill-opacity:1;stroke:#000000;stroke-width:0.22825836;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="13.019444" y="167.17104" id="text4801"><tspan sodipodi:role="line" x="13.019444" y="167.17104" id="tspan4799" style="stroke-width:0.192448"><tspan x="13.019444" y="167.17104" id="tspan4797" style="stroke-width:0.192448">TodoApp</tspan></tspan></text>
-    </g>
-    <g id="g4663-0" transform="matrix(0.78368654,0,0,0.78368654,12.501134,62.734688)">
-      <rect y="191.83354" x="88.724396" height="10.415314" width="22.592768" id="rect4485-7-2-6-1-1-5" style="fill:#e66c09;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.087;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="91.382538" y="199.29854" id="text4789"><tspan sodipodi:role="line" x="91.382538" y="199.29854" id="tspan4787" style="font-size:6.30212px;stroke-width:0.192448"><tspan x="91.382538" y="199.29854" id="tspan4785" style="font-size:6.30212px;stroke-width:0.192448">todos</tspan></tspan></text>
-    </g>
-    <g id="g4663-0-5" transform="matrix(0.78368655,0,0,0.78368655,100.85435,69.128991)">
-      <rect y="220.82205" x="80.880447" height="10.415314" width="30.436718" id="rect4485-7-2-6-1-1-5-5" style="fill:#e66c09;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.087;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="83.538589" y="228.96228" id="text4843"><tspan sodipodi:role="line" x="83.538589" y="228.96228" id="tspan4841" style="font-size:6.30212px;stroke-width:0.192448"><tspan x="83.538589" y="228.96228" id="tspan4839" style="font-size:6.30212px;stroke-width:0.192448">newTitle</tspan></tspan></text>
-    </g>
-    <g transform="translate(-9.4665783,79.379046)" id="g3770">
-      <rect style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.08117273;stroke-opacity:1" id="rect3762" width="41.183342" height="10.420975" x="61.52689" y="192.09799"></rect>
-      <text id="text3768" y="200.24106" x="64.187866" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" xml:space="preserve"><tspan style="stroke-width:0.192448" id="tspan3766" y="200.24106" x="64.187866" sodipodi:role="line"><tspan style="stroke-width:0.192448" id="tspan3764" y="200.24106" x="64.187866">TodoItem</tspan></tspan></text>
-    </g>
-    <g id="g3807" transform="translate(35.461562,79.379046)">
-      <rect y="192.09799" x="61.52689" height="10.420975" width="13.654585" id="rect3799" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.08117273;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="64.187866" y="200.24106" id="text3805"><tspan sodipodi:role="line" x="64.187866" y="200.24106" id="tspan3803" style="stroke-width:0.192448">...<tspan x="64.187866" y="200.24106" id="tspan3801" style="stroke-width:0.192448"></tspan></tspan></text>
-    </g>
-  </g>
-</svg>
-</section><section class="slide"><h2>Beispiel: Props und Events in einer Todo-Anwendung</h2>
-<svg width="200mm" height="100mm" viewBox="0 0 200 100" version="1.1" id="svg8" inkscape:version="1.1.2 (b8e25be833, 2022-02-05)" sodipodi:docname="todo-components-state-props-events.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <defs id="defs2">
-    <marker style="overflow:visible" id="marker2223" refX="0" refY="0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true">
-      <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1" id="path2221"></path>
-    </marker>
-    <marker style="overflow:visible" id="marker2213" refX="0" refY="0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true">
-      <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1" id="path2211"></path>
-    </marker>
-    <marker style="overflow:visible" id="marker2203" refX="0" refY="0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true">
-      <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1" id="path2201"></path>
-    </marker>
-    <marker style="overflow:visible;" id="marker1291" refX="0.0" refY="0.0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true">
-      <path transform="scale(1.1) rotate(180) translate(1,0)" d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z " style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1" id="path1289"></path>
-    </marker>
-    <marker style="overflow:visible;" id="marker1219" refX="0.0" refY="0.0" orient="auto" inkscape:stockid="Arrow1Lend" inkscape:isstock="true">
-      <path transform="scale(0.8) rotate(180) translate(12.5,0)" style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1" d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z " id="path1217"></path>
-    </marker>
-    <marker style="overflow:visible;" id="Arrow1Lend" refX="0.0" refY="0.0" orient="auto" inkscape:stockid="Arrow1Lend" inkscape:isstock="true">
-      <path transform="scale(0.8) rotate(180) translate(12.5,0)" style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1" d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z " id="path938"></path>
-    </marker>
-    <marker style="overflow:visible" id="marker1291-5" refX="0" refY="0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true">
-      <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1" id="path1289-1"></path>
-    </marker>
-    <marker style="overflow:visible" id="marker1291-5-8" refX="0" refY="0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true">
-      <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1" id="path1289-1-0"></path>
-    </marker>
-    <marker style="overflow:visible" id="marker1291-5-8-0" refX="0" refY="0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true">
-      <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1" id="path1289-1-0-0"></path>
-    </marker>
-    <marker style="overflow:visible" id="marker1291-9" refX="0" refY="0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true" inkscape:collect="always">
-      <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1" id="path1289-6"></path>
-    </marker>
-    <marker style="overflow:visible" id="marker1291-5-7" refX="0" refY="0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true" inkscape:collect="always">
-      <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1" id="path1289-1-6"></path>
-    </marker>
-    <marker style="overflow:visible" id="marker1291-5-8-4" refX="0" refY="0" orient="auto" inkscape:stockid="Arrow2Lend" inkscape:isstock="true" inkscape:collect="always">
-      <path transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1" id="path1289-1-0-5"></path>
-    </marker>
-  </defs>
-  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="1.4" inkscape:cx="348.92857" inkscape:cy="203.21429" inkscape:document-units="mm" inkscape:current-layer="layer1" showgrid="false" inkscape:window-width="1920" inkscape:window-height="1001" inkscape:window-x="-9" inkscape:window-y="-9" inkscape:window-maximized="1" inkscape:snap-global="false" inkscape:document-rotation="0" inkscape:pagecheckerboard="0"></sodipodi:namedview>
-  <metadata id="metadata5">
-    <rdf:rdf>
-      <cc:work rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
-        <dc:title></dc:title>
-      </cc:work>
-    </rdf:rdf>
-  </metadata>
-  <g inkscape:label="Ebene 1" inkscape:groupmode="layer" id="layer1" transform="translate(0,-197)">
-    <g id="g4656" transform="translate(-54.389348,79.379046)">
-      <rect y="192.09799" x="61.52689" height="10.420975" width="41.183342" id="rect4485-7-2-6-1" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.08117273;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="64.187866" y="200.24106" id="text4825"><tspan sodipodi:role="line" x="64.187866" y="200.24106" id="tspan4823" style="stroke-width:0.192448"><tspan x="64.187866" y="200.24106" id="tspan4821" style="stroke-width:0.192448">TodoItem</tspan></tspan></text>
-    </g>
-    <g id="g4677" transform="translate(-4.1426777,64.679225)">
-      <rect y="176.78355" x="10.350194" height="10.310303" width="108.81847" id="rect4485-7" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.19183654;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="12.955827" y="184.87131" id="text4807"><tspan sodipodi:role="line" x="12.955827" y="184.87131" id="tspan4805" style="stroke-width:0.192448"><tspan x="12.955827" y="184.87131" id="tspan4803" style="stroke-width:0.192448">TodoList</tspan></tspan></text>
-    </g>
-    <g id="g4684" transform="translate(-12.160763,64.679225)">
-      <rect y="176.57292" x="134.81993" height="10.39143" width="68.353493" id="rect4485-7-2" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.11070967;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="136.93158" y="184.70125" id="text4813"><tspan sodipodi:role="line" x="136.93158" y="184.70125" id="tspan4811" style="stroke-width:0.192448"><tspan x="136.93158" y="184.70125" id="tspan4809" style="stroke-width:0.192448">AddTodo</tspan></tspan></text>
-    </g>
-    <g id="g4691" transform="translate(-3.6081386,52.117557)">
-      <rect y="159.58748" x="10.432021" height="10.273884" width="184.54591" id="rect4485" style="fill:#01579b;fill-opacity:1;stroke:#000000;stroke-width:0.22825836;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="13.019444" y="167.17104" id="text4801"><tspan sodipodi:role="line" x="13.019444" y="167.17104" id="tspan4799" style="stroke-width:0.192448"><tspan x="13.019444" y="167.17104" id="tspan4797" style="stroke-width:0.192448">TodoApp</tspan></tspan></text>
-    </g>
-    <g id="g4663-0" transform="matrix(0.78368654,0,0,0.78368654,12.501134,62.734688)">
-      <rect y="191.83354" x="88.724396" height="10.415314" width="22.592768" id="rect4485-7-2-6-1-1-5" style="fill:#e66c09;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.087;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="91.382538" y="199.29854" id="text4789"><tspan sodipodi:role="line" x="91.382538" y="199.29854" id="tspan4787" style="font-size:6.30212px;stroke-width:0.192448"><tspan x="91.382538" y="199.29854" id="tspan4785" style="font-size:6.30212px;stroke-width:0.192448">todos</tspan></tspan></text>
-    </g>
-    <g id="g4663-0-5" transform="matrix(0.78368655,0,0,0.78368655,100.85435,69.128991)">
-      <rect y="220.82205" x="80.880447" height="10.415314" width="30.436718" id="rect4485-7-2-6-1-1-5-5" style="fill:#e66c09;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.087;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="83.538589" y="228.96228" id="text4843"><tspan sodipodi:role="line" x="83.538589" y="228.96228" id="tspan4841" style="font-size:6.30212px;stroke-width:0.192448"><tspan x="83.538589" y="228.96228" id="tspan4839" style="font-size:6.30212px;stroke-width:0.192448">newTitle</tspan></tspan></text>
-    </g>
-    <g transform="translate(-9.4665783,79.379046)" id="g3770">
-      <rect style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.08117273;stroke-opacity:1" id="rect3762" width="41.183342" height="10.420975" x="61.52689" y="192.09799"></rect>
-      <text id="text3768" y="200.24106" x="64.187866" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" xml:space="preserve"><tspan style="stroke-width:0.192448" id="tspan3766" y="200.24106" x="64.187866" sodipodi:role="line"><tspan style="stroke-width:0.192448" id="tspan3764" y="200.24106" x="64.187866">TodoItem</tspan></tspan></text>
-    </g>
-    <g id="g3807" transform="translate(35.461562,79.379046)">
-      <rect y="192.09799" x="61.52689" height="10.420975" width="13.654585" id="rect3799" style="fill:#01579f;fill-opacity:0.94117647;stroke:#000000;stroke-width:0.08117273;stroke-opacity:1"></rect>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:7.6979px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e7e7e7;fill-opacity:1;stroke:none;stroke-width:0.192448;stroke-opacity:1" x="64.187866" y="200.24106" id="text3805"><tspan sodipodi:role="line" x="64.187866" y="200.24106" id="tspan3803" style="stroke-width:0.192448">...<tspan x="64.187866" y="200.24106" id="tspan3801" style="stroke-width:0.192448"></tspan></tspan></text>
-    </g>
-    <g id="g1735" transform="translate(-3.5907738)">
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="225.87859" y="-24.365286" id="text1279" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan1277" x="225.87859" y="-24.365286" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">todos</tspan></text>
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1291)" d="m 22.678571,222.13542 v 19.08779" id="path1287"></path>
-    </g>
-    <g id="g1466">
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1291-5)" d="M 58.203665,241.5392 V 222.45141" id="path1287-1"></path>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="224.39206" y="-60.639782" id="text1279-4" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan1277-9" x="224.39206" y="-60.639782" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">onToggle</tspan></text>
-    </g>
-    <g id="g1466-5" transform="translate(17.923676,0.1889929)">
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1291-5-8)" d="M 58.203665,241.5392 V 222.45141" id="path1287-1-0"></path>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="224.39206" y="-60.639782" id="text1279-4-9" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan1277-9-1" x="224.39206" y="-60.639782" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">onDelete</tspan></text>
-    </g>
-    <g id="g1466-5-5" transform="translate(100.1335,-0.18898283)">
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1291-5-8-0)" d="M 58.203665,241.5392 V 222.45141" id="path1287-1-0-1"></path>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="227.03789" y="-60.072819" id="text1279-4-9-3" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan1277-9-1-3" x="227.03789" y="-60.072819" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">onAdd</tspan></text>
-    </g>
-    <g id="g1735-1" transform="translate(-11.004114,29.922101)">
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="227.39049" y="-24.176298" id="text1279-6" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan1277-6" x="227.39049" y="-24.176298" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">todo</tspan></text>
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1291-9)" d="m 22.678571,222.13542 v 19.08779" id="path1287-8"></path>
-    </g>
-    <g id="g1466-7" transform="translate(-34.316436,29.954615)">
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1291-5-7)" d="M 58.203665,241.5392 V 222.45141" id="path1287-1-3"></path>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="224.39206" y="-60.639782" id="text1279-4-6" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan1277-9-5" x="224.39206" y="-60.639782" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">onToggle</tspan></text>
-    </g>
-    <g id="g1466-5-6" transform="translate(-21.117462,29.95462)">
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1291-5-8-4)" d="M 58.203665,241.5392 V 222.45141" id="path1287-1-0-4"></path>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="224.39206" y="-60.639782" id="text1279-4-9-8" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan1277-9-1-5" x="224.39206" y="-60.639782" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">onDelete</tspan></text>
-    </g>
-    <g id="g2183" transform="translate(36.620886,29.733113)">
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="227.39049" y="-24.176298" id="text2179" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan2177" x="227.39049" y="-24.176298" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">todo</tspan></text>
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2223)" d="m 22.678571,222.13542 v 19.08779" id="path2181"></path>
-    </g>
-    <g id="g2191" transform="translate(13.308564,29.765627)">
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2213)" d="M 58.203665,241.5392 V 222.45141" id="path2185"></path>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="224.39206" y="-60.639782" id="text2189" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan2187" x="224.39206" y="-60.639782" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">onToggle</tspan></text>
-    </g>
-    <g id="g2199" transform="translate(26.507538,29.765632)">
-      <path style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2203)" d="M 58.203665,241.5392 V 222.45141" id="path2193"></path>
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="224.39206" y="-60.639782" id="text2197" transform="rotate(90)"><tspan sodipodi:role="line" id="tspan2195" x="224.39206" y="-60.639782" style="font-size:3.52778px;line-height:1.25;stroke-width:0.264583">onDelete</tspan></text>
-    </g>
-  </g>
-</svg>
-</section><section class="slide"><h2>Komponentendefinition</h2>
-<p>Möglichkeiten:</p>
-<ul>
-<li>Definition einer Komponente als Funktion</li>
-<li>Definition einer Komponente als Klasse (war insbesondere vor der Einführung von Hooks verbreitet / notwendig)</li>
-</ul>
-</section><section class="slide"><h2>Komponetendefinition</h2>
-<p>Um sie von normalen Tags zu unterscheiden, beginnen Komponentennamen mit einem Großbuchstaben</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Komponentenlibraries</h1>
-</section><section class="slide"><h2>Komponentenlibraries</h2>
-<ul>
-<li>React Bootstrap</li>
-<li>Material UI: React-Komponenten im <em>Material Design</em></li>
-<li>Blueprint</li>
-<li>Ant Design</li>
+<li><code>&#x3C;div></code></li>
+<li><code>&#x3C;button></code></li>
+<li><code>&#x3C;input></code></li>
 <li>...</li>
 </ul>
-</section><section class="slide"><h2>React-Bootstrap</h2>
-<p>npm-Pakete: <em>bootstrap</em>, <em>react-bootstrap</em>, <em>@types/react-bootstrap</em></p>
-<pre><code class="hljs language-jsx"><span class="hljs-comment">// index.js</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'bootstrap/dist/css/bootstrap.min.css'</span>;
-</code></pre>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Button } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-bootstrap'</span>;
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;Button variant=<span class="hljs-string">"primary"</span>>Hello World&#x3C;/Button>
-</code></pre>
-<p>Dokumentation: <a href="https://react-bootstrap.github.io/" target="_blank">https://react-bootstrap.github.io/</a></p>
-</section><section class="slide"><h2>Material-UI</h2>
-<p>React-Komponenten im Material-Design-Stil (Stil von Google/Android)</p>
-<p>npm-Pakete: <em>@mui/material</em> <em>@emotion/react</em> <em>@emotion/styled</em></p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> Button <span class="hljs-keyword">from</span> <span class="hljs-string">'@mui/material/Button'</span>;
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;Button color=<span class="hljs-string">"primary"</span> variant=<span class="hljs-string">"contained"</span>>
-  Hello World
-&#x3C;/Button>
-</code></pre>
-<p>Dokumentation: <a href="https://mui.com" target="_blank">https://mui.com</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Komponenten-Props</h1>
-</section><section class="slide"><h2>State und Props</h2>
+<p>can be used to build custom components:</p>
 <ul>
-<li>State = interner Zustand einer Komponente</li>
-<li>Props = vom Elternelement übergebene Parameter</li>
+<li><code>&#x3C;Button></code></li>
+<li><code>&#x3C;Calendar></code></li>
+<li><code>&#x3C;Sidebar></code></li>
+<li>...</li>
 </ul>
-</section><section class="slide"><h2>State und Props</h2>
-<p>Wenn wir Props und State einer Komponente kennen, wissen wir üblicherweise ziemlich genau, wie sie dargestellt wird</p>
-</section><section class="slide"><h2>Komponenten-Props</h2>
-<p>Beispiel:</p>
-<pre><code class="hljs language-jsx">&#x3C;Rating value={prodRating} />
-</code></pre>
-<img src="data:image/png;base64,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" style="width: 16em" />
-</section><section class="slide"><h2>Komponenten-Props</h2>
-<p>Props werden Funktionskomponenten via Parametern übergeben:</p>
-<pre><code class="hljs language-tsx">type RatingProps = { value: number };
-
-function Rating(props: RatingProps) {
-  // ...
-}
-</code></pre>
-</section><section class="slide"><h2>Komponenten-Props</h2>
-<p>Implementierung einer Rating-Komponente:</p>
-<pre><code class="hljs language-tsx">type RatingProps = { value: number };
-
-function Rating(props: RatingProps) {
-  const starIds = [1, 2, 3, 4, 5];
-  return (
-    &#x3C;div>
-      {starIds.map((id) => (
-        &#x3C;span key={id}>
-          {id &#x3C;= props.value ? '★' : '☆'}
-        &#x3C;/span>
-      ))}
-    &#x3C;/div>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Komponenten-Props</h2>
-<p>Übung: Erstelle eine ProgressBar-Komponente:</p>
-<pre><code class="hljs language-jsx">&#x3C;ProgressBar value={<span class="hljs-number">0.75</span>} color=<span class="hljs-string">"green"</span> />
-</code></pre>
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXQAAAAoCAYAAADuWAFrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAADhSURBVHhe7dXBCYRQAEPBX/p2rh3oZRMkzMBrITkXABMMOsAIgw4wwqADjDDoACMMOsAIgw4w4nHQzzmSpI/05n3Qf5L0HHkGXVIl8gy6pErkGXRJlcgz6JIqkWfQJVUiz6BLqkSeQZdUiTyDLqkSeQZdUiXyDLqkSuQZdEmVyDPokiqRZ9AlVSLPoEuqRJ5Bl1SJPIMuqRJ5Bl1SJfIMuqRK5Bl0SZXIM+iSKpFn0CVVIs+gS6pEnkGXVIm8/wy6JOkTvXGtACMMOsAIgw4wwqADjDDoACMMOsAIgw4w4bpuWEaun31NO2YAAAAASUVORK5CYII=" style="width:16em" />
-</section></section><section class="slides-section"><section class="slide"><h1>Komponenten-Events</h1>
-</section><section class="slide"><h2>Datenfluss</h2>
+</section><section class="slide"><h2>Components and Hooks</h2>
+<p>built-in hooks:</p>
 <ul>
-<li>parent → child: props</li>
-<li>child → parent: events</li>
+<li><code>useState</code></li>
+<li><code>useEffect</code> (for triggering side effects, e.g. API queries)</li>
+<li><code>useContext</code> (for sharing state across a component tree)</li>
+<li>...</li>
 </ul>
-</section><section class="slide"><h2>Komponenten-Events</h2>
-<p>Props:</p>
-<p>Eine Komponente (z.B. <em>App</em>) kann Daten (aus dem eigenen State) an eine Unterkomponente (z.B. <em>Rating</em>) übergeben</p>
-<p>Events:</p>
-<p>Eine Unterkomponente kann ein Event auslösen, wodurch sich dann State in einer drüberliegenden Komponente ändert</p>
-</section><section class="slide"><h2>Komponenten-Events</h2>
-<p>Eventhandler werden als Funktionen definiert und via props übergeben / erhalten.</p>
-</section><section class="slide"><h2>Komponenten-Events</h2>
-<p>Beispiel:</p>
-<pre><code class="hljs language-jsx">&#x3C;Rating
-  value={prodRating}
-  onChange={<span class="hljs-function">(<span class="hljs-params">newRating</span>) =></span> setProdRating(newRating)}
-/>
-</code></pre>
-<img src="data:image/png;base64,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" style="width: 16em" />
-</section><section class="slide"><h2>Komponenten-Events</h2>
-<p>Beispiel für Prop-Types einer Rating-Komponente:</p>
-<pre><code class="hljs language-tsx">type RatingProps = {
-  value: number;
-  onChange?: (value: number) => void;
-};
-</code></pre>
-</section><section class="slide"><h2>Komponenten-Events</h2>
-<pre><code class="hljs language-tsx">function Rating(props: RatingProps) {
-  const starIds = [1, 2, 3, 4, 5];
-  return (
-    &#x3C;div>
-      {starIds.map((id) => (
-        &#x3C;span
-          onClick={() => {
-            if (props.onChange) {
-              props.onChange(id);
-            }
-          }}
-          key={id}
-        >
-          {id &#x3C;= props.value ? '★' : '☆'}
-        &#x3C;/span>
-      ))}
-    &#x3C;/div>
+<p>can be used to build custom hooks:</p>
+<ul>
+<li><code>useForm</code> (for managing form state)</li>
+<li><code>useQuery</code> (for querying APIs)</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Components and Hooks</h2>
+<p>some components and hooks from libraries:</p>
+<ul>
+<li><em>MUI</em> (Material-UI): <code>&#x3C;Button></code>, <code>&#x3C;Alert></code>, ...</li>
+<li><em>React Router</em>: <code>&#x3C;Route></code>, <code>&#x3C;Link></code>, <code>useParams</code>, <code>useNavigate</code></li>
+<li><em>react-query</em>: <code>useQuery</code></li>
+<li><em>react-hook-form</em>: <code>useForm</code></li>
+</ul>
+</section><section class="slide"><h2>Components and Hooks</h2>
+<p>lists of available components and hooks:</p>
+<p><a href="https://github.com/brillout/awesome-react-components" target="_blank">awesome-react-components</a>: list of components, ...</p>
+<p><a href="https://github.com/rehooks/awesome-react-hooks" target="_blank">awesome-react-hooks</a>: list of hooks</p>
+</section><section class="slide"><h2>Modularity via components and hooks</h2>
+<p>modularity of the UI: via <strong>custom components</strong></p>
+<p>modularity of the logic / model: via custom hooks</p>
+</section><section class="slide"><h2>Modularity via components and hooks</h2>
+<p>why modularity?</p>
+<ul>
+<li>structuring code</li>
+<li>reusing code / functionality</li>
+</ul>
+</section><section class="slide"><h2>Modularity via components and hooks</h2>
+<p>example components for reuse (within a project or across projects):</p>
+<ul>
+<li><code>Button</code> (for styling)</li>
+<li><code>Calendar</code></li>
+<li><code>Sidebar</code></li>
+</ul>
+</section><section class="slide"><h2>Modularity via components and hooks</h2>
+<p>example components for structuring code:</p>
+<ul>
+<li><code>TodoApp</code></li>
+<li><code>TodoList</code></li>
+<li><code>TodoItem</code></li>
+</ul>
+</section><section class="slide"><h2>Modularity via components and hooks</h2>
+<p>example hooks for reuse (within a project or across projects):</p>
+<ul>
+<li><code>useState</code></li>
+<li><code>useQuery</code></li>
+<li><code>useMedia</code></li>
+</ul>
+</section><section class="slide"><h2>Modularity via components and hooks</h2>
+<p>example hooks for structuring code:</p>
+<p>in a todo app: <code>useTodos</code></p>
+<p>in a web shop app: <code>useProducts</code>, <code>useCart</code></p>
+</section><section class="slide"><h2>Example: Todo list application</h2>
+<p>using custom components and a custom hook for a todo list application:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> todoData = useTodos();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Header</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> <span class="hljs-attr">onAdd</span>=<span class="hljs-string">{todoData.addTodo}</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span>
+        <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span>
+        <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{todoData.deleteTodo}</span>
+        <span class="hljs-attr">onChangeCompleted</span>=<span class="hljs-string">{todoData.setCompleted}</span>
+      /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Statistics</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span> /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
-</code></pre>
-</section><section class="slide"><h2>Komponenten-Events</h2>
-<p>Verwendung einer Rating-Komponente:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> [prodRating, setProdRating] = useState(<span class="hljs-number">3</span>);
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;Rating
-  value={prodRating}
-  onChange={<span class="hljs-function">(<span class="hljs-params">newRating</span>) =></span> setProdRating(newRating)}
-/>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
-</section><section class="slide"><h2>Übungen</h2>
-<p>Aufgabe: In der Todo-Anwendung: Erstelle eine neue <code>Stats</code>-Komponente, die Statistiken über die Todos anzeigt</p>
-<p>Aufgabe: Teile die Todo-Anwendung in kleinere Komponenten (z.B. <em>AddTodo</em>, <em>TodoItem</em>, <em>TodoList</em>)</p>
-<p>Aufgabe: Entwirf Komponenteninterfaces (Props und Events) für verschiedene Komponenten (z.B. <em>Calendar</em>, <em>ColorPicker</em>, <em>BarChart</em>, <em>Tabs</em>)</p>
-<p>Aufgabe: "Nachbau" einer der Komponenten auf <a href="https://github.com/brillout/awesome-react-components" target="_blank">awesome-react-components</a> (z.B. bar chart, color picker, table / data grid, tabs)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Inhalte an Komponenten übergeben</h1>
-</section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
-<p>Eine Komponente kann anzuzeigende Inhalte via <code>props.children</code> übergeben bekommen</p>
-<p>mögliche Verwendung:</p>
-<pre><code class="hljs language-jsx">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
-&#x3C;/Notification>
-</code></pre>
-</section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
-<p>Komponentendefinition:</p>
-<pre><code class="hljs language-tsx">type Props = {
-  type: string;
-  children: React.ReactNode;
-};
-
-function Notification(props: Props) {
-  const color =
-    props.type === 'error' ? 'salmon' : 'lightblue';
-
-  return (
-    &#x3C;div style={{ backgroundColor: color }}>
-      {props.children}
-    &#x3C;/div>
-  );
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>"Wrapper" für bestehende Elemente</h1>
-</section><section class="slide"><h2>"Wrapper" für bestehende Elemente</h2>
-<p>verbreiteter Use Case: "Wrapper" für bestehende Elemente zwecks Styling:</p>
-<pre><code class="hljs language-tsx">function Button(
-  props: React.ComponentPropsWithRef&#x3C;'button'>
-) {
-  // return a "button" element with one extra CSS class
-  return (
-    &#x3C;button
-      {...props}
-      className={
-        props.className ? props.className + ' btn' : 'btn'
-      }
-    />
-  );
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Übungen (Komponenten)</h1>
-</section><section class="slide"><h2>Übungen (Komponenten)</h2>
-<p>Aufgabe: Extrahieren wiederverwendbarer Komponenten, die insbesondere für Styling verwendet werden - z.B. eine <code>Button</code>-Komponente oder eine <code>TextInput</code>-Komponente</p></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

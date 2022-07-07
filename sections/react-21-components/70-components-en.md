@@ -1,14 +1,5 @@
 # Components
 
-## Components
-
-React applications can be split into separate components
-
-purposes:
-
-- code reuse
-- code organization
-
 ## Components and state
 
 parent components can pass down data from their state to child components via props(unidirectional data flow)

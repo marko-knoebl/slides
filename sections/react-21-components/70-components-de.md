@@ -1,14 +1,5 @@
 # Komponenten
 
-## Komponenten
-
-React-Anwendungen können in einzelne Komponenten aufgeteilt werden
-
-Motivation:
-
-- Wiederverwendung von Code
-- Organisation von Code
-
 ## Komponenten und State
 
 Komponenten können Daten aus ihrem State via _Props_ an Unterkomponenten weitergeben (unidirektionaler Datenfluss)

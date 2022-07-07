@@ -2060,97 +2060,110 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Netwerkanfragen in JavaScript</h1>
-</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
-<p><em>Promises</em>: moderne Möglichkeit, asynchronen Code zu verwenden:</p>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Komponenten und Hooks</h1>
+</section><section class="slide"><h2>Komponenten und Hooks</h2>
+<p>Erstellen / Strukturieren des UIs / Views: via <strong>Komponenten</strong></p>
+<p>Erstellen / Strukturieren der Logik / des Modells hinter dem UI: via <strong>Hooks</strong></p>
+</section><section class="slide"><h2>Hooks</h2>
+<p>Hooks = besondere Funktionen, die in einer Komponentenfunktion aufgerufen werden können</p>
+<p>Beispiele: <code>useState</code>, <code>useEffect</code>, <code>useContext</code></p>
+</section><section class="slide"><h2>Regeln für Hooks</h2>
+<p>in einer Komponentendefinition:<br />
+Hooks müssen bei jedem Rendering in der gleichen Reihenfolge aufgerufen werden</p>
+<p>(React verwendet die Reihenfolge, um den "gleichen" Hook-Aufruf über mehrere Renderings zu verfolgen)</p>
+<p><a href="https://reactjs.org/docs/hooks-rules.html" target="_blank">Rules of Hooks auf reactjs.org</a></p>
+</section><section class="slide"><h2>Komponenten und Hooks</h2>
+<p>grundlegende HTML-Elemente:</p>
 <ul>
-<li>Promises mit <code>async</code> / <code>await</code></li>
-<li>Promises mit <code>.then()</code></li>
+<li><code>&#x3C;div></code></li>
+<li><code>&#x3C;button></code></li>
+<li><code>&#x3C;input></code></li>
+<li>...</li>
 </ul>
-<p>moderne Möglichkeiten, um Netzwerkanfragen zu senden (basierend auf Promises):</p>
+<p>können verwendet werden, um eigene Komponenten zu erstellen:</p>
 <ul>
-<li><code>fetch()</code> (in Browsern inkludiert)</li>
-<li><em>axios</em> (library)</li>
+<li><code>&#x3C;Button></code></li>
+<li><code>&#x3C;Calendar></code></li>
+<li><code>&#x3C;Sidebar></code></li>
+<li>...</li>
 </ul>
-</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
-<p>asynchrone Funktion, die Todos von einem API lädt:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// todosApi.ts</span>
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTodos</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">Array</span>&#x3C;<span class="hljs-title">Todo</span>>> </span>{
-  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>;
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
-  <span class="hljs-keyword">if</span> (!res.ok) {
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'could not fetch data from network'</span>);
-  }
-  <span class="hljs-keyword">const</span> apiTodos: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">any</span>> = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-comment">// convert data format (don't include userId)</span>
-  <span class="hljs-keyword">const</span> todos = apiTodos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> ({
-    <span class="hljs-attr">id</span>: todo.id,
-    <span class="hljs-attr">title</span>: todo.title,
-    <span class="hljs-attr">completed</span>: todo.completed,
-  }));
-  <span class="hljs-keyword">return</span> todos;
-}
-</code></pre>
-</section><section class="slide"><h2>Netzwerkanfragen in JavaScript</h2>
-<p>Asynchrone Funktion, die Wechselkursdaten von einem API lädt:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params">
-  <span class="hljs-keyword">from</span>: <span class="hljs-built_in">string</span>,
-  to: <span class="hljs-built_in">string</span>
-</span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">number</span>> </span>{
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://api.exchangerate.host/latest?base='</span> +
-      <span class="hljs-keyword">from</span>.toUpperCase() +
-      <span class="hljs-string">'&#x26;symbols='</span> +
-      to.toUpperCase()
+</section><section class="slide"><h2>Komponenten und Hooks</h2>
+<p>Eingebaute Hooks:</p>
+<ul>
+<li><code>useState</code></li>
+<li><code>useEffect</code> (um Side-Effects auszulösen, z.B. API-Abfragen)</li>
+<li><code>useContext</code> (um State über einen Komponentenbaum hinweg zu teilen)</li>
+<li>...</li>
+</ul>
+<p>können verwendet werden, um eigene Hooks zu erstellen:</p>
+<ul>
+<li><code>useForm</code> (zum Verwalten von Formularen)</li>
+<li><code>useQuery</code> (zum Abfragen von APIs)</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Komponenten und Hooks</h2>
+<p>Beispiele für Komponenten und Hooks aus Libraries:</p>
+<ul>
+<li><em>MUI</em> (Material-UI): <code>&#x3C;Button></code>, <code>&#x3C;Alert></code>, ...</li>
+<li><em>React Router</em>: <code>&#x3C;Route></code>, <code>&#x3C;Link></code>, <code>useParams</code>, <code>useNavigate</code></li>
+<li><em>react-query</em>: <code>useQuery</code></li>
+<li><em>react-hook-form</em>: <code>useForm</code></li>
+</ul>
+</section><section class="slide"><h2>Komponenten und Hooks</h2>
+<p>Listen verfügbarer Komponenten und Hooks:</p>
+<p><a href="https://github.com/brillout/awesome-react-components" target="_blank">awesome-react-components</a>: Liste von Komponenten, ...</p>
+<p><a href="https://github.com/rehooks/awesome-react-hooks" target="_blank">awesome-react-hooks</a>: liste von Hooks</p>
+</section><section class="slide"><h2>Modularität</h2>
+<p>Modularität des UI: mittels <strong>eigener Komponenten</strong></p>
+<p>Modularität der Logik / des Modells hinter dem UI: mittels eigener Hooks</p>
+</section><section class="slide"><h2>Modularität</h2>
+<p>warum Modularität?</p>
+<ul>
+<li>Strukturierung von Code</li>
+<li>Wiederverwenden von Code / Funktionalität</li>
+</ul>
+</section><section class="slide"><h2>Modularität mittels Komponenten und Hooks</h2>
+<p>Beispiele für Komponenten zur Wiederverwendung (innerhalb eines Projektes oder über Projekte hinweg):</p>
+<ul>
+<li><code>Button</code> (zum Styling)</li>
+<li><code>Calendar</code></li>
+<li><code>Sidebar</code></li>
+</ul>
+</section><section class="slide"><h2>Modularität mittels Komponenten und Hooks</h2>
+<p>Beispiel für Komponenten zur Strukturierung von Code:</p>
+<ul>
+<li><code>TodoApp</code></li>
+<li><code>TodoList</code></li>
+<li><code>TodoItem</code></li>
+</ul>
+</section><section class="slide"><h2>Modularität mittels Komponenten und Hooks</h2>
+<p>Beispiele für Hooks zur Wiederverwendung (innerhalb eines Projektes oder über Projekte hinweg):</p>
+<ul>
+<li><code>useState</code></li>
+<li><code>useQuery</code></li>
+<li><code>useMedia</code></li>
+</ul>
+</section><section class="slide"><h2>Modularität mittels Komponenten und Hooks</h2>
+<p>Beispiele für Hooks zur Strukturierung von Code:</p>
+<p>in einer Todo-Anwendung: <code>useTodos</code></p>
+<p>in einem Online-Shop: <code>useProducts</code>, <code>useCart</code></p>
+</section><section class="slide"><h2>Modularität mittels Komponenten und Hooks</h2>
+<p>Beispiel: eigene Komponenten und eigener Hook für eine Todo-Anwendung:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> todoData = useTodos();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Header</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> <span class="hljs-attr">onAdd</span>=<span class="hljs-string">{todoData.addTodo}</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span>
+        <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span>
+        <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{todoData.deleteTodo}</span>
+        <span class="hljs-attr">onChangeCompleted</span>=<span class="hljs-string">{todoData.setCompleted}</span>
+      /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Statistics</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span> /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
-  <span class="hljs-keyword">if</span> (!res.ok) {
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'could not fetch data from network'</span>);
-  }
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
 }
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Beispiele: Abfragen von APIs aus React</h1>
-</section><section class="slide"><h2>Beispiele: Abfragen von APIs aus React</h2>
-<p>Laden von Todos in einer React-Komponente:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
-  setTodos(todos);
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> loadTodos()}>
-  load todos <span class="hljs-keyword">from</span> API
-&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Beispiele: Abfragen von APIs aus React</h2>
-<p>Code für das Hinzufügen eines Ladeindikators:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">const</span> [loadingStatus, setLoadingStatus] = useState(<span class="hljs-string">'idle'</span>);
-
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  setLoadingStatus(<span class="hljs-string">'loading'</span>);
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
-  setTodos(todos);
-  setLoadingStatus(<span class="hljs-string">'success'</span>);
-}
-</code></pre>
-</section><section class="slide"><h2>Beispiele: Abfragen von APIs aus React</h2>
-<p>Laden von Wechselkursdaten:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [usdRates, setUsdRates] = useState&#x3C;
-  Record&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>>
->({});
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadRate</span>(<span class="hljs-params">currency</span>) </span>{
-  <span class="hljs-keyword">const</span> rate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-string">'usd'</span>, currency);
-  setUsdRates({ ...usdRates, [currency]: rate });
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> loadRate(<span class="hljs-string">'eur'</span>)}>
-  load EUR rate
-&#x3C;/button>
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> loadRate("jpy")}>
-  load JPY rate
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
 </code></pre></section></section></div>
     </div>
     <script>/*!
