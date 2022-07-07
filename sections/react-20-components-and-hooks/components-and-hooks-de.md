@@ -2,15 +2,20 @@
 
 ## Komponenten und Hooks
 
-Erstellen / Strukturieren des UIs / Views: via **Komponenten**
+Bausteine einer React-Anwendung:
 
-Erstellen / Strukturieren der Logik / des Modells hinter dem UI: via **Hooks**
+- _Komponenten_: für das _UI_ / _View_
+- _Hooks_ für das _Modell_ / die _Logik_ hinter dem _View_
 
 ## Hooks
 
 Hooks = besondere Funktionen, die in einer Komponentenfunktion aufgerufen werden können
 
-Beispiele: `useState`, `useEffect`, `useContext`
+Beispiele:
+
+- `useState`
+- `useEffect` (um Side-Effects auszulösen, z.B. API-Abfragen)
+- `useContext` (um State über einen Komponentenbaum hinweg zu teilen)
 
 ## Regeln für Hooks
 
@@ -42,8 +47,8 @@ können verwendet werden, um eigene Komponenten zu erstellen:
 Eingebaute Hooks:
 
 - `useState`
-- `useEffect` (um Side-Effects auszulösen, z.B. API-Abfragen)
-- `useContext` (um State über einen Komponentenbaum hinweg zu teilen)
+- `useEffect`
+- `useContext`
 - ...
 
 können verwendet werden, um eigene Hooks zu erstellen:

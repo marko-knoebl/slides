@@ -2,22 +2,27 @@
 
 ## Components and Hooks
 
-The UI can be built / structured via _components_
+building blocks in React:
 
-The logic and model behind the UI can be built / structured via _hooks_
+- _components_: handle the _ui_ / _view_
+- _hooks_: handle the _model_ / _logic_ behind the view
 
 ## Hooks
 
 Hooks = special functions that can be called inside a component definition
 
-Examples: `useState`, `useEffect`, `useContext`
+Examples:
+
+- `useState`
+- `useEffect` (for triggering side effects, e.g. API queries)
+- `useContext` (for sharing state across a component tree)
 
 ## Rules of Hooks
 
 inside a component defintion:  
 hooks must be called in same order on every render
 
-(React uses call order to keep track of hook state)
+(React uses call order to keep track of hook identity)
 
 [Rules of Hooks on reactjs.org](https://reactjs.org/docs/hooks-rules.html)
 
@@ -42,8 +47,8 @@ can be used to build custom components:
 built-in hooks:
 
 - `useState`
-- `useEffect` (for triggering side effects, e.g. API queries)
-- `useContext` (for sharing state across a component tree)
+- `useEffect`
+- `useContext`
 - ...
 
 can be used to build custom hooks:
