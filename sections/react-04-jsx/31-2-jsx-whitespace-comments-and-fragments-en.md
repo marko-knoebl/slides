@@ -54,6 +54,14 @@ no space:
 <img src="bar.png" />
 ```
 
+## Escapes
+
+Special characters like `<` can be inserted via JavaScript:
+
+```jsx
+<p>if a {'<'} b then ...</p>
+```
+
 ## Comments
 
 Comments can be written as JavaScript comments:

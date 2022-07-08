@@ -23,17 +23,19 @@ const elements = [
 
 Beispiel: Auflisten aller Methoden des _React_-Objekts
 
+Codesandbox: https://codesandbox.io/s/react-api-list-tjq60t?file=/src/ReactApiList.tsx
+
 ```jsx
-const reactMethods = [];
+const reactApi = [];
 for (let method in React) {
-  reactMethods.push(<li>{method}</li>);
+  reactApi.push(<li>{method}</li>);
 }
 ```
 
 ```jsx
 <div>
-  React Methods:
-  <ul>{reactMethods}</ul>
+  List of React API entries:
+  <ul>{reactApi}</ul>
 </div>
 ```
 

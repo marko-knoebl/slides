@@ -54,6 +54,14 @@ Kein Leerzeichen:
 <img src="bar.png" />
 ```
 
+## Escapes
+
+Sonderzeichen wie `<` können mittels JavaScript eingefügt werden:
+
+```jsx
+<p>if a {'<'} b then ...</p>
+```
+
 ## Kommentare
 
 Kommentare können als JavaScript-Kommentare geschrieben werden:

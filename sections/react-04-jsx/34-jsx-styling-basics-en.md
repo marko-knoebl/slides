@@ -72,10 +72,10 @@ import { css } from '@emotion/css';
 
 ```js
 <div
-  className={css`
-    display: flex;
-    justify-content: center;
-  `}
+  className={css({
+    display: 'flex',
+    justifyContent: 'center',
+  })}
 >
   ...
 </div>

@@ -17,28 +17,6 @@ https://www.w3schools.com/jsref/dom_obj_event.asp
 
 ## Binding events
 
-note: an event handler must be a **function**, not a function call
-
-OK:
-
-```js
-<button onClick={() => alert('hello')}>Say Hello</button>
-```
-
-OK:
-
-```js
-<button onClick={alert}>Say something</button>
-```
-
-not OK:
-
-```js
-<button onClick={alert('hello')}>Say Hello</button>
-```
-
-## Binding events
-
 accessing the event object as a function parameter:
 
 ```js
@@ -52,6 +30,30 @@ accessing the event object as a function parameter:
 ```
 
 here the event will be a [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) object
+
+## Binding events
+
+note: an event handler must be a **function**, not a function call
+
+OK:
+
+```js
+<button onClick={(event) => handleEvent(event)}>
+  click
+</button>
+```
+
+OK:
+
+```js
+<button onClick={handleEvent}>click</button>
+```
+
+not OK:
+
+```js
+<button onClick={handleEvent()}>click</button>
+```
 
 ## Binding events
 

@@ -4,7 +4,7 @@
 
 mögliches Angriffsziel am Front-End: **XSS-Angriffe**
 
-ein böswilliger Benutzer stellt Inhalte auf unserer Website online (z.B. in einem Post oder auf der Profilseite) - wenn andere die Website besuchen, wird der böswillige Code im Browser des Beutzers ausgeführt, während dieser unsere Website besucht
+ein böswilliger Benutzer stellt Inhalte auf unserer Website online (z.B. in einem Post oder auf der Profilseite) - wenn andere die Website besuchen, wird der böswillige Code im Browser des jeweiligen Beutzers ausgeführt, während dieser unsere Website besucht
 
 [Demo für Experimente](https://codesandbox.io/s/jsx-xss-attack-gzb21j)
 

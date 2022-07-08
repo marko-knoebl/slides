@@ -2067,10 +2067,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>ein XML-Tag wechselt von JS zu XML/HTML</li>
 <li>geschweifte Klammern wechseln zurück zu JS</li>
 </ul>
-</section><section class="slide"><h2>JSX verwenden</h2>
-<p>in React Versionen &#x3C; 17 müssen wir das <code>React</code>-Objekt importieren, um <em>JSX</em> schreiben zu können</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-</code></pre>
 </section><section class="slide"><h2>Gültige Elemente in JSX</h2>
 <ul>
 <li>string</li>
@@ -2144,6 +2140,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>{" "}
 <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
 </code></pre>
+</section><section class="slide"><h2>Escapes</h2>
+<p>Sonderzeichen wie <code>&#x3C;</code> können mittels JavaScript eingefügt werden:</p>
+<pre><code class="hljs language-jsx">&#x3C;p><span class="hljs-keyword">if</span> a {<span class="hljs-string">'&#x3C;'</span>} b then ...&#x3C;/p>
+</code></pre>
 </section><section class="slide"><h2>Kommentare</h2>
 <p>Kommentare können als JavaScript-Kommentare geschrieben werden:</p>
 <pre><code class="hljs language-jsx">&#x3C;div>Hello World!{<span class="hljs-comment">/* this is a comment */</span>}&#x3C;/div>
@@ -2168,17 +2168,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Liste von Browser-Events:<br />
 <a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
 </section><section class="slide"><h2>Events binden</h2>
-<p>Achtung: Ein Event Handler muss eine <strong>Funktion</strong> sein, und nicht ein Funktionsaufruf</p>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">() =></span> alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
-</code></pre>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert}>Say something&#x3C;/button>
-</code></pre>
-<p>nicht OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={alert(<span class="hljs-string">'hello'</span>)}>Say Hello&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Events binden</h2>
 <p>Zugriff auf das Event-Objekt als Funktionsparameter:</p>
 <pre><code class="hljs language-js">&#x3C;button
   onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
@@ -2189,6 +2178,19 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 &#x3C;/button>
 </code></pre>
 <p>hier wird das Event ein <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a>-Objekt sein</p>
+</section><section class="slide"><h2>Events binden</h2>
+<p>Achtung: Ein Event Handler muss eine <strong>Funktion</strong> sein, und nicht ein Funktionsaufruf</p>
+<p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> handleEvent(event)}>
+  click
+&#x3C;/button>
+</code></pre>
+<p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={handleEvent}>click&#x3C;/button>
+</code></pre>
+<p>nicht OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={handleEvent()}>click&#x3C;/button>
+</code></pre>
 </section><section class="slide"><h2>Events binden</h2>
 <p>Standard-Verhalten eines Submit-Events in einem Formular: Direktes Senden von Daten zum Server</p>
 <p>Ersetzen des Standardverhaltens:</p>
@@ -2253,14 +2255,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Elemente wiederholen</h2>
 <p>Beispiel: Auflisten aller Methoden des <em>React</em>-Objekts</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> reactMethods = [];
+<p>Codesandbox: <a href="https://codesandbox.io/s/react-api-list-tjq60t?file=/src/ReactApiList.tsx" target="_blank">https://codesandbox.io/s/react-api-list-tjq60t?file=/src/ReactApiList.tsx</a></p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> reactApi = [];
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> method <span class="hljs-keyword">in</span> React) {
-  reactMethods.push(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{method}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>);
+  reactApi.push(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{method}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>);
 }
 </code></pre>
 <pre><code class="hljs language-jsx">&#x3C;div>
-  React Methods:
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactMethods}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+  List <span class="hljs-keyword">of</span> React API entries:
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactApi}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
 &#x3C;/div>
 </code></pre>
 </section><section class="slide"><h2>Elemente wiederholen</h2>
@@ -2344,10 +2347,10 @@ Lösung: <strong>key</strong>:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'@emotion/css'</span>;
 </code></pre>
 <pre><code class="hljs language-js">&#x3C;div
-  className={css`<span class="css">
-    <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;
-    <span class="hljs-selector-tag">justify-content</span>: <span class="hljs-selector-tag">center</span>;
-  `</span>}
+  className={css({
+    <span class="hljs-attr">display</span>: <span class="hljs-string">'flex'</span>,
+    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">'center'</span>,
+  })}
 >
   ...
 &#x3C;/div>
@@ -2357,7 +2360,7 @@ Lösung: <strong>key</strong>:</p>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX und Sicherheit</h1>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>
 <p>mögliches Angriffsziel am Front-End: <strong>XSS-Angriffe</strong></p>
-<p>ein böswilliger Benutzer stellt Inhalte auf unserer Website online (z.B. in einem Post oder auf der Profilseite) - wenn andere die Website besuchen, wird der böswillige Code im Browser des Beutzers ausgeführt, während dieser unsere Website besucht</p>
+<p>ein böswilliger Benutzer stellt Inhalte auf unserer Website online (z.B. in einem Post oder auf der Profilseite) - wenn andere die Website besuchen, wird der böswillige Code im Browser des jeweiligen Beutzers ausgeführt, während dieser unsere Website besucht</p>
 <p><a href="https://codesandbox.io/s/jsx-xss-attack-gzb21j" target="_blank">Demo für Experimente</a></p>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>
 <p>🙂 beim zuweisen von <em>Inhalten</em> werden XML-Tags automatisch escaped</p>
