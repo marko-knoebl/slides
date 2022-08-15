@@ -42,17 +42,19 @@ siehe auch: https://reactjs.org/docs/create-a-new-react-app.html
 
 Viele Aspekte können vorkonfiguriert sein:
 
-- Webpack und Babel für den Build
+- Build-System (z.B. webpack und babel)
 - lokaler Entwicklungsserver
 - Unittest-Framework
-- SCSS und CSS Module
+- CSS Module
 - ...
 
 ## Create-react-app: Standard Projektstruktur
 
-- `public/index.html`, `src/index.js`: Einstiegspunkte
-- `App.js`, `App.css`: Definieren App-Komponente
-- `node_modules`: Abhängigkeiten
+- _package.json_: Konfiguration, Liste an Abhängigkeiten
+- _node_modules_: Abhängigkeiten
+- _public/index.html_, _src/index.tsx_: Einstiegspunkte
+- _src/index.css_: globale Stildefinitionen
+- _src/App.tsx_, _src/App.css_: definierend die App-Komponente
 
 ## Create-react-app: Entwicklungsserver und Build
 

@@ -67,7 +67,7 @@ function StopWatch() {
     if (running) {
       const intervalId = setInterval(() => {
         setTime((time) => time + 1);
-      });
+      }, 1000);
       return () => clearInterval(intervalId);
     }
   }, [running]);

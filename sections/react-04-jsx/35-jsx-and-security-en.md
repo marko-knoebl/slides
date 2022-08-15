@@ -4,6 +4,10 @@
 
 potential threat on the front-end: **XSS attacks**
 
+## JSX and security
+
+XSS attacks:
+
 a malicious user submits some content to our website (e.g. in a post or on their profile page) - when other users visit the site, the malicious code will be executed in the other user's browser while visiting our website
 
 [demo for experiments](https://codesandbox.io/s/jsx-xss-attack-gzb21j)

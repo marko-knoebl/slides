@@ -42,17 +42,19 @@ see also: https://reactjs.org/docs/create-a-new-react-app.html
 
 many aspects can be preconfigured by the initializer:
 
-- webpack and babel for building
+- build system (e.g. webpack and babel)
 - local development server
 - unit testing framework
-- SCSS and CSS modules
+- CSS modules
 - ...
 
 ## Create-react-app: default project structure
 
-- `public/index.html`, `src/index.js`: entry points
-- `App.js`, `App.css`: define the App component
-- `node_modules`: dependencies
+- _package.json_: configuration, list of direct dependencies
+- _node_modules_: dependencies
+- _public/index.html_, _src/index.tsx_: entry points
+- _src/index.css_: global style declarations
+- _src/App.tsx_, _src/App.css_: define the App component
 
 ## Create-react-app: development server and build
 

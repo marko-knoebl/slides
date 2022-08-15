@@ -49,9 +49,12 @@ no space:
 
 "force" a space in JSX:
 
-```xml
-<img src="foo.png" />{" "}
-<img src="bar.png" />
+<!-- prettier-ignore -->
+```jsx
+<p>
+  long multi-line text where spaces{' '}
+  <strong>are wanted</strong>
+</p>
 ```
 
 ## Escapes
@@ -59,7 +62,9 @@ no space:
 Special characters like `<` can be inserted via JavaScript:
 
 ```jsx
-<p>if a {'<'} b then ...</p>
+<p>
+  if a {'<'} max {'&'} a {'>'} min then ...
+</p>
 ```
 
 ## Comments

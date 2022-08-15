@@ -6,7 +6,7 @@ verbreiteter Use Case: "Wrapper" für bestehende Elemente zwecks Styling:
 
 ```tsx
 function Button(
-  props: React.ComponentPropsWithRef<'button'>
+  props: React.ComponentPropsWithoutRef<'button'>
 ) {
   // return a "button" element with one extra CSS class
   return (
@@ -16,6 +16,23 @@ function Button(
         props.className ? props.className + ' btn' : 'btn'
       }
     />
+  );
+}
+```
+
+## "Wrapper" für bestehende Elemente
+
+```tsx
+type Props = ComponentPropsWithoutRef<'input'> & {
+  label: string;
+};
+
+function InputWithLabel(props: Props) {
+  const { label, ...rest } = props;
+  return (
+    <label>
+      {label}: <input {...rest} />
+    </label>
   );
 }
 ```

@@ -4,11 +4,12 @@
 
 multiple elements may be added via arrays:
 
+<!-- prettier-ignore -->
 ```jsx
 const elements = [
   <li>foo</li>,
   <li>bar</li>,
-  <li>foobar</li>,
+  <li>baz</li>,
 ];
 ```
 
@@ -21,14 +22,18 @@ const elements = [
 
 ## Repeating elements
 
-example: displaying all method names of the _React_ object inside a _ul_ element
+example: listing all entries in the _react_ package
 
 codesandbox: https://codesandbox.io/s/react-api-list-tjq60t?file=/src/ReactApiList.tsx
 
+```js
+import * as React from 'react';
+```
+
 ```jsx
 const reactApi = [];
-for (let method in React) {
-  reactApi.push(<li>{method}</li>);
+for (let entry in React) {
+  reactApi.push(<li>{entry}</li>);
 }
 ```
 
@@ -41,7 +46,7 @@ for (let method in React) {
 
 ## Repeating elements
 
-typically, repeated elements are created via `.map`:
+typically, repeated elements are created from arrays of data via `.map`:
 
 ```js
 const initialTodos = [
@@ -65,7 +70,8 @@ function TodoApp() {
 ## Repeating elements
 
 With the above code:  
-warning in the browser console (concerning efficiency)  
+warning in the browser console (concerning efficiency)
+
 solution: **key**:
 
 ```jsx
@@ -74,4 +80,19 @@ solution: **key**:
     <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
+```
+
+## Exercise
+
+exercise: for the slideshow, create small previews for 5 images (2 previous, current, 2 upcoming)
+
+hint: example code for creating preview ids:
+
+```js
+const previewIds = [];
+for (let i = img - 2; i <= img + 2; i++) {
+  if (i >= 0) {
+    previewIds.push(i);
+  }
+}
 ```

@@ -2061,6 +2061,17 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>JSX</h1>
+</section><section class="slide"><h2>Themen</h2>
+<ul>
+<li>Binden von Inhalten und Properties</li>
+<li>Whitespace, Kommentare, Escapes und Fragmente</li>
+<li>if / else</li>
+<li>Wiederholen von Elementen</li>
+<li>Styling-Grundlagen</li>
+<li>Binden von Events</li>
+<li>JSX und Sicherheit</li>
+<li>Kompilierung</li>
+</ul>
 </section><section class="slide"><h2>JSX</h2>
 <p>JSX = Templatesprache von React</p>
 <ul>
@@ -2137,12 +2148,17 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <!-- prettier-ignore-end -->
 </section><section class="slide"><h2>Whitespace</h2>
 <p>"Erzwungenes" Einfügen eines Leerzeichens in JSX:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.png"</span> /></span>{" "}
-<span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bar.png"</span> /></span>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-jsx">&#x3C;p>
+  long multi-line text where spaces{<span class="hljs-string">' '</span>}
+  &#x3C;strong>are wanted&#x3C;/strong>
+&#x3C;/p>
 </code></pre>
 </section><section class="slide"><h2>Escapes</h2>
 <p>Sonderzeichen wie <code>&#x3C;</code> können mittels JavaScript eingefügt werden:</p>
-<pre><code class="hljs language-jsx">&#x3C;p><span class="hljs-keyword">if</span> a {<span class="hljs-string">'&#x3C;'</span>} b then ...&#x3C;/p>
+<pre><code class="hljs language-jsx">&#x3C;p>
+  <span class="hljs-keyword">if</span> a {<span class="hljs-string">'&#x3C;'</span>} max {<span class="hljs-string">'&#x26;'</span>} a {<span class="hljs-string">'>'</span>} min then ...
+&#x3C;/p>
 </code></pre>
 </section><section class="slide"><h2>Kommentare</h2>
 <p>Kommentare können als JavaScript-Kommentare geschrieben werden:</p>
@@ -2157,144 +2173,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-tag">&#x3C;/></span></span>
 );
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX: Binden von Events</h1>
-</section><section class="slide"><h2>Events binden</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params"></span>) </span>{
-  alert(<span class="hljs-string">'hello world'</span>);
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> sayHello()}>Say Hello&#x3C;/button>
-</code></pre>
-<p>Liste von Browser-Events:<br />
-<a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
-</section><section class="slide"><h2>Events binden</h2>
-<p>Zugriff auf das Event-Objekt als Funktionsparameter:</p>
-<pre><code class="hljs language-js">&#x3C;button
-  onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    <span class="hljs-built_in">console</span>.log(event);
-  }}
->
-  click me
-&#x3C;/button>
-</code></pre>
-<p>hier wird das Event ein <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a>-Objekt sein</p>
-</section><section class="slide"><h2>Events binden</h2>
-<p>Achtung: Ein Event Handler muss eine <strong>Funktion</strong> sein, und nicht ein Funktionsaufruf</p>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> handleEvent(event)}>
-  click
-&#x3C;/button>
-</code></pre>
-<p>OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={handleEvent}>click&#x3C;/button>
-</code></pre>
-<p>nicht OK:</p>
-<pre><code class="hljs language-js">&#x3C;button onClick={handleEvent()}>click&#x3C;/button>
-</code></pre>
-</section><section class="slide"><h2>Events binden</h2>
-<p>Standard-Verhalten eines Submit-Events in einem Formular: Direktes Senden von Daten zum Server</p>
-<p>Ersetzen des Standardverhaltens:</p>
-<pre><code class="hljs language-jsx">&#x3C;form
-  onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
-    event.preventDefault();
-    <span class="hljs-comment">// handle submit with custom logic</span>
-  }}
->
-  ...
-&#x3C;/form>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX: if / else</h1>
-</section><section class="slide"><h2>if / else</h2>
-<p>inline-Bedingung:</p>
-<pre><code class="hljs language-jsx">&#x3C;div>
-  {gameActive ? (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span>></span>score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span></span>
-  ) : (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span>></span>Game over. Final score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span></span>
-  )}
-&#x3C;/div>
-</code></pre>
-</section><section class="slide"><h2>if / else</h2>
-<p>if / else Statement:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">let</span> statusMessage;
-<span class="hljs-keyword">if</span> (gameActive) {
-  statusMessage = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span>></span>score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span></span>;
-} <span class="hljs-keyword">else</span> {
-  statusMessage = (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span>></span>Game over. Final score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span></span>
-  );
-}
-
-<span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{statusMessage}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-</code></pre>
-</section><section class="slide"><h2>if</h2>
-<pre><code class="hljs language-jsx">&#x3C;div>{isError ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{errorMessage}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>}&#x3C;/div>
-</code></pre>
-</section><section class="slide"><h2>if</h2>
-<p>kürzere Version:</p>
-<pre><code class="hljs language-jsx">&#x3C;div>{isError &#x26;&#x26; <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{errorMessage}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}&#x3C;/div>
-</code></pre>
-<p>Der Operator <code>&#x26;&#x26;</code> in JavaScript:</p>
-<pre><code class="hljs language-js"><span class="hljs-literal">true</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// 'my message'</span>
-
-<span class="hljs-literal">false</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// false</span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>JSX: Elemente wiederholen</h1>
-</section><section class="slide"><h2>Elemente wiederholen</h2>
-<p>Mehrere Elemente können via Arrays eingebunden werden:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>bar<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>foobar<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
-];
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;h1>three elements&#x3C;/h1>
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-  {elements}
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-</code></pre>
-</section><section class="slide"><h2>Elemente wiederholen</h2>
-<p>Beispiel: Auflisten aller Methoden des <em>React</em>-Objekts</p>
-<p>Codesandbox: <a href="https://codesandbox.io/s/react-api-list-tjq60t?file=/src/ReactApiList.tsx" target="_blank">https://codesandbox.io/s/react-api-list-tjq60t?file=/src/ReactApiList.tsx</a></p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> reactApi = [];
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> method <span class="hljs-keyword">in</span> React) {
-  reactApi.push(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{method}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>);
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;div>
-  List <span class="hljs-keyword">of</span> React API entries:
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactApi}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-&#x3C;/div>
-</code></pre>
-</section><section class="slide"><h2>Elemente wiederholen</h2>
-<p>oft werden wiederholte Elemente via <code>.map</code> erstellt:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'cooking'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-];
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-      {todos.map((todo) => (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Elemente wiederholen</h2>
-<p>Bei obigem Code:<br />
-Warnung in der Browser-Konsole (Wegen Effizienz)<br />
-Lösung: <strong>key</strong>:</p>
-<pre><code class="hljs language-jsx">&#x3C;ul>
-  {todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>
-  ))}
-&#x3C;/ul>
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX und Styling Grundlagen</h1>
 </section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
 <p>In React-Projekten sind Style-Definitionen üblicherweise nahe bei den betroffenen Komponenten-Definitionen zu finden</p>
@@ -2305,17 +2183,42 @@ Lösung: <strong>key</strong>:</p>
 <li>Inline Stil-Definition im Komponenten-Template</li>
 </ul>
 </section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.css'</span>;
+<p>Styling in CSS-Dateien: typischerweise separate CSS-Datei für jede Komponente:</p>
+<ul>
+<li><em>index.js</em></li>
+<li><em>index.css</em> (globale CSS-Deklarationen / -Resets)</li>
+<li><em>App.js</em></li>
+<li><em>App.css</em></li>
+<li><em>TodoItem.js</em></li>
+<li><em>TodoItem.css</em></li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
+<p>Einbinden von CSS-Deklarationen im Bundle:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// in TodoItem.js</span>
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">'./TodoItem.css'</span>;
 </code></pre>
+</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
+<p>mögliche Struktur von CSS-Klassen via BEM: <strong>B</strong>locks, <strong>E</strong>lements, <strong>M</strong>odifiers</p>
 <pre><code class="hljs language-jsx">&#x3C;li
   className={
-    isCompleted ? <span class="hljs-string">'todoitem completed'</span> : <span class="hljs-string">'todoitem'</span>
+    isCompleted
+      ? <span class="hljs-string">'TodoItem TodoItem--Completed'</span>
+      : <span class="hljs-string">'TodoItem'</span>
   }
 >
-  [...]
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"TodoItem__Title"</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">span</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">input</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"TodoItem__Checkbox"</span> /></span></span>
+  ...
 &#x3C;/li>
 </code></pre>
-<p>es gibt Hilfslibraries, die die <em>className</em>-Property dynamisch generieren</p>
+</section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
+<p>Werkzeuge, die bei Stylesheets hilfreich sein können:</p>
+<ul>
+<li><em>classnames</em>, <em>clsx</em>: zum Zusammensetzen von Klassennamen-Strings</li>
+<li>CSS-Module: für "scoping"</li>
+</ul>
 </section><section class="slide"><h2>JSX und Styling Grundlagen</h2>
 <p>CSS-in-JS: Stile werden in JavaScript definiert</p>
 <p>Möglichkeiten:</p>
@@ -2357,9 +2260,197 @@ Lösung: <strong>key</strong>:</p>
 </code></pre>
 </section><section class="slide"><h2>Übung</h2>
 <p>Übung: Füge (weiteres) Styling zur Bilder-Slideshow hinzu</p>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: if / else</h1>
+</section><section class="slide"><h2>if / else</h2>
+<p>Möglichkeiten, um if / else in JSX zu verwenden:</p>
+<ul>
+<li>Verwenden des ternären Operators (<code>?</code>) im Template</li>
+<li>Vorbereiten von Werten mittels if / else <em>bevor zu XML gewechselt wird</em></li>
+<li>if / else, welches mehrere return-Statements beinhaltet - mit verschiedenen XML-Inhalten</li>
+</ul>
+</section><section class="slide"><h2>if / else</h2>
+<p>inline-Bedingung:</p>
+<pre><code class="hljs language-jsx">&#x3C;div>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Foo Game<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
+  {gameActive ? (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  ) : (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Game over. Final score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  )}
+&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>if / else</h2>
+<p>if / else Statement vor dem Template:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">let</span> statusMessage;
+<span class="hljs-keyword">if</span> (gameActive) {
+  statusMessage = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+} <span class="hljs-keyword">else</span> {
+  statusMessage = (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Game over. Final score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+
+<span class="hljs-keyword">return</span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>FooGame<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    {statusMessage}
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+);
+</code></pre>
+</section><section class="slide"><h2>if / else</h2>
+<p>mehrere return-Statements:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">if</span> (gameActive) {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>FooGame<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>FooGame<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Game over. Final score: {score}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>if</h2>
+<p>if - ohne else:</p>
+<pre><code class="hljs language-jsx">&#x3C;div>{isError ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{errorMessage}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>}&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>if</h2>
+<p>möglichere kürzere Version:</p>
+<pre><code class="hljs language-jsx">&#x3C;div>{isError &#x26;&#x26; <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{errorMessage}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}&#x3C;/div>
+</code></pre>
+<p>Der Operator <code>&#x26;&#x26;</code> in JavaScript:</p>
+<pre><code class="hljs language-js"><span class="hljs-literal">true</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// 'my message'</span>
+
+<span class="hljs-literal">false</span> &#x26;&#x26; <span class="hljs-string">'my message'</span>; <span class="hljs-comment">// false</span>
+</code></pre>
+<p>Die Werte <code>true</code> und <code>false</code> werden in JSX nicht dargestellt (genauso wie <code>null</code>)</p>
+</section><section class="slide"><h2>Übung</h2>
+<p>Übung: In der Slideshow, verstecke Buttons, die nicht angeklickt werden können (z.B. den <em>previous</em>-Button wenn der Benutzer beim ersten Bild ist)</p>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: Elemente wiederholen</h1>
+</section><section class="slide"><h2>Elemente wiederholen</h2>
+<p>Mehrere Elemente können via Arrays eingebunden werden:</p>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> elements = [
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>bar<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>baz<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>,
+];
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;h1>three elements&#x3C;/h1>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+  {elements}
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+</code></pre>
+</section><section class="slide"><h2>Elemente wiederholen</h2>
+<p>Beispiel: Auflisten aller Einträge des <em>React</em>-Objekts</p>
+<p>Codesandbox: <a href="https://codesandbox.io/s/react-api-list-tjq60t?file=/src/ReactApiList.tsx" target="_blank">https://codesandbox.io/s/react-api-list-tjq60t?file=/src/ReactApiList.tsx</a></p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+</code></pre>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> reactApi = [];
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> entry <span class="hljs-keyword">in</span> React) {
+  reactApi.push(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{entry}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>);
+}
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;div>
+  List <span class="hljs-keyword">of</span> React API entries:
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>{reactApi}<span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+&#x3C;/div>
+</code></pre>
+</section><section class="slide"><h2>Elemente wiederholen</h2>
+<p>oft werden wiederholte Elemente aus Arrays von Daten via <code>.map</code> erstellt:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialTodos = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'cooking'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'gardening'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+];
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState(initialTodos);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
+      {todos.map((todo) => (
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
+      ))}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Elemente wiederholen</h2>
+<p>Bei obigem Code:<br />
+Warnung in der Browser-Konsole (Wegen Effizienz)</p>
+<p>Lösung: <strong>key</strong>:</p>
+<pre><code class="hljs language-jsx">&#x3C;ul>
+  {todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{todo.id}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span></span>
+  ))}
+&#x3C;/ul>
+</code></pre>
+</section><section class="slide"><h2>Übung</h2>
+<p>Übung: für die Slideshow, erstelle kleine Vorschaubilder für 5 Bilder (2 vorhergehende, aktuelles, 2 folgende)</p>
+<p>Hinweise: möglicher Code, um Vorschau-IDs zu generieren:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> previewIds = [];
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = img - <span class="hljs-number">2</span>; i &#x3C;= img + <span class="hljs-number">2</span>; i++) {
+  <span class="hljs-keyword">if</span> (i >= <span class="hljs-number">0</span>) {
+    previewIds.push(i);
+  }
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>JSX: Binden von Events</h1>
+</section><section class="slide"><h2>Events binden</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params"></span>) </span>{
+  alert(<span class="hljs-string">'hello world'</span>);
+}
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> sayHello()}>Say Hello&#x3C;/button>
+</code></pre>
+<p>Liste von Browser-Events:<br />
+<a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_event.asp</a></p>
+</section><section class="slide"><h2>Events binden</h2>
+<p>Zugriff auf das Event-Objekt als Funktionsparameter:</p>
+<pre><code class="hljs language-js">&#x3C;button
+  onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(event);
+  }}
+>
+  click me
+&#x3C;/button>
+</code></pre>
+<p>hier wird das Event ein <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">MouseEvent</a>-Objekt sein</p>
+</section><section class="slide"><h2>Events binden</h2>
+<p>Achtung: Ein Event Handler muss eine <strong>Funktion</strong> sein, und nicht ein Funktionsaufruf</p>
+<p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> handleEvent(event)}>
+  click
+&#x3C;/button>
+</code></pre>
+<p>OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={handleEvent}>click&#x3C;/button>
+</code></pre>
+<p>nicht OK:</p>
+<pre><code class="hljs language-js">&#x3C;button onClick={handleEvent()}>click&#x3C;/button>
+</code></pre>
+</section><section class="slide"><h2>Events binden</h2>
+<p>Standard-Verhalten eines <strong>Submit-Events in einem Formular</strong>: Direktes Senden von Daten zum Server</p>
+<p>Ersetzen des Standardverhaltens:</p>
+<pre><code class="hljs language-jsx">&#x3C;form
+  onSubmit={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
+    event.preventDefault();
+    <span class="hljs-comment">// handle submit with custom logic</span>
+  }}
+>
+  ...
+&#x3C;/form>
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>JSX und Sicherheit</h1>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>
 <p>mögliches Angriffsziel am Front-End: <strong>XSS-Angriffe</strong></p>
+</section><section class="slide"><h2>JSX und Sicherheit</h2>
+<p>XSS-Angriffe:</p>
 <p>ein böswilliger Benutzer stellt Inhalte auf unserer Website online (z.B. in einem Post oder auf der Profilseite) - wenn andere die Website besuchen, wird der böswillige Code im Browser des jeweiligen Beutzers ausgeführt, während dieser unsere Website besucht</p>
 <p><a href="https://codesandbox.io/s/jsx-xss-attack-gzb21j" target="_blank">Demo für Experimente</a></p>
 </section><section class="slide"><h2>JSX und Sicherheit</h2>

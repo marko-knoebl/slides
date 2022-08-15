@@ -12,21 +12,50 @@ possibilities:
 
 ## JSX and styling basics
 
+styling in CSS files: typically separate CSS file for every component:
+
+- _index.js_
+- _index.css_ (global CSS declarations / resets)
+- _App.js_
+- _App.css_
+- _TodoItem.js_
+- _TodoItem.css_
+- ...
+
+## JSX and styling basics
+
+including CSS declarations in the bundle:
+
 ```js
+// in TodoItem.js
+
 import './TodoItem.css';
 ```
+
+## JSX and styling basics
+
+possible structure of CSS classes via BEM: **B**locks, **E**lements, **M**odifiers
 
 ```jsx
 <li
   className={
-    isCompleted ? 'todoitem completed' : 'todoitem'
+    isCompleted
+      ? 'TodoItem TodoItem--Completed'
+      : 'TodoItem'
   }
 >
-  [...]
+  <span className="TodoItem__Title">...</span>
+  <input className="TodoItem__Checkbox" />
+  ...
 </li>
 ```
 
-there are helper libraries that will generate the _className_ property dynamically
+## JSX and styling basics
+
+tooling that can help with stylesheets:
+
+- _classnames_, _clsx_: for joining class name strings
+- CSS modules: for "scoping"
 
 ## JSX and styling basics
 

@@ -1,8 +1,8 @@
-# Examples: querying APIs from React
+# Beispiele: Abfragen von APIs aus React
 
-## Examples: querying APIs from React
+## Beispiele: Abfragen von APIs aus React
 
-loading todos in a React component:
+Laden von Todos in einer React-Komponente:
 
 ```js
 const [todos, setTodos] = useState([]);
@@ -18,9 +18,9 @@ async function loadTodos() {
 </button>
 ```
 
-## Examples: querying APIs from React
+## Beispiele: Abfragen von APIs aus React
 
-code for adding a loading indicator:
+Code für das Hinzufügen eines Ladeindikators:
 
 ```js
 const [todos, setTodos] = useState([]);
@@ -28,15 +28,19 @@ const [loadingStatus, setLoadingStatus] = useState('idle');
 
 async function loadTodos() {
   setLoadingStatus('loading');
-  const todos = await fetchTodos();
+  try {
+    const todos = await fetchTodos();
+  } catch (e) {
+    setLoadingStatus('error');
+  }
   setTodos(todos);
   setLoadingStatus('success');
 }
 ```
 
-## Examples: querying APIs from React
+## Beispiele: Abfragen von APIs aus React
 
-loading exchange rate data:
+Laden von Wechselkursdaten:
 
 ```ts
 const [usdRates, setUsdRates] = useState<

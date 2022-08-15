@@ -4,11 +4,12 @@
 
 Mehrere Elemente können via Arrays eingebunden werden:
 
+<!-- prettier-ignore -->
 ```jsx
 const elements = [
   <li>foo</li>,
   <li>bar</li>,
-  <li>foobar</li>,
+  <li>baz</li>,
 ];
 ```
 
@@ -21,14 +22,18 @@ const elements = [
 
 ## Elemente wiederholen
 
-Beispiel: Auflisten aller Methoden des _React_-Objekts
+Beispiel: Auflisten aller Einträge des _React_-Objekts
 
 Codesandbox: https://codesandbox.io/s/react-api-list-tjq60t?file=/src/ReactApiList.tsx
 
+```js
+import * as React from 'react';
+```
+
 ```jsx
 const reactApi = [];
-for (let method in React) {
-  reactApi.push(<li>{method}</li>);
+for (let entry in React) {
+  reactApi.push(<li>{entry}</li>);
 }
 ```
 
@@ -41,7 +46,7 @@ for (let method in React) {
 
 ## Elemente wiederholen
 
-oft werden wiederholte Elemente via `.map` erstellt:
+oft werden wiederholte Elemente aus Arrays von Daten via `.map` erstellt:
 
 ```js
 const initialTodos = [
@@ -65,7 +70,8 @@ function TodoApp() {
 ## Elemente wiederholen
 
 Bei obigem Code:  
-Warnung in der Browser-Konsole (Wegen Effizienz)  
+Warnung in der Browser-Konsole (Wegen Effizienz)
+
 Lösung: **key**:
 
 ```jsx
@@ -74,4 +80,19 @@ Lösung: **key**:
     <li key={todo.id}>{todo.title}</li>
   ))}
 </ul>
+```
+
+## Übung
+
+Übung: für die Slideshow, erstelle kleine Vorschaubilder für 5 Bilder (2 vorhergehende, aktuelles, 2 folgende)
+
+Hinweise: möglicher Code, um Vorschau-IDs zu generieren:
+
+```js
+const previewIds = [];
+for (let i = img - 2; i <= img + 2; i++) {
+  if (i >= 0) {
+    previewIds.push(i);
+  }
+}
 ```

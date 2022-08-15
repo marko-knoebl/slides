@@ -2386,6 +2386,64 @@ function Rating(props: RatingProps) {
 <p>Task: "recreate" one of the components listed at <a href="https://github.com/brillout/awesome-react-components" target="_blank">awesome-react-components</a> (e.g. bar chart, color picker, table / data grid, tabs)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Passing content to components</h1>
 </section><section class="slide"><h2>Passing content to components</h2>
+<p>examples:</p>
+<pre><code class="hljs language-jsx">&#x3C;ConfirmationDialog
+  header={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Warning<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>}
+  body={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>warning message<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
+/>
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;PageLayout
+  header={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
+  main={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
+  footer={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
+/>
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;Divider
+  left={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
+  right={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
+>
+</code></pre>
+</section><section class="slide"><h2>Passing content to components</h2>
+<p>implementation of a <code>ConfirmationDialog</code>:</p>
+<pre><code class="hljs language-js">interface Props {
+  <span class="hljs-attr">header</span>: ReactNode;
+  body: ReactNode;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ConfirmationDialog</span>(<span class="hljs-params">props: Props</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">header</span>></span>{props.header}<span class="hljs-tag">&#x3C;/<span class="hljs-name">header</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{props.body}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>OK<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Passing content to components</h2>
+<p>these notations are equivalent:</p>
+<pre><code class="hljs language-jsx">&#x3C;Notification
+  type=<span class="hljs-string">"error"</span>
+  children={
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  }
+/>
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+&#x3C;/Notification>
+</code></pre>
+</section><section class="slide"><h2>Passing content to components</h2>
+<p>anything passed between opening and closing tags will be received as <code>props.children</code></p>
+</section><section class="slide"><h2>Passing content to components</h2>
 <p>A component may receive content to be displayed via <code>props.children</code></p>
 <p>possible usage:</p>
 <pre><code class="hljs language-jsx">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
@@ -2394,29 +2452,16 @@ function Rating(props: RatingProps) {
 &#x3C;/Notification>
 </code></pre>
 </section><section class="slide"><h2>Passing content to components</h2>
-<p>component definition:</p>
-<pre><code class="hljs language-tsx">type Props = {
-  type: string;
-  children: React.ReactNode;
-};
-
-function Notification(props: Props) {
-  const color =
-    props.type === 'error' ? 'salmon' : 'lightblue';
-
-  return (
-    &#x3C;div style={{ backgroundColor: color }}>
-      {props.children}
-    &#x3C;/div>
-  );
-}
+<p>Exercise: Card component with Styling (<a href="https://www.w3schools.com/howto/howto_css_cards.asp" target="_blank">example</a>)</p>
+<pre><code class="hljs language-jsx">&#x3C;Card>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>content<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+&#x3C;/Card>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Wrapping existing elements</h1>
 </section><section class="slide"><h2>Wrapping existing elements</h2>
 <p>common use case: wrap existing elements for styling:</p>
-<pre><code class="hljs language-tsx">function Button(
-  props: React.ComponentPropsWithRef&#x3C;'button'>
-) {
+<pre><code class="hljs language-tsx">function Button(props: ComponentPropsWithoutRef&#x3C;'button'>) {
   // return a "button" element with one extra CSS class
   return (
     &#x3C;button
@@ -2425,6 +2470,20 @@ function Notification(props: Props) {
         props.className ? props.className + ' btn' : 'btn'
       }
     />
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Wrapping existing elements</h2>
+<pre><code class="hljs language-tsx">type Props = ComponentPropsWithoutRef&#x3C;'input'> &#x26; {
+  label: string;
+};
+
+function InputWithLabel(props: Props) {
+  const { label, ...rest } = props;
+  return (
+    &#x3C;label>
+      {label}: &#x3C;input {...rest} />
+    &#x3C;/label>
   );
 }
 </code></pre>

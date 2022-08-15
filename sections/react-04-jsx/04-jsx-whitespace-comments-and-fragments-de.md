@@ -49,9 +49,12 @@ Kein Leerzeichen:
 
 "Erzwungenes" Einfügen eines Leerzeichens in JSX:
 
-```xml
-<img src="foo.png" />{" "}
-<img src="bar.png" />
+<!-- prettier-ignore -->
+```jsx
+<p>
+  long multi-line text where spaces{' '}
+  <strong>are wanted</strong>
+</p>
 ```
 
 ## Escapes
@@ -59,7 +62,9 @@ Kein Leerzeichen:
 Sonderzeichen wie `<` können mittels JavaScript eingefügt werden:
 
 ```jsx
-<p>if a {'<'} b then ...</p>
+<p>
+  if a {'<'} max {'&'} a {'>'} min then ...
+</p>
 ```
 
 ## Kommentare

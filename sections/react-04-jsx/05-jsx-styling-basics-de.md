@@ -12,21 +12,50 @@ Möglichkeiten:
 
 ## JSX und Styling Grundlagen
 
+Styling in CSS-Dateien: typischerweise separate CSS-Datei für jede Komponente:
+
+- _index.js_
+- _index.css_ (globale CSS-Deklarationen / -Resets)
+- _App.js_
+- _App.css_
+- _TodoItem.js_
+- _TodoItem.css_
+- ...
+
+## JSX und Styling Grundlagen
+
+Einbinden von CSS-Deklarationen im Bundle:
+
 ```js
+// in TodoItem.js
+
 import './TodoItem.css';
 ```
+
+## JSX und Styling Grundlagen
+
+mögliche Struktur von CSS-Klassen via BEM: **B**locks, **E**lements, **M**odifiers
 
 ```jsx
 <li
   className={
-    isCompleted ? 'todoitem completed' : 'todoitem'
+    isCompleted
+      ? 'TodoItem TodoItem--Completed'
+      : 'TodoItem'
   }
 >
-  [...]
+  <span className="TodoItem__Title">...</span>
+  <input className="TodoItem__Checkbox" />
+  ...
 </li>
 ```
 
-es gibt Hilfslibraries, die die _className_-Property dynamisch generieren
+## JSX und Styling Grundlagen
+
+Werkzeuge, die bei Stylesheets hilfreich sein können:
+
+- _classnames_, _clsx_: zum Zusammensetzen von Klassennamen-Strings
+- CSS-Module: für "scoping"
 
 ## JSX und Styling Grundlagen
 

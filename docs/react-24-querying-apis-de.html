@@ -2143,7 +2143,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
   setLoadingStatus(<span class="hljs-string">'loading'</span>);
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
+  } <span class="hljs-keyword">catch</span> (e) {
+    setLoadingStatus(<span class="hljs-string">'error'</span>);
+  }
   setTodos(todos);
   setLoadingStatus(<span class="hljs-string">'success'</span>);
 }

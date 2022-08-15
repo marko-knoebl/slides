@@ -1,5 +1,16 @@
 # JSX
 
+## Topics
+
+- binding content and properties
+- whitespace, comments, escapes and fragments
+- if / else
+- repeating elements
+- styling basics
+- binding events
+- JSX and security
+- compilation
+
 ## JSX
 
 JSX = template language of React

@@ -57,7 +57,7 @@ not OK:
 
 ## Binding events
 
-Default behavior of a submit event in a form: directly send data to the server
+Default behavior of a **submit event in a form**: directly send data to the server
 
 Replacing the default behavior:
 
