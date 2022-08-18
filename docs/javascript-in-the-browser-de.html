@@ -2132,6 +2132,112 @@ prompt(<span class="hljs-string">"What's your name?"</span>);
 </ul>
 </section><section class="slide"><h2>Debugger im Browser</h2>
 <p>Beobachten von Variablen</p>
+</section></section><section class="slides-section"><section class="slide"><h1>JavaScript: Drag and drop</h1>
+</section><section class="slide"><h2>Themen</h2>
+<ul>
+<li>Drag and drop</li>
+<li>JavaScript Wiederholung / Vertiefung</li>
+</ul>
+</section><section class="slide"><h2>Vorschau: Resultate</h2>
+</section><section class="slide"><h2>Vorwissen / Wiederholung</h2>
+<ul>
+<li><code>for ... of</code></li>
+<li>Template-Strings</li>
+<li>Pfeilfunktionen</li>
+</ul>
+<!-- list separator -->
+<ul>
+<li><code>getElementById</code> / <code>getElementsByClassName</code> / <code>querySelectorAll</code></li>
+<li><code>addEventListener</code></li>
+<li><code>innerText</code> / <code>innerHTML</code></li>
+<li><code>preventDefault</code></li>
+</ul>
+</section><section class="slide"><h2>Drag and drop</h2>
+<ul>
+<li><strong>Drag and drop von Elementen innerhalb eines HTML-Dokuments (in ein anderes Element hinein)</strong></li>
+<li>Drag and drop von Elementen außerhalb des Browsers in das Dokument hinein (z.B. Text in ein Eingabefeld hinein)</li>
+<li>Drag and drop von Elementen innerhalb des Browser nach draußen (z.B. Text in einen Texteditor)</li>
+</ul>
+</section><section class="slide"><h2>Draggable</h2>
+<p>Elemente, die standardmäßig "draggable" sind:</p>
+<ul>
+<li>ausgewählter Text</li>
+<li>Bilder</li>
+<li>Links</li>
+</ul>
+<p>Frage: praktische Anwendung? / Wohin können wir ziehen?</p>
+</section><section class="slide"><h2>Draggable</h2>
+<p>weitere Elemente "draggable" machen:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">draggable</span>=<span class="hljs-string">"true"</span>></span>drag me!<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Drag-Events</h2>
+<p>welche Drag-Events gibt es?</p>
+<p>und auf welchen Elementen werden diese ausgelöst?</p>
+</section><section class="slide"><h2>Drag and drop events</h2>
+<p>Events des "bewegten" Elements:</p>
+<ul>
+<li><em>dragstart</em></li>
+<li><em>drag</em></li>
+<li><em>dragend</em></li>
+</ul>
+<!-- sep -->
+<p>Events des Ziels:</p>
+<ul>
+<li><em>dragenter</em></li>
+<li><em>dragover</em></li>
+<li><em>dragleave</em></li>
+<li><em>drop</em></li>
+</ul>
+</section><section class="slide"><h2>Events</h2>
+<p>Übung: mehrere "draggable" Elemente, die jeweils anzeigen, wie of sie schon "gedraggt" wurden</p>
+</section><section class="slide"><h2>Drag and drop</h2>
+<p>"drop" auf Elementen erlauben:</p>
+<p>bei "dragenter" und "dragover" Events des Ziels <code>.preventDefault()</code> aufrufen</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onDragEnter</span>(<span class="hljs-params">event</span>) </span>{
+  event.preventDefault();
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onDragOver</span>(<span class="hljs-params">event</span>) </span>{
+  event.preventDefault();
+}
+</code></pre>
+</section><section class="slide"><h2>Drag and drop</h2>
+<p>auf "drop" reagieren:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onDrop</span>(<span class="hljs-params">event</span>) </span>{
+  event.preventDefault();
+  event.target.innerText += <span class="hljs-string">' drop '</span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Drag and drop</h2>
+<p>Übung: ein Element das mitzählt, wie oft auf es gedroppt wurde</p>
+</section><section class="slide"><h2>Drag and drop: Daten mitgeben</h2>
+<p>Bei "drag start" Daten bestimmter Formate mitgeben:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onDragStart</span>(<span class="hljs-params">event</span>) </span>{
+  event.dataTransfer.setData(<span class="hljs-string">'text/plain'</span>, <span class="hljs-string">'foo bar'</span>);
+  event.dataTransfer.setData(
+    <span class="hljs-string">'text/html'</span>,
+    <span class="hljs-string">'&#x3C;em>foo&#x3C;/em> bar'</span>
+  );
+}
+</code></pre>
+<p>Beispiel: Draggen von HTML-Inhalten nach <em>Word</em> und in einen <em>Plain-Text-Editor</em></p>
+</section><section class="slide"><h2>Drag and drop: Daten mitgeben und wieder auslesen</h2>
+<p>bei "drag start" Daten eines Bestimmten Types mitgeben:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onDragStart</span>(<span class="hljs-params">event</span>) </span>{
+  event.dataTransfer.setData(<span class="hljs-string">'text/plain'</span>, <span class="hljs-string">'foo'</span>);
+}
+</code></pre>
+<p>bei "drag end" Daten auslesen:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onDrop</span>(<span class="hljs-params">event</span>) </span>{
+  event.preventDefault();
+  <span class="hljs-keyword">const</span> data = event.dataTransfer.getData(<span class="hljs-string">'text/plain'</span>);
+}
+</code></pre>
+</section><section class="slide"><h2>Drag and drop: Daten übertragen</h2>
+<p>Übung: verschiedene Produkte, die in den Einkaufswagen gezogen werden können</p>
+</section><section class="slide"><h2>Drag and drop: Elemente verschieben</h2>
+<p>Wir können auch ein ganzes Element durch drag and drop in ein anderes Element verschieben lassen</p>
+</section><section class="slide"><h2>Drag and drop: Elemente verschieben</h2>
+<p>Verfahren: Der Dateneintrag, der übergeben wird, kann die ID des Elements sein - basierend darauf können wir das verschobene Element in sein neues Elternelement verschieben</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
 <ul>
 <li>Lotto - Generator</li>
