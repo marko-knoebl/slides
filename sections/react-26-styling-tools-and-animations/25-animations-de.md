@@ -17,18 +17,16 @@ erweiterte Libraries:
 
 grundlegende Animationen: via CSS Transitions
 
-```js
-<li
-  style={{
-    backgroundColor: props.todo.completed
-      ? 'lightgrey'
-      : 'salmon',
-    transitionProperty: 'background-color',
-    transitionDuration: '0.5s',
-  }}
->
-  ...
-</li>
+```css
+.TodoItem {
+  background-color: salmon;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+.TodoItem--Completed {
+  background-color: lightgrey;
+}
 ```
 
 ## Erscheinen / Verschwinden von Elementen

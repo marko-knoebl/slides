@@ -2060,127 +2060,186 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Initializing a React project</h1>
-</section><section class="slide"><h2>Developing with node.js and npm</h2>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Context</h1>
+</section><section class="slide"><h2>Context</h2>
+<p>Context is a means to provide values from a component to all components that are contained within it - without explicitly passing it through all intermediate levels.</p>
+<p>The interface of context can pass both data and event handlers</p>
+</section><section class="slide"><h2>Context</h2>
+<p>an application can have many different context types, e.g.:</p>
 <ul>
-<li>node.js: JS-Runtime
-<ul>
-<li>running the local development server</li>
-<li>unit tests</li>
-</ul>
-</li>
-<li>npm: package manager
-<ul>
-<li>managing dependencies</li>
-<li>packages are located in the <em>node_modules</em> directory</li>
-<li>configuration via <em>package.json</em></li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>possibilities:</p>
-<ul>
-<li><strong>create-react-app</strong> (most-used method)</li>
-<li>vite</li>
-<li>next.js (includes static site generation and server-side rendering)</li>
-</ul>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>possible commands for initializing a project named "todolist":</p>
-<pre><code class="hljs language-bash">npx create-react-app@latest todolist
-npx create-react-app@latest todolist --template typescript
-</code></pre>
-<pre><code class="hljs language-bash">npm create vite@latest
-</code></pre>
-<pre><code class="hljs language-bash">npx create-next-app@latest
-npx create-next-app@latest --ts
-</code></pre>
-<p>see also: <a href="https://reactjs.org/docs/create-a-new-react-app.html" target="_blank">https://reactjs.org/docs/create-a-new-react-app.html</a></p>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>many aspects can be preconfigured by the initializer:</p>
-<ul>
-<li>build system (e.g. webpack and babel)</li>
-<li>local development server</li>
-<li>unit testing framework</li>
-<li>CSS modules</li>
+<li><code>ThemeContext</code></li>
+<li><code>LanguageContext</code></li>
+<li><code>UserContext</code></li>
+<li><code>TodosContext</code></li>
 <li>...</li>
 </ul>
-</section><section class="slide"><h2>Create-react-app: default project structure</h2>
+</section><section class="slide"><h2>Context</h2>
+<p>steps to provide context:</p>
 <ul>
-<li><em>package.json</em>: configuration, list of direct dependencies</li>
-<li><em>node_modules</em>: dependencies</li>
-<li><em>public/index.html</em>, <em>src/index.tsx</em>: entry points</li>
-<li><em>src/index.css</em>: global style declarations</li>
-<li><em>src/App.tsx</em>, <em>src/App.css</em>: define the App component</li>
+<li>define context (type and default values)</li>
+<li>create a provider component</li>
+<li>include provider component in the component hierarchy</li>
 </ul>
-</section><section class="slide"><h2>Create-react-app: development server and build</h2>
-<p>inside the project directory:</p>
+<p>steps to query context:</p>
 <ul>
-<li><code>npm run start</code> (or <code>npm start</code>): starts the local development server</li>
-<li><code>npm run build</code>: creates a build (for deployment)</li>
+<li>call <code>useContext</code> in a component</li>
 </ul>
-</section><section class="slide"><h2>Create-react-app: development server</h2>
-<p>note:</p>
-<p>sometimes the development server will keep displaying an error even though it has been fixed</p>
-<p>stop the server (ctrl-C) and restart it to fix this</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Build and deployment</h1>
-</section><section class="slide"><h2>Build and deployment</h2>
-<p>A React project can be hosted on any static hosting service</p>
-</section><section class="slide"><h2>Build</h2>
-<p>build with create-react-app:</p>
-<pre><code class="hljs language-bash">npm run build
+</section><section class="slide"><h2>Context definition</h2>
+<p>defining a context in JavaScript:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// ThemeContext.js</span>
+
+<span class="hljs-keyword">import</span> { createContext } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-comment">// default value: null</span>
+<span class="hljs-keyword">const</span> ThemeContext = createContext(<span class="hljs-literal">null</span>);
+
+<span class="hljs-keyword">export</span> { ThemeContext };
 </code></pre>
-<p>minified and bundled app is created in the <em>build</em> folder</p>
-</section><section class="slide"><h2>Deployment</h2>
-<p>simple options for trying out deployment options without login:</p>
-<ul>
-<li><a href="https://netlify.com/drop" target="_blank">https://netlify.com/drop</a> (hosting for 24 hours)</li>
-<li><a href="https://tiiny.host/" target="_blank">https://tiiny.host/</a> (upload via a zip folder, hosting for a couple of days)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React developer tools</h1>
-</section><section class="slide"><h2>React developer tools</h2>
-<ul>
-<li><a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi" target="_blank">Chrome Plugin</a></li>
-<li><a href="https://addons.mozilla.org/de/firefox/addon/react-devtools/" target="_blank">Firefox Plugin</a></li>
-<li><a href="https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil" target="_blank">Edge Plugin</a></li>
-</ul>
-<p>features:</p>
-<ul>
-<li>display component structure</li>
-<li>show component state and props</li>
-<li>change state and props</li>
-<li>analyze render performance of components</li>
-</ul>
-</section><section class="slide"><h2>React developer tools</h2>
-<p>possible approach when looking for issues:</p>
-<ul>
-<li>check state update logic: state updates correctly in response to events</li>
-<li>check rendering logic: state is rendered as expected</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>File structure</h1>
-</section><section class="slide"><h2>File structure</h2>
-<p><a href="https://reactjs.org/docs/faq-structure.html" target="_blank">https://reactjs.org/docs/faq-structure.html</a></p>
-<p>common approaches:</p>
-<ul>
-<li>grouping by features or routes</li>
-<li>grouping by type (component / reducer / API interface)</li>
-</ul>
-<p>example project: <a href="https://github.com/alan2207/bulletproof-react" target="_blank">bulletproof react</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Manual project setup</h1>
-</section><section class="slide"><h2>Rendering an App component</h2>
-<p>basic example for rendering an App component:</p>
-<pre><code class="hljs language-tsx">import ReactDOM from 'react-dom/client';
-
-function App() {
-  return &#x3C;div>Hello World!&#x3C;/div>;
-}
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+</section><section class="slide"><h2>Default value</h2>
+<p>A context always has a default / fallback value which will be used when no matching context provider is found</p>
+<p>In TypeScript it can be cumbersome to define a default value to satisfy the type checker</p>
+</section><section class="slide"><h2>Default value</h2>
+<p>defining a context type in TypeScript:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> ThemeContextType = {
+  <span class="hljs-attr">theme</span>: <span class="hljs-built_in">string</span>;
+  changeTheme: <span class="hljs-function">(<span class="hljs-params">theme: <span class="hljs-built_in">string</span></span>) =></span> <span class="hljs-built_in">void</span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Default value</h2>
+<p>to satisfy the type checker when creating the context:</p>
+<p>actually provide fallback values:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> ThemeContext = createContext&#x3C;ThemeContextType>({
+  <span class="hljs-attr">theme</span>: <span class="hljs-string">'light'</span>,
+  <span class="hljs-attr">changeTheme</span>: <span class="hljs-function">() =></span> {},
+});
+</code></pre>
+<p>use <code>null</code> and cast to any:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> ThemeContext = createContext&#x3C;ThemeContextType>(
+  <span class="hljs-literal">null</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>
 );
-root.render(&#x3C;App />);
 </code></pre>
-</section><section class="slide"><h2>Manual project setup</h2>
-<p>for details, see presentation on <em>JavaScript build systems</em></p></section></section></div>
+<p>more information / solutions: <a href="https://github.com/typescript-cheatsheets/react/blob/main/README.md#context" target="_blank">React TypeScript cheatsheets</a></p>
+</section><section class="slide"><h2>Context</h2>
+<p>distincition of context providers:</p>
+<ul>
+<li>"pure provider" - receives data via props, does not have internal state</li>
+<li>"stateful provider" - has internal state, uses a "pure provider" make its state available</li>
+</ul>
+<p>mostly, we will use "stateful providers"</p>
+</section><section class="slide"><h2>Context</h2>
+<p>architecture with a "pure provider":</p>
+<ul>
+<li><code>App</code> (manages theme)
+<ul>
+<li><code>ThemeContext.Provider</code> (provides theme)
+<ul>
+<li>...
+<ul>
+<li>consumer (consumes theme)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>architecture with a "stateful provider":</p>
+<ul>
+<li><code>ThemeProvider</code> (manages theme)
+<ul>
+<li><code>ThemeContext.Provider</code> (provides theme)
+<ul>
+<li><code>App</code> (consumes theme)
+<ul>
+<li>...
+<ul>
+<li>consumer (consumes theme)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Context</h2>
+<p>possible structure with "stateful providers":</p>
+<ul>
+<li>LanguageProvider (manages / provides language state)
+<ul>
+<li>ThemeProvider (manages / provides theme state)
+<ul>
+<li>TodosProvider
+<ul>
+<li>App
+<ul>
+<li>TodoList
+<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Context</h2>
+<p>Example: using a "pure provider" (the state is in the App component)</p>
+<pre><code class="hljs language-tsx">function App() {
+  const [theme, setTheme] = useState('light');
+  return (
+    &#x3C;ThemeContext.Provider
+      value={{ theme: theme, changeTheme: setTheme }}
+    >
+      ... sub-components ...
+    &#x3C;/ThemeContext.Provider>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Context - example</h2>
+<p>Example: creating a stateful provider that manages and provides state:</p>
+<pre><code class="hljs language-tsx">// ThemeContext.tsx
+function ThemeProvider(props: { children: ReactNode }) {
+  const [theme, setTheme] = useState('light');
+  return (
+    &#x3C;ThemeContext.Provider
+      value={{ theme: theme, changeTheme: setTheme }}
+    >
+      {props.children}
+    &#x3C;/ThemeContext.Provider>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Context - example</h2>
+<p>including the stateful provider:</p>
+<pre><code class="hljs language-tsx">// index.tsx
+...
+  &#x3C;ThemeProvider>
+    &#x3C;App />
+  &#x3C;/ThemeProvider>
+...
+</code></pre>
+</section><section class="slide"><h2>Context - example</h2>
+<p>querying context from within a component:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> themeContext = useContext(ThemeContext);
+</code></pre>
+</section><section class="slide"><h2>Context - example</h2>
+<p>optionally: wrap in a custom hook:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTheme</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> themeContext = useContext(ThemeContext);
+  <span class="hljs-keyword">if</span> (themeContext === <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'No matching provider found'</span>);
+  }
+  <span class="hljs-keyword">return</span> themeContext;
+}
+</code></pre>
+</section><section class="slide"><h2>Exercises</h2>
+<p>add more contexts - e.g. a <code>LanguageContext</code></p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

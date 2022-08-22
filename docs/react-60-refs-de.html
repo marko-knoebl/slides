@@ -2060,127 +2060,190 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Initializing a React project</h1>
-</section><section class="slide"><h2>Developing with node.js and npm</h2>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Refs zum Ablegen von Objektreferenzen</h1>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p><strong>refs</strong>: ähnlich zu <em>State</em>, mit Unterschieden:</p>
 <ul>
-<li>node.js: JS-Runtime
+<li>Änderung eines Refs führt nicht zu einem Re-Rendering</li>
+<li>Der Wert eines Refs ist nie veraltet</li>
+</ul>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>erster Use-Case:</p>
+<p>Ablegen von Werten / Objektreferenzen, die das Rendering einer Komponente nicht beeinflussen:</p>
 <ul>
-<li>running the local development server</li>
-<li>unit tests</li>
+<li>Timer IDs</li>
+<li>Request IDs</li>
+<li>WebSocket-Verbindungen</li>
+<li>ein PWA-Installationsdialog (siehe Abschnitt PWA)</li>
+<li>DOM-Elemente (siehe nächster Abschnitt "Ref Property zum Zugriff auf DOM-Elemente")</li>
 </ul>
-</li>
-<li>npm: package manager
-<ul>
-<li>managing dependencies</li>
-<li>packages are located in the <em>node_modules</em> directory</li>
-<li>configuration via <em>package.json</em></li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>possibilities:</p>
-<ul>
-<li><strong>create-react-app</strong> (most-used method)</li>
-<li>vite</li>
-<li>next.js (includes static site generation and server-side rendering)</li>
-</ul>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>possible commands for initializing a project named "todolist":</p>
-<pre><code class="hljs language-bash">npx create-react-app@latest todolist
-npx create-react-app@latest todolist --template typescript
-</code></pre>
-<pre><code class="hljs language-bash">npm create vite@latest
-</code></pre>
-<pre><code class="hljs language-bash">npx create-next-app@latest
-npx create-next-app@latest --ts
-</code></pre>
-<p>see also: <a href="https://reactjs.org/docs/create-a-new-react-app.html" target="_blank">https://reactjs.org/docs/create-a-new-react-app.html</a></p>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>many aspects can be preconfigured by the initializer:</p>
-<ul>
-<li>build system (e.g. webpack and babel)</li>
-<li>local development server</li>
-<li>unit testing framework</li>
-<li>CSS modules</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: default project structure</h2>
-<ul>
-<li><em>package.json</em>: configuration, list of direct dependencies</li>
-<li><em>node_modules</em>: dependencies</li>
-<li><em>public/index.html</em>, <em>src/index.tsx</em>: entry points</li>
-<li><em>src/index.css</em>: global style declarations</li>
-<li><em>src/App.tsx</em>, <em>src/App.css</em>: define the App component</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: development server and build</h2>
-<p>inside the project directory:</p>
-<ul>
-<li><code>npm run start</code> (or <code>npm start</code>): starts the local development server</li>
-<li><code>npm run build</code>: creates a build (for deployment)</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: development server</h2>
-<p>note:</p>
-<p>sometimes the development server will keep displaying an error even though it has been fixed</p>
-<p>stop the server (ctrl-C) and restart it to fix this</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Build and deployment</h1>
-</section><section class="slide"><h2>Build and deployment</h2>
-<p>A React project can be hosted on any static hosting service</p>
-</section><section class="slide"><h2>Build</h2>
-<p>build with create-react-app:</p>
-<pre><code class="hljs language-bash">npm run build
-</code></pre>
-<p>minified and bundled app is created in the <em>build</em> folder</p>
-</section><section class="slide"><h2>Deployment</h2>
-<p>simple options for trying out deployment options without login:</p>
-<ul>
-<li><a href="https://netlify.com/drop" target="_blank">https://netlify.com/drop</a> (hosting for 24 hours)</li>
-<li><a href="https://tiiny.host/" target="_blank">https://tiiny.host/</a> (upload via a zip folder, hosting for a couple of days)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React developer tools</h1>
-</section><section class="slide"><h2>React developer tools</h2>
-<ul>
-<li><a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi" target="_blank">Chrome Plugin</a></li>
-<li><a href="https://addons.mozilla.org/de/firefox/addon/react-devtools/" target="_blank">Firefox Plugin</a></li>
-<li><a href="https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil" target="_blank">Edge Plugin</a></li>
-</ul>
-<p>features:</p>
-<ul>
-<li>display component structure</li>
-<li>show component state and props</li>
-<li>change state and props</li>
-<li>analyze render performance of components</li>
-</ul>
-</section><section class="slide"><h2>React developer tools</h2>
-<p>possible approach when looking for issues:</p>
-<ul>
-<li>check state update logic: state updates correctly in response to events</li>
-<li>check rendering logic: state is rendered as expected</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>File structure</h1>
-</section><section class="slide"><h2>File structure</h2>
-<p><a href="https://reactjs.org/docs/faq-structure.html" target="_blank">https://reactjs.org/docs/faq-structure.html</a></p>
-<p>common approaches:</p>
-<ul>
-<li>grouping by features or routes</li>
-<li>grouping by type (component / reducer / API interface)</li>
-</ul>
-<p>example project: <a href="https://github.com/alan2207/bulletproof-react" target="_blank">bulletproof react</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Manual project setup</h1>
-</section><section class="slide"><h2>Rendering an App component</h2>
-<p>basic example for rendering an App component:</p>
-<pre><code class="hljs language-tsx">import ReactDOM from 'react-dom/client';
-
-function App() {
-  return &#x3C;div>Hello World!&#x3C;/div>;
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>zweiter Use-Case:</p>
+<p>Speichern der aktuellsten Version eines States</p>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>Auf eine Ref kann mittels <code>useRef</code> zugegriffen werden</p>
+<p>Objekte werden in der <code>.current</code>-Property der Ref abgelegt</p>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>ein Beispiel mit beiden Use-Cases:</p>
+<pre><code class="hljs language-tsx">function StopWatch() {
+  const [time, setTime] = useState(0);
+  const timeRef = useRef(time);
+  const intervalId = useRef&#x3C;number>(null);
+  function start() {
+    setTime(0);
+    timeRef.current = 0;
+    intervalId.current = setInterval(() => {
+      timeRef.current++;
+      setTime(timeRef.current);
+    }, 1000);
+  }
+  function stop() {
+    clearInterval(intervalId.current);
+  }
+  return &#x3C;div>...&#x3C;/div>;
 }
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(&#x3C;App />);
 </code></pre>
-</section><section class="slide"><h2>Manual project setup</h2>
-<p>for details, see presentation on <em>JavaScript build systems</em></p></section></section></div>
+</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
+<p>Bemerkung: oft gibt es auch mögliche Implementierungen, die Refs vermeiden:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">StopWatch</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-number">0</span>);
+  <span class="hljs-keyword">const</span> [running, setRunning] = useState(<span class="hljs-literal">false</span>);
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">if</span> (running) {
+      <span class="hljs-keyword">const</span> intervalId = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+        setTime(<span class="hljs-function">(<span class="hljs-params">time</span>) =></span> time + <span class="hljs-number">1</span>);
+      }, <span class="hljs-number">1000</span>);
+      <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(intervalId);
+    }
+  }, [running]);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Ref-Property zum Zugriff auf DOM-Elemente</h1>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Ähnlich wie <em>key</em> hat auch die <em>ref</em>-Property eine besondere Bedeutung in JSX - sie ermöglicht den Zugriff auf gerenderte DOM-Elemente</p>
+<p>Anwendungsgebiete:</p>
+<ul>
+<li>Verwalten von Fokus, Textauswahl oder Medienwiedergabe</li>
+<li>Integration von anderen DOM-Libraries</li>
+<li>Alternative Möglichkeit zum Verwalten von Inputs</li>
+</ul>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Verwendung der <em>ref</em>-Property zusammen mit dem <em>useRef</em>-Hook:</p>
+<pre><code class="hljs language-tsx">function RefDemo() {
+  const myRef = useRef&#x3C;HTMLInputElement>(null);
+  return (
+    &#x3C;input
+      ref={myRef}
+      onChange={() => {
+        console.log(myRef.current.value);
+      }}
+    />
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p><strong>Verwalten von Fokus, Textauswahl oder Medienwiedergabe</strong></p>
+<p>manche Änderungen können nicht deklarativ (via State) ausgedrückt werden - sie benötigen Zugriff zu einem bestimmten DOM-Element</p>
+<p>Beispiel: es gibt Properties wie <code>.value</code> zum Ändern des Werts eines Inputs oder <code>.className</code> zum Ändern von Klassennamen, aber keine Property zum Verwalten des Fokus</p>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Verwalten des Fokus:</p>
+<pre><code class="hljs language-tsx">function App() {
+  const inputEl = useRef&#x3C;HTMLInputElement>(null);
+  useEffect(() => {
+    inputEl.current?.focus();
+  }, []);
+  return &#x3C;input ref={inputEl} />;
+};
+</code></pre>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Verwalten von Medienwiedergabe:</p>
+<pre><code class="hljs language-tsx">// https://codesandbox.io/s/media-playback-x3ci4
+function Video() {
+  const [playing, setPlaying] = useState(false);
+  const videoEl = useRef&#x3C;HTMLVideoElement>(null);
+  useEffect(() => {
+    if (playing) {
+      videoEl.current?.play();
+    } else {
+      videoEl.current?.pause();
+    }
+  }, [playing]);
+  return (
+    &#x3C;div>
+      &#x3C;video
+        ref={videoEl}
+        width="250"
+        src={
+          'https://interactive-examples.mdn.mozilla.net/' +
+          'media/cc0-videos/flower.mp4'
+        }
+      />
+      &#x3C;button onClick={() => setPlaying(!playing)}>
+        {playing ? 'pause' : 'play'}
+      &#x3C;/button>
+    &#x3C;/div>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p><strong>Integration von anderen DOM-Libraries</strong></p>
+<p>Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen</p>
+<p>Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Karte gezeichnet wird</p>
+<p>Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden</p>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p>Integration von Google Maps mittels Ref:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Map</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> mapRef = useRef&#x3C;HTMLElement>();
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">new</span> google.maps.Map(mapRef.current);
+  }, []);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{mapRef}</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{height:</span> <span class="hljs-attr">400</span>} /></span></span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
+<p><strong>Alternative Möglichkeit zum Verwalten von Inputs</strong></p>
+<p>Verwendung von <code>ref</code> Anstelle von <code>value</code> und <code>onChange</code> kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)</p>
+<p>Refs werden von <em>react-hook-form</em> verwendet, um Formularverwaltung einfacher und schneller zu machen</p>
+</section><section class="slide"><h2>Ref-Property zum Verwalten von Inputs</h2>
+<p>Verwalten von Inputs: Vergleich von <code>useState</code> und <code>useRef</code>:</p>
+<pre><code class="hljs language-tsx">const App = () => {
+  const [firstName, setFirstName] = useState('');
+  const lastNameInput = useRef&#x3C;HTMLInputElement>(null);
+
+  return (
+    &#x3C;div>
+      &#x3C;input
+        value={firstName}
+        onChange={(event) =>
+          setFirstName(event.target.value)
+        }
+      />
+      &#x3C;input ref={lastNameInput} />
+
+      &#x3C;button
+        onClick={() => {
+          console.log(firstName);
+          console.log(lastNameInput.current.value);
+        }}
+      >
+        log values
+      &#x3C;/button>
+    &#x3C;/div>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Callback Refs</h2>
+<p>Wie bisher gesehen: Wir können ein Ref-Objekt an die <em>ref</em>-Property übergeben</p>
+<p>Wir können auch eine <em>Callbackfunktion</em> übergeben, die nach dem Rendering mit dem Element als Parameter aufgerufen wird (<em>react-hook-form</em> verwendet dies)</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  ref={<span class="hljs-function">(<span class="hljs-params">element</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(element);
+    <span class="hljs-built_in">console</span>.log(element.value);
+    element.focus();
+  }}
+/>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

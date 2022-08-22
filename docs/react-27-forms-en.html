@@ -2060,127 +2060,212 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Initializing a React project</h1>
-</section><section class="slide"><h2>Developing with node.js and npm</h2>
-<ul>
-<li>node.js: JS-Runtime
-<ul>
-<li>running the local development server</li>
-<li>unit tests</li>
-</ul>
-</li>
-<li>npm: package manager
-<ul>
-<li>managing dependencies</li>
-<li>packages are located in the <em>node_modules</em> directory</li>
-<li>configuration via <em>package.json</em></li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Initializing a React project</h2>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Forms and validation</h1>
+</section><section class="slide"><h2>Forms and validation</h2>
 <p>possibilities:</p>
 <ul>
-<li><strong>create-react-app</strong> (most-used method)</li>
-<li>vite</li>
-<li>next.js (includes static site generation and server-side rendering)</li>
+<li>use functionality that's built into HTML elements</li>
+<li>use functionality that's built into component libraries</li>
+<li>use a form library (<em>react-hook-form</em>, <em>formik</em>)</li>
+<li>write custom validation code</li>
 </ul>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>possible commands for initializing a project named "todolist":</p>
-<pre><code class="hljs language-bash">npx create-react-app@latest todolist
-npx create-react-app@latest todolist --template typescript
+</section><section class="slide"><h2>Forms and validation</h2>
+<p>built-in functionality of HTML:</p>
+<pre><code class="hljs language-jsx">&#x3C;input required={<span class="hljs-literal">true</span>} minlength={<span class="hljs-number">4</span>} />
 </code></pre>
-<pre><code class="hljs language-bash">npm create vite@latest
-</code></pre>
-<pre><code class="hljs language-bash">npx create-next-app@latest
-npx create-next-app@latest --ts
-</code></pre>
-<p>see also: <a href="https://reactjs.org/docs/create-a-new-react-app.html" target="_blank">https://reactjs.org/docs/create-a-new-react-app.html</a></p>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>many aspects can be preconfigured by the initializer:</p>
+</section><section class="slide"><h2>Forms and validation</h2>
+<p>When can a form input be validated?</p>
 <ul>
-<li>build system (e.g. webpack and babel)</li>
-<li>local development server</li>
-<li>unit testing framework</li>
-<li>CSS modules</li>
-<li>...</li>
+<li>when the form is submitted (on submit)</li>
+<li>when the input loses focus (on blur)</li>
+<li>on every value change (on change)</li>
 </ul>
-</section><section class="slide"><h2>Create-react-app: default project structure</h2>
-<ul>
-<li><em>package.json</em>: configuration, list of direct dependencies</li>
-<li><em>node_modules</em>: dependencies</li>
-<li><em>public/index.html</em>, <em>src/index.tsx</em>: entry points</li>
-<li><em>src/index.css</em>: global style declarations</li>
-<li><em>src/App.tsx</em>, <em>src/App.css</em>: define the App component</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: development server and build</h2>
-<p>inside the project directory:</p>
-<ul>
-<li><code>npm run start</code> (or <code>npm start</code>): starts the local development server</li>
-<li><code>npm run build</code>: creates a build (for deployment)</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: development server</h2>
-<p>note:</p>
-<p>sometimes the development server will keep displaying an error even though it has been fixed</p>
-<p>stop the server (ctrl-C) and restart it to fix this</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Build and deployment</h1>
-</section><section class="slide"><h2>Build and deployment</h2>
-<p>A React project can be hosted on any static hosting service</p>
-</section><section class="slide"><h2>Build</h2>
-<p>build with create-react-app:</p>
-<pre><code class="hljs language-bash">npm run build
-</code></pre>
-<p>minified and bundled app is created in the <em>build</em> folder</p>
-</section><section class="slide"><h2>Deployment</h2>
-<p>simple options for trying out deployment options without login:</p>
-<ul>
-<li><a href="https://netlify.com/drop" target="_blank">https://netlify.com/drop</a> (hosting for 24 hours)</li>
-<li><a href="https://tiiny.host/" target="_blank">https://tiiny.host/</a> (upload via a zip folder, hosting for a couple of days)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React developer tools</h1>
-</section><section class="slide"><h2>React developer tools</h2>
-<ul>
-<li><a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi" target="_blank">Chrome Plugin</a></li>
-<li><a href="https://addons.mozilla.org/de/firefox/addon/react-devtools/" target="_blank">Firefox Plugin</a></li>
-<li><a href="https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil" target="_blank">Edge Plugin</a></li>
-</ul>
-<p>features:</p>
-<ul>
-<li>display component structure</li>
-<li>show component state and props</li>
-<li>change state and props</li>
-<li>analyze render performance of components</li>
-</ul>
-</section><section class="slide"><h2>React developer tools</h2>
-<p>possible approach when looking for issues:</p>
-<ul>
-<li>check state update logic: state updates correctly in response to events</li>
-<li>check rendering logic: state is rendered as expected</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>File structure</h1>
-</section><section class="slide"><h2>File structure</h2>
-<p><a href="https://reactjs.org/docs/faq-structure.html" target="_blank">https://reactjs.org/docs/faq-structure.html</a></p>
-<p>common approaches:</p>
-<ul>
-<li>grouping by features or routes</li>
-<li>grouping by type (component / reducer / API interface)</li>
-</ul>
-<p>example project: <a href="https://github.com/alan2207/bulletproof-react" target="_blank">bulletproof react</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Manual project setup</h1>
-</section><section class="slide"><h2>Rendering an App component</h2>
-<p>basic example for rendering an App component:</p>
-<pre><code class="hljs language-tsx">import ReactDOM from 'react-dom/client';
+<p>The best approach depends on the use case</p>
+</section><section class="slide"><h2>Validation: examples</h2>
+<p>validation on every change:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> emailValid = isEmail(email);
 
-function App() {
-  return &#x3C;div>Hello World!&#x3C;/div>;
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-comment">// display a form</span>
+  <span class="hljs-comment">// and optionally a warning about an invalid email</span>
+};
+</code></pre>
+</section><section class="slide"><h2>Validation: examples</h2>
+<p>validation on blur:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> [emailValid, setEmailValid] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-comment">// call from onBlur:</span>
+  <span class="hljs-keyword">const</span> validateEmail = <span class="hljs-function">() =></span> {
+    setEmailValid(isEmail(email));
+  };
+
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-comment">// display a form</span>
+  <span class="hljs-comment">// and optionally a warning about an invalid email</span>
+};
+</code></pre>
+</section><section class="slide"><h2>Validation: examples</h2>
+<p>full example: validation on blur and on submit</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> NewsletterSignup = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [email, setEmail] = useState(<span class="hljs-string">''</span>);
+  <span class="hljs-keyword">const</span> [emailValid, setEmailValid] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> validateEmail = <span class="hljs-function">() =></span> {
+    setEmailValid(isEmail(email));
+  };
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span>
+      <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{(event)</span> =></span> {
+        event.preventDefault();
+        validateEmail();
+        if (isEmail(email)) {
+          console.log(`Signed up: ${email}`);
+        }
+      }}
+    >
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{email}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setEmail(event.target.value)}
+        onBlur={() => validateEmail()}
+      />
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>sign up<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      {!emailValid ? <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span> : null}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> isEmail = <span class="hljs-function">(<span class="hljs-params">email</span>) =></span>
+  email.match(<span class="hljs-regexp">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i</span>);
+</code></pre>
+</section><section class="slide"><h2>Validation</h2>
+<p>more complex validation schemas are possible</p>
+<p>example: initial validation of an input on its first <em>blur</em>, then live validation on each <em>change</em></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Form libraries</h1>
+</section><section class="slide"><h2>Form libraries</h2>
+<p>examples:</p>
+<ul>
+<li>react-hook-form (based on a custom hook)</li>
+<li>formik (based on custom components)</li>
+</ul>
+<p>functionality:</p>
+<ul>
+<li><strong>validation</strong></li>
+<li>managing form data</li>
+<li>simplifying submit handler</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form</h2>
+<p><em>react-hook-form</em> does not keep input contents in React state</p>
+<p>advantages: faster, simpler</p>
+<p>disadvantages: deviates from standard React concepts (uses <em>refs</em> instead of <em>state</em>)</p>
+</section><section class="slide"><h2>react-hook-form</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useForm } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-hook-form'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">NewsletterSignup</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> { register, handleSubmit, formState } = useForm();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{handleSubmit(console.log)}</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        {<span class="hljs-attr">...register</span>('<span class="hljs-attr">email</span>', {
+          <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span>,
+          <span class="hljs-attr">pattern:</span> /^[<span class="hljs-attr">A-Z0-9._</span>%+<span class="hljs-attr">-</span>]+@[<span class="hljs-attr">A-Z0-9.-</span>]+\<span class="hljs-attr">.</span>[<span class="hljs-attr">A-Z</span>]{<span class="hljs-attr">2</span>,}$/<span class="hljs-attr">i</span>,
+        })}
+      /></span>
+      {formState.errors.email ? (
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+      ) : null}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>></span>sign up for newsletter<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">form</span>></span></span>
+  );
 }
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(&#x3C;App />);
 </code></pre>
-</section><section class="slide"><h2>Manual project setup</h2>
-<p>for details, see presentation on <em>JavaScript build systems</em></p></section></section></div>
+<p>Note: react-hook-form uses a <a href="https://reactjs.org/docs/refs-and-the-dom.html#callback-refs" target="_blank">callback ref</a> to access the input</p>
+</section><section class="slide"><h2>react-hook-form: register</h2>
+<p>The <code>register</code> function can take some parameters that specify field validation:</p>
+<ul>
+<li><code>required</code></li>
+<li><code>min</code>, <code>max</code></li>
+<li><code>minLength</code>, <code>maxLength</code></li>
+<li><code>pattern</code></li>
+<li><code>validate</code> (custom validation function)</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form: errors</h2>
+<p><code>formState.errors</code> indicates errors for any registered input</p>
+<pre><code class="hljs language-jsx">&#x3C;input {...register(<span class="hljs-string">'email'</span>)} />
+</code></pre>
+<pre><code class="hljs language-jsx">formState.errors.email ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid email<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>;
+</code></pre>
+<pre><code class="hljs language-jsx">!formState.isValid ? <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>invalid form entries<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span> : <span class="hljs-literal">null</span>;
+</code></pre>
+</section><section class="slide"><h2>react-hook-form: handleSubmit</h2>
+<p><code>handleSubmit</code> will validate form data and pass them to a function if they are valid</p>
+<pre><code class="hljs language-jsx">&#x3C;form
+  onSubmit={handleSubmit(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> {
+    <span class="hljs-built_in">console</span>.log(data.email);
+  })}
+>
+  ...
+&#x3C;/form>
+</code></pre>
+</section><section class="slide"><h2>react-hook-form: mode</h2>
+<pre><code class="hljs language-js">useForm({ <span class="hljs-attr">mode</span>: <span class="hljs-string">'onBlur'</span> });
+</code></pre>
+<p><code>mode</code>: when should the value be validated initially?</p>
+<ul>
+<li><code>onSubmit</code> (default)</li>
+<li><code>onTouched</code> - when the input loses focus or on submit</li>
+<li><code>onBlur</code> - when the input loses focus (does not switch to <code>reValidateMode</code>) or on submit</li>
+<li><code>onChange</code> - when the input changes or on submit</li>
+<li><code>all</code> - when the input changes or when it loses focus without being changed</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form: mode</h2>
+<p><code>reValidateMode</code>: if the user has submitted the form and there was an error, when should the value be re-validated?</p>
+<ul>
+<li><code>onSubmit</code></li>
+<li><code>onBlur</code></li>
+<li><code>onChange</code> (default)</li>
+</ul>
+</section><section class="slide"><h2>react-hook-form: reset, getValues</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> {
+  register,
+  errors,
+  handleSubmit,
+  reset,
+  getValues,
+} = useForm();
+</code></pre>
+</section><section class="slide"><h2>formik</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Formik, Form, Field, ErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'formik'</span>;
+
+<span class="hljs-keyword">const</span> NewsletterRegistration = <span class="hljs-function">() =></span> (
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Formik</span>
+    <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">email:</span> '' }}
+    <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{(values)</span> =></span> console.log(values)}
+    validate={(values) => {
+      const errors = {};
+      if (!isEmail(values.email)) {
+        errors.email = 'invalid email';
+      }
+      return errors;
+    }}
+  >
+    {(props) => (
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Form</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Field</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span> /></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{!props.isValid}</span>></span>
+          subscribe
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">ErrorMessage</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">"div"</span> /></span>
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Form</span>></span>
+    )}
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Formik</span>></span></span>
+);
+
+<span class="hljs-keyword">const</span> isEmail = <span class="hljs-function">(<span class="hljs-params">email</span>) =></span>
+  email.match(<span class="hljs-regexp">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i</span>);
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

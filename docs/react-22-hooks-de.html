@@ -2060,127 +2060,106 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Initializing a React project</h1>
-</section><section class="slide"><h2>Developing with node.js and npm</h2>
-<ul>
-<li>node.js: JS-Runtime
-<ul>
-<li>running the local development server</li>
-<li>unit tests</li>
-</ul>
-</li>
-<li>npm: package manager
-<ul>
-<li>managing dependencies</li>
-<li>packages are located in the <em>node_modules</em> directory</li>
-<li>configuration via <em>package.json</em></li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>possibilities:</p>
-<ul>
-<li><strong>create-react-app</strong> (most-used method)</li>
-<li>vite</li>
-<li>next.js (includes static site generation and server-side rendering)</li>
-</ul>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>possible commands for initializing a project named "todolist":</p>
-<pre><code class="hljs language-bash">npx create-react-app@latest todolist
-npx create-react-app@latest todolist --template typescript
-</code></pre>
-<pre><code class="hljs language-bash">npm create vite@latest
-</code></pre>
-<pre><code class="hljs language-bash">npx create-next-app@latest
-npx create-next-app@latest --ts
-</code></pre>
-<p>see also: <a href="https://reactjs.org/docs/create-a-new-react-app.html" target="_blank">https://reactjs.org/docs/create-a-new-react-app.html</a></p>
-</section><section class="slide"><h2>Initializing a React project</h2>
-<p>many aspects can be preconfigured by the initializer:</p>
-<ul>
-<li>build system (e.g. webpack and babel)</li>
-<li>local development server</li>
-<li>unit testing framework</li>
-<li>CSS modules</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: default project structure</h2>
-<ul>
-<li><em>package.json</em>: configuration, list of direct dependencies</li>
-<li><em>node_modules</em>: dependencies</li>
-<li><em>public/index.html</em>, <em>src/index.tsx</em>: entry points</li>
-<li><em>src/index.css</em>: global style declarations</li>
-<li><em>src/App.tsx</em>, <em>src/App.css</em>: define the App component</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: development server and build</h2>
-<p>inside the project directory:</p>
-<ul>
-<li><code>npm run start</code> (or <code>npm start</code>): starts the local development server</li>
-<li><code>npm run build</code>: creates a build (for deployment)</li>
-</ul>
-</section><section class="slide"><h2>Create-react-app: development server</h2>
-<p>note:</p>
-<p>sometimes the development server will keep displaying an error even though it has been fixed</p>
-<p>stop the server (ctrl-C) and restart it to fix this</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Build and deployment</h1>
-</section><section class="slide"><h2>Build and deployment</h2>
-<p>A React project can be hosted on any static hosting service</p>
-</section><section class="slide"><h2>Build</h2>
-<p>build with create-react-app:</p>
-<pre><code class="hljs language-bash">npm run build
-</code></pre>
-<p>minified and bundled app is created in the <em>build</em> folder</p>
-</section><section class="slide"><h2>Deployment</h2>
-<p>simple options for trying out deployment options without login:</p>
-<ul>
-<li><a href="https://netlify.com/drop" target="_blank">https://netlify.com/drop</a> (hosting for 24 hours)</li>
-<li><a href="https://tiiny.host/" target="_blank">https://tiiny.host/</a> (upload via a zip folder, hosting for a couple of days)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>React developer tools</h1>
-</section><section class="slide"><h2>React developer tools</h2>
-<ul>
-<li><a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi" target="_blank">Chrome Plugin</a></li>
-<li><a href="https://addons.mozilla.org/de/firefox/addon/react-devtools/" target="_blank">Firefox Plugin</a></li>
-<li><a href="https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil" target="_blank">Edge Plugin</a></li>
-</ul>
-<p>features:</p>
-<ul>
-<li>display component structure</li>
-<li>show component state and props</li>
-<li>change state and props</li>
-<li>analyze render performance of components</li>
-</ul>
-</section><section class="slide"><h2>React developer tools</h2>
-<p>possible approach when looking for issues:</p>
-<ul>
-<li>check state update logic: state updates correctly in response to events</li>
-<li>check rendering logic: state is rendered as expected</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>File structure</h1>
-</section><section class="slide"><h2>File structure</h2>
-<p><a href="https://reactjs.org/docs/faq-structure.html" target="_blank">https://reactjs.org/docs/faq-structure.html</a></p>
-<p>common approaches:</p>
-<ul>
-<li>grouping by features or routes</li>
-<li>grouping by type (component / reducer / API interface)</li>
-</ul>
-<p>example project: <a href="https://github.com/alan2207/bulletproof-react" target="_blank">bulletproof react</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Manual project setup</h1>
-</section><section class="slide"><h2>Rendering an App component</h2>
-<p>basic example for rendering an App component:</p>
-<pre><code class="hljs language-tsx">import ReactDOM from 'react-dom/client';
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Eigene Hooks</h1>
+</section><section class="slide"><h2>Eigene Hooks</h2>
+<p>Eigene Hooks können als Funktionen definiert werden, deren Name mit <code>use</code> beginnt</p>
+<p>Eigene Hooks greifen wiederum auf bestehende Hooks, wie <code>useState</code> oder <code>useEffect</code> zurück</p>
+</section><section class="slide"><h2>Eigene Hooks - useExchangeRate</h2>
+<p>verwendung eines eigenen Hooks zum Laden von Wechselkusdaten:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'usd'</span>);
+  <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'eur'</span>);
 
-function App() {
-  return &#x3C;div>Hello World!&#x3C;/div>;
+  <span class="hljs-keyword">const</span> { status, rate } = useExchangeRate(<span class="hljs-keyword">from</span>, to);
+
+  <span class="hljs-comment">// ...</span>
 }
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(&#x3C;App />);
 </code></pre>
-</section><section class="slide"><h2>Manual project setup</h2>
-<p>for details, see presentation on <em>JavaScript build systems</em></p></section></section></div>
+</section><section class="slide"><h2>Eigene Hooks - useExchangeRate</h2>
+<p>Definition von <code>useExchangeRate</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
+  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRateAsync</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate();
+      setRate(newRate);
+      setStatus(<span class="hljs-string">'success'</span>);
+    } <span class="hljs-keyword">catch</span> {
+      setRate(<span class="hljs-literal">null</span>);
+      setStatus(<span class="hljs-string">'error'</span>);
+    }
+  }
+  useEffect(<span class="hljs-function">() =></span> {
+    loadExchangeRateAsync();
+  }, [<span class="hljs-keyword">from</span>, to]);
+  <span class="hljs-keyword">return</span> { status, rate };
+}
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useTodos</h2>
+<p>Beispiel: <code>useTodos</code> - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen (Trennung von <em>model</em> und <em>view</em>)</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> todoData = useTodos();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodo</span> <span class="hljs-attr">onAdd</span>=<span class="hljs-string">{todoData.addTodo}</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span>
+        <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span>
+        <span class="hljs-attr">onChangeCompleted</span>=<span class="hljs-string">{todoData.setTodoCompleted}</span>
+        <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{todoData.deleteTodo}</span>
+      /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Statistics</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span> /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useTodos</h2>
+<p>Definition von <code>useTodos</code>:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">title</span>) </span>{
+    <span class="hljs-keyword">const</span> maxId = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id));
+    setTodos([
+      ...todos,
+      { <span class="hljs-attr">id</span>: maxId + <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: title, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+    ]);
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteTodo</span>(<span class="hljs-params">id</span>) </span>{
+    setTodos(todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id !== id));
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTodoCompleted</span>(<span class="hljs-params">id, completed</span>) </span>{
+    setTodos(
+      todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span>
+        t.id === id ? { ...t, <span class="hljs-attr">completed</span>: completed } : t
+      )
+    );
+  }
+  <span class="hljs-keyword">return</span> { todos, addTodo, deleteTodo, setTodoCompleted };
+}
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useDate</h2>
+<p>Beispiel: <code>useDate</code> - stellt hier die aktuelle Uhrzeit bereit und aktualisiert die Komponente alle 1000 Millisekunden</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> time = useDate(<span class="hljs-number">1000</span>);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>The time is: {time.toLocaleTimeString()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useDate</h2>
+<p>Einfache Implementierung von <code>useDate</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useDate</span>(<span class="hljs-params">interval</span>) </span>{
+  <span class="hljs-keyword">const</span> [date, setDate] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      setDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+    }, interval);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(id);
+  }, []);
+  <span class="hljs-keyword">return</span> date;
+}
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js
