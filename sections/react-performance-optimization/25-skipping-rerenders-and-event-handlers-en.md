@@ -28,71 +28,27 @@ the change handler would be recreated and passed down as a different object on e
 
 solutions:
 
+- memoize the event handlers
 - pass down a `dispatch` function
 - define the event handlers to be passed down in a class component
-- memoize the event handlers
 
 ## Skipping rerenders and event handlers
 
 memoizing event handlers:
 
 ```jsx
-const TodoApp = () => {
+function TodoApp() {
   const [todos, setTodos] = useState([]);
-  const todosWithEventHandlers = useMemo(
-    () =>
-      todos.map((todo) => ({
-        ...todo,
-        onToggle: () => {
-          // ...
-        },
-      })),
-    [todos]
-  );
-  return (
-    <ul>
-      {todosWithEventHandlers.map((todo) => (
-        <li onClick={todo.onToggle}>{todo.title}</li>
-      ))}
-    </ul>
-  );
-};
-```
 
-## Skipping rerenders and event handlers
-
-memoization of a single event handler:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState([]);
-  const handleAddTodo = useMemo(
-    () => (newTitle) => {
-      setTodos([
-        ...todos,
-        { title: newTitle, completed: false },
-      ]);
+  const deleteTodoA = useMemo(
+    () => (id) => {
+      setTodos((todos) => todos.filter((t) => t.id !== id));
     },
-    [todos]
+    []
   );
-};
-```
 
-## Skipping rerenders and event handlers
-
-shorter memoization of a single event handler via `useCallback`:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState([]);
-  const handleAddTodo = useCallback(
-    (newTitle) => {
-      setTodos([
-        ...todos,
-        { title: newTitle, completed: false },
-      ]);
-    },
-    [todos]
-  );
-};
+  const deleteTodoB = useCallback((id) => {
+    setTodos((todos) => todos.filter((t) => t.id !== id));
+  }, []);
+}
 ```

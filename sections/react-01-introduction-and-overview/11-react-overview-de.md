@@ -16,7 +16,7 @@ _React_: JavaScript-Library zum Erstellen interaktiver Benutzeroberflächen im B
 
 ## State-basiert / deklarativ
 
-Veispiel: vollständiger State einer Todo-Anwendung
+Beispiel: vollständiger State einer Todo-Anwendung
 
 ```json
 {

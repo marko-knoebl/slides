@@ -2075,9 +2075,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section></section><section class="slides-section"><section class="slide"><h1>Drei Schritte beim Update einer Komponente</h1>
 </section><section class="slide"><h2>Drei Schritte beim Update einer Komponente</h2>
 <ol>
-<li>build a virtual DOM representation of the new rendering ("render phase")</li>
-<li>create a diff between the new and old virtual DOM ("reconciliation phase")</li>
-<li>apply any changes in the virtual DOM to the real DOM ("commit phase")</li>
+<li>Erstellen einer virtuellen DOM-Repräsentation des neuen Renderings ("Render Phase")</li>
+<li>Erstellen eines Diffs zwischen dem alten und dem neuen virtuellen DOM ("Reconcilliation Phase")</li>
+<li>Anwenden der im virtuellen DOM gefundenen Änderungen auf das echte DOM ("Commit Phase")</li>
 </ol>
 </section><section class="slide"><h2>Drei Schritte beim Update einer Komponente</h2>
 <p>Beschleunigen der drei Schritte:</p>
@@ -2236,62 +2236,26 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Vermeiden von Rerenderings und Eventhandler</h2>
 <p>Lösungen:</p>
 <ul>
+<li>Memoisieren des Eventhandlers</li>
 <li>Übergeben einer <code>dispatch</code>-Funktion statt neu definierter Eventhandler</li>
 <li>Definieren des zu übergebenden Eventhanlders in einer Klassenkomponente (soweit möglich)</li>
-<li>Memoisieren des Eventhandlers</li>
 </ul>
 </section><section class="slide"><h2>Vermeiden von Rerenderings und Eventhandler</h2>
 <p>Memoisierung von Eventhandlern:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> todosWithEventHandlers = useMemo(
-    <span class="hljs-function">() =></span>
-      todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> ({
-        ...todo,
-        <span class="hljs-attr">onToggle</span>: <span class="hljs-function">() =></span> {
-          <span class="hljs-comment">// ...</span>
-        },
-      })),
-    [todos]
-  );
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-      {todosWithEventHandlers.map((todo) => (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{todo.onToggle}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Vermeiden von Rerenderings und Eventhandler</h2>
-<p>Memoisierung eines einzelnen Eventhandlers:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> handleAddTodo = useMemo(
-    <span class="hljs-function">() =></span> <span class="hljs-function">(<span class="hljs-params">newTitle</span>) =></span> {
-      setTodos([
-        ...todos,
-        { <span class="hljs-attr">title</span>: newTitle, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-      ]);
+
+  <span class="hljs-keyword">const</span> deleteTodoA = useMemo(
+    <span class="hljs-function">() =></span> <span class="hljs-function">(<span class="hljs-params">id</span>) =></span> {
+      setTodos(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id !== id));
     },
-    [todos]
+    []
   );
-};
-</code></pre>
-</section><section class="slide"><h2>Vermeiden von Rerenderings und Eventhandler</h2>
-<p>verkürzte Memoisierung eines einzelnen Eventhandlers via <code>useCallback</code>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> handleAddTodo = useCallback(
-    <span class="hljs-function">(<span class="hljs-params">newTitle</span>) =></span> {
-      setTodos([
-        ...todos,
-        { <span class="hljs-attr">title</span>: newTitle, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-      ]);
-    },
-    [todos]
-  );
-};
+
+  <span class="hljs-keyword">const</span> deleteTodoB = useCallback(<span class="hljs-function">(<span class="hljs-params">id</span>) =></span> {
+    setTodos(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id !== id));
+  }, []);
+}
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Virtuelles DOM</h1>
 </section><section class="slide"><h2>Virtuelles DOM</h2>
@@ -2326,18 +2290,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-keyword">const</span> Home = lazy(<span class="hljs-function">() =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/Home'</span>));
 <span class="hljs-keyword">const</span> About = lazy(<span class="hljs-function">() =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/About'</span>));
 
-<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>}>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">About</span> /></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">Home</span> /></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Switch</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Suspense</span>></span></span>
-);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>}>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Routes</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">Home</span> /></span>} />
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">About</span> /></span>} />
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Routes</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Suspense</span>></span></span>
+  );
+}
 </code></pre>
 <small>
   Quelle: <a href="https://reactjs.org/docs/code-splitting.html#route-based-code-splitting" target="_blank">

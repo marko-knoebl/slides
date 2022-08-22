@@ -6,9 +6,9 @@ uses _mocha_ and _chai_ in the background
 
 ## Setup
 
-npm package: _cypress_
-
 for intialization, run `npx cypress open` once
+
+(will create folder _cypress_ and file _cypress.config.js_ in the current directory)
 
 ## Running Cypress
 

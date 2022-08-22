@@ -137,13 +137,38 @@ const navigate = useNavigate();
 navigate('/');
 ```
 
-## Styling links
+## Active link style
 
-supplying a class name that will be applied to any active link:
+styling active links differently:
 
-```xml
-<NavLink to="/" activeClassName="active-link">Home</NavLink>
-<NavLink to="/add" activeClassName="active-link">Add</NavLink>
+```jsx
+<NavLink
+  to="/about"
+  className={(arg) =>
+    arg.isActive ? 'NavLink NavLink--Active' : 'NavLink'
+  }
+>
+  ...
+</NavLink>
+```
+
+## Active link style
+
+creating a reusable component:
+
+```jsx
+function MyNavLink(
+  props: ComponentPropsWithoutRef<typeof NavLink>
+) {
+  return (
+    <NavLink
+      {...props}
+      className={(arg) =>
+        arg.isActive ? 'NavLink NavLink--Active' : 'NavLink'
+      }
+    />
+  );
+}
 ```
 
 ## Exercise

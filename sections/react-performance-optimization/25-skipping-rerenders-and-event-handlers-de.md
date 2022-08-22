@@ -28,71 +28,27 @@ Die Pfeilfunktion wäre bei jedem angeforderten Rendering ein anderes Objekt
 
 Lösungen:
 
+- Memoisieren des Eventhandlers
 - Übergeben einer `dispatch`-Funktion statt neu definierter Eventhandler
 - Definieren des zu übergebenden Eventhanlders in einer Klassenkomponente (soweit möglich)
-- Memoisieren des Eventhandlers
 
 ## Vermeiden von Rerenderings und Eventhandler
 
 Memoisierung von Eventhandlern:
 
 ```jsx
-const TodoApp = () => {
+function TodoApp() {
   const [todos, setTodos] = useState([]);
-  const todosWithEventHandlers = useMemo(
-    () =>
-      todos.map((todo) => ({
-        ...todo,
-        onToggle: () => {
-          // ...
-        },
-      })),
-    [todos]
-  );
-  return (
-    <ul>
-      {todosWithEventHandlers.map((todo) => (
-        <li onClick={todo.onToggle}>{todo.title}</li>
-      ))}
-    </ul>
-  );
-};
-```
 
-## Vermeiden von Rerenderings und Eventhandler
-
-Memoisierung eines einzelnen Eventhandlers:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState([]);
-  const handleAddTodo = useMemo(
-    () => (newTitle) => {
-      setTodos([
-        ...todos,
-        { title: newTitle, completed: false },
-      ]);
+  const deleteTodoA = useMemo(
+    () => (id) => {
+      setTodos((todos) => todos.filter((t) => t.id !== id));
     },
-    [todos]
+    []
   );
-};
-```
 
-## Vermeiden von Rerenderings und Eventhandler
-
-verkürzte Memoisierung eines einzelnen Eventhandlers via `useCallback`:
-
-```jsx
-const TodoApp = () => {
-  const [todos, setTodos] = useState([]);
-  const handleAddTodo = useCallback(
-    (newTitle) => {
-      setTodos([
-        ...todos,
-        { title: newTitle, completed: false },
-      ]);
-    },
-    [todos]
-  );
-};
+  const deleteTodoB = useCallback((id) => {
+    setTodos((todos) => todos.filter((t) => t.id !== id));
+  }, []);
+}
 ```

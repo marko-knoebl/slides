@@ -2,9 +2,9 @@
 
 ## Drei Schritte beim Update einer Komponente
 
-1. build a virtual DOM representation of the new rendering ("render phase")
-2. create a diff between the new and old virtual DOM ("reconciliation phase")
-3. apply any changes in the virtual DOM to the real DOM ("commit phase")
+1. Erstellen einer virtuellen DOM-Repräsentation des neuen Renderings ("Render Phase")
+2. Erstellen eines Diffs zwischen dem alten und dem neuen virtuellen DOM ("Reconcilliation Phase")
+3. Anwenden der im virtuellen DOM gefundenen Änderungen auf das echte DOM ("Commit Phase")
 
 ## Drei Schritte beim Update einer Komponente
 

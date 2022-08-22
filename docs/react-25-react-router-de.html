@@ -2169,10 +2169,31 @@ ReactDOM.render(
 <span class="hljs-comment">// ...</span>
 navigate(<span class="hljs-string">'/'</span>);
 </code></pre>
-</section><section class="slide"><h2>Styling von Links</h2>
-<p>Übergeben eines Klassennamens, der auf aktive Links angewendet wird:</p>
-<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/add"</span> <span class="hljs-attr">activeClassName</span>=<span class="hljs-string">"active-link"</span>></span>Add<span class="hljs-tag">&#x3C;/<span class="hljs-name">NavLink</span>></span>
+</section><section class="slide"><h2>Styling von aktiven Links</h2>
+<p>Einen aktiven Link anders darstellen:</p>
+<pre><code class="hljs language-jsx">&#x3C;NavLink
+  to=<span class="hljs-string">"/about"</span>
+  className={<span class="hljs-function">(<span class="hljs-params">arg</span>) =></span>
+    arg.isActive ? <span class="hljs-string">'NavLink--Active'</span> : <span class="hljs-literal">undefined</span>
+  }
+>
+  ...
+&#x3C;/NavLink>
+</code></pre>
+</section><section class="slide"><h2>Styling von aktiven Links</h2>
+<p>Erstellen einer wiederverwendbaren Komponente:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyNavLink</span>(<span class="hljs-params">
+  props: ComponentPropsWithoutRef&#x3C;<span class="hljs-keyword">typeof</span> NavLink>
+</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">NavLink</span>
+      {<span class="hljs-attr">...props</span>}
+      <span class="hljs-attr">className</span>=<span class="hljs-string">{(arg)</span> =></span>
+        arg.isActive ? 'NavLink NavLink--Active' : 'NavLink'
+      }
+    /></span>
+  );
+}
 </code></pre>
 </section><section class="slide"><h2>Übung</h2>
 <p>erstelle Routen in der Todo-Anwendung, z.B.:</p>
