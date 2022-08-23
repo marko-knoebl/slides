@@ -2154,7 +2154,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Pages and navigation</h2>
 <p>Example page definition:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// pages/index.tsx</span>
-<span class="hljs-keyword">import</span> type { NextPage } <span class="hljs-keyword">from</span> <span class="hljs-string">'next'</span>
+<span class="hljs-keyword">import</span> type { NextPage } <span class="hljs-keyword">from</span> <span class="hljs-string">'next'</span>;
 <span class="hljs-keyword">import</span> Link <span class="hljs-keyword">from</span> <span class="hljs-string">'next/link'</span>;
 <span class="hljs-keyword">import</span> Head <span class="hljs-keyword">from</span> <span class="hljs-string">'next/head'</span>;
 
@@ -2178,6 +2178,22 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>Link</code>: link inside a single-page application</li>
 <li><code>Head</code>: enables easily setting content of the page's <code>&#x3C;head></code> element</li>
 </ul>
+</section><section class="slide"><h2>Shared content</h2>
+<p>defining "global" content that is shared across all pages:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// _app.tsx</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyApp</span>(<span class="hljs-params">{ Component, pageProps }: AppProps</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      {/* fixed header content */}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">header</span>></span>header content<span class="hljs-tag">&#x3C;/<span class="hljs-name">header</span>></span>
+      {/* variable content - defined by the route */}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Component</span> {<span class="hljs-attr">...pageProps</span>} /></span>
+      {/* fixed footer content */}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">footer</span>></span>footer content<span class="hljs-tag">&#x3C;/<span class="hljs-name">footer</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
 </section><section class="slide"><h2>Pages and navigation</h2>
 <p>Task: create further pages</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Pre-rendering and data fetching</h1>
