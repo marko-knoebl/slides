@@ -6,46 +6,6 @@ Custom hooks can be defined as functions whose name starts with `use`
 
 They will in turn rely on existing hooks, like `useState` or `useEffect`
 
-## Custom hooks - useExchangeRate
-
-use of a custom hook for loading exchange rates:
-
-```js
-function ExchangeRate() {
-  const [from, setFrom] = useState('usd');
-  const [to, setTo] = useState('eur');
-
-  const { status, rate } = useExchangeRate(from, to);
-
-  // ...
-}
-```
-
-## Custom hooks - useExchangeRate
-
-definition of `useExchangeRate`:
-
-```js
-function useExchangeRate(from, to) {
-  const [rate, setRate] = useState(null);
-  const [status, setStatus] = useState('loading');
-  async function loadExchangeRateAsync() {
-    try {
-      const newRate = await fetchExchangeRate();
-      setRate(newRate);
-      setStatus('success');
-    } catch {
-      setRate(null);
-      setStatus('error');
-    }
-  }
-  useEffect(() => {
-    loadExchangeRateAsync();
-  }, [from, to]);
-  return { status, rate };
-}
-```
-
 ## Custom hooks - useTodos
 
 Example: `useTodos` - can be used to extract data handling from the component definition (separating the _model_ from the _view_)
@@ -93,6 +53,46 @@ function useTodos() {
     );
   }
   return { todos, addTodo, deleteTodo, setTodoCompleted };
+}
+```
+
+## Custom hooks - useExchangeRate
+
+use of a custom hook for loading exchange rates:
+
+```js
+function ExchangeRate() {
+  const [from, setFrom] = useState('usd');
+  const [to, setTo] = useState('eur');
+
+  const { status, rate } = useExchangeRate(from, to);
+
+  // ...
+}
+```
+
+## Custom hooks - useExchangeRate
+
+definition of `useExchangeRate`:
+
+```js
+function useExchangeRate(from, to) {
+  const [rate, setRate] = useState(null);
+  const [status, setStatus] = useState('loading');
+  async function loadExchangeRateAsync() {
+    try {
+      const newRate = await fetchExchangeRate();
+      setRate(newRate);
+      setStatus('success');
+    } catch {
+      setRate(null);
+      setStatus('error');
+    }
+  }
+  useEffect(() => {
+    loadExchangeRateAsync();
+  }, [from, to]);
+  return { status, rate };
 }
 ```
 

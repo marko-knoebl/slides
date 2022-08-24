@@ -6,46 +6,6 @@ Eigene Hooks können als Funktionen definiert werden, deren Name mit `use` begin
 
 Eigene Hooks greifen wiederum auf bestehende Hooks, wie `useState` oder `useEffect` zurück
 
-## Eigene Hooks - useExchangeRate
-
-verwendung eines eigenen Hooks zum Laden von Wechselkusdaten:
-
-```js
-function ExchangeRate() {
-  const [from, setFrom] = useState('usd');
-  const [to, setTo] = useState('eur');
-
-  const { status, rate } = useExchangeRate(from, to);
-
-  // ...
-}
-```
-
-## Eigene Hooks - useExchangeRate
-
-Definition von `useExchangeRate`:
-
-```js
-function useExchangeRate(from, to) {
-  const [rate, setRate] = useState(null);
-  const [status, setStatus] = useState('loading');
-  async function loadExchangeRateAsync() {
-    try {
-      const newRate = await fetchExchangeRate();
-      setRate(newRate);
-      setStatus('success');
-    } catch {
-      setRate(null);
-      setStatus('error');
-    }
-  }
-  useEffect(() => {
-    loadExchangeRateAsync();
-  }, [from, to]);
-  return { status, rate };
-}
-```
-
 ## Eigene Hooks - useTodos
 
 Beispiel: `useTodos` - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen (Trennung von _model_ und _view_)
@@ -93,6 +53,46 @@ function useTodos() {
     );
   }
   return { todos, addTodo, deleteTodo, setTodoCompleted };
+}
+```
+
+## Eigene Hooks - useExchangeRate
+
+verwendung eines eigenen Hooks zum Laden von Wechselkusdaten:
+
+```js
+function ExchangeRate() {
+  const [from, setFrom] = useState('usd');
+  const [to, setTo] = useState('eur');
+
+  const { status, rate } = useExchangeRate(from, to);
+
+  // ...
+}
+```
+
+## Eigene Hooks - useExchangeRate
+
+Definition von `useExchangeRate`:
+
+```js
+function useExchangeRate(from, to) {
+  const [rate, setRate] = useState(null);
+  const [status, setStatus] = useState('loading');
+  async function loadExchangeRateAsync() {
+    try {
+      const newRate = await fetchExchangeRate();
+      setRate(newRate);
+      setStatus('success');
+    } catch {
+      setRate(null);
+      setStatus('error');
+    }
+  }
+  useEffect(() => {
+    loadExchangeRateAsync();
+  }, [from, to]);
+  return { status, rate };
 }
 ```
 

@@ -28,7 +28,7 @@ npx cypress run
 
 Beispiel: Testen von Wikipedia:
 
-in _cypress/integration/wikipedia.spec.ts_:
+in _cypress/e2e/wikipedia.cy.js_:
 
 ```js
 describe('wikipedia', () => {

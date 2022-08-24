@@ -2121,6 +2121,105 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>using timers (<code>setTimeout</code>, <code>setInterval</code>)</li>
 <li>styling</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Input state</h1>
+</section><section class="slide"><h2>Input state</h2>
+<p>"uncontrolled" input in React:</p>
+<pre><code class="hljs language-jsx">&#x3C;input />
+</code></pre>
+<p>React does not know the input's content and cannot change it</p>
+</section><section class="slide"><h2>Input state</h2>
+<p>connecting an input to the state:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [inputText, setInputText] = useState(<span class="hljs-string">''</span>);
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;input
+  value={inputText}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setInputText(event.target.value)}
+/>
+</code></pre>
+</section><section class="slide"><h2>Input state</h2>
+<p>explanation:</p>
+<pre><code class="hljs language-txt">value={inputText}
+</code></pre>
+<p>binds from the <em>state</em> to the input value</p>
+<pre><code class="hljs language-txt">onChange={(event) => setInputText(event.target.value)}
+</code></pre>
+<p>updates the state whenever the input value changes</p>
+</section><section class="slide"><h2>Input state</h2>
+<p>why <code>event.target.value</code>?</p>
+<ul>
+<li><code>event.target</code> represents the input element</li>
+<li><code>event.target.value</code> is the new value of the input element</li>
+</ul>
+</section><section class="slide"><h2>Input state</h2>
+<p>Example: Input that also displays the number of characters:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [text, setText] = useState(<span class="hljs-string">''</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setText(event.target.value)}
+      />
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setText('')}>clear<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {text.length} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Input state</h2>
+<p>other options for working with input state:</p>
+<ul>
+<li>handle multiple inputs via their name (see <a href="https://reactjs.org/docs/forms.html#handling-multiple-inputs" target="_blank">React documentation</a>)</li>
+<li>only read input contents on a form submit event (via <code>FormData</code>)</li>
+<li>use an external library (e.g. <em>react-hook-form</em>, <em>formik</em>)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Input types</h1>
+</section><section class="slide"><h2>Input types</h2>
+<ul>
+<li>text</li>
+<li>textarea</li>
+<li>checkbox</li>
+<li>numeric input</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Input types</h2>
+<p>text and text area:</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  value={title}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setTitle(event.target.value)}
+/>
+</code></pre>
+</section><section class="slide"><h2>Input types</h2>
+<p>checkbox:</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  type=<span class="hljs-string">"checkbox"</span>
+  checked={accept}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setAccept(event.target.checked)}
+/>
+</code></pre>
+</section><section class="slide"><h2>Numeric input fields</h2>
+<p>Basic advice for numeric input fields:</p>
+<p>store the content as a string (not as a number)</p>
+<p>Reasoning: possible contents of a numeric input field (while the user is typing):</p>
+<pre><code class="hljs language-txt">""
+"-"
+"-3"
+"-3."
+"-3.0"
+</code></pre>
+</section><section class="slide"><h2>Numeric input fields</h2>
+<p>example: numeric input with direct "result":</p>
+<p><a href="https://codesandbox.io/s/numeric-input-direct-results-5vde88" target="_blank">https://codesandbox.io/s/numeric-input-direct-results-5vde88</a></p>
+</section><section class="slide"><h2>Other input types</h2>
+<p>see <a href="https://reactjs.org/docs/forms.html" target="_blank">https://reactjs.org/docs/forms.html</a></p>
+</section><section class="slide"><h2>Exercise: newsletter form</h2>
+<p>Create a component called <code>NewsletterSignup</code> with three state entries:</p>
+<p><code>email</code>, <code>repeatEmail</code>, <code>acceptTerms</code></p>
+<p>demo of finished version: <a href="https://codesandbox.io/s/newsletter-form-pvgs6l" target="_blank">https://codesandbox.io/s/newsletter-form-pvgs6l</a></p>
+<p>note: enabling / disabling a button in JSX: <code>&#x3C;button disabled={...}>...&#x3C;/button></code></p>
+</section><section class="slide"><h2>Exercise: newsletter form</h2>
+<p>extra: add a dropdown to choose a language for the newsletter</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable state</h1>
 </section><section class="slide"><h2>Immutable state</h2>
 <p><strong>Immutability</strong>: important concept in functional programing and with React</p>
@@ -2317,106 +2416,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>updateTodo</code> (change <code>title</code> and <code>completed</code> in one go)</li>
 <li><code>removeAllCompoletedTodos</code></li>
 <li>...</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Input state</h1>
-</section><section class="slide"><h2>Input state</h2>
-<p>"uncontrolled" input in React:</p>
-<pre><code class="hljs language-jsx">&#x3C;input />
-</code></pre>
-<p>React does not know the input's content and cannot change it</p>
-</section><section class="slide"><h2>Input state</h2>
-<p>connecting an input to the state:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [inputText, setInputText] = useState(<span class="hljs-string">''</span>);
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;input
-  value={inputText}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setInputText(event.target.value)}
-/>
-</code></pre>
-</section><section class="slide"><h2>Input state</h2>
-<p>explanation:</p>
-<pre><code class="hljs language-txt">value={inputText}
-</code></pre>
-<p>binds from the <em>state</em> to the input value</p>
-<pre><code class="hljs language-txt">onChange={(event) => setInputText(event.target.value)}
-</code></pre>
-<p>updates the state whenever the input value changes</p>
-</section><section class="slide"><h2>Input state</h2>
-<p>why <code>event.target.value</code>?</p>
-<ul>
-<li><code>event.target</code> represents the input element</li>
-<li><code>event.target.value</code> is the new value of the input element</li>
-</ul>
-</section><section class="slide"><h2>Input state</h2>
-<p>Example: Input that also displays the number of characters:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [text, setText] = useState(<span class="hljs-string">''</span>);
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setText(event.target.value)}
-      />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setText('')}>clear<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {text.length} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Input state</h2>
-<p>other options for working with input state:</p>
-<ul>
-<li>handle multiple inputs via their name (see <a href="https://reactjs.org/docs/forms.html#handling-multiple-inputs" target="_blank">React documentation</a>)</li>
-<li>only read input contents on a form submit event (via <code>FormData</code>)</li>
-<li>use an external library (e.g. <em>react-hook-form</em>, <em>formik</em>)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Input types</h1>
-</section><section class="slide"><h2>Input types</h2>
-<ul>
-<li>text</li>
-<li>textarea</li>
-<li>checkbox</li>
-<li>numeric input</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Input types</h2>
-<p>text and text area:</p>
-<pre><code class="hljs language-jsx">&#x3C;input
-  value={title}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setTitle(event.target.value)}
-/>
-</code></pre>
-</section><section class="slide"><h2>Input types</h2>
-<p>checkbox:</p>
-<pre><code class="hljs language-jsx">&#x3C;input
-  type=<span class="hljs-string">"checkbox"</span>
-  checked={accept}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setAccept(event.target.checked)}
-/>
-</code></pre>
-</section><section class="slide"><h2>Numeric input fields</h2>
-<p>Basic advice for numeric input fields:</p>
-<p>store the content as a string (not as a number)</p>
-<p>Reasoning: possible contents of a numeric input field (while the user is typing):</p>
-<pre><code class="hljs language-txt">""
-"-"
-"-3"
-"-3."
-"-3.0"
-</code></pre>
-</section><section class="slide"><h2>Numeric input fields</h2>
-<p>example: numeric input with direct "result":</p>
-<p><a href="https://codesandbox.io/s/numeric-input-direct-results-5vde88" target="_blank">https://codesandbox.io/s/numeric-input-direct-results-5vde88</a></p>
-</section><section class="slide"><h2>Other input types</h2>
-<p>see <a href="https://reactjs.org/docs/forms.html" target="_blank">https://reactjs.org/docs/forms.html</a></p>
-</section><section class="slide"><h2>Exercise: newsletter form</h2>
-<p>Create a component called <code>NewsletterSignup</code> with three state entries:</p>
-<p><code>email</code>, <code>repeatEmail</code>, <code>acceptTerms</code></p>
-<p>demo of finished version: <a href="https://codesandbox.io/s/newsletter-form-pvgs6l" target="_blank">https://codesandbox.io/s/newsletter-form-pvgs6l</a></p>
-<p>note: enabling / disabling a button in JSX: <code>&#x3C;button disabled={...}>...&#x3C;/button></code></p>
-</section><section class="slide"><h2>Exercise: newsletter form</h2>
-<p>extra: add a dropdown to choose a language for the newsletter</p></section></section></div>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

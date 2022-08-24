@@ -2121,6 +2121,106 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Verwenden von Timern (<code>setTimeout</code>, <code>setInterval</code>)</li>
 <li>Styling</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Input State</h1>
+</section><section class="slide"><h2>Input State</h2>
+<p>ein "uncontrolled input" in React:</p>
+<pre><code class="hljs language-jsx">&#x3C;input />
+</code></pre>
+<p>React kennt den Inhalt des Inputs nicht und kann ihn nicht ändern</p>
+</section><section class="slide"><h2>Input State</h2>
+<p>So können wir den Wert eines Inputs im State erfassen:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [inputText, setInputText] = useState(<span class="hljs-string">''</span>);
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;input
+  value={inputText}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setInputText(event.target.value)}
+/>
+</code></pre>
+</section><section class="slide"><h2>Input State</h2>
+<p>Erklärung:</p>
+<pre><code class="hljs language-txt">value={inputText}
+</code></pre>
+<p>bindet vom <em>State</em> auf den Wert des Inputs</p>
+<pre><code class="hljs language-txt">onChange={(event) => setInputText(event.target.value)}
+</code></pre>
+<p>aktualisiert den State, wenn sich der Wert des Inputs ändert</p>
+</section><section class="slide"><h2>Input State</h2>
+<p>warum <code>event.target.value</code>?</p>
+<ul>
+<li><code>event.target</code> repräsentiert das Input-Element</li>
+<li><code>event.target.value</code> ist der neue Wert des Input-Elements</li>
+</ul>
+</section><section class="slide"><h2>Input State</h2>
+<p>Beispiel: Input, bei dem auch die Textlänge angezeigt wird:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [text, setText] = useState(<span class="hljs-string">''</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
+        <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
+        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setText(event.target.value)}
+      />
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setText('')}>clear<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {text.length} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Input State</h2>
+<p>andere Möglichkeiten zum Arbeiten mit Input-State:</p>
+<ul>
+<li>Verwalten von mehreren Inputs über ihre Namen (siehe <a href="https://reactjs.org/docs/forms.html#handling-multiple-inputs" target="_blank">React Dokumentation</a>)</li>
+<li>Auslesen von Input-Inhalten nur beim <em>Submit</em> eines Formulars (via <code>FormData</code>)</li>
+<li>Verwenden einer externen Library (z.B. <em>react-hook-form</em>, <em>formik</em>)</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Input-Typen</h1>
+</section><section class="slide"><h2>Input-Typen</h2>
+<ul>
+<li>text</li>
+<li>textarea</li>
+<li>checkbox</li>
+<li>dropdown</li>
+<li>numerisch</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Input-Typen</h2>
+<p>Text und Textarea:</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  value={title}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setTitle(event.target.value)}
+/>
+</code></pre>
+</section><section class="slide"><h2>Input-Typen</h2>
+<p>Checkbox:</p>
+<pre><code class="hljs language-jsx">&#x3C;input
+  type=<span class="hljs-string">"checkbox"</span>
+  checked={accept}
+  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setAccept(event.target.checked)}
+/>
+</code></pre>
+</section><section class="slide"><h2>Numerische Inputs</h2>
+<p>Grundlegender Rat für numerische Inputs:</p>
+<p>speichere den Inhalt als String (nicht als Zahl)</p>
+<p>Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):</p>
+<pre><code class="hljs language-txt">""
+"-"
+"-3"
+"-3."
+"-3.0"
+</code></pre>
+</section><section class="slide"><h2>Numerische Inputs</h2>
+<p>Beispiel für numerischen Input mit direkten "Auswirkungen":</p>
+<p><a href="https://codesandbox.io/s/numeric-input-direct-results-5vde88" target="_blank">https://codesandbox.io/s/numeric-input-direct-results-5vde88</a></p>
+</section><section class="slide"><h2>Andere Input-Typen</h2>
+<p>siehe <a href="https://reactjs.org/docs/forms.html" target="_blank">https://reactjs.org/docs/forms.html</a></p>
+</section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
+<p>Erstelle eine Komponente namens <code>NewsletterSignup</code> mit drei State-Einträgen:</p>
+<p><code>email</code>, <code>repeatEmail</code>, <code>acceptTerms</code></p>
+<p>Demo einer vollständigen Version: <a href="https://codesandbox.io/s/newsletter-form-pvgs6l" target="_blank">https://codesandbox.io/s/newsletter-form-pvgs6l</a></p>
+<p>Bemerkung: aktivieren / deaktivieren eines buttons in JSX: <code>&#x3C;button disabled={...}>...&#x3C;/button></code></p>
+</section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
+<p>Extra: füge ein Dropdown hinzu, mit dem eine Sprache für den Newsletter ausgewählt werden kann</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Immutable State</h1>
 </section><section class="slide"><h2>Immutable State</h2>
 <p><strong>Immutability</strong>: Wichtiges Konzept in der funktionalen Programmierung und bei React</p>
@@ -2317,107 +2417,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>updateTodo</code> (ändern von <code>title</code> und <code>completed</code> in einem Aufruf)</li>
 <li><code>removeAllCompletedTodos</code></li>
 <li>...</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Input State</h1>
-</section><section class="slide"><h2>Input State</h2>
-<p>ein "uncontrolled input" in React:</p>
-<pre><code class="hljs language-jsx">&#x3C;input />
-</code></pre>
-<p>React kennt den Inhalt des Inputs nicht und kann ihn nicht ändern</p>
-</section><section class="slide"><h2>Input State</h2>
-<p>So können wir den Wert eines Inputs im State erfassen:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [inputText, setInputText] = useState(<span class="hljs-string">''</span>);
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;input
-  value={inputText}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setInputText(event.target.value)}
-/>
-</code></pre>
-</section><section class="slide"><h2>Input State</h2>
-<p>Erklärung:</p>
-<pre><code class="hljs language-txt">value={inputText}
-</code></pre>
-<p>bindet vom <em>State</em> auf den Wert des Inputs</p>
-<pre><code class="hljs language-txt">onChange={(event) => setInputText(event.target.value)}
-</code></pre>
-<p>aktualisiert den State, wenn sich der Wert des Inputs ändert</p>
-</section><section class="slide"><h2>Input State</h2>
-<p>warum <code>event.target.value</code>?</p>
-<ul>
-<li><code>event.target</code> repräsentiert das Input-Element</li>
-<li><code>event.target.value</code> ist der neue Wert des Input-Elements</li>
-</ul>
-</section><section class="slide"><h2>Input State</h2>
-<p>Beispiel: Input, bei dem auch die Textlänge angezeigt wird:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [text, setText] = useState(<span class="hljs-string">''</span>);
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">input</span>
-        <span class="hljs-attr">value</span>=<span class="hljs-string">{text}</span>
-        <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(event)</span> =></span> setText(event.target.value)}
-      />
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setText('')}>clear<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This string has {text.length} characters.<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Input State</h2>
-<p>andere Möglichkeiten zum Arbeiten mit Input-State:</p>
-<ul>
-<li>Verwalten von mehreren Inputs über ihre Namen (siehe <a href="https://reactjs.org/docs/forms.html#handling-multiple-inputs" target="_blank">React Dokumentation</a>)</li>
-<li>Auslesen von Input-Inhalten nur beim <em>Submit</em> eines Formulars (via <code>FormData</code>)</li>
-<li>Verwenden einer externen Library (z.B. <em>react-hook-form</em>, <em>formik</em>)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Input-Typen</h1>
-</section><section class="slide"><h2>Input-Typen</h2>
-<ul>
-<li>text</li>
-<li>textarea</li>
-<li>checkbox</li>
-<li>dropdown</li>
-<li>numerisch</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Input-Typen</h2>
-<p>Text und Textarea:</p>
-<pre><code class="hljs language-jsx">&#x3C;input
-  value={title}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setTitle(event.target.value)}
-/>
-</code></pre>
-</section><section class="slide"><h2>Input-Typen</h2>
-<p>Checkbox:</p>
-<pre><code class="hljs language-jsx">&#x3C;input
-  type=<span class="hljs-string">"checkbox"</span>
-  checked={accept}
-  onChange={<span class="hljs-function">(<span class="hljs-params">event</span>) =></span> setAccept(event.target.checked)}
-/>
-</code></pre>
-</section><section class="slide"><h2>Numerische Inputs</h2>
-<p>Grundlegender Rat für numerische Inputs:</p>
-<p>speichere den Inhalt als String (nicht als Zahl)</p>
-<p>Grund: mögliche Inhalte eines Numerischen Inputs (während der Benutzer tippt):</p>
-<pre><code class="hljs language-txt">""
-"-"
-"-3"
-"-3."
-"-3.0"
-</code></pre>
-</section><section class="slide"><h2>Numerische Inputs</h2>
-<p>Beispiel für numerischen Input mit direkten "Auswirkungen":</p>
-<p><a href="https://codesandbox.io/s/numeric-input-direct-results-5vde88" target="_blank">https://codesandbox.io/s/numeric-input-direct-results-5vde88</a></p>
-</section><section class="slide"><h2>Andere Input-Typen</h2>
-<p>siehe <a href="https://reactjs.org/docs/forms.html" target="_blank">https://reactjs.org/docs/forms.html</a></p>
-</section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
-<p>Erstelle eine Komponente namens <code>NewsletterSignup</code> mit drei State-Einträgen:</p>
-<p><code>email</code>, <code>repeatEmail</code>, <code>acceptTerms</code></p>
-<p>Demo einer vollständigen Version: <a href="https://codesandbox.io/s/newsletter-form-pvgs6l" target="_blank">https://codesandbox.io/s/newsletter-form-pvgs6l</a></p>
-<p>Bemerkung: aktivieren / deaktivieren eines buttons in JSX: <code>&#x3C;button disabled={...}>...&#x3C;/button></code></p>
-</section><section class="slide"><h2>Übung: Newsletter-Formular</h2>
-<p>Extra: füge ein Dropdown hinzu, mit dem eine Sprache für den Newsletter ausgewählt werden kann</p></section></section></div>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

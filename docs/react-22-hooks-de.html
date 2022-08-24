@@ -2064,38 +2064,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Eigene Hooks</h2>
 <p>Eigene Hooks können als Funktionen definiert werden, deren Name mit <code>use</code> beginnt</p>
 <p>Eigene Hooks greifen wiederum auf bestehende Hooks, wie <code>useState</code> oder <code>useEffect</code> zurück</p>
-</section><section class="slide"><h2>Eigene Hooks - useExchangeRate</h2>
-<p>verwendung eines eigenen Hooks zum Laden von Wechselkusdaten:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'usd'</span>);
-  <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'eur'</span>);
-
-  <span class="hljs-keyword">const</span> { status, rate } = useExchangeRate(<span class="hljs-keyword">from</span>, to);
-
-  <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Eigene Hooks - useExchangeRate</h2>
-<p>Definition von <code>useExchangeRate</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
-  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRateAsync</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate();
-      setRate(newRate);
-      setStatus(<span class="hljs-string">'success'</span>);
-    } <span class="hljs-keyword">catch</span> {
-      setRate(<span class="hljs-literal">null</span>);
-      setStatus(<span class="hljs-string">'error'</span>);
-    }
-  }
-  useEffect(<span class="hljs-function">() =></span> {
-    loadExchangeRateAsync();
-  }, [<span class="hljs-keyword">from</span>, to]);
-  <span class="hljs-keyword">return</span> { status, rate };
-}
-</code></pre>
 </section><section class="slide"><h2>Eigene Hooks - useTodos</h2>
 <p>Beispiel: <code>useTodos</code> - kann verwendet werden, um die Datenverwaltung von der Komponentendefinition loszulösen (Trennung von <em>model</em> und <em>view</em>)</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
@@ -2136,6 +2104,38 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     );
   }
   <span class="hljs-keyword">return</span> { todos, addTodo, deleteTodo, setTodoCompleted };
+}
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useExchangeRate</h2>
+<p>verwendung eines eigenen Hooks zum Laden von Wechselkusdaten:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'usd'</span>);
+  <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'eur'</span>);
+
+  <span class="hljs-keyword">const</span> { status, rate } = useExchangeRate(<span class="hljs-keyword">from</span>, to);
+
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Eigene Hooks - useExchangeRate</h2>
+<p>Definition von <code>useExchangeRate</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
+  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRateAsync</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate();
+      setRate(newRate);
+      setStatus(<span class="hljs-string">'success'</span>);
+    } <span class="hljs-keyword">catch</span> {
+      setRate(<span class="hljs-literal">null</span>);
+      setStatus(<span class="hljs-string">'error'</span>);
+    }
+  }
+  useEffect(<span class="hljs-function">() =></span> {
+    loadExchangeRateAsync();
+  }, [<span class="hljs-keyword">from</span>, to]);
+  <span class="hljs-keyword">return</span> { status, rate };
 }
 </code></pre>
 </section><section class="slide"><h2>Eigene Hooks - useDate</h2>
