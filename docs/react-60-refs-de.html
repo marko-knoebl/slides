@@ -2243,6 +2243,69 @@ function Video() {
     element.focus();
   }}
 />
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Refs in eigenen Komponenten</h1>
+</section><section class="slide"><h2>Refs in eigenen Komponenten</h2>
+<p>Beispiel: <code>TextField</code>-Komponente in <em>MUI</em></p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> containerRef = useRef&#x3C;HTMLDivElement>(<span class="hljs-literal">null</span>);
+<span class="hljs-keyword">const</span> inputRef = useRef&#x3C;HTMLInputElement>(<span class="hljs-literal">null</span>);
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;TextField ref={containerRef} inputRef={inputRef} />
+</code></pre>
+<ul>
+<li><code>ref</code>: kann verwendet werden, um auf das äußere <code>&#x3C;div></code> zuzugreifen</li>
+<li><code>inputRef</code>: kann verwendet werden, um auf das <code>&#x3C;input></code>-Element zuzugreifen</li>
+</ul>
+</section><section class="slide"><h2>Refs in eigenen Komponenten</h2>
+<p>Implementierung einer Ref, deren Property-Name <strong>nicht</strong> "ref" ist:</p>
+<pre><code class="hljs language-tsx">type Props = {
+  inputRef: RefObject&#x3C;HTMLInputElement>;
+  // ...
+};
+
+function TextField(props: Props) {
+  return (
+    &#x3C;div>
+      ...
+      &#x3C;input ref={props.inputRef} />
+    &#x3C;/div>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Refs in eigenen Komponenten</h2>
+<p>Implementierung einer Ref, deren Property-Name "ref" <strong>ist</strong>:</p>
+<pre><code class="hljs language-tsx">type Props = {
+  // ...
+};
+
+const TextField = forwardRef&#x3C;HTMLDivElement, Props>(
+  (props, ref) => {
+    return (
+      &#x3C;div ref={ref}>
+        ...
+        &#x3C;input />
+      &#x3C;/div>
+    );
+  }
+);
+</code></pre>
+</section><section class="slide"><h2>Refs in eigenen Komponenten</h2>
+<p>Kombination der Implementierungen:</p>
+<pre><code class="hljs language-tsx">type Props = {
+  inputRef: RefObject&#x3C;HTMLInputElement>;
+  // ...
+};
+
+const TextField = forwardRef&#x3C;HTMLDivElement, Props>(
+  (props, ref) => {
+    return (
+      &#x3C;div ref={ref}>
+        ...
+        &#x3C;input ref={props.inputRef} />
+      &#x3C;/div>
+    );
+  }
+);
 </code></pre></section></section></div>
     </div>
     <script>/*!

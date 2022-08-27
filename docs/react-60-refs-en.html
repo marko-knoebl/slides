@@ -2243,6 +2243,69 @@ function Video() {
     element.focus();
   }}
 />
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Refs in custom components</h1>
+</section><section class="slide"><h2>Refs in custom components</h2>
+<p>example: <code>TextField</code> component in <em>MUI</em></p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> containerRef = useRef&#x3C;HTMLDivElement>(<span class="hljs-literal">null</span>);
+<span class="hljs-keyword">const</span> inputRef = useRef&#x3C;HTMLInputElement>(<span class="hljs-literal">null</span>);
+</code></pre>
+<pre><code class="hljs language-jsx">&#x3C;TextField ref={containerRef} inputRef={inputRef} />
+</code></pre>
+<ul>
+<li><code>ref</code>: can be used to access the containing <code>&#x3C;div></code></li>
+<li><code>inputRef</code>: can be used to access the <code>&#x3C;input></code> element</li>
+</ul>
+</section><section class="slide"><h2>Refs in custom components</h2>
+<p>implementation of a ref whose property name <strong>is not</strong> "ref":</p>
+<pre><code class="hljs language-tsx">type Props = {
+  inputRef: RefObject&#x3C;HTMLInputElement>;
+  // ...
+};
+
+function TextField(props: Props) {
+  return (
+    &#x3C;div>
+      ...
+      &#x3C;input ref={props.inputRef} />
+    &#x3C;/div>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Refs in custom components</h2>
+<p>implementation of a ref whose property name <strong>is</strong> "ref":</p>
+<pre><code class="hljs language-tsx">type Props = {
+  // ...
+};
+
+const TextField = forwardRef&#x3C;HTMLDivElement, Props>(
+  (props, ref) => {
+    return (
+      &#x3C;div ref={ref}>
+        ...
+        &#x3C;input />
+      &#x3C;/div>
+    );
+  }
+);
+</code></pre>
+</section><section class="slide"><h2>Refs in custom components</h2>
+<p>combined implementation:</p>
+<pre><code class="hljs language-tsx">type Props = {
+  inputRef: RefObject&#x3C;HTMLInputElement>;
+  // ...
+};
+
+const TextField = forwardRef&#x3C;HTMLDivElement, Props>(
+  (props, ref) => {
+    return (
+      &#x3C;div ref={ref}>
+        ...
+        &#x3C;input ref={props.inputRef} />
+      &#x3C;/div>
+    );
+  }
+);
 </code></pre></section></section></div>
     </div>
     <script>/*!
