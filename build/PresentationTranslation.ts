@@ -46,6 +46,9 @@ class PresentationTranslation {
   presentationData: PresentationData;
   presentationDataNew: PresentationDataNew;
 
+  /** number of slides in this presentation */
+  slideCount: 0;
+
   constructor(srcUrl: string, srcBaseDir: string, distBaseDir: string) {
     if (!srcUrl.endsWith(".md")) {
       throw new Error("invalid filename");
@@ -58,6 +61,7 @@ class PresentationTranslation {
       this.relSrcUrl.length - 3
     );
     this.relId = getRelIdFromRelSrcUrl(this.relSrcUrl);
+    this.slideCount = 0;
   }
 
   load() {
@@ -71,10 +75,16 @@ class PresentationTranslation {
       path: `${this.srcBaseDir}/${this.relSrcUrl}`,
     });
     this.mdTree = parseAndIncludeMd(entryFile);
+
+    for (let child of this.mdTree!.children as Array<UnistNode>) {
+      if (child.type === "heading") {
+        this.slideCount++;
+      }
+    }
   }
 
   getTitle() {
-    for (let child of this.mdTree.children as Array<UnistNode>) {
+    for (let child of this.mdTree!.children as Array<UnistNode>) {
       if (child.type === "heading") {
         return child.children[0].value;
       }

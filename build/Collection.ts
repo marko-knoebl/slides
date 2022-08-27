@@ -78,6 +78,9 @@ class Collection {
   /** parent collection */
   parent?: Collection;
 
+  /** number of slides in this collection per language */
+  slideCounts: { en: number; de: number };
+
   constructor(
     srcUrl: string,
     srcBaseDir: string,
@@ -90,6 +93,7 @@ class Collection {
     this.relSrcUrl = srcUrl.slice(this.srcBaseDir.length + 1);
     this.relId = getRelIdFromRelSrcUrl(this.relSrcUrl);
     this.parent = parent;
+    this.slideCounts = { en: 0, de: 0 };
   }
 
   load() {
@@ -112,6 +116,11 @@ class Collection {
         this
       );
     });
+    for (let child of this.children) {
+      for (let language of child.languages) {
+        this.slideCounts[language] += child.slideCounts[language];
+      }
+    }
     this.pageUrls = config.pageUrls;
     this.pages = {};
     if (this.pageUrls) {
@@ -142,7 +151,7 @@ class Collection {
 }
 
 function getRelIdFromRelSrcUrl(relSrcUrl: string) {
-  let relId;
+  let relId: string;
   if (relSrcUrl.endsWith("/index-collection.json")) {
     relId = relSrcUrl.slice(
       0,

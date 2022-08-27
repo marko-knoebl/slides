@@ -19,6 +19,9 @@ function main() {
     SRC_BASE_DIR,
     DIST_BASE_DIR
   ) as Collection;
+  for (let topLevelTopic of fullContent.children) {
+    console.log(topLevelTopic.relId, topLevelTopic.slideCounts);
+  }
   console.log("# building presentations");
   // convert parsed markdown to HTML
   fullContent.build();

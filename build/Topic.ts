@@ -64,6 +64,9 @@ class Topic {
   /** contents of child elements */
   children: Array<PresentationTranslation>;
 
+  /** number of slides in this topic per language */
+  slideCounts: { en: number; de: number };
+
   constructor(
     srcUrl: string,
     srcBaseDir: string,
@@ -76,6 +79,7 @@ class Topic {
     this.distBaseDir = distBaseDir;
     this.relId = getRelIdFromRelSrcUrl(this.relSrcUrl);
     this.parent = parent;
+    this.slideCounts = { en: 0, de: 0 };
   }
 
   load() {
@@ -107,6 +111,9 @@ class Topic {
       presentation.load();
       return presentation;
     });
+    for (let presentation of this.children) {
+      this.slideCounts[presentation.language] += presentation.slideCount;
+    }
   }
 
   build() {
