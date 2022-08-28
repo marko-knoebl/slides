@@ -11,7 +11,7 @@ the parent receives instructions for how to render data - these instructions are
 Wishful thinking - if only this would work:
 
 ```js
-<DataLoader resource="https://jsonplaceholder.typicode.com">
+<DataLoader resource="https://jsonplaceholder.typicode.com/todos">
   <DataViewer />
 </DataLoader>
 ```
@@ -20,7 +20,7 @@ one way to make it work:
 
 ```js
 <DataLoader
-  resource="https://jsonplaceholder.typicode.com"
+  resource="https://jsonplaceholder.typicode.com/todos"
   render={(data) => <DataViewer data={data} />}
 />
 ```
@@ -31,7 +31,7 @@ full example: `DataLoader`
 
 ```js
 <DataLoader
-  resource="https://jsonplaceholder.typicode.com"
+  resource="https://jsonplaceholder.typicode.com/todos"
   renderLoading={() => <div>loading</div>}
   renderError={(error) => <div>Error: ...</div>}
   render={(data) => <DataViewer data={data} />}

@@ -2060,252 +2060,301 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Refs zum Ablegen von Objektreferenzen</h1>
-</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
-<p><strong>refs</strong>: ähnlich zu <em>State</em>, mit Unterschieden:</p>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Side Effects</h1>
+</section><section class="slide"><h2>Side Effects</h2>
+<p>Wenn sich Komponenten-Props bzw State ändern oder die Komponente zum ersten Mal eingebunden wird:</p>
+<p>"Main Effect": Komponente wir mit aktuellen Daten (neu) gerendert</p>
+<p>mögliche "Side Effects": Auslösen von API-Abfragen, Speichern von Daten, Explizite Änderungen am Dokument, Starten von Timern, ...</p>
+</section><section class="slide"><h2>Side Effects</h2>
+<p>typische Fälle von Side Effects:</p>
 <ul>
-<li>Änderung eines Refs führt nicht zu einem Re-Rendering</li>
-<li>Der Wert eines Refs ist nie veraltet</li>
-</ul>
-</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
-<p>erster Use-Case:</p>
-<p>Ablegen von Werten / Objektreferenzen, die das Rendering einer Komponente nicht beeinflussen:</p>
+<li>Auslösen von API-Anfragen
 <ul>
-<li>Timer IDs</li>
-<li>Request IDs</li>
-<li>WebSocket-Verbindungen</li>
-<li>ein PWA-Installationsdialog (siehe Abschnitt PWA)</li>
-<li>DOM-Elemente (siehe nächster Abschnitt "Ref Property zum Zugriff auf DOM-Elemente")</li>
+<li>wenn eine Komponente zum ersten Mal eingebunden wird</li>
+<li>wenn sich bestimmte Daten (State / Props) geändert haben (z.B. wenn der Benutzer ein bestimmtes Element auswählt, um dessen Details zu sehen)</li>
 </ul>
-</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
-<p>zweiter Use-Case:</p>
-<p>Speichern der aktuellsten Version eines States</p>
-</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
-<p>Auf eine Ref kann mittels <code>useRef</code> zugegriffen werden</p>
-<p>Objekte werden in der <code>.current</code>-Property der Ref abgelegt</p>
-</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
-<p>ein Beispiel mit beiden Use-Cases:</p>
-<pre><code class="hljs language-tsx">function StopWatch() {
-  const [time, setTime] = useState(0);
-  const timeRef = useRef(time);
-  const intervalId = useRef&#x3C;number>(null);
-  function start() {
-    setTime(0);
-    timeRef.current = 0;
-    intervalId.current = setInterval(() => {
-      timeRef.current++;
-      setTime(timeRef.current);
-    }, 1000);
-  }
-  function stop() {
-    clearInterval(intervalId.current);
-  }
-  return &#x3C;div>...&#x3C;/div>;
-}
-</code></pre>
-</section><section class="slide"><h2>Refs zum Ablegen von Objektreferenzen</h2>
-<p>Bemerkung: oft gibt es auch mögliche Implementierungen, die Refs vermeiden:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">StopWatch</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-number">0</span>);
-  <span class="hljs-keyword">const</span> [running, setRunning] = useState(<span class="hljs-literal">false</span>);
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">if</span> (running) {
-      <span class="hljs-keyword">const</span> intervalId = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
-        setTime(<span class="hljs-function">(<span class="hljs-params">time</span>) =></span> time + <span class="hljs-number">1</span>);
-      }, <span class="hljs-number">1000</span>);
-      <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(intervalId);
+</li>
+<li>Speichern von Daten in <em>localStorage</em>, wenn sie sich geändert haben</li>
+<li>Explizite Änderungen am Dokument (DOM)</li>
+<li>Starten von Timern</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Side Effects</h2>
+<p>manche Side Effects müssen später "aufgeräumt" werden:</p>
+<ul>
+<li>Abbrechen von API-Anfragen, wenn sie nicht mehr benötigt werden (z.B. wenn sich ein Suchbegriff erneut geändert hat)</li>
+<li>Stoppen von Timern</li>
+</ul>
+</section><section class="slide"><h2>Side Effects</h2>
+<p>Implementierung:</p>
+<p>in Funktionskomponenten: mittels des <em>Effect Hooks</em></p>
+<p>in Klassenkomponenten: mit Hilfe von Lifecycle-Methoden</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Side Effects in Klassenkomponenten</h1>
+</section><section class="slide"><h2>Side Effects in Klassenkomponenten</h2>
+<p>Drei wichtige Methoden zum Abfragen von Ereignissen im Lebenszyklus einer Komponente:</p>
+<ul>
+<li><code>componentDidMount</code></li>
+<li><code>componentDidUpdate</code></li>
+<li><code>componentWillUnmount</code></li>
+</ul>
+</section><section class="slide"><h2>Side Effects in Klassenkomponenten</h2>
+<p><code>componentDidUpdate</code> bekommt die vorhergehenden Props als Parameter übergeben:</p>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-function"><span class="hljs-title">componentDidUpdate</span>(<span class="hljs-params">prevProps, prevState</span>)</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.state.foo !== prevState.foo) {
+      doSomething();
     }
-  }, [running]);
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Ref-Property zum Zugriff auf DOM-Elemente</h1>
-</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
-<p>Ähnlich wie <em>key</em> hat auch die <em>ref</em>-Property eine besondere Bedeutung in JSX - sie ermöglicht den Zugriff auf gerenderte DOM-Elemente</p>
-<p>Anwendungsgebiete:</p>
-<ul>
-<li>Verwalten von Fokus, Textauswahl oder Medienwiedergabe</li>
-<li>Integration von anderen DOM-Libraries</li>
-<li>Alternative Möglichkeit zum Verwalten von Inputs</li>
-</ul>
-</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
-<p>Verwendung der <em>ref</em>-Property zusammen mit dem <em>useRef</em>-Hook:</p>
-<pre><code class="hljs language-tsx">function RefDemo() {
-  const myRef = useRef&#x3C;HTMLInputElement>(null);
-  return (
-    &#x3C;input
-      ref={myRef}
-      onChange={() => {
-        console.log(myRef.current.value);
-      }}
-    />
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
-<p><strong>Verwalten von Fokus, Textauswahl oder Medienwiedergabe</strong></p>
-<p>manche Änderungen können nicht deklarativ (via State) ausgedrückt werden - sie benötigen Zugriff zu einem bestimmten DOM-Element</p>
-<p>Beispiel: es gibt Properties wie <code>.value</code> zum Ändern des Werts eines Inputs oder <code>.className</code> zum Ändern von Klassennamen, aber keine Property zum Verwalten des Fokus</p>
-</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
-<p>Verwalten des Fokus:</p>
-<pre><code class="hljs language-tsx">function App() {
-  const inputEl = useRef&#x3C;HTMLInputElement>(null);
-  useEffect(() => {
-    inputEl.current?.focus();
-  }, []);
-  return &#x3C;input ref={inputEl} />;
-};
-</code></pre>
-</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
-<p>Verwalten von Medienwiedergabe:</p>
-<pre><code class="hljs language-tsx">// https://codesandbox.io/s/media-playback-x3ci4
-function Video() {
-  const [playing, setPlaying] = useState(false);
-  const videoEl = useRef&#x3C;HTMLVideoElement>(null);
-  useEffect(() => {
-    if (playing) {
-      videoEl.current?.play();
-    } else {
-      videoEl.current?.pause();
-    }
-  }, [playing]);
-  return (
-    &#x3C;div>
-      &#x3C;video
-        ref={videoEl}
-        width="250"
-        src={
-          'https://interactive-examples.mdn.mozilla.net/' +
-          'media/cc0-videos/flower.mp4'
-        }
-      />
-      &#x3C;button onClick={() => setPlaying(!playing)}>
-        {playing ? 'pause' : 'play'}
-      &#x3C;/button>
-    &#x3C;/div>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
-<p><strong>Integration von anderen DOM-Libraries</strong></p>
-<p>Andere Libraries können expliziten Zugriff auf DOM-Elemente benötigen</p>
-<p>Beispiel: Die Google Maps Library nimmt ein DOM-Element entgegen, in dem die Karte gezeichnet wird</p>
-<p>Für viele Libraries (so auch Google Maps) existieren Wrapper für React, sodass refs nicht benötigt werden</p>
-</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
-<p>Integration von Google Maps mittels Ref:</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Map</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> mapRef = useRef&#x3C;HTMLElement>();
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">new</span> google.maps.Map(mapRef.current);
-  }, []);
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{mapRef}</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{height:</span> <span class="hljs-attr">400</span>} /></span></span>;
-}
-</code></pre>
-</section><section class="slide"><h2>Ref-Property zum Zugriff auf DOM-Elemente</h2>
-<p><strong>Alternative Möglichkeit zum Verwalten von Inputs</strong></p>
-<p>Verwendung von <code>ref</code> Anstelle von <code>value</code> und <code>onChange</code> kann zu etwas kürzerem Code führen (wird aber in der Dokumentation nicht empfohlen)</p>
-<p>Refs werden von <em>react-hook-form</em> verwendet, um Formularverwaltung einfacher und schneller zu machen</p>
-</section><section class="slide"><h2>Ref-Property zum Verwalten von Inputs</h2>
-<p>Verwalten von Inputs: Vergleich von <code>useState</code> und <code>useRef</code>:</p>
-<pre><code class="hljs language-tsx">const App = () => {
-  const [firstName, setFirstName] = useState('');
-  const lastNameInput = useRef&#x3C;HTMLInputElement>(null);
-
-  return (
-    &#x3C;div>
-      &#x3C;input
-        value={firstName}
-        onChange={(event) =>
-          setFirstName(event.target.value)
-        }
-      />
-      &#x3C;input ref={lastNameInput} />
-
-      &#x3C;button
-        onClick={() => {
-          console.log(firstName);
-          console.log(lastNameInput.current.value);
-        }}
-      >
-        log values
-      &#x3C;/button>
-    &#x3C;/div>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Callback Refs</h2>
-<p>Wie bisher gesehen: Wir können ein Ref-Objekt an die <em>ref</em>-Property übergeben</p>
-<p>Wir können auch eine <em>Callbackfunktion</em> übergeben, die nach dem Rendering mit dem Element als Parameter aufgerufen wird (<em>react-hook-form</em> verwendet dies)</p>
-<pre><code class="hljs language-jsx">&#x3C;input
-  ref={<span class="hljs-function">(<span class="hljs-params">element</span>) =></span> {
-    <span class="hljs-built_in">console</span>.log(element);
-    <span class="hljs-built_in">console</span>.log(element.value);
-    element.focus();
-  }}
-/>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Ref-Property in eigenen Komponenten</h1>
-</section><section class="slide"><h2>Ref-Property in eigenen Komponenten</h2>
-<p>Beispiel: <code>TextField</code>-Komponente in <em>MUI</em></p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> containerRef = useRef&#x3C;HTMLDivElement>(<span class="hljs-literal">null</span>);
-<span class="hljs-keyword">const</span> inputRef = useRef&#x3C;HTMLInputElement>(<span class="hljs-literal">null</span>);
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;TextField ref={containerRef} inputRef={inputRef} />
-</code></pre>
-<ul>
-<li><code>ref</code>: kann verwendet werden, um auf das äußere <code>&#x3C;div></code> zuzugreifen</li>
-<li><code>inputRef</code>: kann verwendet werden, um auf das <code>&#x3C;input></code>-Element zuzugreifen</li>
-</ul>
-</section><section class="slide"><h2>Ref-Property in eigenen Komponenten</h2>
-<p>Implementierung einer Ref, deren Property-Name <strong>nicht</strong> "ref" ist:</p>
-<pre><code class="hljs language-tsx">type Props = {
-  inputRef: RefObject&#x3C;HTMLInputElement>;
-  // ...
-};
-
-function TextField(props: Props) {
-  return (
-    &#x3C;div>
-      ...
-      &#x3C;input ref={props.inputRef} />
-    &#x3C;/div>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Ref-Property in eigenen Komponenten</h2>
-<p>Implementierung einer Ref, deren Property-Name "ref" <strong>ist</strong>:</p>
-<pre><code class="hljs language-tsx">type Props = {
-  // ...
-};
-
-const TextField = forwardRef&#x3C;HTMLDivElement, Props>(
-  (props, ref) => {
-    return (
-      &#x3C;div ref={ref}>
-        ...
-        &#x3C;input />
-      &#x3C;/div>
-    );
   }
+}
+</code></pre>
+</section><section class="slide"><h2>Side Effects in Klassenkomponenten</h2>
+<p>Beispiel: Komponente, die Wechselkurse zwischen zwei Währungen lädt:</p>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExchangeRate</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.loadExchangeRate();
+  }
+  <span class="hljs-function"><span class="hljs-title">componentDidUpdate</span>(<span class="hljs-params">prevProps, prevState</span>)</span> {
+    <span class="hljs-keyword">if</span> (
+      <span class="hljs-built_in">this</span>.state.from !== prevState.from ||
+      <span class="hljs-built_in">this</span>.state.to !== prevState.to
+    ) {
+      <span class="hljs-built_in">this</span>.loadExchangeRate();
+    }
+  }
+}
+</code></pre>
+</section><section class="slide"><h2>Side Effects in Klassenkomponenten</h2>
+<p>Erweitertes Beispiel: Abbrechen veralteter API-Anfragen</p>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExchangeRate</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.loadExchangeRate();
+  }
+  <span class="hljs-function"><span class="hljs-title">componentDidUpdate</span>(<span class="hljs-params">prevProps, prevState</span>)</span> {
+    <span class="hljs-keyword">if</span> (
+      <span class="hljs-built_in">this</span>.state.from !== prevState.from ||
+      <span class="hljs-built_in">this</span>.state.to !== prevState.to
+    ) {
+      <span class="hljs-built_in">this</span>.cancelPreviousQuery();
+      <span class="hljs-built_in">this</span>.loadExchangeRate();
+    }
+  }
+  <span class="hljs-function"><span class="hljs-title">componentWillUnmount</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.cancelPreviousQuery();
+  }
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Effect Hook</h1>
+</section><section class="slide"><h2>Effect Hook</h2>
+<p>Der <em>Effect Hook</em> kann verwendet werden, um Aktionen zu setzen, wenn eine Komponente zum ersten Mal eingebunden wird, oder wenn sich deren Props / State geändert haben</p>
+<pre><code class="hljs language-js">useEffect(
+  effect, <span class="hljs-comment">// what should happen</span>
+  dependencies <span class="hljs-comment">// array of values to watch</span>
 );
 </code></pre>
-</section><section class="slide"><h2>Ref-Property in eigenen Komponenten</h2>
-<p>Kombination der Implementierungen:</p>
-<pre><code class="hljs language-tsx">type Props = {
-  inputRef: RefObject&#x3C;HTMLInputElement>;
-  // ...
-};
-
-const TextField = forwardRef&#x3C;HTMLDivElement, Props>(
-  (props, ref) => {
-    return (
-      &#x3C;div ref={ref}>
-        ...
-        &#x3C;input ref={props.inputRef} />
-      &#x3C;/div>
-    );
+<p>Die Effekt-Funktion nach dem (Re-)Rendering einer Komponente ausgeführt, falls sich eine der Abhängigkeiten geändert hat</p>
+</section><section class="slide"><h2>Effect Hook</h2>
+<p>Beispiel: Laden von Umrechnungskursen, wenn die Komponente zum ersten Mal eingebunden wird oder wenn sich eine Währung ändert:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
+<span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
+<span class="hljs-keyword">const</span> [rate, setRate] = useState&#x3C;<span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>>(<span class="hljs-literal">null</span>);
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+}
+useEffect(<span class="hljs-function">() =></span> {
+  loadExchangeRate();
+}, [<span class="hljs-keyword">from</span>, to]);
+</code></pre>
+</section><section class="slide"><h2>Effect Hook</h2>
+<p>Beispiel: Laden von Todos, wenn die Komponente zum ersten Mal eingebunden wird:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+}
+useEffect(<span class="hljs-function">() =></span> {
+  loadTodos();
+}, []);
+</code></pre>
+</section><section class="slide"><h2>Effect nach jedem Rendering</h2>
+<p>Wenn kein zweiter Parameter übergeben wird, wird die Funktion nach jedem Rendering ausgeführt; dies kann eventuelle Probleme mit veralteten Daten verhindern</p>
+<pre><code class="hljs language-jsx">useEffect(<span class="hljs-function">() =></span> {
+  ensureExchangeRateIsLoaded();
+});
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Effect Hook: Cleanup</h1>
+</section><section class="slide"><h2>Cleanup-Funktionen</h2>
+<p>Eine Effect-Funktion kann eine "Cleanup-Funktion" zurückgeben</p>
+<p>Diese Funktion wird ausgeführt, bevor der Effect zum nächsten Mal läuft oder bevor die Komponente entfernt wird</p>
+</section><section class="slide"><h2>Cleanup-Funktionen</h2>
+<p>Beispiel: Komponente, die veraltete Queries abbricht:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">// ... (initiate a new query)</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cancel</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">// ... (cancel this query)</span>
+    }
+    loadExchangeRate();
+    <span class="hljs-keyword">return</span> cancel;
+  }, [<span class="hljs-keyword">from</span>, to]);
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Asynchrone Effects und Cleanup-Funktionen</h2>
+<p>Eine Effect-Funktion <strong>darf keine asynchrone Funktion sein</strong></p>
+<p>Hintergrund:</p>
+<p>ein eventueller Rückgabewert einer Effect-Funktion wird immer als Cleanup-Funktion interpretiert</p>
+<p>asynchrone Funktionen geben immer Promises zurück</p>
+</section><section class="slide"><h2>Asynchrone Effects und Cleanup-Funktionen</h2>
+<p>ungültig:</p>
+<pre><code class="hljs language-js">useEffect(loadSearchResultsAsync, [query]);
+</code></pre>
+<p>gültig:</p>
+<pre><code class="hljs language-js">useEffect(<span class="hljs-function">() =></span> {
+  loadSearchResultsAsync();
+}, [query]);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiele und Übungen: APIs</h1>
+</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
+<p>Beispiel: Laden von Wechselkursen von einem API, wenn sich die ausgewählten Währungen ändern:</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
+  <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
+  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+    setRate(<span class="hljs-literal">null</span>);
+    <span class="hljs-keyword">const</span> rate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-keyword">from</span>, to);
+    setRate(rate);
   }
-);
+  useEffect(<span class="hljs-function">() =></span> {
+    loadExchangeRate();
+  }, [<span class="hljs-keyword">from</span>, to]);
+  <span class="hljs-comment">// render two dropdowns for selecting currencies</span>
+  <span class="hljs-comment">// and show the exchange rate</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
+<p>Funktion, die Daten lädt:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params">
+  <span class="hljs-keyword">from</span>: <span class="hljs-built_in">string</span>,
+  to: <span class="hljs-built_in">string</span>
+</span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">number</span>> </span>{
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
+    <span class="hljs-string">'https://api.exchangerate.host/latest?base='</span> +
+      <span class="hljs-keyword">from</span>.toUpperCase() +
+      <span class="hljs-string">'&#x26;symbols='</span> +
+      to.toUpperCase()
+  );
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>
+<p>vollständiger Code (Klassenkomponenten und Funktionskomponenten, inklusive "cleanup"):</p>
+<p><a href="https://codesandbox.io/s/side-effects-exchange-rate-2z42d" target="_blank">https://codesandbox.io/s/side-effects-exchange-rate-2z42d</a></p>
+</section><section class="slide"><h2>Übungen</h2>
+<p>Beispiele für abfragbare APIs:</p>
+<ul>
+<li>todos (read only): <a href="https://jsonplaceholder.typicode.com/todos" target="_blank">https://jsonplaceholder.typicode.com/todos</a></li>
+<li>todos: <a href="https://markok-todolist-rest.herokuapp.com/" target="_blank">https://markok-todolist-rest.herokuapp.com/</a></li>
+<li>SpaceX Startdaten: <a href="https://api.spacexdata.com/v3/launches/1" target="_blank">https://api.spacexdata.com/v3/launches/1</a></li>
+<li>Pokémon-Daten: <a href="https://pokeapi.co/api/v2/pokemon/1" target="_blank">https://pokeapi.co/api/v2/pokemon/1</a></li>
+<li>hacker news Suchanfrage: <a href="https://hn.algolia.com/api/v1/search?query=foo" target="_blank">https://hn.algolia.com/api/v1/search?query=foo</a></li>
+</ul>
+</section><section class="slide"><h2>Übungen</h2>
+<ul>
+<li>Lade Todos, wenn der Benutzer die Todolist-Anwendung öffnet</li>
+<li>Zeige Daten zu einem bestimmten SpaceX-Start basierend auf der Startnummer</li>
+<li>Zeige Daten zu einem bestimmten Pokémon basierend auf der Nummer</li>
+<li>Zeige Hacker News Artikel basierend auf einem Suchbegriff</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Beispiele und Übungen: andere</h1>
+</section><section class="slide"><h2>Beispiele und Übungen</h2>
+<p>Beispiele und Übungen, die nicht mit APIs interagieren</p>
+<ul>
+<li>Clock</li>
+<li>Counter, der in localStorage speichert</li>
+<li>Komponente, die den Dokumententitel "rendert"</li>
+<li>Logout Timer</li>
+</ul>
+</section><section class="slide"><h2>Beispiel: Clock-Komponente</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Clock</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [time, setTime] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> intervalId = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
+      setTime(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+    }, <span class="hljs-number">1000</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(intervalId);
+  }, []);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{time.toLocaleTimeString()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Counter</h2>
+<p>Counter, der seinen Wert in localStorage speichert, wenn sich dieser ändert:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PersistentCounter</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-literal">null</span>);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadCount</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> lsCount = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">'count'</span>);
+    <span class="hljs-keyword">if</span> (lsCount !== <span class="hljs-literal">null</span>) {
+      setCount(<span class="hljs-built_in">Number</span>(lsCount));
+    } <span class="hljs-keyword">else</span> {
+      setCount(<span class="hljs-number">0</span>);
+    }
+  }
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveCount</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (count !== <span class="hljs-literal">null</span>) {
+      <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">'count'</span>, count);
+    }
+  }
+  useEffect(loadCount, []);
+  useEffect(saveCount, [count]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setCount(count + 1)}>
+      {count}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Übungen</h2>
+<p>Übung: Speichere den state einer der vorigen Anwendungen, (z.B. slideshow) in <em>localStorage</em></p>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<p>Wir erstellen eine Komponente, die den Dokumenttitel dynamisch setzen kann:</p>
+<pre><code class="hljs language-xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DocumentTitle</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"my custom title"</span> /></span>
+</code></pre>
+<p>Diese Komponente kann irgendwo in der React-Anwendung vorkommen.</p>
+</section><section class="slide"><h2>Beispiel: DocumentTitle-Komponente</h2>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> DocumentTitle = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> {
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">document</span>.title = props.value;
+  }, [props.value]);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Logout-timer</h2>
+<p>Benutzer wird nach 10 Sekunden Inaktivität automatisch ausgeloggt:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> [loggedIn, setLoggedIn] = useState(<span class="hljs-literal">true</span>);
+  <span class="hljs-keyword">const</span> [lastInteraction, setLastInteraction] = useState(
+    <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+  );
+  <span class="hljs-comment">// restart the logout timer on user interaction</span>
+  useEffect(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> logout = <span class="hljs-function">() =></span> setLoggedIn(<span class="hljs-literal">false</span>);
+    <span class="hljs-keyword">const</span> timeoutId = <span class="hljs-built_in">setTimeout</span>(logout, <span class="hljs-number">10000</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearTimeout</span>(timeoutId);
+  }, [lastInteraction]);
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> setLastInteraction(new Date())}>
+      {loggedIn
+        ? 'click to stay logged in'
+        : 'logged out automatically'}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+};
 </code></pre></section></section></div>
     </div>
     <script>/*!

@@ -1,6 +1,6 @@
-# Refs in eigenen Komponenten
+# Ref-Property in eigenen Komponenten
 
-## Refs in eigenen Komponenten
+## Ref-Property in eigenen Komponenten
 
 Beispiel: `TextField`-Komponente in _MUI_
 
@@ -16,7 +16,7 @@ const inputRef = useRef<HTMLInputElement>(null);
 - `ref`: kann verwendet werden, um auf das äußere `<div>` zuzugreifen
 - `inputRef`: kann verwendet werden, um auf das `<input>`-Element zuzugreifen
 
-## Refs in eigenen Komponenten
+## Ref-Property in eigenen Komponenten
 
 Implementierung einer Ref, deren Property-Name **nicht** "ref" ist:
 
@@ -36,7 +36,7 @@ function TextField(props: Props) {
 }
 ```
 
-## Refs in eigenen Komponenten
+## Ref-Property in eigenen Komponenten
 
 Implementierung einer Ref, deren Property-Name "ref" **ist**:
 
@@ -57,7 +57,7 @@ const TextField = forwardRef<HTMLDivElement, Props>(
 );
 ```
 
-## Refs in eigenen Komponenten
+## Ref-Property in eigenen Komponenten
 
 Kombination der Implementierungen:
 

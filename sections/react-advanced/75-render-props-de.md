@@ -11,7 +11,7 @@ das Elternelement erhält eine "Anleitung", um die Daten darzustellen - diese An
 Wunschdenken - wenn das doch funktionieren würde:
 
 ```js
-<DataLoader resource="https://jsonplaceholder.typicode.com">
+<DataLoader resource="https://jsonplaceholder.typicode.com/todos">
   <DataViewer />
 </DataLoader>
 ```
@@ -20,7 +20,7 @@ eine Möglichkeit, es umzusetzen:
 
 ```js
 <DataLoader
-  resource="https://jsonplaceholder.typicode.com"
+  resource="https://jsonplaceholder.typicode.com/todos"
   render={(data) => <DataViewer data={data} />}
 />
 ```
@@ -31,7 +31,7 @@ vollständiges Beispiel: `DataLoader`
 
 ```js
 <DataLoader
-  resource="https://jsonplaceholder.typicode.com"
+  resource="https://jsonplaceholder.typicode.com/todos"
   renderLoading={() => <div>loading</div>}
   renderError={(error) => <div>Error: ...</div>}
   render={(data) => <DataViewer data={data} />}

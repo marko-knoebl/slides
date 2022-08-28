@@ -2914,20 +2914,20 @@ useEffect(getInstallPermission, []);
 <p>the parent receives instructions for how to render data - these instructions are provided as functions</p>
 </section><section class="slide"><h2>Render props</h2>
 <p>Wishful thinking - if only this would work:</p>
-<pre><code class="hljs language-js">&#x3C;DataLoader resource=<span class="hljs-string">"https://jsonplaceholder.typicode.com"</span>>
+<pre><code class="hljs language-js">&#x3C;DataLoader resource=<span class="hljs-string">"https://jsonplaceholder.typicode.com/todos"</span>>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DataViewer</span> /></span></span>
 &#x3C;/DataLoader>
 </code></pre>
 <p>one way to make it work:</p>
 <pre><code class="hljs language-js">&#x3C;DataLoader
-  resource=<span class="hljs-string">"https://jsonplaceholder.typicode.com"</span>
+  resource=<span class="hljs-string">"https://jsonplaceholder.typicode.com/todos"</span>
   render={<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DataViewer</span> <span class="hljs-attr">data</span>=<span class="hljs-string">{data}</span> /></span></span>}
 />
 </code></pre>
 </section><section class="slide"><h2>Render props</h2>
 <p>full example: <code>DataLoader</code></p>
 <pre><code class="hljs language-js">&#x3C;DataLoader
-  resource=<span class="hljs-string">"https://jsonplaceholder.typicode.com"</span>
+  resource=<span class="hljs-string">"https://jsonplaceholder.typicode.com/todos"</span>
   renderLoading={<span class="hljs-function">() =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>loading<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
   renderError={<span class="hljs-function">(<span class="hljs-params">error</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Error: ...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>}
   render={<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DataViewer</span> <span class="hljs-attr">data</span>=<span class="hljs-string">{data}</span> /></span></span>}

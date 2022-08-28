@@ -1,6 +1,6 @@
-# Refs in custom components
+# Ref property in custom components
 
-## Refs in custom components
+## Ref property in custom components
 
 example: `TextField` component in _MUI_
 
@@ -16,7 +16,7 @@ const inputRef = useRef<HTMLInputElement>(null);
 - `ref`: can be used to access the containing `<div>`
 - `inputRef`: can be used to access the `<input>` element
 
-## Refs in custom components
+## Ref property in custom components
 
 implementation of a ref whose property name **is not** "ref":
 
@@ -36,7 +36,7 @@ function TextField(props: Props) {
 }
 ```
 
-## Refs in custom components
+## Ref property in custom components
 
 implementation of a ref whose property name **is** "ref":
 
@@ -57,7 +57,7 @@ const TextField = forwardRef<HTMLDivElement, Props>(
 );
 ```
 
-## Refs in custom components
+## Ref property in custom components
 
 combined implementation:
 

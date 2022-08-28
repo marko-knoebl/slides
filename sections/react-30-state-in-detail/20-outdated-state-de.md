@@ -103,7 +103,7 @@ _react-hooks/exhaustive-deps_
 
 mögliche Lösungen (siehe auch: Hinweise in den Linter-Meldungen):
 
-- Übergeben einer "Transformations-Funktion" an den State-Setter (die Funktion hat immer Zugriff auf den aktuellsten State hat)
+- Übergeben einer "Transformations-Funktion" an den State-Setter (die Funktion hat immer Zugriff auf den aktuellsten State)
 - zusätzliches Speichern der aktuellsten Version eines States in einer _ref_ (ist damit auch in älteren Closures verfügbar)
 
 ## Veralteter State
