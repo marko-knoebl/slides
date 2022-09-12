@@ -2074,10 +2074,92 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>...</li>
 </ul>
 </section><section class="slide"><h2>Context</h2>
+<p>eine Komponente weiter oben im Komponentenbaum kann ein <strong>Provider</strong> eines Kontexts sein</p>
+<p>eine Komponente weiter unten im Komponentenbaum kann ein <strong>Consumer</strong> sein</p>
+<p>(Datenfluss von oben nach unten, aber mit übersprungenen Zwischenebenen)</p>
+</section><section class="slide"><h2>Context</h2>
+<p>mögliche Struktur mit Providern, die selbst State verwalten:</p>
+<ul>
+<li><em>LanguageProvider</em> (Verwalten / Bereitstellen von Language State)
+<ul>
+<li><em>ThemeProvider</em> (Verwalten / Bereitstellen von Theme State)
+<ul>
+<li><em>TodosProvider</em>
+<ul>
+<li><em>App</em>
+<ul>
+<li><em>TodoList</em>
+<ul>
+<li><em>TodoItem</em>
+<ul>
+<li>...</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>Context</h2>
+<p>Unterscheidung von Providern:</p>
+<ul>
+<li>"reine Provider" - erhalten Daten via Props, hat keinen internen State</li>
+<li>Provider mit State - haben internen State, verwenden einen "reinen Provider", um diesen zur Verfügung zu stellen
+<ul>
+<li>können "manuell" definiert werden</li>
+<li>können mittels der Library <em>constate</em> definiert werden</li>
+</ul>
+</li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Context und State via Constate</h1>
+</section><section class="slide"><h2>Constate</h2>
+<p><em>constate</em>: Library, die einen <strong>Kontext</strong> mit zugehörigem <strong>State</strong> generieren kann</p>
+</section><section class="slide"><h2>Constate</h2>
+<p>Definieren des Context:</p>
+<p>selbst definierter Hook, der Todo-Daten verwaltet:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">return</span> { todos, addTodo, deleteTodo, setTodoCompleted };
+}
+</code></pre>
+<p>erstellen einer <em>Provider</em>-Komponente und eines <em>Consumer</em>-Hooks:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [TodosProvider, useTodosContext] = constate(useTodos);
+</code></pre>
+</section><section class="slide"><h2>Constate</h2>
+<p>"Providen" des Contexts:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodosProvider</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">AddTodoForm</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Statistics</span> /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">TodosProvider</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Constate</h2>
+<p>Abfragen des Context:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoList</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> {
+    todos,
+    deleteTodo,
+    setTodoCompleted,
+  } = useTodosContext();
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Context mit reinem React</h1>
+</section><section class="slide"><h2>Context</h2>
 <p>Schritte, um Context zur Verfügung zu stellen:</p>
 <ul>
 <li>Context definieren (Typ und Standardwerte)</li>
-<li>Provider-Komponente erstellen</li>
+<li>eventuell: Provider-Komponente mit State "versehen"</li>
 <li>Provider-Komponente in der Komponentenhierarchie einbinden</li>
 </ul>
 <p>Schritte, um Context abzufragen:</p>
@@ -2119,76 +2201,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 );
 </code></pre>
 <p>mehr Informationen / Lösungen: <a href="https://github.com/typescript-cheatsheets/react/blob/main/README.md#context" target="_blank">React TypeScript cheatsheets</a></p>
-</section><section class="slide"><h2>Context</h2>
-<p>Unterscheidung:</p>
-<ul>
-<li>"reiner Provider" - erhält Daten via Props, hat keinen internen State</li>
-<li>Provider mit State - hat internen State, verwendet einen "reinen Provider", um diesen zur Verfügung zu stellen</li>
-</ul>
-<p>meistens verwenden wir Provider mit State</p>
-</section><section class="slide"><h2>Context</h2>
-<p>Architektur mit einem "reinen Provider":</p>
-<ul>
-<li><code>App</code> (verwaltet Theme)
-<ul>
-<li><code>ThemeContext.Provider</code> (stellt Theme bereit)
-<ul>
-<li>...
-<ul>
-<li>consumer (verwendet Theme)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Architektur mit einem "Provider mit State":</p>
-<ul>
-<li><code>ThemeProvider</code> (verwaltet Theme)
-<ul>
-<li><code>ThemeContext.Provider</code> (stellt Theme bereit)
-<ul>
-<li><code>App</code> (verwendet Theme)
-<ul>
-<li>...
-<ul>
-<li>consumer (verwendet Theme)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Context</h2>
-<p>mögliche Struktur mit "Providern mit State":</p>
-<ul>
-<li>LanguageProvider (Verwalten / Bereitstellen von Language State)
-<ul>
-<li>ThemeProvider (Verwalten / Bereitstellen von Theme State)
-<ul>
-<li>TodosProvider
-<ul>
-<li>App
-<ul>
-<li>TodoList
-<ul>
-<li>...</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Context</h2>
+</section><section class="slide"><h2>Context mit "reinen Providern"</h2>
 <p>Beispiel: verwenden eines "reinen Providers" (State liegt in der App-Komponente)</p>
 <pre><code class="hljs language-tsx">function App() {
   const [theme, setTheme] = useState('light');
@@ -2201,45 +2214,39 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 }
 </code></pre>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<p>Beispiel: Erstellen eines Providers mit State, der State verwaltet und bereitstellt:</p>
-<pre><code class="hljs language-tsx">// ThemeContext.tsx
-function ThemeProvider(props: { children: ReactNode }) {
-  const [theme, setTheme] = useState('light');
-  return (
-    &#x3C;ThemeContext.Provider
-      value={{ theme: theme, changeTheme: setTheme }}
-    >
-      {props.children}
-    &#x3C;/ThemeContext.Provider>
+</section><section class="slide"><h2>Context mit "reinen Providern"</h2>
+<p>Beispiel: Produkt-Seite mit einem "reinen" Context-Provider</p>
+<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ProductPage</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ... (load product data from an API)</span>
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ProductContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{productData}</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">ProductDescription</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">ProductPictures</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">ProductReviews</span> /></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">ProductQuestionsAndAnswers</span> /></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ProductContext.Provider</span>></span></span>
   );
 }
 </code></pre>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<p>Einbinden des Providers:</p>
-<pre><code class="hljs language-tsx">// index.tsx
-...
-  &#x3C;ThemeProvider>
-    &#x3C;App />
-  &#x3C;/ThemeProvider>
-...
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<p>Abfragen eines Context in einer Komponente:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> themeContext = useContext(ThemeContext);
-</code></pre>
-</section><section class="slide"><h2>Context - Beispiel</h2>
-<p>optional: erstellen eines eigenen Hooks:</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTheme</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> themeContext = useContext(ThemeContext);
-  <span class="hljs-keyword">if</span> (themeContext === <span class="hljs-literal">null</span>) {
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'No matching provider found'</span>);
-  }
-  <span class="hljs-keyword">return</span> themeContext;
+</section><section class="slide"><h2>Context mit State</h2>
+<p>Beispiel: Erstellen eines Providers mit State, der State verwaltet und bereitstellt:</p>
+<pre><code class="hljs language-tsx">// TodosContext.tsx
+function TodosProvider(props: { children: ReactNode }) {
+  const todosCtrl = useTodos();
+  &#x3C;TodosContext.Provider value={todosCtrl}>
+    {props.children}
+  &#x3C;/TodosContext.Provider>;
 }
 </code></pre>
-</section><section class="slide"><h2>Übungen</h2>
-<p>füge weitere Contexte hinzu - z.B. einen <code>LanguageContext</code></p></section></section></div>
+<pre><code class="hljs language-tsx">function TodoApp() {
+  return &#x3C;TodosProvider>...&#x3C;/TodosProvider>;
+}
+</code></pre>
+</section><section class="slide"><h2>Context</h2>
+<p>Context aus einer Komponente heraus abfragen:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> todosContext = useContext(TodosContext);
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js
