@@ -33,3 +33,13 @@ Beispiele für String-Methoden:
 - `firstName.toUpperCase()`
 - `firstName.includes("x")`
 - `firstName.replaceAll("a", "@")`
+
+## Dokumentation
+
+Ressource: MDN (https://developer.mozilla.org)
+
+Beispiele:
+
+- Dokumentation für das `Math`-Objekt: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+- Dokumentation für den `String`-Typ: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+- Dokumentation für die `open`-Funktion: https://developer.mozilla.org/en-US/docs/Web/API/Window/open

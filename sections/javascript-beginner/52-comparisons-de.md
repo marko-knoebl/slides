@@ -66,7 +66,7 @@ let canBecomeUsPresident =
 
 ```js
 let isTemperatureExtreme =
-  temperatureCelsius < -10 || temperatureCelsius > 30;
+  temperatureCelsius < -10 || temperatureCelsius > 40;
 ```
 
 ```js

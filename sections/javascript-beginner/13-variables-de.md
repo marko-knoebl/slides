@@ -4,7 +4,7 @@
 
 Daten können mit einem Namen versehen werden
 
-Variablen werden meist mit `let` deklariert
+Variablen werden oft mit `let` deklariert
 
 ```js
 let birthYear = 1970;

@@ -2,8 +2,6 @@
 
 ## JavaScript
 
-dynamische Programmiersprache
-
 Einsatzbereiche:
 
 - im Webbrowser: Interaktivität von Webseiten / -anwendungen
