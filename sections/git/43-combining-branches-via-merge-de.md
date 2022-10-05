@@ -5,7 +5,7 @@
 Beispiel für eine Commit-History (während der Feature-Entwicklung):
 
 ```
-  * merge branch 'master' into 'footer' (footer)
+  * merge branches (footer)
  /|
 * | add company logo (master)
 | * add copyright notice to footer
@@ -24,7 +24,7 @@ Beispiel für eine Commit-History (während der Feature-Entwicklung):
 Beispiel für eine Commit-History (wenn das Feature vollständig ist):
 
 ```
-* merge branch 'master' into 'footer' (master)
+* merge branches (master)
 |\
 * | add company logo
 | * add copyright notice to footer
@@ -34,44 +34,6 @@ Beispiel für eine Commit-History (wenn das Feature vollständig ist):
 | * add logo to footer
 | * add footer with basic content
 |/
-* add placeholder content
-* initialize website
-```
-
-Bemerkung: der letzte Merge behält seine Commit-Message
-
-## Zusammenführen von Branches via merge und squash
-
-merge und squash:
-
-Beispiel für eine Commit-History (wenn das Feature vollständig ist):
-
-```
-* add footer (master)
-| * merge branch 'master' into 'footer' (footer)
-|/|
-* add company logo
-| * add copyright notice to footer
-| * merge branch 'master' into 'footer'
-|/|
-* | add sidebar
-| * add logo to footer
-| * add footer with basic content
-|/
-* add placeholder content
-* initialize website
-```
-
-## Merge und squash
-
-Nach einem erfolgreichen _merge und squash_ kann der Branch gelöscht werden
-
-Resultat:
-
-```
-* add footer (master)
-* add company logo
-* add sidebar
 * add placeholder content
 * initialize website
 ```

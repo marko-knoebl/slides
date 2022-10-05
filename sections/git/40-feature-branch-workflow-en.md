@@ -40,24 +40,17 @@ example: developers are working on two different tasks at the same time:
 when a feature is completed it can be combined / merged back into the master branch:
 
 ```txt
-* add footer (master)
-| * add sidebar (sidebar)
+* merge branches (master)
+|\
+* | add sidebar
+| * add logo to footer
+| * add footer with basic content
 |/
 * add placeholder content
 * initialize website
 ```
 
-## Feature branch workflow
-
-other branches can take over the changes from the master branch via _merge_ or _rebase_:
-
-```txt
-  * add sidebar (sidebar)
- /
-* add footer (master)
-* add placeholder content
-* initialize website
-```
+old feature branches are usually deleted
 
 ## Feature branch workflow
 

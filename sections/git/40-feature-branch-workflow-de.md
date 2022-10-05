@@ -40,24 +40,17 @@ Beispiel: Entwickler arbeiten an zwei unterschiedlichen Tasks gleichzeitig:
 nach Vervollständigung eines Features kann es in den Master-Branch eingebunden werden:
 
 ```txt
-* add footer (master)
-| * add sidebar (sidebar)
+* merge branches (master)
+|\
+* | add sidebar
+| * add logo to footer
+| * add footer with basic content
 |/
 * add placeholder content
 * initialize website
 ```
 
-## Feature Branch Workflow
-
-Andere Branches können Änderungen aus dem Master-Branch mittels _merge_ oder _rebase_ übernehmen:
-
-```txt
-  * add sidebar (sidebar)
- /
-* add footer (master)
-* add placeholder content
-* initialize website
-```
+alte Feature-Branches werden üblicherweise gelöscht
 
 ## Feature Branch Workflow
 

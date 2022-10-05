@@ -5,7 +5,7 @@
 example commit history (during feature development):
 
 ```
-  * merge branch 'master' into 'footer' (footer)
+  * merge branches (footer)
  /|
 * | add company logo (master)
 | * add copyright notice to footer
@@ -24,7 +24,7 @@ example commit history (during feature development):
 example commit history (when feature is complete):
 
 ```
-* merge branch 'master' into 'footer' (master)
+* merge branches (master)
 |\
 * | add company logo
 | * add copyright notice to footer
@@ -34,44 +34,6 @@ example commit history (when feature is complete):
 | * add logo to footer
 | * add footer with basic content
 |/
-* add placeholder content
-* initialize website
-```
-
-note: the most recent merge keeps its commit message
-
-## Combining branches via merge and squash
-
-merge and squash:
-
-example commit history (when feature is complete):
-
-```
-* add footer (master)
-| * merge branch 'master' into 'footer' (footer)
-|/|
-* add company logo
-| * add copyright notice to footer
-| * merge branch 'master' into 'footer'
-|/|
-* | add sidebar
-| * add logo to footer
-| * add footer with basic content
-|/
-* add placeholder content
-* initialize website
-```
-
-## Merge and squash
-
-once the commit is merged and squashed, the old feature branch can be deleted
-
-result:
-
-```
-* add footer (master)
-* add company logo
-* add sidebar
 * add placeholder content
 * initialize website
 ```

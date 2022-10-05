@@ -2244,7 +2244,7 @@ node_modules
 <li><code>git log</code></li>
 <li><code>git show</code></li>
 <li><code>git diff</code></li>
-<li><code>git restore</code></li>
+<li><code>git checkout</code></li>
 <li><code>git revert</code></li>
 </ul>
 </section><section class="slide"><h2>History</h2>
@@ -2273,11 +2273,10 @@ git <span class="hljs-built_in">log</span> --oneline --graph --all
 </code></pre>
 </section><section class="slide"><h2>History</h2>
 <p>accessing the contents of an earlier commit (whose id is b4c906...):</p>
-<pre><code class="hljs language-bash">git restore . b4c9
+<pre><code class="hljs language-bash">git checkout . b4c9
 </code></pre>
-<p><strong>note</strong>: any active changes will be lost</p>
-<p>going back to the most recent commit of the current branch:</p>
-<pre><code class="hljs language-bash">git restore .
+<p>going back to the most recent commit of the master branch:</p>
+<pre><code class="hljs language-bash">git switch master
 </code></pre>
 </section><section class="slide"><h2>History</h2>
 <p>reverting the latest commit (via a new commit):</p>
@@ -2306,20 +2305,16 @@ git <span class="hljs-built_in">log</span> --oneline --graph --all
 </code></pre>
 </section><section class="slide"><h2>Feature branch workflow</h2>
 <p>when a feature is completed it can be combined / merged back into the master branch:</p>
-<pre><code class="hljs language-txt">* add footer (master)
-| * add sidebar (sidebar)
+<pre><code class="hljs language-txt">* merge branches (master)
+|\
+* | add sidebar
+| * add logo to footer
+| * add footer with basic content
 |/
 * add placeholder content
 * initialize website
 </code></pre>
-</section><section class="slide"><h2>Feature branch workflow</h2>
-<p>other branches can take over the changes from the master branch via <em>merge</em> or <em>rebase</em>:</p>
-<pre><code class="hljs language-txt">  * add sidebar (sidebar)
- /
-* add footer (master)
-* add placeholder content
-* initialize website
-</code></pre>
+<p>old feature branches are usually deleted</p>
 </section><section class="slide"><h2>Feature branch workflow</h2>
 <p>during development:</p>
 <ul>
@@ -2382,7 +2377,7 @@ git switch master
 </section></section><section class="slides-section"><section class="slide"><h1>Combining branches via merge</h1>
 </section><section class="slide"><h2>Combining branches via merge</h2>
 <p>example commit history (during feature development):</p>
-<pre><code class="hljs language-sql">  * <span class="hljs-keyword">merge</span> branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">into</span> <span class="hljs-string">'footer'</span> (footer)
+<pre><code class="hljs language-sql">  * <span class="hljs-keyword">merge</span> branches (footer)
  /|
 * | <span class="hljs-keyword">add</span> company logo (<span class="hljs-keyword">master</span>)
 | * <span class="hljs-keyword">add</span> copyright <span class="hljs-keyword">notice</span> <span class="hljs-keyword">to</span> footer
@@ -2397,7 +2392,7 @@ git switch master
 </code></pre>
 </section><section class="slide"><h2>Combining branches via merge</h2>
 <p>example commit history (when feature is complete):</p>
-<pre><code class="hljs language-sql">* <span class="hljs-keyword">merge</span> branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">into</span> <span class="hljs-string">'footer'</span> (<span class="hljs-keyword">master</span>)
+<pre><code class="hljs language-sql">* <span class="hljs-keyword">merge</span> branches (<span class="hljs-keyword">master</span>)
 |\
 * | <span class="hljs-keyword">add</span> company logo
 | * <span class="hljs-keyword">add</span> copyright <span class="hljs-keyword">notice</span> <span class="hljs-keyword">to</span> footer
@@ -2408,33 +2403,6 @@ git switch master
 | * <span class="hljs-keyword">add</span> footer <span class="hljs-keyword">with</span> basic <span class="hljs-keyword">content</span>
 |/
 * <span class="hljs-keyword">add</span> placeholder <span class="hljs-keyword">content</span>
-* initialize website
-</code></pre>
-<p>note: the most recent merge keeps its commit message</p>
-</section><section class="slide"><h2>Combining branches via merge and squash</h2>
-<p>merge and squash:</p>
-<p>example commit history (when feature is complete):</p>
-<pre><code class="hljs language-routeros">* <span class="hljs-builtin-name">add</span> footer (master)
-| * merge branch <span class="hljs-string">'master'</span> into <span class="hljs-string">'footer'</span> (footer)
-|/|
-* <span class="hljs-builtin-name">add</span> company logo
-| * <span class="hljs-builtin-name">add</span> copyright notice <span class="hljs-keyword">to</span> footer
-| * merge branch <span class="hljs-string">'master'</span> into <span class="hljs-string">'footer'</span>
-|/|
-* | <span class="hljs-builtin-name">add</span> sidebar
-| * <span class="hljs-builtin-name">add</span> logo <span class="hljs-keyword">to</span> footer
-| * <span class="hljs-builtin-name">add</span> footer with basic content
-|/
-* <span class="hljs-builtin-name">add</span> placeholder content
-* initialize website
-</code></pre>
-</section><section class="slide"><h2>Merge and squash</h2>
-<p>once the commit is merged and squashed, the old feature branch can be deleted</p>
-<p>result:</p>
-<pre><code class="hljs language-dockerfile">* <span class="hljs-keyword">add</span><span class="bash"> footer (master)</span>
-* <span class="hljs-keyword">add</span><span class="bash"> company logo</span>
-* <span class="hljs-keyword">add</span><span class="bash"> sidebar</span>
-* <span class="hljs-keyword">add</span><span class="bash"> placeholder content</span>
 * initialize website
 </code></pre>
 </section><section class="slide"><h2>Combining branches via merge</h2>
@@ -2488,19 +2456,6 @@ note: actually there should be one more "<" sign:
 x gardening
 </code></pre>
 <p>modify the todo list via separate <em>feature branches</em>, e.g. "long-term todos", "new-job", "new-job-sub-items",  "taxes-completed", ...</p>
-</section></section><section class="slides-section"><section class="slide"><h1>The checkout command</h1>
-</section><section class="slide"><h2>The checkout command</h2>
-<p><code>git checkout</code> is an older command that can do the same as <code>git switch</code> and more; <code>git switch</code> was introduced in 2019 (with git 2.23)</p>
-<p>switching branches with checkout:</p>
-<pre><code class="hljs language-bash">git checkout master
-</code></pre>
-</section><section class="slide"><h2>The checkout command</h2>
-<p>accessing the contents of an earlier commit (whose id is b4c906...):</p>
-<pre><code class="hljs language-bash">git checkout b4c9
-</code></pre>
-<p>going back to the most recent commit of the master branch:</p>
-<pre><code class="hljs language-bash">git checkout master
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Git remote</h1>
 </section><section class="slide"><h2>Git remote</h2>
 <p>Hosts for Git:</p>

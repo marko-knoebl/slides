@@ -5,7 +5,7 @@
 - `git log`
 - `git show`
 - `git diff`
-- `git restore`
+- `git checkout`
 - `git revert`
 
 ## History
@@ -54,15 +54,13 @@ git diff 19e0 --name-status
 Zugreifen auf die Inhalte eines früheren Commits (mit id b4c906...):
 
 ```bash
-git restore . b4c9
+git checkout b4c9
 ```
 
-**Bemerkung**: alle aktiven Änderungen gehen verloren
-
-Zurück zum aktuellsten Commit des derzeitigen Branches:
+Zurück zum aktuellsten Commit des master-Branches:
 
 ```bash
-git restore .
+git switch master
 ```
 
 ## Commit-History
