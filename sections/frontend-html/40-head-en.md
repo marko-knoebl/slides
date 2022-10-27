@@ -60,10 +60,6 @@ may be used by search engines
 <meta name="keywords" content="HTML,javascript" />
 ```
 
-## meta: http-equiv="X-UA-Compatible"
-
-is relevant for Internet Explorer ≤ 10; causes the use of the most modern version of the rendering engine
-
 ## favicon
 
 icon that is displayed in the website tab:

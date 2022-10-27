@@ -61,10 +61,6 @@ Kann von Suchmaschinen verwendet werden
 <meta name="keywords" content="HTML,javascript" />
 ```
 
-## meta: http-equiv="X-UA-Compatible"
-
-Ist bei Internet Explorer ≤ 10 relevant; führt zur Verwendung der modernsten Version der Rendering-Engine
-
 ## favicon
 
 Icon, das im Tab der Website angezeigt wird:
