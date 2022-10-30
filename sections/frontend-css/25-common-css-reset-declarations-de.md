@@ -18,9 +18,9 @@ body {
 }
 ```
 
-## Fonts
+## Schriftart
 
-simple sans-serif font declaration:
+Einfache Deklaration für serifenlose Schrift:
 
 ```css
 body {
@@ -28,7 +28,7 @@ body {
 }
 ```
 
-default sans-serif font declaration in Bootstrap / Reboot - includes native fonts for various platforms:
+Standard-Auswahl für serifenlose Schriften in Bootstrap / Reboot - beinhaltet native Schriftarten für verschiedene Plattformen:
 
 ```css
 body {

@@ -83,5 +83,5 @@ h1 {
 - `justify`
 - `left`
 - `right`
-- `start` (new)
-- `end` (new)
+- `start`
+- `end`
