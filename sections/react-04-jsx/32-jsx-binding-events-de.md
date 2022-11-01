@@ -69,5 +69,16 @@ Ersetzen des Standardverhaltens:
   }}
 >
   ...
+  <button type="submit">submit</button>
 </form>
 ```
+
+## Übungen
+
+Slideshow Übungen:
+
+versuche, die **kurze oder lange Notation** für Event-Listeners bei verschiedenen Events zu verwenden
+
+frage das **Event-Objekt** einiger Events ab und _logge_ einige Event-Informationen
+
+kleines **Formular**, um auf ein bestimmtes Bild zu wechseln: beinhaltet ein Eingabefeld für eine Bild-ID und einen _go_-Button

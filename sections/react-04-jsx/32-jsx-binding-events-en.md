@@ -69,5 +69,16 @@ Replacing the default behavior:
   }}
 >
   ...
+  <button type="submit">submit</button>
 </form>
 ```
+
+## Exercises
+
+slideshow exercises:
+
+try using the **short or long notation** for event listeners on different events
+
+get the **event object** of some event and _log_ some event details
+
+small **form** to go to a specific image: has an input field to enter an image ID and a _go_ button
