@@ -39,20 +39,20 @@ This means these attributes will refer to the total size (including padding and 
 
 ## Setting padding and margin
 
-- setting all four margins to the same value:  
-  `margin: 10px;`
-- setting all four margins individually:  
-  `margin: 10px 20px 30px 40px` (top - right - bottom - left)
-- setting vertical and horizontal margins:  
-  `margin: 10px 20px;` (top and bottom - left and right)
+- setting all four padding values to the same:  
+  `padding: 10px;`
+- setting all four padding values individually:  
+  `padding: 10px 20px 30px 40px` (top - right - bottom - left)
+- setting vertical and horizontal padding:  
+  `padding: 10px 20px;` (top and bottom - left and right)
 - setting horizontal margin automatically (horizontal centering):
   `margin: 10px auto;`
-- setting margins individually:  
-  `maring: 10px; margin-left: 20px;`
+- setting padding individually:  
+  `padding: 10px; padding-left: 20px;`
 
 ## Box model
 
-border (example): `border: 10px solid blue`
+border (example): `border: 1px solid blue`
 
 rounded corners: `border-radius: 5px`
 

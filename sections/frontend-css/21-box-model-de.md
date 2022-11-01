@@ -39,20 +39,20 @@ dann beziehen sie sich auf die Gesamtgröße (mit padding und border, aber ohne 
 
 ## Padding (Innenabstand) und margin (Außenabstand)
 
-- Setzen aller vier Margins auf den gleichen Wert:  
-  `margin: 10px`
-- individuelles Setzen aller vier Margins:  
-  `margin: 10px 20px 30px 40px` (top - right - bottom - left)
-- Setzen der Marings in vertikaler und horizontaler Richtung:  
-  `margin: 10px 20px;` (top und bottom - left und right)
+- Setzen aller vier Padding-Werte auf den gleichen Wert:  
+  `padding: 10px`
+- individuelles Setzen aller vier Werte:  
+  `padding: 10px 20px 30px 40px` (top - right - bottom - left)
+- Setzen der Paddings in vertikaler und horizontaler Richtung:  
+  `padding: 10px 20px;` (top und bottom - left und right)
 - automatisches Setzen des horizontalen Margins (horizontales Zentrieren):  
   `margin: 10px auto;`
-- Individuelles setzen eines Margins:  
-  `maring: 10px; margin-left: 20px;`
+- Individuelles setzen eines Paddings:  
+  `padding: 10px; padding-left: 20px;`
 
 ## Box-Modell
 
-Border-Beispiel: `border: 10px solid blue`
+Border-Beispiel: `border: 1px solid blue`
 
 abgerundete Ecken: `border-radius: 5px`
 

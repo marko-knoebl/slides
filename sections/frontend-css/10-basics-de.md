@@ -7,7 +7,7 @@ Standard Stil-Sprache des webs: definiert Layout und Stil von HTML-Seiten
 ## Stile auf HTML-Elemente anwenden
 
 ```html
-<h1 style="color: blue; font-size: 30px">Hello</h1>
+<h1 style="color: grey; font-size: 30px">Hello</h1>
 ```
 
 ## Stylesheets einbinden

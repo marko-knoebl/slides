@@ -7,7 +7,7 @@ Style language of the web: defines layout and style of HTML pages
 ## Applying style to an HTML element
 
 ```html
-<h1 style="color: blue; font-size: 30px">Hello</h1>
+<h1 style="color: grey; font-size: 30px">Hello</h1>
 ```
 
 ## Including stylesheets

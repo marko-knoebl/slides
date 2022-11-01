@@ -13,7 +13,7 @@ h1 {
 
 - default colors  
   e.g. `grey`, `blue`, `lightblue`, ...
-- RGB defnition (red-green-blue)  
+- RGB definition (red-green-blue)  
   e.g. `rgb(255, 128, 128)`
 - HEX definition  
   e.g. `#ff8080`
