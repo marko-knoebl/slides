@@ -2068,93 +2068,58 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><em>hooks</em>: handle the <em>model</em> / <em>logic</em> behind the view</li>
 </ul>
 </section><section class="slide"><h2>Hooks</h2>
-<p>Hooks = special functions that can be called inside a component definition</p>
-<p>Examples:</p>
+<p>Hook = special function that can be called inside a component definition</p>
+<p>possible examples:</p>
 <ul>
 <li><code>useState</code></li>
-<li><code>useEffect</code> (for triggering side effects, e.g. API queries)</li>
-<li><code>useContext</code> (for sharing state across a component tree)</li>
+<li><code>useContext</code>: for sharing state across a component tree</li>
+<li><code>useQuery</code>: for querying an API</li>
+<li><code>useTodos</code>: custom hook for managing an array of todos</li>
 </ul>
 </section><section class="slide"><h2>Rules of Hooks</h2>
 <p>inside a component defintion:<br />
-hooks must be called in same order on every render</p>
+hooks must be called in the same order on every render</p>
 <p>(React uses call order to keep track of hook identity)</p>
 <p><a href="https://reactjs.org/docs/hooks-rules.html" target="_blank">Rules of Hooks on reactjs.org</a></p>
-</section><section class="slide"><h2>Components and Hooks</h2>
-<p>basic HTML elements:</p>
-<ul>
-<li><code>&#x3C;div></code></li>
-<li><code>&#x3C;button></code></li>
-<li><code>&#x3C;input></code></li>
-<li>...</li>
-</ul>
-<p>can be used to build custom components:</p>
-<ul>
-<li><code>&#x3C;Button></code></li>
-<li><code>&#x3C;Calendar></code></li>
-<li><code>&#x3C;Sidebar></code></li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Components and Hooks</h2>
-<p>built-in hooks:</p>
-<ul>
-<li><code>useState</code></li>
-<li><code>useEffect</code></li>
-<li><code>useContext</code></li>
-<li>...</li>
-</ul>
-<p>can be used to build custom hooks:</p>
-<ul>
-<li><code>useForm</code> (for managing form state)</li>
-<li><code>useQuery</code> (for querying APIs)</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>Components and Hooks</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>External components and hooks</h1>
+</section><section class="slide"><h2>External components and hooks</h2>
 <p>some components and hooks from libraries:</p>
 <ul>
 <li><em>MUI</em> (Material-UI): <code>&#x3C;Button></code>, <code>&#x3C;Alert></code>, ...</li>
 <li><em>React Router</em>: <code>&#x3C;Route></code>, <code>&#x3C;Link></code>, <code>useParams</code>, <code>useNavigate</code></li>
 <li><em>react-query</em>: <code>useQuery</code></li>
 <li><em>react-hook-form</em>: <code>useForm</code></li>
+<li><em>React</em> built-ins: <code>&#x3C;Suspense></code>, <code>useEffect</code>, <code>useContext</code>, ...</li>
 </ul>
-</section><section class="slide"><h2>Components and Hooks</h2>
+</section><section class="slide"><h2>External components and hooks</h2>
 <p>lists of available components and hooks:</p>
 <p><a href="https://github.com/brillout/awesome-react-components" target="_blank">awesome-react-components</a>: list of components, ...</p>
 <p><a href="https://github.com/rehooks/awesome-react-hooks" target="_blank">awesome-react-hooks</a>: list of hooks</p>
-</section><section class="slide"><h2>Modularity via components and hooks</h2>
-<p>modularity of the UI: via <strong>custom components</strong></p>
-<p>modularity of the logic / model: via custom hooks</p>
-</section><section class="slide"><h2>Modularity via components and hooks</h2>
-<p>why modularity?</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Custom components and hooks</h1>
+</section><section class="slide"><h2>Custom components and hooks</h2>
+<p>use cases:</p>
 <ul>
 <li>structuring code</li>
 <li>reusing code / functionality</li>
 </ul>
-</section><section class="slide"><h2>Modularity via components and hooks</h2>
+</section><section class="slide"><h2>Custom components and hooks</h2>
 <p>example components for reuse (within a project or across projects):</p>
 <ul>
 <li><code>Button</code> (for styling)</li>
 <li><code>Calendar</code></li>
-<li><code>Sidebar</code></li>
+<li><code>ProgressBar</code></li>
 </ul>
-</section><section class="slide"><h2>Modularity via components and hooks</h2>
+</section><section class="slide"><h2>Custom components and hooks</h2>
 <p>example components for structuring code:</p>
 <ul>
 <li><code>TodoApp</code></li>
 <li><code>TodoList</code></li>
 <li><code>TodoItem</code></li>
 </ul>
-</section><section class="slide"><h2>Modularity via components and hooks</h2>
-<p>example hooks for reuse (within a project or across projects):</p>
-<ul>
-<li><code>useState</code></li>
-<li><code>useQuery</code></li>
-<li><code>useMedia</code></li>
-</ul>
-</section><section class="slide"><h2>Modularity via components and hooks</h2>
-<p>example hooks for structuring code:</p>
+</section><section class="slide"><h2>Custom components and hooks</h2>
+<p>examples of custom hooks:</p>
 <p>in a todo app: <code>useTodos</code></p>
-<p>in a web shop app: <code>useProducts</code>, <code>useCart</code></p>
+<p>in a web shop app: <code>useProducts</code>, <code>useProductQuery</code>, <code>useCart</code></p>
 </section><section class="slide"><h2>Example: Todo list application</h2>
 <p>using custom components and a custom hook for a todo list application:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
@@ -2166,7 +2131,7 @@ hooks must be called in same order on every render</p>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span>
         <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span>
         <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{todoData.deleteTodo}</span>
-        <span class="hljs-attr">onChangeCompleted</span>=<span class="hljs-string">{todoData.setCompleted}</span>
+        <span class="hljs-attr">onCompletedChange</span>=<span class="hljs-string">{todoData.setCompleted}</span>
       /></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">Statistics</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todoData.todos}</span> /></span>
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
