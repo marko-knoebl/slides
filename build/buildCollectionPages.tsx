@@ -7,6 +7,7 @@ import { Topic } from "./Topic";
 import { HtmlPage } from "./HtmlPage";
 import {
   BASE_URL,
+  COLLECTION_CHECKLIST_POSTFIX,
   COLLECTION_POSTFIX,
   COLLECTION_TOPICS_POSTFIX,
 } from "./constants";
@@ -39,6 +40,17 @@ function buildCollectionPages(collection: Collection | Topic) {
         `${collection.distBaseDir}/${collection.relId}-${COLLECTION_TOPICS_POSTFIX}-${lang}.html`,
         topicsPage
       );
+
+      // if available, build collection checklist
+      if (collection.checklistPageUrls?.[lang]) {
+        const checklistPage = ReactDOMServer.renderToStaticMarkup(
+          <CollectionChecklistPage collection={collection} lang={lang} />
+        );
+        fs.writeFileSync(
+          `${collection.distBaseDir}/${collection.relId}-${COLLECTION_CHECKLIST_POSTFIX}-${lang}.html`,
+          checklistPage
+        );
+      }
     }
   }
   for (let child of collection.children) {
@@ -300,6 +312,30 @@ function CollectionTopicsPage(props: { collection: Collection; lang: string }) {
           ) : null}
         </nav>
         <ReactMarkdown>{props.collection.topicPages[props.lang]}</ReactMarkdown>
+      </div>
+    </HtmlPage>
+  );
+}
+
+function CollectionChecklistPage(props: {
+  collection: Collection;
+  lang: string;
+}) {
+  return (
+    <HtmlPage lang={props.lang}>
+      <div style={{ padding: "1rem" }}>
+        <nav>
+          <a href={`/index-${props.lang}.html`}>Home</a> |{" "}
+          {props.lang !== "de" ? (
+            <a href="/index-de.html">German version</a>
+          ) : null}
+          {props.lang !== "en" ? (
+            <a href="/index-en.html">English version</a>
+          ) : null}
+        </nav>
+        <ReactMarkdown>
+          {props.collection.checklistPages[props.lang]}
+        </ReactMarkdown>
       </div>
     </HtmlPage>
   );

@@ -14,6 +14,8 @@ const COLLECTION_POSTFIX = "collection";
  */
 const COLLECTION_TOPICS_POSTFIX = "collection-topics";
 
+const COLLECTION_CHECKLIST_POSTFIX = "checklist";
+
 const PAGE_MARKER = "page";
 
 /**
@@ -23,4 +25,10 @@ const PAGE_MARKER = "page";
  */
 const BASE_URL = "/slides";
 
-export { BASE_URL, COLLECTION_POSTFIX, COLLECTION_TOPICS_POSTFIX, PAGE_MARKER };
+export {
+  BASE_URL,
+  COLLECTION_POSTFIX,
+  COLLECTION_CHECKLIST_POSTFIX,
+  COLLECTION_TOPICS_POSTFIX,
+  PAGE_MARKER,
+};

@@ -11,6 +11,7 @@ type CollectionJsonfileConfig = {
   childUrls: Array<string>;
   pageUrls?: Record<string, string>;
   topicPageUrls?: Record<string, string>;
+  checklistPageUrls?: Record<string, string>;
 };
 
 class Collection {
@@ -71,6 +72,15 @@ class Collection {
 
   /** markdown strings */
   topicPages?: Record<string, string>;
+
+  /**
+   * relative checklist page URLs
+   * e.g. {"en": "./react-checklist-en.md"}
+   */
+  checklistPageUrls?: Record<string, string>;
+
+  /** markdown strings */
+  checklistPages?: Record<string, string>;
 
   /** available languages */
   languages: Array<string>;
@@ -139,6 +149,19 @@ class Collection {
         this.topicPages[lang] = fs.readFileSync(`${this.srcBaseDir}/${url}`, {
           encoding: "utf-8",
         });
+      }
+    }
+    this.checklistPageUrls = config.checklistPageUrls;
+    this.checklistPages = {};
+    if (this.checklistPageUrls) {
+      for (let lang in this.checklistPageUrls) {
+        const url = this.checklistPageUrls[lang];
+        this.checklistPages[lang] = fs.readFileSync(
+          `${this.srcBaseDir}/${url}`,
+          {
+            encoding: "utf-8",
+          }
+        );
       }
     }
   }
