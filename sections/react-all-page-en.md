@@ -4,6 +4,10 @@
 
 <!-- CONTENT-BELOW -->
 
+## Videos
+
+[video playlist on YouTube](https://www.youtube.com/watch?v=b-HQsPFP_RI&list=PLRrX6S8UZpZlFTtdo9RONPO3rYi_UAqmD)
+
 ## Other free resources
 
 - <https://fullstackopen.com>
