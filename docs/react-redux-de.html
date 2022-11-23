@@ -2544,19 +2544,13 @@ ReactDOM.render(
 </section><section class="slide"><h2>Thunk</h2>
 <p>In Thunk verbleibt die synchrone Logik im Reducer, die asynchrone Logik wird in die Action aufgenommen.</p>
 </section><section class="slide"><h2>Beispiel: loadTodos</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function">(<span class="hljs-params">dispatch</span>) =></span> {
+<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params">dispatch</span>) </span>{
   <span class="hljs-comment">// "dispatch" is the redux store's dispatch function</span>
   <span class="hljs-comment">// it is passed in automatically (dependency injection)</span>
   dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodosRequest'</span> });
-  fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
-    .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =></span> response.json())
-    .then(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> {
-      dispatch({
-        <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodosSuccess'</span>,
-        <span class="hljs-attr">payload</span>: todos,
-      });
-    });
-};
+  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
+  dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodosSuccess'</span>, <span class="hljs-attr">payload</span>: todos });
+}
 </code></pre>
 <p>Wir können <code>dispatch(loadTodos)</code> aufrufen</p>
 </section><section class="slide"><h2>Thunk Sourcecode</h2>
@@ -2564,22 +2558,22 @@ ReactDOM.render(
 <p><a href="https://github.com/reduxjs/redux-thunk/blob/master/src/index.js" target="_blank">https://github.com/reduxjs/redux-thunk/blob/master/src/index.js</a></p>
 </section><section class="slide"><h2>Thunk: Zugriff auf den Redux store</h2>
 <p>Ein zweites Argument kann optional übergeben werden: Es erhält die <code>getState</code>-Funktion als Wert.</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function">() =></span> <span class="hljs-function">(<span class="hljs-params">dispatch, getState</span>) =></span> {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params">dispatch, getState</span>) </span>{
   dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodosRequest'</span> });
   <span class="hljs-keyword">const</span> s = getState();
   <span class="hljs-comment">// ...</span>
-};
+}
 </code></pre>
 </section><section class="slide"><h2>Thunk mit Typen</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { Dispatch } <span class="hljs-keyword">from</span> <span class="hljs-string">'@reduxjs/toolkit'</span>;
 
-<span class="hljs-keyword">const</span> loadTodos = <span class="hljs-function">() =></span> <span class="hljs-function">(<span class="hljs-params">
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params">
   dispatch: Dispatch&#x3C;TodosDataAction>
-</span>) =></span> {
+</span>) </span>{
   dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodosRequest'</span> });
   <span class="hljs-comment">// ...</span>
   dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodosSuccess'</span>, <span class="hljs-attr">payload</span>: data });
-};
+}
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Action Creators</h1>
 </section><section class="slide"><h2>Action Creators</h2>
@@ -2601,35 +2595,22 @@ ReactDOM.render(
 </code></pre>
 </section><section class="slide"><h2>Action Creators und Thunk</h2>
 <pre><code class="hljs language-js"><span class="hljs-comment">// thunk action creator</span>
-<span class="hljs-keyword">const</span> loadTodoByIndex = <span class="hljs-function">(<span class="hljs-params">id</span>) =></span> {
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thunkAction</span>(<span class="hljs-params">dispatch</span>) </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodoByIndex</span>(<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thunkAction</span>(<span class="hljs-params">dispatch</span>) </span>{
     dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodoRequest'</span>, <span class="hljs-attr">payload</span>: id });
-    fetch(
-      <span class="hljs-string">`https://jsonplaceholder.typicode.com/todos/<span class="hljs-subst">${index}</span>`</span>
-    )
-      .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =></span> response.json())
-      .then(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> {
-        dispatch({
-          <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodoSuccess'</span>,
-          <span class="hljs-attr">payload</span>: todo,
-        });
-      });
+    <span class="hljs-keyword">const</span> todo = <span class="hljs-keyword">await</span> fetchTodo(id);
+    dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodoSuccess'</span>, <span class="hljs-attr">payload</span>: todo });
   }
   <span class="hljs-keyword">return</span> thunkAction;
-};
+}
 </code></pre>
 </section><section class="slide"><h2>Action Creators und Thunk</h2>
 <p>kürzere Version mit verschachtelten Pfeilfunktionen:</p>
 <pre><code class="hljs language-js"><span class="hljs-comment">// thunk action creator</span>
-<span class="hljs-keyword">const</span> loadTodoByIndex = <span class="hljs-function">(<span class="hljs-params">id</span>) =></span> <span class="hljs-function">(<span class="hljs-params">dispatch</span>) =></span> {
+<span class="hljs-keyword">const</span> loadTodoByIndex = <span class="hljs-function">(<span class="hljs-params">id</span>) =></span> <span class="hljs-keyword">async</span> (dispatch) => {
   dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodoRequest'</span>, <span class="hljs-attr">payload</span>: id });
-  fetch(
-    <span class="hljs-string">`https://jsonplaceholder.typicode.com/todos/<span class="hljs-subst">${index}</span>`</span>
-  )
-    .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =></span> response.json())
-    .then(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> {
-      dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodoSuccess'</span>, <span class="hljs-attr">payload</span>: todo });
-    });
+  <span class="hljs-keyword">const</span> todo = <span class="hljs-keyword">await</span> fetchTodo(id);
+  dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">'loadTodoSuccess'</span>, <span class="hljs-attr">payload</span>: todo });
 };
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Testen von thunks</h1>

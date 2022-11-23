@@ -35,22 +35,14 @@ dispatch(loadTodoByIndex(3));
 
 ```js
 // thunk action creator
-const loadTodoByIndex = (id) => {
-  function thunkAction(dispatch) {
+function loadTodoByIndex(id) {
+  async function thunkAction(dispatch) {
     dispatch({ type: 'loadTodoRequest', payload: id });
-    fetch(
-      `https://jsonplaceholder.typicode.com/todos/${index}`
-    )
-      .then((response) => response.json())
-      .then((todo) => {
-        dispatch({
-          type: 'loadTodoSuccess',
-          payload: todo,
-        });
-      });
+    const todo = await fetchTodo(id);
+    dispatch({ type: 'loadTodoSuccess', payload: todo });
   }
   return thunkAction;
-};
+}
 ```
 
 ## Action creators and thunk
@@ -59,14 +51,9 @@ shorter version with nested arrow functions
 
 ```js
 // thunk action creator
-const loadTodoByIndex = (id) => (dispatch) => {
+const loadTodoByIndex = (id) => async (dispatch) => {
   dispatch({ type: 'loadTodoRequest', payload: id });
-  fetch(
-    `https://jsonplaceholder.typicode.com/todos/${index}`
-  )
-    .then((response) => response.json())
-    .then((todo) => {
-      dispatch({ type: 'loadTodoSuccess', payload: todo });
-    });
+  const todo = await fetchTodo(id);
+  dispatch({ type: 'loadTodoSuccess', payload: todo });
 };
 ```

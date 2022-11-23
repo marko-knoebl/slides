@@ -29,19 +29,13 @@ In Thunk verbleibt die synchrone Logik im Reducer, die asynchrone Logik wird in 
 ## Beispiel: loadTodos
 
 ```js
-const loadTodos = (dispatch) => {
+async function loadTodos(dispatch) {
   // "dispatch" is the redux store's dispatch function
   // it is passed in automatically (dependency injection)
   dispatch({ type: 'loadTodosRequest' });
-  fetch('https://jsonplaceholder.typicode.com/todos')
-    .then((response) => response.json())
-    .then((todos) => {
-      dispatch({
-        type: 'loadTodosSuccess',
-        payload: todos,
-      });
-    });
-};
+  const todos = await fetchTodos();
+  dispatch({ type: 'loadTodosSuccess', payload: todos });
+}
 ```
 
 Wir können `dispatch(loadTodos)` aufrufen
@@ -57,11 +51,11 @@ https://github.com/reduxjs/redux-thunk/blob/master/src/index.js
 Ein zweites Argument kann optional übergeben werden: Es erhält die `getState`-Funktion als Wert.
 
 ```ts
-const loadTodos = () => (dispatch, getState) => {
+async function loadTodos(dispatch, getState) {
   dispatch({ type: 'loadTodosRequest' });
   const s = getState();
   // ...
-};
+}
 ```
 
 ## Thunk mit Typen
@@ -69,11 +63,11 @@ const loadTodos = () => (dispatch, getState) => {
 ```ts
 import { Dispatch } from '@reduxjs/toolkit';
 
-const loadTodos = () => (
+async function loadTodos(
   dispatch: Dispatch<TodosDataAction>
-) => {
+) {
   dispatch({ type: 'loadTodosRequest' });
   // ...
   dispatch({ type: 'loadTodosSuccess', payload: data });
-};
+}
 ```
