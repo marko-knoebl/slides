@@ -16,7 +16,6 @@ Eine Checkliste zum Lernen von React-Themen
     - [ ] Entfernen von Elementen aus einem Array (delete)
   - [ ] Destrukturierende Zuweisung mit Arrays und Objekten
   - [ ] Imports und Exports: named und default
-  - [ ] "leere" Return Statements
 - [ ] State
   - [ ] Verwenden des _State Hooks_ (_useState_)
   - [ ] minimaler State und abgeleitete Werte
@@ -33,7 +32,7 @@ Eine Checkliste zum Lernen von React-Themen
   - [ ] Einbinden von Strings und Zahlen
   - [ ] Setzen von booleschen HTML-Properties (z.B. _disabled_)
   - [ ] _className_
-  - [ ] Event-Handler in JSX
+  - [ ] die _style_-Property in JSX
   - [ ] Whitespace in HTML vs Whitespace in JSX
   - [ ] Escaping von Zeichen wie _\<_, _\&_, _\>_
   - [ ] Kommentare
@@ -41,15 +40,24 @@ Eine Checkliste zum Lernen von React-Themen
     - [ ] der Operator `&&` in JS und JSX
   - [ ] Wiederholen von Elementen
     - [ ] die _key_-Property
-  - [ ] Event-Handler
+  - [ ] Event-Handler in JSX
     - [ ] Zugriff auf das Event-Objekt
-    - [ ] `onClick={handleEvent}` vs `onClick={handleEvent()}`
+    - [ ] `onClick={handleEvent}` (do) vs `onClick={handleEvent()}` (don't)
     - [ ] `preventDefault`
     - [ ] Eventtypen in TypeScript
   - [ ] JSX Fragmente
   - [ ] Sicherheit und XSS-Angriffe
     - [ ] `dangerouslySetInnerHtml`
   - [ ] Kompilierung von JSX
+- [ ] Entwicklungsumgebung
+  - [ ] Formatter (z.B. _prettier_)
+  - [ ] Linter (z.B. _eslint_)
+  - [ ] Entwickeln mit node.js und npm
+  - [ ] Initialisieren eines React-Projekts (z.B. via _create-react-app_)
+  - [ ] Entwicklungsserver
+  - [ ] Production Build und Deployment
+  - [ ] _React Developer Tools_ Browser-Plugin
+  - [ ] Projektstruktur: verbreitete Zugänge
 - [ ] TypeScript Grundlagen für React
   - [ ] TypeScript Vorteile: Autovervollständigung und Fehler-Reporting
   - [ ] Typendeklarationen für Libraries
@@ -60,27 +68,18 @@ Eine Checkliste zum Lernen von React-Themen
   - [ ] Objekttypen
     - [ ] optionale Properties
   - [ ] any
-  - [ ] Type Aliases und Interfaces
+  - [ ] Type Aliases und Interfaces Grundlagen
     - [ ] Exportieren und Importieren von Type Aliases und Interfaces
   - [ ] Funktionssignaturen und Funktionstypen
     - [ ] _void_
   - [ ] Type Assertions
   - [ ] Verwenden von (bestehenden) Generics
   - [ ] Union Types
-- [ ] Entwicklungsumgebung
-  - [ ] Formatter (z.B. _prettier_)
-  - [ ] Linter (z.B. _eslint_)
-  - [ ] Entwickeln mit node.js und npm
-  - [ ] Initialisieren eines React-Projekts (z.B. via _create-react-app_)
-  - [ ] Entwicklungsserver
-  - [ ] Production Build und Deployment
-  - [ ] _React Developer Tools_ Browser-Plugin
-  - [ ] Projektstruktur: verbreitete Zugänge
 - [ ] Komponenten
   - [ ] Überblick: Funktionskomponenten und Klassenkomponenten
   - [ ] Definieren von Komponenten als Funktionen
-  - [ ] in welche Komponenten gehört State?
-  - [ ] Verwenden von Komponentenlibraries
+  - [ ] State über mehrere Komponenten hinweg teilen
+  - [ ] Überblick über bestehende Komponentenlibraries
   - [ ] Props in eigenen Komponenten
   - [ ] Events in eigenen Komponenten
   - [ ] Inhalte an Komponenten übergeben
@@ -101,7 +100,7 @@ Eine Checkliste zum Lernen von React-Themen
   - [ ] Formular-Handling
   - [ ] State Management
 - [ ] API-Abfragen
-  - [ ] Netzwerkanfragen in JavaScript
+  - [ ] Netzwerkanfragen in JavaScript (_fetch_, _async_/_await_)
   - [ ] API Query Libraries für React: z.B. _react-query_
   - [ ] Überblick: _useEffect_
 - [ ] Routing Grundlagen
@@ -140,6 +139,7 @@ Eine Checkliste zum Lernen von React-Themen
   - [ ] State in Klassenkomponenten
   - [ ] mögliche Probleme mit _this_
 - [ ] Side Effects
+  - [ ] Zwecke von Side Effects
   - [ ] Side Effects in Klassenkomponenten
   - [ ] Side Effects in Funktionskomponenten
   - [ ] "Aufräumen" von Side Effects
@@ -154,45 +154,46 @@ Eine Checkliste zum Lernen von React-Themen
   - [ ] die _ref_-Property zum Zugreifen auf DOM-Elemente
   - [ ] die _ref_-Property in eigenen Komponenten
 
-## Fortgeschrittene Konzepte und Muster
+## Performanceoptimierung
 
-- [ ] Higher-order Components
-- [ ] render props
-- [ ] Portale
-- [ ] Error Boundaries
-- [ ] Performanceoptimierung
-  - [ ] React devtools und Performance
-  - [ ] Memoisierung
-  - [ ] Memoisierung von aufwändigen Berechnungen
-  - [ ] Vermeiden unnötiger Rerenderings
-  - [ ] Virtual DOM
-  - [ ] lazy-loading von Komponenten
-  - [ ] Verkleinern der Bundle-Größe
+- [ ] React devtools und Performance
+- [ ] Memoisierung
+- [ ] Memoisierung von aufwändigen Berechnungen
+- [ ] Vermeiden unnötiger Rerenderings
+- [ ] Virtual DOM
+- [ ] lazy-loading von Komponenten
+- [ ] Verkleinern der Bundle-Größe
 
 ## Testen
 
-- [ ] Testten
+- [ ] Testen in JavaScript
   - [ ] Assertions
-  - [ ] test runners: _Jest_, _node:test_
+  - [ ] test runners: z.B. _Jest_, _node:test_
   - [ ] mocken in JavaScript, mocken von Netzwerkantworten
-  - [ ] end-to-end Testing Libraries: _cypress_, _playwright_
-  - [ ] Testen von React-Komponenten: _react-testing-library_
+  - [ ] end-to-end Testing Libraries: e.g. _cypress_, _playwright_
+- [ ] Testen in React: _react-testing-library_
 
-## State Management
+## State Management: Intermediate
 
-- [ ] State Management
-  - [ ] Konzept: Actions
-  - [ ] Konzept: Reducer
-  - [ ] Reducer-Hook
-  - [ ] Überblick: Redux
-  - [ ] Hilfslibraries für Immutability (_immer.js_, _immutable.js_)
+- [ ] Konzept: Actions
+- [ ] Konzept: Reducer
+- [ ] Reducer-Hook
+- [ ] Überblick: Redux
+- [ ] Hilfslibraries für Immutability (_immer.js_, _immutable.js_)
+
+## Fortgeschrittene Konzepte und Muster
+
+- [ ] Portale
+- [ ] Error Boundaries
+- [ ] Higher-order Components
+- [ ] render props
 
 ## Andere Themen
 
-- [ ] React und GraphQL / Apollo
 - [ ] Benutzerauthentifizierung
-- [ ] PWAs
-- [ ] React Native
 - [ ] Internationalisierung
 - [ ] Pre-Rendering und next.js
 - [ ] Redux Vertiefung
+- [ ] React und GraphQL / Apollo
+- [ ] React Native
+- [ ] PWAs

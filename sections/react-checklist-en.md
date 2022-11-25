@@ -16,7 +16,6 @@ This list is not intended for going through it in order.
     - [ ] removing elements from arrays (delete)
   - [ ] destructuring assignment with arrays and objects
   - [ ] imports and exports: named and default
-  - [ ] "bare" / "blank" return statements
 - [ ] state
   - [ ] using the _state hook_ (_useState_)
   - [ ] minimal state and derived values
@@ -29,11 +28,11 @@ This list is not intended for going through it in order.
 - [ ] JSX
   - [ ] switching from JS to XML mode
   - [ ] switching from XML to JS mode in content
-  - [ ] switching from XML to JSX mode in element properties
+  - [ ] switching from XML to JS mode in element properties
   - [ ] including strings and numbers
   - [ ] setting boolean HTML properties (e.g. _disabled_)
   - [ ] _className_
-  - [ ] adding event handlers in JSX
+  - [ ] the _style_ property in JSX
   - [ ] whitespace in HTML vs whitespace in JSX
   - [ ] escaping characters like _\<_, _\&_, _\>_
   - [ ] comments
@@ -41,32 +40,15 @@ This list is not intended for going through it in order.
     - [ ] the operator `&&` in JS and JSX
   - [ ] repeating elements
     - [ ] the _key_ property
-  - [ ] event handlers
+  - [ ] adding event handlers in JSX
     - [ ] accessing the event object
-    - [ ] `onClick={handleEvent}` vs `onClick={handleEvent()}`
+    - [ ] `onClick={handleEvent}` (do) vs `onClick={handleEvent()}` (don't)
     - [ ] `preventDefault`
     - [ ] event types in TypeScript
   - [ ] JSX fragments
   - [ ] security and XSS attacks
     - [ ] `dangerouslySetInnerHtml`
   - [ ] compilation of JSX
-- [ ] TypeScript basics for React
-  - [ ] TypeScript benefits: autocompletion and error reporting
-  - [ ] type declarations for libraries
-  - [ ] type inference
-  - [ ] declaring types of variables
-  - [ ] primitive types: _number_, _string_, _boolean_
-  - [ ] array types
-  - [ ] object types
-    - [ ] optional entries
-  - [ ] any
-  - [ ] type aliases and interfaces
-    - [ ] exporting and importing type aliases and interfaces
-  - [ ] function signatures and function types
-    - [ ] _void_
-  - [ ] type assertions
-  - [ ] using (pre-existing) generics
-  - [ ] union types
 - [ ] development environment
   - [ ] formatter (e.g. _prettier_)
   - [ ] linter (e.g. _eslint_)
@@ -76,11 +58,28 @@ This list is not intended for going through it in order.
   - [ ] production build and deployment
   - [ ] _React Developer Tools_ browser plugin
   - [ ] project file structure: common approaches
+- [ ] TypeScript basics for React
+  - [ ] TypeScript benefits: autocompletion and error reporting
+  - [ ] type declarations for libraries
+  - [ ] type inference
+  - [ ] declaring types of variables
+  - [ ] primitive types: _number_, _string_, _boolean_
+  - [ ] array types
+  - [ ] object types
+    - [ ] optional properties
+  - [ ] any
+  - [ ] type aliases and interfaces basics
+    - [ ] exporting and importing type aliases and interfaces
+  - [ ] function signatures and function types
+    - [ ] _void_
+  - [ ] type assertions
+  - [ ] using (pre-existing) generics
+  - [ ] union types
 - [ ] components
   - [ ] overview: function components and class components
   - [ ] defining components as functions
-  - [ ] in which component should some state live?
-  - [ ] using existing component libraries
+  - [ ] sharing data between components
+  - [ ] overview of existing component libraries
   - [ ] props in custom components
   - [ ] events in custom components
   - [ ] passing content to components
@@ -101,7 +100,7 @@ This list is not intended for going through it in order.
   - [ ] form handling
   - [ ] state management
 - [ ] querying APIs
-  - [ ] network requests in JavaScript
+  - [ ] network requests in JavaScript (_fetch_, _async_/_await_)
   - [ ] API query libraries for React: e.g. _react-query_
   - [ ] overview: _useEffect_
 - [ ] routing basics
@@ -140,6 +139,7 @@ This list is not intended for going through it in order.
   - [ ] state in class components
   - [ ] potential problems with _this_
 - [ ] side effects
+  - [ ] purposes of side effects
   - [ ] side effects in class components
   - [ ] side effects in function components
   - [ ] cleaning up side effects
@@ -154,45 +154,46 @@ This list is not intended for going through it in order.
   - [ ] the _ref_ property for accessing DOM elements
   - [ ] the _ref_ property in custom components
 
-## Advanced concepts and patterns
+## Performance optimization
 
-- [ ] higher-order components
-- [ ] render props
-- [ ] portals
-- [ ] error boundaries
-- [ ] performance optimization
-  - [ ] React devtools and performance
-  - [ ] memoization
-  - [ ] memoization of expensive calculations
-  - [ ] skipping unneeded rerenders
-  - [ ] virtual DOM
-  - [ ] lazy-loading components
-  - [ ] reducing bundle size
+- [ ] React devtools and performance
+- [ ] memoization
+- [ ] memoization of expensive calculations
+- [ ] skipping unneeded rerenders
+- [ ] virtual DOM
+- [ ] lazy-loading components
+- [ ] reducing bundle size
 
 ## Testing
 
-- [ ] testing
+- [ ] Testing in JavaScript
   - [ ] assertions
-  - [ ] test runners: _Jest_, _node:test_
+  - [ ] test runners: e.g. _Jest_, _node:test_
   - [ ] mocking in JavaScript, mocking network responses
-  - [ ] end-to-end testing libraries: _cypress_, _playwright_
-  - [ ] testing React components: _react-testing-library_
+  - [ ] end-to-end testing libraries: e.g. _cypress_, _playwright_
+- [ ] Testing in React: _react-testing-library_
 
-## State management
+## State management: intermediate
 
-- [ ] state management: intermediate
-  - [ ] concept: actions
-  - [ ] concept: reducers
-  - [ ] reducer hook
-  - [ ] overview: Redux
-  - [ ] immutability helper libraries (_immer.js_, _immutable.js_)
+- [ ] concept: actions
+- [ ] concept: reducers
+- [ ] reducer hook
+- [ ] overview: Redux
+- [ ] immutability helper libraries (_immer.js_, _immutable.js_)
+
+## Advanced concepts and patterns
+
+- [ ] portals
+- [ ] error boundaries
+- [ ] higher-order components
+- [ ] render props
 
 ## Other topics
 
-- [ ] React and GraphQL / Apollo
 - [ ] user authentication
-- [ ] PWAs
-- [ ] React Native
-- [ ] Internationalization
+- [ ] internationalization
 - [ ] pre-rendering and next.js
 - [ ] Redux in depth
+- [ ] React and GraphQL / Apollo
+- [ ] React Native
+- [ ] PWAs
