@@ -73,7 +73,7 @@ This list is not intended for going through it in order.
   - [ ] function signatures and function types
     - [ ] _void_
   - [ ] type assertions
-  - [ ] using (pre-existing) generics
+  - [ ] using (pre-existing) generics (e.g. `Array<...>`, `useState<...>`)
   - [ ] union types
 - [ ] components
   - [ ] overview: function components and class components

@@ -73,7 +73,7 @@ Eine Checkliste zum Lernen von React-Themen
   - [ ] Funktionssignaturen und Funktionstypen
     - [ ] _void_
   - [ ] Type Assertions
-  - [ ] Verwenden von (bestehenden) Generics
+  - [ ] Verwenden von (bestehenden) Generics (z.B. `Array<...>`, `useState<...>`)
   - [ ] Union Types
 - [ ] Komponenten
   - [ ] Überblick: Funktionskomponenten und Klassenkomponenten
