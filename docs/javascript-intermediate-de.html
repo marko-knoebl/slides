@@ -2084,6 +2084,82 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Ergebnis:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>I <span class="hljs-symbol">&#x26;lt;</span>3 U<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Errors</h1>
+</section><section class="slide"><h2>Errors</h2>
+<p>JavaScript versucht oft, keine Fehler zu werfen, sondern Resultate zu liefern (auch wennd diese keinen Sinn machen)</p>
+<ul>
+<li><code>1 + "1"</code> → <code>"11"</code></li>
+<li><code>parseInt("foo")</code> → <code>NaN</code></li>
+<li><code>{} + []</code> → <code>0</code></li>
+<li><code>Math.sqrttt</code> → <code>undefined</code></li>
+</ul>
+</section><section class="slide"><h2>Arten von Fehlern</h2>
+<ul>
+<li>SyntaxError</li>
+<li>ReferenceError</li>
+<li>TypeError</li>
+<li>...</li>
+</ul>
+<p>Übung: versuche, diese Arten von Fehlern auszulösen</p>
+</section><section class="slide"><h2>Beispiele: ReferenceErrors und TypeErrors</h2>
+<pre><code class="hljs language-js"><span class="hljs-built_in">console</span>.log(Mathhh);
+</code></pre>
+<p>→ ReferenceError: <em>Mathhh is not defined</em></p>
+<pre><code class="hljs language-js"><span class="hljs-built_in">Math</span>.sqrttt(<span class="hljs-number">2</span>);
+</code></pre>
+<p>→ TypeError: <em>Math.sqrttt is not a function</em></p>
+<pre><code class="hljs language-js">emptyArray[<span class="hljs-number">0</span>].toUpperCase();
+</code></pre>
+<p>→ TypeError: <em>Cannot read properties of undefined</em></p>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>mögliche Fehlerquellen:</p>
+<ul>
+<li>Fehler des Programmierers</li>
+<li>Ungültige Eingaben / Werte → können abgefangen und behandelt werden</li>
+</ul>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>Beispiel: Versuch, ungültiges JSON zu parsen</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// invalid JSON string</span>
+<span class="hljs-keyword">let</span> preferencesString = <span class="hljs-string">'{ theme: dark }'</span>;
+<span class="hljs-keyword">let</span> preferences;
+<span class="hljs-keyword">try</span> {
+  preferences = <span class="hljs-built_in">JSON</span>.parse(preferencesString);
+} <span class="hljs-keyword">catch</span> {
+  <span class="hljs-comment">// error while loading preferences - use default values</span>
+  preferences = { <span class="hljs-attr">theme</span>: <span class="hljs-string">'light'</span> };
+}
+</code></pre>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>Beispiel: Fehler in node.js</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">try</span> {
+  fs.writeFileSync(<span class="hljs-string">'foo.txt'</span>, <span class="hljs-string">'foo'</span>);
+} <span class="hljs-keyword">catch</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'could not write to file'</span>);
+}
+</code></pre>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>Zugriff auf das Fehler-Objekt:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">try</span> {
+  <span class="hljs-comment">// ...</span>
+} <span class="hljs-keyword">catch</span> (error) {
+  <span class="hljs-built_in">console</span>.log(error.name); <span class="hljs-comment">// SyntaxError</span>
+  <span class="hljs-built_in">console</span>.log(error.message); <span class="hljs-comment">// JSON.parse: expected ...</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>Verwendung des <em>finally</em>-Blocks, der immer ausgeführt wird:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">let</span> file = fs.openSync(<span class="hljs-string">'foo.txt'</span>);
+  fs.writeSync(file, <span class="hljs-string">'foo\n'</span>);
+  fs.writeSync(file, <span class="hljs-string">'bar\n'</span>);
+} <span class="hljs-keyword">catch</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error while writing - aborting'</span>);
+  <span class="hljs-keyword">return</span>;
+} <span class="hljs-keyword">finally</span> {
+  <span class="hljs-comment">// "clean up"</span>
+  fs.closeSync(<span class="hljs-string">'foo.txt'</span>);
+}
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>map, filter, reduce</h1>
 <!-- note: this is partially duplicated in javascript-basics-for-react -->
 <h3>Array-Methoden für die funktionale Programmierung</h3>
