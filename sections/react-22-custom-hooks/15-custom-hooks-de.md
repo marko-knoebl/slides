@@ -110,9 +110,9 @@ Definition von `useExchangeRate`:
 function useExchangeRate(from, to) {
   const [rate, setRate] = useState(null);
   const [status, setStatus] = useState('loading');
-  async function loadExchangeRateAsync() {
+  async function loadRate(from: string, to: string) {
     try {
-      const newRate = await fetchExchangeRate();
+      const newRate = await fetchExchangeRate(from, to);
       setRate(newRate);
       setStatus('success');
     } catch {
@@ -121,7 +121,7 @@ function useExchangeRate(from, to) {
     }
   }
   useEffect(() => {
-    loadExchangeRateAsync();
+    loadRate(from, to);
   }, [from, to]);
   return { status, rate };
 }

@@ -9,13 +9,13 @@ function ExchangeRate() {
   const [from, setFrom] = useState('USD');
   const [to, setTo] = useState('EUR');
   const [rate, setRate] = useState(null);
-  async function loadExchangeRate() {
+  async function loadRate(from: string, to: string) {
     setRate(null);
     const rate = await fetchExchangeRate(from, to);
     setRate(rate);
   }
   useEffect(() => {
-    loadExchangeRate();
+    loadRate(from, to);
   }, [from, to]);
   // render two dropdowns for selecting currencies
   // and show the exchange rate

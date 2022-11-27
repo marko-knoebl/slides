@@ -2152,9 +2152,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
   <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
   <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRateAsync</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>: string, to: string</span>) </span>{
     <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate();
+      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-keyword">from</span>, to);
       setRate(newRate);
       setStatus(<span class="hljs-string">'success'</span>);
     } <span class="hljs-keyword">catch</span> {
@@ -2163,7 +2163,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     }
   }
   useEffect(<span class="hljs-function">() =></span> {
-    loadExchangeRateAsync();
+    loadRate(<span class="hljs-keyword">from</span>, to);
   }, [<span class="hljs-keyword">from</span>, to]);
   <span class="hljs-keyword">return</span> { status, rate };
 }

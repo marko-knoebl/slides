@@ -2160,11 +2160,11 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
 <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
 <span class="hljs-keyword">const</span> [rate, setRate] = useState&#x3C;<span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>>(<span class="hljs-literal">null</span>);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>: <span class="hljs-built_in">number</span>, to: <span class="hljs-built_in">number</span></span>) </span>{
   <span class="hljs-comment">// ...</span>
 }
 useEffect(<span class="hljs-function">() =></span> {
-  loadExchangeRate();
+  loadRate(<span class="hljs-keyword">from</span>, to);
 }, [<span class="hljs-keyword">from</span>, to]);
 </code></pre>
 </section><section class="slide"><h2>Effect Hook</h2>
@@ -2225,13 +2225,13 @@ useEffect(<span class="hljs-function">() =></span> {
   <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'USD'</span>);
   <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'EUR'</span>);
   <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadExchangeRate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>: string, to: string</span>) </span>{
     setRate(<span class="hljs-literal">null</span>);
     <span class="hljs-keyword">const</span> rate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-keyword">from</span>, to);
     setRate(rate);
   }
   useEffect(<span class="hljs-function">() =></span> {
-    loadExchangeRate();
+    loadRate(<span class="hljs-keyword">from</span>, to);
   }, [<span class="hljs-keyword">from</span>, to]);
   <span class="hljs-comment">// render two dropdowns for selecting currencies</span>
   <span class="hljs-comment">// and show the exchange rate</span>

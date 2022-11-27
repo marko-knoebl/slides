@@ -21,11 +21,11 @@ example: loading exchange rates when the component is first mounted and whenever
 const [from, setFrom] = useState('USD');
 const [to, setTo] = useState('EUR');
 const [rate, setRate] = useState<number | null>(null);
-async function loadExchangeRate() {
+async function loadRate(from: number, to: number) {
   // ...
 }
 useEffect(() => {
-  loadExchangeRate();
+  loadRate(from, to);
 }, [from, to]);
 ```
 

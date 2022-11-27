@@ -21,11 +21,11 @@ Beispiel: Laden von Umrechnungskursen, wenn die Komponente zum ersten Mal eingeb
 const [from, setFrom] = useState('USD');
 const [to, setTo] = useState('EUR');
 const [rate, setRate] = useState<number | null>(null);
-async function loadExchangeRate() {
+async function loadRate(from: number, to: number) {
   // ...
 }
 useEffect(() => {
-  loadExchangeRate();
+  loadRate(from, to);
 }, [from, to]);
 ```
 
