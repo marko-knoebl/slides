@@ -11,7 +11,7 @@ Features:
 - Anzeige der Komponentenstruktur
 - Anzeige von State und Props
 - Ändern von State und Props
-- Performanceanalyse des Renderings von Komponenten
+- (Performanceanalyse des Renderings von Komponenten)
 
 ## React Developer Tools
 

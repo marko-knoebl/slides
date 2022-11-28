@@ -11,7 +11,7 @@ features:
 - display component structure
 - show component state and props
 - change state and props
-- analyze render performance of components
+- (analyze render performance of components)
 
 ## React developer tools
 
