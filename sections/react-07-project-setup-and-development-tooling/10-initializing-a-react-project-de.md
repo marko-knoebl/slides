@@ -40,6 +40,18 @@ siehe auch: https://reactjs.org/docs/create-a-new-react-app.html
 
 ## Ein React-Projekt initialisieren
 
+Beispiel:
+
+```bash
+npx create-react-app@latest todolist --template typescript
+```
+
+- verwendet die neueste Version von _create-react-app_
+- erstellt ein Projekt in einem neuen Ordner namens _todolist_
+- verwendet die _typescript_-Projektvorlage
+
+## Ein React-Projekt initialisieren
+
 Viele Aspekte können vorkonfiguriert sein:
 
 - Build-System (z.B. webpack und babel)
@@ -47,11 +59,3 @@ Viele Aspekte können vorkonfiguriert sein:
 - Unittest-Framework
 - CSS Module
 - ...
-
-## Create-react-app: Standard Projektstruktur
-
-- _package.json_: Konfiguration, Liste an Abhängigkeiten
-- _node_modules_: Abhängigkeiten
-- _public/index.html_, _src/index.tsx_: Einstiegspunkte
-- _src/index.css_: globale Stildefinitionen
-- _src/App.tsx_, _src/App.css_: definierend die App-Komponente

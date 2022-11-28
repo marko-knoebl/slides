@@ -28,3 +28,9 @@ Manche JavaScript Libraries beinhalten TypeScript-Deklarationen - z.B. _redux_.
 Andere verbreitete Libraries haben meist Typendeklarations-Pakete mit dem Präfix _@types_
 
 z.B. für _react_: _@types/react_
+
+## Playground
+
+online mit TypeScript experimentieren:
+
+https://www.typescriptlang.org/play

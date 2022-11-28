@@ -2,13 +2,10 @@
 
 ## Developing with node.js and npm
 
-- node.js: JS-Runtime
-  - running the local development server
-  - unit tests
-- npm: package manager
-  - managing dependencies
-  - packages are located in the _node_modules_ directory
-  - configuration via _package.json_
+**node.js**: JavaScript runtime  
+(e.g. for running a local development server)
+
+**npm**: package manager
 
 ## Initializing a React project
 
@@ -40,6 +37,18 @@ see also: https://reactjs.org/docs/create-a-new-react-app.html
 
 ## Initializing a React project
 
+example:
+
+```bash
+npx create-react-app@latest todolist --template typescript
+```
+
+- uses the latest version of _create-react-app_
+- creates a project in a new folder named _todolist_
+- uses the _typescript_ project template
+
+## Initializing a React project
+
 many aspects can be preconfigured by the initializer:
 
 - build system (e.g. webpack and babel)
@@ -47,11 +56,3 @@ many aspects can be preconfigured by the initializer:
 - unit testing framework
 - CSS modules
 - ...
-
-## Create-react-app: default project structure
-
-- _package.json_: configuration, list of direct dependencies
-- _node_modules_: dependencies
-- _public/index.html_, _src/index.tsx_: entry points
-- _src/index.css_: global style declarations
-- _src/App.tsx_, _src/App.css_: define the App component

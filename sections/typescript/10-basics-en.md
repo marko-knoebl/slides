@@ -28,3 +28,9 @@ some libraries include TypeScript declarations - e.g. _redux_.
 other popular libraries mostly have type declaration packages that are prefixed with _@types_
 
 e.g. for _react_: _@types/react_
+
+## Playground
+
+experiment with TypeScript online:
+
+https://www.typescriptlang.org/play

@@ -2062,21 +2062,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Initializing a React project</h1>
 </section><section class="slide"><h2>Developing with node.js and npm</h2>
-<ul>
-<li>node.js: JS-Runtime
-<ul>
-<li>running the local development server</li>
-<li>unit tests</li>
-</ul>
-</li>
-<li>npm: package manager
-<ul>
-<li>managing dependencies</li>
-<li>packages are located in the <em>node_modules</em> directory</li>
-<li>configuration via <em>package.json</em></li>
-</ul>
-</li>
-</ul>
+<p><strong>node.js</strong>: JavaScript runtime<br />
+(e.g. for running a local development server)</p>
+<p><strong>npm</strong>: package manager</p>
 </section><section class="slide"><h2>Initializing a React project</h2>
 <p>possibilities:</p>
 <ul>
@@ -2096,6 +2084,15 @@ npx create-next-app@latest --ts
 </code></pre>
 <p>see also: <a href="https://reactjs.org/docs/create-a-new-react-app.html" target="_blank">https://reactjs.org/docs/create-a-new-react-app.html</a></p>
 </section><section class="slide"><h2>Initializing a React project</h2>
+<p>example:</p>
+<pre><code class="hljs language-bash">npx create-react-app@latest todolist --template typescript
+</code></pre>
+<ul>
+<li>uses the latest version of <em>create-react-app</em></li>
+<li>creates a project in a new folder named <em>todolist</em></li>
+<li>uses the <em>typescript</em> project template</li>
+</ul>
+</section><section class="slide"><h2>Initializing a React project</h2>
 <p>many aspects can be preconfigured by the initializer:</p>
 <ul>
 <li>build system (e.g. webpack and babel)</li>
@@ -2104,7 +2101,9 @@ npx create-next-app@latest --ts
 <li>CSS modules</li>
 <li>...</li>
 </ul>
-</section><section class="slide"><h2>Create-react-app: default project structure</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>File structure</h1>
+</section><section class="slide"><h2>File structure</h2>
+<p>create-react-app: default file structure</p>
 <ul>
 <li><em>package.json</em>: configuration, list of direct dependencies</li>
 <li><em>node_modules</em>: dependencies</li>
@@ -2112,6 +2111,42 @@ npx create-next-app@latest --ts
 <li><em>src/index.css</em>: global style declarations</li>
 <li><em>src/App.tsx</em>, <em>src/App.css</em>: define the App component</li>
 </ul>
+</section><section class="slide"><h2>File structure</h2>
+<p>basic file structure for a simple todo list project:</p>
+<ul>
+<li><em>src/</em>
+<ul>
+<li><em>index.tsx</em></li>
+<li><em>index.css</em></li>
+<li><em>App.tsx</em></li>
+<li><em>App.css</em></li>
+<li><em>components/</em>
+<ul>
+<li><em>AddTodo.tsx</em></li>
+<li><em>AddTodo.css</em></li>
+<li><em>TodoItem.tsx</em></li>
+<li><em>TodoItem.css</em></li>
+<li>...</li>
+</ul>
+</li>
+<li><em>hooks/</em>
+<ul>
+<li><em>useTodos.ts</em></li>
+</ul>
+</li>
+<li><em>types.ts</em></li>
+</ul>
+</li>
+</ul>
+</section><section class="slide"><h2>File structure</h2>
+<p>common approaches:</p>
+<ul>
+<li>grouping by type (component / hook / API connection / ...)</li>
+<li>grouping by features or routes</li>
+</ul>
+<!-- list-separator -->
+<p><a href="https://reactjs.org/docs/faq-structure.html" target="_blank">React docs on file structure</a></p>
+<p><a href="https://github.com/alan2207/bulletproof-react" target="_blank">example project: bulletproof react</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Dev server, build and deployment</h1>
 </section><section class="slide"><h2>Dev server, build and deployment</h2>
 <p>inside the project directory:</p>
@@ -2125,14 +2160,14 @@ npx create-next-app@latest --ts
 </section><section class="slide"><h2>Build and deployment</h2>
 <p>A React project can be hosted on any static hosting service</p>
 </section><section class="slide"><h2>Build</h2>
-<p>build with create-react-app:</p>
+<p>static build with create-react-app:</p>
 <pre><code class="hljs language-bash">npm run build
 </code></pre>
 <p>minified and bundled app is created in the <em>build</em> folder</p>
 </section><section class="slide"><h2>Deployment</h2>
 <p>simple options for trying out deployment options without login:</p>
 <ul>
-<li><a href="https://netlify.com/drop" target="_blank">https://netlify.com/drop</a> (hosting for 24 hours, kann beim ersten Versuch fehlschlagen)</li>
+<li><a href="https://netlify.com/drop" target="_blank">https://netlify.com/drop</a> (hosting for 24 hours, may fail on first try)</li>
 <li><a href="https://tiiny.host/" target="_blank">https://tiiny.host/</a> (upload via a zip folder, hosting for a couple of days)</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React developer tools</h1>
@@ -2154,59 +2189,7 @@ npx create-next-app@latest --ts
 <ul>
 <li>check state update logic: state updates correctly in response to events</li>
 <li>check rendering logic: state is rendered as expected</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>File structure</h1>
-</section><section class="slide"><h2>File structure</h2>
-<p><a href="https://reactjs.org/docs/faq-structure.html" target="_blank">https://reactjs.org/docs/faq-structure.html</a></p>
-<p>common approaches:</p>
-<ul>
-<li>grouping by features or routes</li>
-<li>grouping by type (component / hook / API connection / ...)</li>
-</ul>
-<p>example project: <a href="https://github.com/alan2207/bulletproof-react" target="_blank">bulletproof react</a></p>
-</section><section class="slide"><h2>File structure</h2>
-<p>very basic file structure for a todo list project:</p>
-<ul>
-<li><em>src</em>
-<ul>
-<li><em>index.tsx</em></li>
-<li><em>index.css</em></li>
-<li><em>App.tsx</em></li>
-<li><em>App.css</em></li>
-<li><em>components</em>
-<ul>
-<li><em>AddTodo.tsx</em></li>
-<li><em>AddTodo.css</em></li>
-<li><em>TodoItem.tsx</em></li>
-<li><em>TodoItem.css</em></li>
-<li>...</li>
-</ul>
-</li>
-<li><em>hooks</em>
-<ul>
-<li><em>useTodos.ts</em></li>
-</ul>
-</li>
-<li><em>types.ts</em></li>
-</ul>
-</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Manual project setup</h1>
-</section><section class="slide"><h2>Rendering an App component</h2>
-<p>basic example for rendering an App component:</p>
-<pre><code class="hljs language-tsx">import ReactDOM from 'react-dom/client';
-
-function App() {
-  return &#x3C;div>Hello World!&#x3C;/div>;
-}
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(&#x3C;App />);
-</code></pre>
-</section><section class="slide"><h2>Manual project setup</h2>
-<p>for details, see presentation on <em>JavaScript build systems</em></p></section></section></div>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

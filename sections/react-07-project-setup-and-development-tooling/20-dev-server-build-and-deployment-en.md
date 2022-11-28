@@ -19,7 +19,7 @@ A React project can be hosted on any static hosting service
 
 ## Build
 
-build with create-react-app:
+static build with create-react-app:
 
 ```bash
 npm run build
@@ -31,5 +31,5 @@ minified and bundled app is created in the _build_ folder
 
 simple options for trying out deployment options without login:
 
-- https://netlify.com/drop (hosting for 24 hours, kann beim ersten Versuch fehlschlagen)
+- https://netlify.com/drop (hosting for 24 hours, may fail on first try)
 - https://tiiny.host/ (upload via a zip folder, hosting for a couple of days)
