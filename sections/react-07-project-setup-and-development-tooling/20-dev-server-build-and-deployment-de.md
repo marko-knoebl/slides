@@ -31,5 +31,5 @@ Minifizierter und Optimierter Build wird im _build_-Ordner generiert
 
 einfache Test-Deployments ohne Login:
 
-- https://netlify.com/drop (Hosting für 24 Stunden, kann beim ersten Versuch fehlschlagen)
+- https://netlify.com/drop (Hosting für 1 Stunde, kann beim ersten Versuch fehlschlagen)
 - https://tiiny.host/ (Upload via a zip-Ordner, Hosting für einige Tage)

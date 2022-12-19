@@ -12,10 +12,8 @@ example: `Array` is a generic
 const names: Array<string> = ['Alice', 'Bob', 'Charlie'];
 ```
 
-example: React's `Component` is a generic
+example: React's `useState` is a generic function
 
 ```ts
-class MyComp extends Component<MyProps, MyState> {
-  // ...
-}
+const [name, setName] = useState<string>('');
 ```

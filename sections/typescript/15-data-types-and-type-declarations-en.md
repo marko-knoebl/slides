@@ -42,14 +42,14 @@ const loggedIn: boolean = true;
 ## Array types
 
 ```js
-let names: Array<string> = [];
+const names: Array<string> = [];
 names.push('Alice');
 ```
 
 alternative syntax:
 
 ```ts
-let names: string[] = [];
+const names: string[] = [];
 names.push('Alice');
 ```
 
@@ -58,7 +58,7 @@ names.push('Alice');
 type declaration:
 
 ```ts
-let todo: {
+const todo: {
   id: number;
   title: string;
   completed: boolean;
@@ -76,7 +76,7 @@ todo = { id: 1, title: 'foo', completed: false };
 optional entries are marked with `?`
 
 ```ts
-let todo: {
+const todo: {
   id: number;
   title: string;
   completed: boolean;

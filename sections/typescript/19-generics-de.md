@@ -12,10 +12,8 @@ Beispiel: `Array` ist ein Generic
 const names: Array<string> = ['Alice', 'Bob', 'Charlie'];
 ```
 
-Beispiel: Reacts `Component` ist ein Generic
+Beispiel: Reacts `useState` ist ein Generic
 
 ```ts
-class MyComp extends Component<MyProps, MyState> {
-  // ...
-}
+const [name, setName] = useState<string>('');
 ```
