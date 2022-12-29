@@ -26,19 +26,20 @@ function logMessage(message: string): void {
 
 ## Funktionstypen
 
-Deklarieren eines Type Alias für eine Funktion:
+Speichern einer Funktionssignatur unter einem Type Alias:
 
 ```ts
-type Logger = (message: string) => void;
+// a validator is a function that receives a string
+// and returns a boolean
+type Validator = (s: string) => boolean;
 ```
 
 Anwenden der Type Alias:
 
 ```ts
-const log: Logger = (message) => {
-  console.log(message);
-};
-const logUpper: Logger = (message) => {
-  console.log(message.toUpperCase());
+const validateEmail: Validator = (s) => s.includes('@');
+
+const validateYear: Validator = (s) => {
+  return new RegExp('^d{4}$').test(s);
 };
 ```

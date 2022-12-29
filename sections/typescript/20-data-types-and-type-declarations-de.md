@@ -2,6 +2,8 @@
 
 ## Datentypen
 
+Datentypen und Deklarationen, die wir verwenden werden:
+
 - boolean
 - number
 - string
@@ -58,7 +60,7 @@ names.push('Alice');
 Typendeklaration:
 
 ```ts
-const todo: {
+let todo: {
   id: number;
   title: string;
   completed: boolean;
@@ -76,7 +78,7 @@ todo = { id: 1, title: 'foo', completed: false };
 optionale Einträge werden mit `?` gekennzeichnet
 
 ```ts
-const todo: {
+let todo: {
   id: number;
   title: string;
   completed: boolean;
@@ -96,3 +98,14 @@ console.log(nameInput.value);
 ```
 
 Deklarieren wir eine Variable asl `any`, können wir auf beliebige Properties zugreifen
+
+## Union Types
+
+Variablen, die mehrere Typen annehmen können:
+
+```ts
+let width: string | number | undefined;
+
+width = '16px';
+width = 16;
+```

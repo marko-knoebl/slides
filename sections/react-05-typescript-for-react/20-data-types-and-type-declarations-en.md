@@ -1,6 +1,8 @@
 # Data types and type declarations
 
-## Data types
+## Data types and type declarations
+
+data types and declarations that we'll use:
 
 - boolean
 - number
@@ -15,12 +17,6 @@ variable types can be specified when declaring variables:
 
 ```ts
 let age: number = 32;
-```
-
-```ts
-let age: number;
-age = 32;
-age++;
 ```
 
 ## Type inference
@@ -58,7 +54,7 @@ names.push('Alice');
 type declaration:
 
 ```ts
-const todo: {
+let todo: {
   id: number;
   title: string;
   completed: boolean;
@@ -76,7 +72,7 @@ todo = { id: 1, title: 'foo', completed: false };
 optional entries are marked with `?`
 
 ```ts
-const todo: {
+let todo: {
   id: number;
   title: string;
   completed: boolean;
@@ -86,7 +82,7 @@ const todo: {
 
 ## Any
 
-Sometimes we may want to relax the type checker:
+Sometimes we may want to make the type checker less strict
 
 ```ts
 const nameInput: any = document.getElementById(
@@ -96,3 +92,14 @@ console.log(nameInput.value);
 ```
 
 Declaring a variable as `any` enables accessing arbitrary properties
+
+## Union types
+
+variables that can be one of multiple types:
+
+```ts
+let width: string | number | undefined;
+
+width = '16px';
+width = 16;
+```

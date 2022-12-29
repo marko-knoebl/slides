@@ -1,14 +1,14 @@
-# TypeScript Basics
+# TypeScript for React
 
 <!-- closely realated content in presentations typescript and react-->
 
-## TypeScript
+## TypeScript for React
 
-TypeScript: popular alternative to _JavaScript_
+majority of React projects will use _TypeScript_ instead of _JavaScript_
 
-supports _static typing_ → better autocompletion and error detection
+_static typing_ → better autocompletion and error detection
 
-## Static Typing
+## Static typing
 
 data types may be _specified explicitly_ by the developer or _inferred_ by the development invironment
 

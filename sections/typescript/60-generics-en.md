@@ -12,8 +12,23 @@ example: `Array` is a generic
 const names: Array<string> = ['Alice', 'Bob', 'Charlie'];
 ```
 
-example: React's `useState` is a generic function
+## Generics
+
+example: React's `useState` can be used as a generic
 
 ```ts
 const [name, setName] = useState<string>('');
+```
+
+## Generics
+
+example: React's event types can be used as generics:
+
+```ts
+function handleChange(
+  event: ChangeEvent<HTMLInputElement>
+) {
+  const newValue = event.target.value;
+  // ...
+}
 ```

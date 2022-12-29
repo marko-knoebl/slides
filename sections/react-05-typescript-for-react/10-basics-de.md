@@ -1,10 +1,10 @@
-# TypeScript Grundlagen
+# TypeScript für React
 
 <!-- closely realated content in presentations typescript and react-->
 
-## TypeScript
+## TypeScript für React
 
-TypeScript: Verbreitete Alternative zu _JavaScript_
+Großteil der React-Projekte verwendet _TypeScript_ anstatt von _JavaScript_
 
 _Statische Typisierung_ → bessere Autovervollständigung und Fehlererkennung
 
@@ -16,12 +16,6 @@ Vortile:
 
 - bessere Autovervollständigung
 - bessere Fehlererkennung
-
-## Playground
-
-online mit TypeScript experimentieren:
-
-https://www.typescriptlang.org/play
 
 ## Statische Typisierung
 

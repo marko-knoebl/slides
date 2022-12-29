@@ -26,19 +26,18 @@ function logMessage(message: string): void {
 
 ## Function types
 
-declaring a type alias for a function:
+storing a function signature under a type alias:
 
 ```ts
-type Logger = (message: string) => void;
+type Validator = (s: string) => boolean;
 ```
 
 applying the type alias:
 
 ```ts
-const log: Logger = (message) => {
-  console.log(message);
-};
-const logUpper: Logger = (message) => {
-  console.log(message.toUpperCase());
+const validateEmail: Validator = (s) => s.includes('@');
+
+const validateYear: Validator = (s) => {
+  return new RegExp('^d{4}$').test(s);
 };
 ```

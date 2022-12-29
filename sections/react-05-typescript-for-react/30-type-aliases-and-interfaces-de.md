@@ -31,29 +31,12 @@ interface Todo {
 ## Verwendung von Type Aliases / Interfaces
 
 ```ts
-const todo: Todo = {
-  id: 1,
-  title: 'learn TypeScript',
-  completed: false,
-};
+const todos: Array<Todo> = [
+  { id: 1, title: 'foo', completed: false },
+  { id: 2, title: 'bar', completed: true },
+];
 ```
 
-## Exportieren
+## Type Aliases und Interfaces
 
-direkte Exports:
-
-```ts
-export type Foo = {
-  // ...
-};
-export interface Bar {
-  // ...
-}
-```
-
-separate Exports:
-
-```ts
-// ...
-export type { Foo, Bar };
-```
+Type Aliases und Interfaces sollten groß geschrieben werden (z.B. `Todo`, nicht `todo`)

@@ -12,8 +12,23 @@ Beispiel: `Array` ist ein Generic
 const names: Array<string> = ['Alice', 'Bob', 'Charlie'];
 ```
 
-Beispiel: Reacts `useState` ist ein Generic
+## Generics
+
+Beispiel: Reacts `useState` kann als Generic verwendet werden
 
 ```ts
 const [name, setName] = useState<string>('');
+```
+
+## Generics
+
+Beispiel: Reacts Eventtypen können als Generics verwendet werden:
+
+```ts
+function handleChange(
+  event: ChangeEvent<HTMLInputElement>
+) {
+  const newValue = event.target.value;
+  // ...
+}
 ```

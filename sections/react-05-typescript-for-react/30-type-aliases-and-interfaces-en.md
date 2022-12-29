@@ -8,7 +8,7 @@ Type aliases can be somewhat more flexible and easy to use ([comparison on Stack
 
 ## Type aliases and interfaces
 
-type alias:
+type alias for objects:
 
 ```ts
 type Todo = {
@@ -18,7 +18,7 @@ type Todo = {
 };
 ```
 
-interface:
+interface for objects:
 
 ```ts
 interface Todo {
@@ -31,29 +31,12 @@ interface Todo {
 ## Using type aliases / interfaces
 
 ```ts
-const todo: Todo = {
-  id: 1,
-  title: 'learn TypeScript',
-  completed: false,
-};
+const todos: Array<Todo> = [
+  { id: 1, title: 'foo', completed: false },
+  { id: 2, title: 'bar', completed: true },
+];
 ```
 
-## Exporting
+## Type aliases and interfaces
 
-direct exports:
-
-```ts
-export type Foo = {
-  // ...
-};
-export interface Bar {
-  // ...
-}
-```
-
-separate exports:
-
-```ts
-// ...
-export type { Foo, Bar };
-```
+type aliases and interfaces should be _capitalized_ (e.g. `Todo`, not `todo`)
