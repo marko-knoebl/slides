@@ -27,7 +27,19 @@ Props werden Funktionskomponenten via Parametern übergeben:
 type RatingProps = { value: number };
 
 function Rating(props: RatingProps) {
-  // ...
+  // we can access "props.value"
+}
+```
+
+## Komponenten-Props
+
+alternative Notation mit Destrukturierung:
+
+```tsx
+type RatingProps = { value: number };
+
+function Rating({ value }: RatingProps) {
+  // we can access "value" directly
 }
 ```
 
@@ -38,14 +50,12 @@ Implementierung einer Rating-Komponente:
 ```tsx
 type RatingProps = { value: number };
 
-function Rating(props: RatingProps) {
+function Rating({ value }: RatingProps) {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
       {starIds.map((id) => (
-        <span key={id}>
-          {id <= props.value ? '★' : '☆'}
-        </span>
+        <span key={id}>{id <= value ? '★' : '☆'}</span>
       ))}
     </div>
   );

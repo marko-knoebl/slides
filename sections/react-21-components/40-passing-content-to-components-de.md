@@ -1,8 +1,8 @@
-# Passing content to components
+# Inhalte an Komponenten übergeben
 
-## Passing content to components
+## Inhalte an Komponenten übergeben
 
-examples:
+Beispiele:
 
 ```jsx
 <ConfirmationDialog
@@ -26,9 +26,9 @@ examples:
 >
 ```
 
-## Passing content to components
+## Inhalte an Komponenten übergeben
 
-implementation of a `ConfirmationDialog`:
+Implementierung eines `ConfirmationDialog`:
 
 ```js
 interface Props {
@@ -36,11 +36,11 @@ interface Props {
   body: ReactNode;
 }
 
-function ConfirmationDialog(props: Props) {
+function ConfirmationDialog({ header, body }: Props) {
   return (
     <div>
-      <header>{props.header}</header>
-      <div>{props.body}</div>
+      <header>{header}</header>
+      <div>{body}</div>
       <div>
         <button>OK</button>
       </div>
@@ -49,9 +49,9 @@ function ConfirmationDialog(props: Props) {
 }
 ```
 
-## Passing content to components
+## Inhalte an Komponenten übergeben
 
-these notations are equivalent:
+diese Notationen sind gleichwertig:
 
 ```jsx
 <Notification
@@ -74,15 +74,15 @@ these notations are equivalent:
 </Notification>
 ```
 
-## Passing content to components
+## Inhalte an Komponenten übergeben
 
-anything passed between opening and closing tags will be received as `props.children`
+Was zwischen öffnendem und schließendem Tag übergeben wird, ist als `props.children` abrufbar
 
-## Passing content to components
+## Inhalte an Komponenten übergeben
 
-A component may receive content to be displayed via `props.children`
+Eine Komponente kann anzuzeigende Inhalte via `props.children` übergeben bekommen
 
-possible usage:
+mögliche Verwendung:
 
 ```jsx
 <Notification type="error">
@@ -91,9 +91,9 @@ possible usage:
 </Notification>
 ```
 
-## Passing content to components
+## Inhalte an Komponenten übergeben
 
-Exercise: Card component with Styling ([example](https://www.w3schools.com/howto/howto_css_cards.asp))
+Übung: Card-Komponente mit Styling ([Beispiel](https://www.w3schools.com/howto/howto_css_cards.asp))
 
 ```jsx
 <Card>

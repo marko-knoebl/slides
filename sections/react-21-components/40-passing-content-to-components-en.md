@@ -1,8 +1,8 @@
-# Inhalte an Komponenten übergeben
+# Passing content to components
 
-## Inhalte an Komponenten übergeben
+## Passing content to components
 
-Beispiele:
+examples:
 
 ```jsx
 <ConfirmationDialog
@@ -26,9 +26,9 @@ Beispiele:
 >
 ```
 
-## Inhalte an Komponenten übergeben
+## Passing content to components
 
-Implementierung eines `ConfirmationDialog`:
+implementation of a `ConfirmationDialog`:
 
 ```js
 interface Props {
@@ -36,11 +36,11 @@ interface Props {
   body: ReactNode;
 }
 
-function ConfirmationDialog(props: Props) {
+function ConfirmationDialog({ header, body }: Props) {
   return (
     <div>
-      <header>{props.header}</header>
-      <div>{props.body}</div>
+      <header>{header}</header>
+      <div>{body}</div>
       <div>
         <button>OK</button>
       </div>
@@ -49,9 +49,9 @@ function ConfirmationDialog(props: Props) {
 }
 ```
 
-## Inhalte an Komponenten übergeben
+## Passing content to components
 
-diese Notationen sind gleichwertig:
+these notations are equivalent:
 
 ```jsx
 <Notification
@@ -74,15 +74,15 @@ diese Notationen sind gleichwertig:
 </Notification>
 ```
 
-## Inhalte an Komponenten übergeben
+## Passing content to components
 
-Was zwischen öffnendem und schließendem Tag übergeben wird, ist als `props.children` abrufbar
+anything passed between opening and closing tags will be received as `props.children`
 
-## Inhalte an Komponenten übergeben
+## Passing content to components
 
-Eine Komponente kann anzuzeigende Inhalte via `props.children` übergeben bekommen
+A component may receive content to be displayed via `props.children`
 
-mögliche Verwendung:
+possible usage:
 
 ```jsx
 <Notification type="error">
@@ -91,9 +91,9 @@ mögliche Verwendung:
 </Notification>
 ```
 
-## Inhalte an Komponenten übergeben
+## Passing content to components
 
-Übung: Card-Komponente mit Styling ([Beispiel](https://www.w3schools.com/howto/howto_css_cards.asp))
+Exercise: Card component with Styling ([example](https://www.w3schools.com/howto/howto_css_cards.asp))
 
 ```jsx
 <Card>

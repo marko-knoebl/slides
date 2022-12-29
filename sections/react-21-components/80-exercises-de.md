@@ -2,9 +2,7 @@
 
 ## Übungen
 
-Aufgabe: In der Todo-Anwendung: Erstelle eine neue `Stats`-Komponente, die Statistiken über die Todos anzeigt
-
-Aufgabe: Teile die Todo-Anwendung in kleinere Komponenten (z.B. _AddTodo_, _TodoItem_, _TodoList_)
+Aufgabe: Teile die Todo-Anwendung in kleinere Komponenten, die mittels Props und Events kommunizieren (z.B. _AddTodo_, _TodoItem_, _TodoList_)
 
 Aufgabe: Entwirf Komponenteninterfaces (Props und Events) für verschiedene Komponenten (z.B. _Calendar_, _ColorPicker_, _BarChart_, _Tabs_)
 

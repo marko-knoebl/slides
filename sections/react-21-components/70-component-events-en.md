@@ -46,20 +46,20 @@ type RatingProps = {
 ## Component events
 
 ```tsx
-function Rating(props: RatingProps) {
+function Rating({ value, onChange }: RatingProps) {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>
       {starIds.map((id) => (
         <span
           onClick={() => {
-            if (props.onChange) {
-              props.onChange(id);
+            if (onChange) {
+              onChange(id);
             }
           }}
           key={id}
         >
-          {id <= props.value ? '★' : '☆'}
+          {id <= value ? '★' : '☆'}
         </span>
       ))}
     </div>
