@@ -2065,6 +2065,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>TypeScript für React</h2>
 <p>Großteil der React-Projekte verwendet <em>TypeScript</em> anstatt von <em>JavaScript</em></p>
 <p><em>Statische Typisierung</em> → bessere Autovervollständigung und Fehlererkennung</p>
+</section><section class="slide"><h2>TypeScript für React</h2>
+<p>Themen:</p>
+<ul>
+<li>grundlegende Typendeklarationen</li>
+<li><em>Type Aliases</em> und <em>Interfaces</em></li>
+<li>Parametertypen und Rückgabetypen von Funktionen</li>
+<li><em>Generics</em></li>
+<li><em>Type Assertions</em></li>
+</ul>
 </section><section class="slide"><h2>Statische Typisierung</h2>
 <p>Datentypen können <em>explizit</em> vom Entwickler angegeben werden oder von der Entwicklungsumgebung <em>abgeleitet</em> werden (engl. <em>type inference</em>)</p>
 <p>Vortile:</p>
@@ -2086,14 +2095,13 @@ names.push(<span class="hljs-string">'Bob'</span>);
 <p><a href="https://www.typescriptlang.org/play" target="_blank">https://www.typescriptlang.org/play</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Datentypen und Typendeklarationen</h1>
 </section><section class="slide"><h2>Datentypen und Typendeklarationen</h2>
-<p>Datentypen und Deklarationen, die wir verwenden werden:</p>
+<p>Datentypen, die wir verwenden werden:</p>
 <ul>
 <li>boolean</li>
 <li>number</li>
 <li>string</li>
 <li>array</li>
 <li>object</li>
-<li>any</li>
 </ul>
 </section><section class="slide"><h2>Variablentypen</h2>
 <p>Variablentypen können beim Deklarieren von Variablen angegeben werden:</p>
@@ -2136,6 +2144,19 @@ names.push(<span class="hljs-string">'Alice'</span>);
   date?: <span class="hljs-built_in">string</span>;
 };
 </code></pre>
+</section><section class="slide"><h2>Kombination</h2>
+<p>Kombination der Deklarationen:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> todos: <span class="hljs-built_in">Array</span>&#x3C;{
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+}>;
+</code></pre>
+<pre><code class="hljs language-ts">todos = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'bar'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+];
+</code></pre>
 </section><section class="slide"><h2>Any</h2>
 <p>Manchmals möchten wir die Typenüberprüfung aufheben:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(
@@ -2153,23 +2174,31 @@ width = <span class="hljs-number">16</span>;
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Type Aliases und Interfaces</h1>
 </section><section class="slide"><h2>Type Aliases und Interfaces</h2>
-<p>Mit <em>Type Aliases</em> oder <em>Interfaces</em> können wir eine Typendeklaration unter einem Namen speichern</p>
-<p>Type Aliases können etwas einfacher und flexibler sein als Interfaces</p>
-</section><section class="slide"><h2>Type Aliases und Interfaces</h2>
-<p>Type Alias:</p>
+<p><em>Type Aliases</em> oder <em>Interfaces</em>: Möglichkeiten, eine Typendeklaration unter einem Namen zu speichern</p>
+<p>werden vor Allem für Objektstrukturen verwendet, z.B.:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
   <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
   title: <span class="hljs-built_in">string</span>;
   completed: <span class="hljs-built_in">boolean</span>;
 };
 </code></pre>
-<p>Interface:</p>
+</section><section class="slide"><h2>Type Aliases und Interfaces</h2>
+<p>Type Alias für ein Objekt:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+};
+</code></pre>
+<p>Interface für ein Objekt:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> Todo {
   <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
   title: <span class="hljs-built_in">string</span>;
   completed: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
+</section><section class="slide"><h2>Type Aliases und Interfaces</h2>
+<p>Type Aliases können etwas einfacher und flexibler sein als Interfaces (<a href="https://stackoverflow.com/questions/37233735" target="_blank">Vergleich auf StackOverflow</a>)</p>
 </section><section class="slide"><h2>Verwendung von Type Aliases / Interfaces</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> todos: <span class="hljs-built_in">Array</span>&#x3C;Todo> = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
@@ -2221,16 +2250,37 @@ width = <span class="hljs-number">16</span>;
 <p>Anwenden der Type Alias:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> validateEmail: Validator = <span class="hljs-function">(<span class="hljs-params">s</span>) =></span> s.includes(<span class="hljs-string">'@'</span>);
 
-<span class="hljs-keyword">const</span> validateYear: Validator = <span class="hljs-function">(<span class="hljs-params">s</span>) =></span> {
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^d{4}$'</span>).test(s);
-};
+<span class="hljs-keyword">const</span> validateYear: Validator = <span class="hljs-function">(<span class="hljs-params">s</span>) =></span>
+  <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^d{4}$'</span>).test(s);
 </code></pre>
 </section><section class="slide"><h2>Funktionstypen</h2>
 <p>beim schreiben von eigenen React-Komponenten werden wir Eventhandler-Funktionen als Props übergeben:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoListProps {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoListProps = {
+  <span class="hljs-comment">// properties</span>
   <span class="hljs-attr">todos</span>: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
+  <span class="hljs-comment">// event handlers</span>
   onDelete: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
   onChangeCompleted: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span>, completed: <span class="hljs-built_in">boolean</span></span>) =></span> <span class="hljs-built_in">void</span>;
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Generics</h1>
+</section><section class="slide"><h2>Generics</h2>
+<p><em>Generic</em>: allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via <code>&#x3C;...></code>)</p>
+</section><section class="slide"><h2>Generics</h2>
+<p>Beispiel: <code>Array</code> ist ein Generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+</code></pre>
+</section><section class="slide"><h2>Generics</h2>
+<p>Beispiel: Reacts <code>useState</code> kann als Generic verwendet werden</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [todos, setTodos] = useState&#x3C;<span class="hljs-built_in">Array</span>&#x3C;Todo>>([]);
+</code></pre>
+</section><section class="slide"><h2>Generics</h2>
+<p>Beispiel: Reacts Eventtypen können als Generics verwendet werden:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleChange</span>(<span class="hljs-params">
+  event: ChangeEvent&#x3C;HTMLInputElement>
+</span>) </span>{
+  <span class="hljs-keyword">const</span> newValue = event.target.value;
+  <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Type Assertions</h1>
@@ -2253,26 +2303,6 @@ width = <span class="hljs-number">16</span>;
   <span class="hljs-string">'name-input'</span>
 ) <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
 <span class="hljs-built_in">console</span>.log(nameInput.value);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Generics</h1>
-</section><section class="slide"><h2>Generics</h2>
-<p><em>Generic</em>: allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via <code>&#x3C;...></code>)</p>
-</section><section class="slide"><h2>Generics</h2>
-<p>Beispiel: <code>Array</code> ist ein Generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-</code></pre>
-</section><section class="slide"><h2>Generics</h2>
-<p>Beispiel: Reacts <code>useState</code> kann als Generic verwendet werden</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [todos, setTodos] = useState&#x3C;<span class="hljs-built_in">Array</span>&#x3C;Todo>>([]);
-</code></pre>
-</section><section class="slide"><h2>Generics</h2>
-<p>Beispiel: Reacts Eventtypen können als Generics verwendet werden:</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleChange</span>(<span class="hljs-params">
-  event: ChangeEvent&#x3C;HTMLInputElement>
-</span>) </span>{
-  <span class="hljs-keyword">const</span> newValue = event.target.value;
-  <span class="hljs-comment">// ...</span>
-}
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>TypeScript: diverses</h1>
 </section><section class="slide"><h2>Build</h2>

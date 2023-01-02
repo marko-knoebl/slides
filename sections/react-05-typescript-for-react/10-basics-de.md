@@ -8,6 +8,16 @@ Großteil der React-Projekte verwendet _TypeScript_ anstatt von _JavaScript_
 
 _Statische Typisierung_ → bessere Autovervollständigung und Fehlererkennung
 
+## TypeScript für React
+
+Themen:
+
+- grundlegende Typendeklarationen
+- _Type Aliases_ und _Interfaces_
+- Parametertypen und Rückgabetypen von Funktionen
+- _Generics_
+- _Type Assertions_
+
 ## Statische Typisierung
 
 Datentypen können _explizit_ vom Entwickler angegeben werden oder von der Entwicklungsumgebung _abgeleitet_ werden (engl. _type inference_)

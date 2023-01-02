@@ -66,9 +66,8 @@ Anwenden der Type Alias:
 ```ts
 const validateEmail: Validator = (s) => s.includes('@');
 
-const validateYear: Validator = (s) => {
-  return new RegExp('^d{4}$').test(s);
-};
+const validateYear: Validator = (s) =>
+  new RegExp('^d{4}$').test(s);
 ```
 
 ## Funktionstypen
@@ -76,8 +75,10 @@ const validateYear: Validator = (s) => {
 beim schreiben von eigenen React-Komponenten werden wir Eventhandler-Funktionen als Props übergeben:
 
 ```ts
-type TodoListProps {
+type TodoListProps = {
+  // properties
   todos: Array<Todo>;
+  // event handlers
   onDelete: (id: number) => void;
   onChangeCompleted: (id: number, completed: boolean) => void;
 }

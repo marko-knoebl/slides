@@ -4,7 +4,15 @@
 
 _Type aliases_ and _interfaces_: similar techniques that allow us to store a type declaration under a name
 
-Type aliases can be somewhat more flexible and easy to use ([comparison on StackOverflow](https://stackoverflow.com/questions/37233735))
+most commonly used for object structures, e.g.:
+
+```ts
+type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
+```
 
 ## Type aliases and interfaces
 
@@ -27,6 +35,10 @@ interface Todo {
   completed: boolean;
 }
 ```
+
+## Type aliases and interfaces
+
+Type aliases can be somewhat more flexible and easy to use ([comparison on StackOverflow](https://stackoverflow.com/questions/37233735))
 
 ## Using type aliases / interfaces
 

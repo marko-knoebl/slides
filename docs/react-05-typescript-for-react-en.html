@@ -2065,6 +2065,15 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>TypeScript for React</h2>
 <p>majority of React projects will use <em>TypeScript</em> instead of <em>JavaScript</em></p>
 <p><em>static typing</em> → better autocompletion and error detection</p>
+</section><section class="slide"><h2>TypeScript for React</h2>
+<p>topics:</p>
+<ul>
+<li>basic type declarations</li>
+<li><em>type aliases</em> and <em>interfaces</em></li>
+<li>parameter types and return types of functions</li>
+<li><em>generics</em></li>
+<li><em>type assertions</em></li>
+</ul>
 </section><section class="slide"><h2>Static typing</h2>
 <p>data types may be <em>specified explicitly</em> by the developer or <em>inferred</em> by the development invironment</p>
 <p>benefits:</p>
@@ -2086,14 +2095,13 @@ names.push(<span class="hljs-string">'Bob'</span>);
 <p><a href="https://www.typescriptlang.org/play" target="_blank">https://www.typescriptlang.org/play</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Data types and type declarations</h1>
 </section><section class="slide"><h2>Data types and type declarations</h2>
-<p>data types and declarations that we'll use:</p>
+<p>data types that we'll use:</p>
 <ul>
 <li>boolean</li>
 <li>number</li>
 <li>string</li>
 <li>array</li>
 <li>object</li>
-<li>any</li>
 </ul>
 </section><section class="slide"><h2>Variable types</h2>
 <p>variable types can be specified when declaring variables:</p>
@@ -2136,6 +2144,19 @@ names.push(<span class="hljs-string">'Alice'</span>);
   date?: <span class="hljs-built_in">string</span>;
 };
 </code></pre>
+</section><section class="slide"><h2>Combination</h2>
+<p>combining it all:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> todos: <span class="hljs-built_in">Array</span>&#x3C;{
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+}>;
+</code></pre>
+<pre><code class="hljs language-ts">todos = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'bar'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+];
+</code></pre>
 </section><section class="slide"><h2>Any</h2>
 <p>Sometimes we may want to make the type checker less strict</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(
@@ -2154,7 +2175,13 @@ width = <span class="hljs-number">16</span>;
 </section></section><section class="slides-section"><section class="slide"><h1>Type aliases and interfaces</h1>
 </section><section class="slide"><h2>Type aliases and interfaces</h2>
 <p><em>Type aliases</em> and <em>interfaces</em>: similar techniques that allow us to store a type declaration under a name</p>
-<p>Type aliases can be somewhat more flexible and easy to use (<a href="https://stackoverflow.com/questions/37233735" target="_blank">comparison on StackOverflow</a>)</p>
+<p>most commonly used for object structures, e.g.:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+};
+</code></pre>
 </section><section class="slide"><h2>Type aliases and interfaces</h2>
 <p>type alias for objects:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
@@ -2170,6 +2197,8 @@ width = <span class="hljs-number">16</span>;
   completed: <span class="hljs-built_in">boolean</span>;
 }
 </code></pre>
+</section><section class="slide"><h2>Type aliases and interfaces</h2>
+<p>Type aliases can be somewhat more flexible and easy to use (<a href="https://stackoverflow.com/questions/37233735" target="_blank">comparison on StackOverflow</a>)</p>
 </section><section class="slide"><h2>Using type aliases / interfaces</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> todos: <span class="hljs-built_in">Array</span>&#x3C;Todo> = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
@@ -2221,16 +2250,37 @@ width = <span class="hljs-number">16</span>;
 <p>applying the type alias:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> validateEmail: Validator = <span class="hljs-function">(<span class="hljs-params">s</span>) =></span> s.includes(<span class="hljs-string">'@'</span>);
 
-<span class="hljs-keyword">const</span> validateYear: Validator = <span class="hljs-function">(<span class="hljs-params">s</span>) =></span> {
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^d{4}$'</span>).test(s);
-};
+<span class="hljs-keyword">const</span> validateYear: Validator = <span class="hljs-function">(<span class="hljs-params">s</span>) =></span>
+  <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^d{4}$'</span>).test(s);
 </code></pre>
 </section><section class="slide"><h2>Function types</h2>
 <p>when writing custom React components, we will pass in event handler functions as props:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoListProps {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoListProps = {
+  <span class="hljs-comment">// properties</span>
   <span class="hljs-attr">todos</span>: <span class="hljs-built_in">Array</span>&#x3C;Todo>;
+  <span class="hljs-comment">// event handlers</span>
   onDelete: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
   onChangeCompleted: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span>, completed: <span class="hljs-built_in">boolean</span></span>) =></span> <span class="hljs-built_in">void</span>;
+}
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Generics</h1>
+</section><section class="slide"><h2>Generics</h2>
+<p><em>Generics</em>: type declarations that can receive more specific type information when applied (via <code>&#x3C;...></code>)</p>
+</section><section class="slide"><h2>Generics</h2>
+<p>example: <code>Array</code> is a generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+</code></pre>
+</section><section class="slide"><h2>Generics</h2>
+<p>example: React's <code>useState</code> can be used as a generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [todos, setTodos] = useState&#x3C;<span class="hljs-built_in">Array</span>&#x3C;Todo>>([]);
+</code></pre>
+</section><section class="slide"><h2>Generics</h2>
+<p>example: React's event types can be used as generics:</p>
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleChange</span>(<span class="hljs-params">
+  event: ChangeEvent&#x3C;HTMLInputElement>
+</span>) </span>{
+  <span class="hljs-keyword">const</span> newValue = event.target.value;
+  <span class="hljs-comment">// ...</span>
 }
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Type assertions</h1>
@@ -2253,26 +2303,6 @@ width = <span class="hljs-number">16</span>;
   <span class="hljs-string">'name-input'</span>
 ) <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
 <span class="hljs-built_in">console</span>.log(nameInput.value);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Generics</h1>
-</section><section class="slide"><h2>Generics</h2>
-<p><em>Generics</em>: type declarations that can receive more specific type information when applied (via <code>&#x3C;...></code>)</p>
-</section><section class="slide"><h2>Generics</h2>
-<p>example: <code>Array</code> is a generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-</code></pre>
-</section><section class="slide"><h2>Generics</h2>
-<p>example: React's <code>useState</code> can be used as a generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [todos, setTodos] = useState&#x3C;<span class="hljs-built_in">Array</span>&#x3C;Todo>>([]);
-</code></pre>
-</section><section class="slide"><h2>Generics</h2>
-<p>example: React's event types can be used as generics:</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleChange</span>(<span class="hljs-params">
-  event: ChangeEvent&#x3C;HTMLInputElement>
-</span>) </span>{
-  <span class="hljs-keyword">const</span> newValue = event.target.value;
-  <span class="hljs-comment">// ...</span>
-}
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>TypeScript: miscellaneous topics</h1>
 </section><section class="slide"><h2>Build</h2>

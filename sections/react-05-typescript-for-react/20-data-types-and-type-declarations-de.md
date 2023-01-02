@@ -2,14 +2,13 @@
 
 ## Datentypen und Typendeklarationen
 
-Datentypen und Deklarationen, die wir verwenden werden:
+Datentypen, die wir verwenden werden:
 
 - boolean
 - number
 - string
 - array
 - object
-- any
 
 ## Variablentypen
 
@@ -78,6 +77,25 @@ let todo: {
   completed: boolean;
   date?: string;
 };
+```
+
+## Kombination
+
+Kombination der Deklarationen:
+
+```ts
+let todos: Array<{
+  id: number;
+  title: string;
+  completed: boolean;
+}>;
+```
+
+```ts
+todos = [
+  { id: 1, title: 'foo', completed: false },
+  { id: 2, title: 'bar', completed: true },
+];
 ```
 
 ## Any

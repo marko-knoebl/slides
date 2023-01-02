@@ -8,6 +8,16 @@ majority of React projects will use _TypeScript_ instead of _JavaScript_
 
 _static typing_ → better autocompletion and error detection
 
+## TypeScript for React
+
+topics:
+
+- basic type declarations
+- _type aliases_ and _interfaces_
+- parameter types and return types of functions
+- _generics_
+- _type assertions_
+
 ## Static typing
 
 data types may be _specified explicitly_ by the developer or _inferred_ by the development invironment

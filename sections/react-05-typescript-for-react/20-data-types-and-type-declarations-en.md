@@ -2,14 +2,13 @@
 
 ## Data types and type declarations
 
-data types and declarations that we'll use:
+data types that we'll use:
 
 - boolean
 - number
 - string
 - array
 - object
-- any
 
 ## Variable types
 
@@ -78,6 +77,25 @@ let todo: {
   completed: boolean;
   date?: string;
 };
+```
+
+## Combination
+
+combining it all:
+
+```ts
+let todos: Array<{
+  id: number;
+  title: string;
+  completed: boolean;
+}>;
+```
+
+```ts
+todos = [
+  { id: 1, title: 'foo', completed: false },
+  { id: 2, title: 'bar', completed: true },
+];
 ```
 
 ## Any

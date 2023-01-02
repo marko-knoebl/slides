@@ -66,9 +66,8 @@ applying the type alias:
 ```ts
 const validateEmail: Validator = (s) => s.includes('@');
 
-const validateYear: Validator = (s) => {
-  return new RegExp('^d{4}$').test(s);
-};
+const validateYear: Validator = (s) =>
+  new RegExp('^d{4}$').test(s);
 ```
 
 ## Function types
@@ -76,8 +75,10 @@ const validateYear: Validator = (s) => {
 when writing custom React components, we will pass in event handler functions as props:
 
 ```ts
-type TodoListProps {
+type TodoListProps = {
+  // properties
   todos: Array<Todo>;
+  // event handlers
   onDelete: (id: number) => void;
   onChangeCompleted: (id: number, completed: boolean) => void;
 }
