@@ -4,10 +4,10 @@
 
 Create a todo list application with the following functionality:
 
-- displaying completed and incomplete todos
-- adding a new todo from a form
-- toggling the completed state of a todo
-- deleting a todo
-- statistics on number of completed / incomplete todos
+- displays completed and incomplete todos
+- possibility to add a new todo through a form
+- possibility to toggle the completed state of a todo
+- possibility to delete a todo
+- displays statistics on the number of completed / incomplete todos
 
-example solution: https://codesandbox.io/s/todo-list-state-jsx-xkeu5k
+example solution: https://codesandbox.io/s/todo-list-state-jsx-ts-xkeu5k

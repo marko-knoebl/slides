@@ -27,10 +27,6 @@ export default function App() {
     setTodos(todos.filter((todo) => todo.id !== id));
   }
 
-  function deleteCompletedTodos() {
-    setTodos(todos.filter((todo) => !todo.completed));
-  }
-
   const numTodos = todos.length;
   const numCompletedTodos = todos.filter((todo) => todo.completed).length;
   const numIncompleteTodos = numTodos - numCompletedTodos;
@@ -87,11 +83,6 @@ export default function App() {
       <div>
         {numTodos} todos ({numIncompleteTodos} incomplete, {numCompletedTodos}{" "}
         completed)
-      </div>
-      <div>
-        <button onClick={deleteCompletedTodos}>
-          delete all completed todos
-        </button>
       </div>
     </div>
   );
