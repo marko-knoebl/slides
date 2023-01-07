@@ -80,7 +80,7 @@ export default function App() {
           </li>
         ))}
       </ul>
-      <div>
+      <div className="Statistics">
         {numTodos} todos ({numIncompleteTodos} incomplete, {numCompletedTodos}{" "}
         completed)
       </div>

@@ -12,11 +12,8 @@ const noteClasses: Record<string, string> = {
   work: "Note--Work",
 };
 
-function App() {
-  const [notes, setNotes] = useState<Array<Note>>([
-    { id: 1, text: "foo", category: "personal" },
-    { id: 2, text: "bar", category: "work" },
-  ]);
+export default function App() {
+  const [notes, setNotes] = useState<Array<Note>>([]);
 
   function addNote() {
     let maxId = 0;
@@ -85,5 +82,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
