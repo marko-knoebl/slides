@@ -2,13 +2,20 @@
 
 ## React ecosystem and libraries
 
+- component libraries
 - API queries
 - routing
-- component libraries
 - styling tools
 - animations
 - forms
 - state management
+- ...
+
+## Component libraries
+
+- _React Bootstrap_
+- _MUI_
+- _Ant Design_
 - ...
 
 ## Libraries for API queries
@@ -27,14 +34,6 @@ in the future:
 ## Libraries for routing
 
 - _react-router_
-
-## Component libraries
-
-- _MUI_
-- _Ant Design_
-- _Chakra UI_
-- _Mantine_
-- _Radix UI_
 
 ## Styling tools
 

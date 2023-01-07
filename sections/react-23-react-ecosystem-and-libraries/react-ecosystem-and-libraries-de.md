@@ -2,13 +2,20 @@
 
 ## React Ökosystem und Libraries
 
+- Komponentenlibraries
 - API-Anfragen
 - Routing
-- Komponentenlibraries
 - Styling-Tools
 - Animationen
 - Formulare
 - State-Management
+- ...
+
+## Komponentenlibraries
+
+- _React Bootstrap_
+- _MUI_
+- _Ant Design_
 - ...
 
 ## Libraries für API-Anfragen
@@ -24,40 +31,9 @@ zukünftig:
 
 - _suspense for data fetching_
 
-<!--
-## Libraries für API-Anfragen
-
-Beispiel aus _react-query_:
-
-```js
-function ExchangeRate() {
-  const [from, setFrom] = useState('usd');
-  const [to, setTo] = useState('eur');
-  const exchangeRateQuery = useQuery(
-    ['exchangeRate', from, to],
-    fetchExchangeRate
-  );
-
-  if (exchangeRateQuery.isLoading) {
-    return <div>Loading ...</div>;
-  } else if (exchangeRateQuery.isError) {
-    return <div>Error while loading data</div>;
-  }
-  return <DataDisplay data={exchangeRateQuery.data} />;
-}
-``` -->
-
 ## Libraries für Routing
 
 - _react-router_
-
-## Komponentenlibraries
-
-- _MUI_
-- _Ant Design_
-- _Chakra UI_
-- _Mantine_
-- _Radix UI_
 
 ## Styling-Werkzeuge
 

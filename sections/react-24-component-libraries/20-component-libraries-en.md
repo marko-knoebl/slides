@@ -2,10 +2,12 @@
 
 ## Component libraries
 
-- React Bootstrap
-- Material UI: React components in material design
-- Blueprint
-- Ant Design
+- _React Bootstrap_
+- _MUI_ (material design)
+- _Ant Design_
+- _Chakra UI_
+- _Mantine_
+- _Radix UI_
 - ...
 
 ## React-Bootstrap
@@ -44,3 +46,7 @@ import Button from '@mui/material/Button';
 ```
 
 documentation: https://mui.com
+
+## Exercise
+
+Exercise: Modify an existing application to incorporate components from a library
