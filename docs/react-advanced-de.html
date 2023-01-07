@@ -2069,6 +2069,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>Progressive Web Apps</li>
 <li>React Native</li>
 <li>Refs</li>
+<li>"Wrapper" für bestehende Elemente</li>
 <li>HOCs</li>
 <li>Internationalisierung</li>
 </ul>
@@ -2884,6 +2885,51 @@ useEffect(getInstallPermission, []);
 <li><code>AddTodo.ios.js</code></li>
 <li><code>AddTodo.android.js</code></li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>"Wrapper" für bestehende Elemente</h1>
+</section><section class="slide"><h2>"Wrapper" für bestehende Elemente</h2>
+<p>Beispiel: eine <code>Button</code>-Komponente, die einen <code>button</code> mit zusätzlichem Styling rendert</p>
+<p>Die <code>Button</code>-Komponente soll die gleichen Properties haben wie das <code>button</code>-Element</p>
+</section><section class="slide"><h2>"Wrapper" für bestehende Elemente</h2>
+<pre><code class="hljs language-js">&#x3C;Button type=<span class="hljs-string">"submit"</span> disabled={<span class="hljs-literal">true</span>}>
+  foo
+&#x3C;/Button>
+</code></pre>
+<p>sollte rendern:</p>
+<pre><code class="hljs language-js">&#x3C;button type=<span class="hljs-string">"submit"</span> disabled={<span class="hljs-literal">true</span>} className=<span class="hljs-string">"Button"</span>>
+  foo
+&#x3C;/button>
+</code></pre>
+</section><section class="slide"><h2>"Wrapper" für bestehende Elemente</h2>
+<p>Implementierung:</p>
+<pre><code class="hljs language-tsx">function Button(props: ComponentProps&#x3C;'button'>) {
+  // return a "button" element with one extra CSS class
+  return &#x3C;button {...props} className="Button" />;
+}
+</code></pre>
+</section><section class="slide"><h2>Zusätzliche Properites</h2>
+<p>Beispiel: Komponente mit einer zusätzlichen Property</p>
+<pre><code class="hljs language-tsx">type Props = ComponentProps&#x3C;'input'> &#x26; {
+  label: string;
+};
+
+function InputWithLabel({ label, ...rest }: Props) {
+  return (
+    &#x3C;label>
+      {label}: &#x3C;input {...rest} />
+    &#x3C;/label>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Weiterleiten der ref-Property</h2>
+<p>zusätzlicher Wunsch: Die <em>ref</em>-Property der <code>Button</code>-Komponente soll auf des gerenderte <code>button</code>-Element verweisen</p>
+</section><section class="slide"><h2>Weiterleiten der ref-Property</h2>
+<pre><code class="hljs language-tsx">const Button = forwardRef&#x3C;
+  HTMLButtonElement,
+  ComponentProps&#x3C;'button'>
+>((props, ref) => {
+  return &#x3C;button {...props} ref={ref} className="Button" />;
+});
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Higher-order components</h1>
 <h3>Funktionen, die eine Komponentendefinition verändern</h3>
 </section><section class="slide"><h2>Higher-order components</h2>

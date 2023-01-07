@@ -8,5 +8,6 @@
 - Progressive Web Apps
 - React Native
 - Refs
+- "Wrapper" für bestehende Elemente
 - HOCs
 - Internationalisierung

@@ -2400,35 +2400,6 @@ function Rating({ value }: RatingProps) {
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>content<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
 &#x3C;/Card>
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Wrapping existing elements</h1>
-</section><section class="slide"><h2>Wrapping existing elements</h2>
-<p>common use case: wrap existing elements for styling:</p>
-<pre><code class="hljs language-tsx">function Button(props: ComponentPropsWithoutRef&#x3C;'button'>) {
-  // return a "button" element with one extra CSS class
-  return (
-    &#x3C;button
-      {...props}
-      className={
-        props.className ? props.className + ' btn' : 'btn'
-      }
-    />
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Wrapping existing elements</h2>
-<pre><code class="hljs language-tsx">type Props = ComponentPropsWithoutRef&#x3C;'input'> &#x26; {
-  label: string;
-};
-
-function InputWithLabel(props: Props) {
-  const { label, ...rest } = props;
-  return (
-    &#x3C;label>
-      {label}: &#x3C;input {...rest} />
-    &#x3C;/label>
-  );
-}
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
 </section><section class="slide"><h2>Exercises</h2>
 <p>Task: In the todo application, create a new <code>Statistics</code> component that displays information like this:</p>
