@@ -1,14 +1,5 @@
 # Komponenten-Props
 
-## State und Props
-
-- State = interner Zustand einer Komponente
-- Props = vom Elternelement übergebene Parameter
-
-## State und Props
-
-Wenn wir Props und State einer Komponente kennen, wissen wir üblicherweise ziemlich genau, wie sie dargestellt wird
-
 ## Komponenten-Props
 
 Beispiel:
@@ -24,9 +15,9 @@ Beispiel:
 Props werden Funktionskomponenten via Parametern übergeben:
 
 ```tsx
-type RatingProps = { value: number };
+type Props = { value: number };
 
-function Rating(props: RatingProps) {
+function Rating(props: Props) {
   // we can access "props.value"
 }
 ```
@@ -36,9 +27,9 @@ function Rating(props: RatingProps) {
 alternative Notation mit Destrukturierung:
 
 ```tsx
-type RatingProps = { value: number };
+type Props = { value: number };
 
-function Rating({ value }: RatingProps) {
+function Rating({ value }: Props) {
   // we can access "value" directly
 }
 ```
@@ -48,9 +39,9 @@ function Rating({ value }: RatingProps) {
 Implementierung einer Rating-Komponente:
 
 ```tsx
-type RatingProps = { value: number };
+type Props = { value: number };
 
-function Rating({ value }: RatingProps) {
+function Rating({ value }: Props) {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>

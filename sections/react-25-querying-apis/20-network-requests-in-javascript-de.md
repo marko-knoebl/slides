@@ -7,10 +7,9 @@ _Promises_: moderne Möglichkeit, asynchronen Code zu verwenden:
 - Promises mit `async` / `await`
 - Promises mit `.then()`
 
-moderne Möglichkeiten, um Netzwerkanfragen zu senden (basierend auf Promises):
+Senden von Netzwerkanfragen (basierend auf Promises):
 
-- `fetch()` (in Browsern inkludiert)
-- _axios_ (library)
+- `fetch`
 
 ## Netzwerkanfragen in JavaScript
 
@@ -37,23 +36,15 @@ async function fetchTodos(): Promise<Array<Todo>> {
 
 ## Netzwerkanfragen in JavaScript
 
-Asynchrone Funktion, die Wechselkursdaten von einem API lädt:
+mögliche Hilfsfunktion zum Laden von JSON-Daten:
 
 ```ts
-async function fetchExchangeRate(
-  from: string,
-  to: string
-): Promise<number> {
-  const res = await fetch(
-    'https://api.exchangerate.host/latest?base=' +
-      from.toUpperCase() +
-      '&symbols=' +
-      to.toUpperCase()
-  );
+async function fetchJson(url): Promise<any> {
+  const res = await fetch(url);
   if (!res.ok) {
-    throw new Error('could not fetch data from network');
+    throw new Error(res);
   }
   const data = await res.json();
-  return data.rates[to.toUpperCase()];
+  return data;
 }
 ```

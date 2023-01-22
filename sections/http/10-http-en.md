@@ -16,6 +16,20 @@ Response: from the server
 
 HTTP requests and responses are transferred via a _lower-level_ protocol, most commonly _TCP_
 
+## HTTP
+
+request format:
+
+- request line
+- header fields
+- message body (optional)
+
+response format:
+
+- status line
+- header fields
+- message body (optional)
+
 ## Experimenting with HTTP
 
 via:
@@ -135,7 +149,7 @@ Etag: W/"5c-cn8o...
 - `Accept-Encoding`
 - `Cookie`
 - `Cache-Control`
-- `Dnt`
+- `Authorization`
 
 ## Important HTTP status codes
 

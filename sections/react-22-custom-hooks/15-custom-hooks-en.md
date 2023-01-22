@@ -64,96 +64,18 @@ function TodoApp() {
 
 definition of `useTodos`:
 
-```jsx
+```ts
 function useTodos() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<Array<Todo>>([]);
   function addTodo(title) {
-    const maxId = Math.max(0, ...todos.map((t) => t.id));
-    setTodos([
-      ...todos,
-      { id: maxId + 1, title: title, completed: false },
-    ]);
+    // ...
   }
   function deleteTodo(id) {
-    setTodos(todos.filter((t) => t.id !== id));
+    // ...
   }
   function setTodoCompleted(id, completed) {
-    setTodos(
-      todos.map((t) =>
-        t.id === id ? { ...t, completed: completed } : t
-      )
-    );
+    // ...
   }
   return { todos, addTodo, deleteTodo, setTodoCompleted };
-}
-```
-
-## Custom hooks - useExchangeRate
-
-use of a custom hook for loading exchange rates:
-
-```js
-function ExchangeRate() {
-  const [from, setFrom] = useState('usd');
-  const [to, setTo] = useState('eur');
-
-  const { status, rate } = useExchangeRate(from, to);
-
-  // ...
-}
-```
-
-## Custom hooks - useExchangeRate
-
-definition of `useExchangeRate`:
-
-```js
-function useExchangeRate(from, to) {
-  const [rate, setRate] = useState(null);
-  const [status, setStatus] = useState('loading');
-  async function loadRate(from: string, to: string) {
-    try {
-      const newRate = await fetchExchangeRate(from, to);
-      setRate(newRate);
-      setStatus('success');
-    } catch {
-      setRate(null);
-      setStatus('error');
-    }
-  }
-  useEffect(() => {
-    loadRate(from, to);
-  }, [from, to]);
-  return { status, rate };
-}
-```
-
-## Custom hooks - useDate
-
-Example: `useDate` - provides the current time and updates the component every 1000 milliseconds
-
-```js
-const Clock = () => {
-  const time = useDate(1000);
-  return (
-    <div>The time is: {time.toLocaleTimeString()}</div>
-  );
-};
-```
-
-## Custom hooks - useDate
-
-basic implementation of `useDate`:
-
-```js
-function useDate(interval) {
-  const [date, setDate] = useState(new Date());
-  useEffect(() => {
-    const id = setInterval(() => {
-      setDate(new Date());
-    }, interval);
-    return () => clearInterval(id);
-  }, []);
-  return date;
 }
 ```

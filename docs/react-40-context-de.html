@@ -2184,7 +2184,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Definieren eines Context-Typs in TypeScript:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> ThemeContextType = {
   <span class="hljs-attr">theme</span>: <span class="hljs-built_in">string</span>;
-  changeTheme: <span class="hljs-function">(<span class="hljs-params">theme: <span class="hljs-built_in">string</span></span>) =></span> <span class="hljs-built_in">void</span>;
+  onThemeChange: <span class="hljs-function">(<span class="hljs-params">theme: <span class="hljs-built_in">string</span></span>) =></span> <span class="hljs-built_in">void</span>;
 };
 </code></pre>
 </section><section class="slide"><h2>Standardwert</h2>
@@ -2192,7 +2192,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>tatsächliches Bereitstellen eines Standard-Werts:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> ThemeContext = createContext&#x3C;ThemeContextType>({
   <span class="hljs-attr">theme</span>: <span class="hljs-string">'light'</span>,
-  <span class="hljs-attr">changeTheme</span>: <span class="hljs-function">() =></span> {},
+  <span class="hljs-attr">onThemeChange</span>: <span class="hljs-function">() =></span> {},
 });
 </code></pre>
 <p>verwenden von <code>null</code> und Cast auf any:</p>
@@ -2207,7 +2207,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   const [theme, setTheme] = useState('light');
   return (
     &#x3C;ThemeContext.Provider
-      value={{ theme: theme, changeTheme: setTheme }}
+      value={{ theme: theme, onThemeChange: setTheme }}
     >
       ... sub-components ...
     &#x3C;/ThemeContext.Provider>

@@ -2065,7 +2065,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>basic knowledge:</p>
 <ul>
 <li>asynchronous behavior in JavaScript</li>
-<li>network requests via <em>fetch</em> / <em>axios</em></li>
+<li>network requests via <em>fetch</em></li>
 </ul>
 <p>API queries in React:</p>
 <ul>
@@ -2080,10 +2080,9 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>promises and <code>async</code> / <code>await</code></li>
 <li>promises and <code>.then()</code></li>
 </ul>
-<p>modern ways of sending network requests (based on promises):</p>
+<p>sending network requests (based on promises):</p>
 <ul>
-<li><code>fetch()</code> (included in browsers)</li>
-<li><em>axios</em> (library)</li>
+<li><code>fetch</code></li>
 </ul>
 </section><section class="slide"><h2>Network requests in JavaScript</h2>
 <p>asynchronous function that fetches todos from an API:</p>
@@ -2105,121 +2104,194 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 }
 </code></pre>
 </section><section class="slide"><h2>Network requests in JavaScript</h2>
-<p>asynchronous function that fetches an exchange rate from an API:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchExchangeRate</span>(<span class="hljs-params">
-  <span class="hljs-keyword">from</span>: <span class="hljs-built_in">string</span>,
-  to: <span class="hljs-built_in">string</span>
-</span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">number</span>> </span>{
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://api.exchangerate.host/latest?base='</span> +
-      <span class="hljs-keyword">from</span>.toUpperCase() +
-      <span class="hljs-string">'&#x26;symbols='</span> +
-      to.toUpperCase()
-  );
+<p>possible helper function for fetching JSON data:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchJson</span>(<span class="hljs-params">url</span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">any</span>> </span>{
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(url);
   <span class="hljs-keyword">if</span> (!res.ok) {
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'could not fetch data from network'</span>);
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(res);
   }
   <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
+  <span class="hljs-keyword">return</span> data;
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Examples: querying APIs from React</h1>
-</section><section class="slide"><h2>Examples: querying APIs from React</h2>
-<p>loading todos in a React component:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
-  setTodos(todos);
+</section></section><section class="slides-section"><section class="slide"><h1>Querying APIs from React: fundamental example</h1>
+</section><section class="slide"><h2>Querying APIs from React: fundamental example</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [data, setData] = useState(<span class="hljs-literal">null</span>);
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadData</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> newData = <span class="hljs-keyword">await</span> fetchData();
+  setData(newData);
 }
 </code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> loadTodos()}>
-  load todos <span class="hljs-keyword">from</span> API
+<pre><code class="hljs language-jsx">&#x3C;button onClick={loadData}>
+  load some data <span class="hljs-keyword">from</span> an API
 &#x3C;/button>
 </code></pre>
-</section><section class="slide"><h2>Examples: querying APIs from React</h2>
-<p>code for adding a loading indicator:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-<span class="hljs-keyword">const</span> [loadingStatus, setLoadingStatus] = useState(<span class="hljs-string">'idle'</span>);
-
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodos</span>(<span class="hljs-params"></span>) </span>{
-  setLoadingStatus(<span class="hljs-string">'loading'</span>);
-  <span class="hljs-keyword">try</span> {
-    <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> fetchTodos();
-  } <span class="hljs-keyword">catch</span> (e) {
-    setLoadingStatus(<span class="hljs-string">'error'</span>);
-  }
-  setTodos(todos);
-  setLoadingStatus(<span class="hljs-string">'success'</span>);
-}
-</code></pre>
-</section><section class="slide"><h2>Examples: querying APIs from React</h2>
-<p>loading exchange rate data:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [usdRates, setUsdRates] = useState&#x3C;
-  Record&#x3C;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">number</span>>
->({});
-<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadRate</span>(<span class="hljs-params">currency</span>) </span>{
-  <span class="hljs-keyword">const</span> rate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-string">'usd'</span>, currency);
-  setUsdRates({ ...usdRates, [currency]: rate });
-}
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;button onClick={<span class="hljs-function">() =></span> loadRate(<span class="hljs-string">'eur'</span>)}>
-  load EUR rate
-&#x3C;/button>
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> loadRate("jpy")}>
-  load JPY rate
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>API query libraries</h1>
-</section><section class="slide"><h2>API query libraries</h2>
-<p>common libraries that help with querying APIs:</p>
+</section><section class="slide"><h2>Querying APIs from React: fundamental example</h2>
+<p>Task: in our todo application, load todos from this API upon a button click:</p>
+<p><a href="https://jsonplaceholder.typicode.com/todos" target="_blank">https://jsonplaceholder.typicode.com/todos</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Query libraries</h1>
+</section><section class="slide"><h2>Query libraries</h2>
+<p>functionality that is commonly desired:</p>
 <ul>
-<li><em>react-query</em></li>
+<li>tracking the loading status (<em>loading</em> / <em>success</em> / <em>error</em>)</li>
+<li>automatically sending a query:
+<ul>
+<li>when a component is first included</li>
+<li>when a query parameter has changed</li>
+</ul>
+</li>
+<li>caching previous responses for reuse (globally)</li>
+<li>cancelling / ignoring obsolete queries</li>
+</ul>
+</section><section class="slide"><h2>Query libraries</h2>
+<p>functionality can be achieved "manually" by using <em>state</em>, <em>side effects</em> and <em>context</em></p>
+<p>... or by using a query library</p>
+</section><section class="slide"><h2>Query libraries</h2>
+<p>query libraries:</p>
+<ul>
+<li><em>react query</em></li>
 <li><em>swr</em></li>
 <li><em>apollo</em> (for GraphQL APIs)</li>
 </ul>
-</section><section class="slide"><h2>API query libraries</h2>
-<p>functionality:</p>
-<ul>
-<li>track loading state (<em>success</em> / <em>loading</em> / <em>error</em>)</li>
-<li>automatic caching</li>
-<li>automatic reloads</li>
-<li>...</li>
-</ul>
-</section><section class="slide"><h2>React Query</h2>
-<p>example: fetching data with <em>react query</em>:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useQuery } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
-<span class="hljs-keyword">import</span> { fetchTodos } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
+</section><section class="slide"><h2>Query libraries</h2>
+<p>example: managing a search query with <em>react query</em></p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [searchTerm, setSearchTerm] = useState(<span class="hljs-string">'foo'</span>);
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> todosQuery = useQuery([<span class="hljs-string">'todos'</span>], fetchTodos);
-  <span class="hljs-keyword">if</span> (todosQuery.isLoading) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Loading ...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (todosQuery.isError) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>Could not load todos<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
-  }
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">TodoList</span> <span class="hljs-attr">todos</span>=<span class="hljs-string">{todosQuery.data}</span> /></span></span>;
-}
+<span class="hljs-keyword">const</span> { status, data } = useQuery({
+  <span class="hljs-attr">queryKey</span>: [<span class="hljs-string">'search'</span>, searchTerm],
+  <span class="hljs-attr">queryFn</span>: <span class="hljs-function">() =></span> fetchJson(<span class="hljs-string">`/api/search/<span class="hljs-subst">${searchTerm}</span>`</span>),
+});
 </code></pre>
+</section><section class="slide"><h2>Query libraries</h2>
+<!-- inspired by https://beta.reactjs.org/learn/you-might-not-need-an-effect#fetching-data -->
+<p>example: reproducing some of this functionality in pure React:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [searchTerm, setSearchTerm] = useState(<span class="hljs-string">'foo'</span>);
+
+<span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
+<span class="hljs-keyword">const</span> [data, setData] = useState&#x3C;<span class="hljs-built_in">any</span>>(<span class="hljs-literal">null</span>);
+
+useEffect(<span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">let</span> ignore = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadData</span>(<span class="hljs-params"></span>) </span>{
+    setStatus(<span class="hljs-string">'loading'</span>);
+    setData(<span class="hljs-literal">null</span>);
+    <span class="hljs-keyword">const</span> url = <span class="hljs-string">`/api/search/<span class="hljs-subst">${searchTerm}</span>`</span>;
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> fetchJson(url);
+      <span class="hljs-keyword">if</span> (!ignore) {
+        setStatus(<span class="hljs-string">'success'</span>);
+        setData(data);
+      }
+    } <span class="hljs-keyword">catch</span> {
+      setStatus(<span class="hljs-string">'error'</span>);
+    }
+  }
+  loadData();
+  <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> {
+    ignore = <span class="hljs-literal">true</span>;
+  };
+}, [searchTerm]);
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>React Query</h1>
 </section><section class="slide"><h2>React Query</h2>
-<p>global setup for React Query in <em>index.js/.tsx</em>:</p>
-<!-- prettier-ignore -->
+<p>fetching data with <em>react query</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [searchTerm, setSearchTerm] = useState(<span class="hljs-string">'foo'</span>);
+
+<span class="hljs-keyword">const</span> { status, data } = useQuery({
+  <span class="hljs-attr">queryKey</span>: [<span class="hljs-string">'search'</span>, searchTerm],
+  <span class="hljs-attr">queryFn</span>: <span class="hljs-function">() =></span> fetchJson(<span class="hljs-string">`/api/search/<span class="hljs-subst">${searchTerm}</span>`</span>),
+});
+</code></pre>
+</section><section class="slide"><h2>React Query: setup</h2>
+<p>npm packages:</p>
+<ul>
+<li><em>@tanstack/react-query</em></li>
+<li><em>@tanstack/react-query-devtools</em></li>
+</ul>
+</section><section class="slide"><h2>React Query: setup</h2>
+<p>global setup in <em>index.tsx</em> / <em>main.tsx</em> (surrounding <code>&#x3C;App /></code>):</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> {
   QueryClient,
   QueryClientProvider,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> queryClient = <span class="hljs-keyword">new</span> QueryClient();
+</code></pre>
+<!-- prettier-ignore -->
+<pre><code class="hljs language-js">  &#x3C;QueryClientProvider client={queryClient}>
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span></span>
+  &#x3C;/QueryClientProvider>
+</code></pre>
+</section><section class="slide"><h2>React Query: loading status</h2>
+<p>The <strong>loading status</strong> is available automatically:</p>
+<p><code>status</code>: <code>loading</code> / <code>success</code> / <code>error</code></p>
+</section><section class="slide"><h2>React Query: loading status</h2>
+<p>typical use of the loading status:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { status, data } = useQuery(<span class="hljs-comment">/* ... */</span>);
 
-<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">if</span> (status === <span class="hljs-string">'loading'</span>) {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">LoadingIndicator</span> /></span></span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (status === <span class="hljs-string">'error'</span>) {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ErrorMessage</span> /></span></span>;
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">DataDisplay</span> <span class="hljs-attr">data</span>=<span class="hljs-string">{data}</span> /></span></span>;
+}
+</code></pre>
+</section><section class="slide"><h2>React Query: cache</h2>
+<p>React query uses a <strong>global store/cache</strong> through a provider component</p>
+</section><section class="slide"><h2>React Query: keys</h2>
+<p>each query is identified / tracked by a unique <em>key</em> - which can have multiple parts</p>
+<p>examples of <em>query keys</em> in an online shop:</p>
+<pre><code class="hljs language-json">[<span class="hljs-string">"product"</span>, <span class="hljs-number">123</span>]
+</code></pre>
+<pre><code class="hljs language-json">[<span class="hljs-string">"order"</span>, <span class="hljs-number">7453</span>]
+</code></pre>
+</section><section class="slide"><h2>React Query: keys</h2>
+<p>more complicated query key which includes an object:</p>
+<pre><code class="hljs language-json">[
+  <span class="hljs-string">"product-search"</span>,
+  {
+    <span class="hljs-attr">"category"</span>: <span class="hljs-string">"phones"</span>,
+    <span class="hljs-attr">"maxPrice"</span>: <span class="hljs-number">700</span>,
+    <span class="hljs-attr">"color"</span>: <span class="hljs-string">"black"</span>
+  }
+]
+</code></pre>
+<p>possible API query URL:</p>
+<p><code>/api/product-search?category=phones&#x26;maxPrice=700&#x26;color=black</code></p>
+</section><section class="slide"><h2>React Query</h2>
+<p>example: loading exchange rates</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'usd'</span>);
+<span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'eur'</span>);
 
-<span class="hljs-keyword">const</span> queryClient = <span class="hljs-keyword">new</span> QueryClient();
-
-<span class="hljs-comment">// ...</span>
-
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">QueryClientProvider</span> <span class="hljs-attr">client</span>=<span class="hljs-string">{queryClient}</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">App</span> /></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>
+<span class="hljs-keyword">const</span> rateQuery = useQuery({
+  <span class="hljs-attr">queryKey</span>: [<span class="hljs-string">'exchange-rate'</span>, { <span class="hljs-attr">from</span>: <span class="hljs-keyword">from</span>, <span class="hljs-attr">to</span>: to }],
+  <span class="hljs-attr">queryFn</span>: <span class="hljs-function">() =></span>
+    fetchJson(
+      <span class="hljs-string">'https://api.exchangerate.host/latest?base='</span> +
+        <span class="hljs-keyword">from</span>.toUpperCase() +
+        <span class="hljs-string">'&#x26;symbols='</span> +
+        to.toUpperCase()
+    ),
+});
 </code></pre>
 </section><section class="slide"><h2>React Query</h2>
-<p>enabling a devtools popup:</p>
+<p>data display:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">if</span> (rateQuery.isLoading) {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">LoadingIndicator</span> /></span></span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rateQuery.isError) {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ErrorMessage</span> /></span></span>;
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">RateDisplay</span> <span class="hljs-attr">data</span>=<span class="hljs-string">{rateQuery.data}</span> /></span></span>;
+}
+</code></pre>
+</section><section class="slide"><h2>React Query</h2>
+<p>exercise:</p>
+<p>work with the "Rick and Morty" API and let the user explore characters (by clicking <em>next</em> or <em>previous</em>)</p>
+<p><a href="https://rickandmortyapi.com/" target="_blank">https://rickandmortyapi.com/</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>React Query: Intermediate</h1>
+</section><section class="slide"><h2>Devtools</h2>
+<p>enabling a devtools popup during development:</p>
 <!-- prettier-ignore -->
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { ReactQueryDevtools } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query/devtools'</span>;
 
@@ -2230,28 +2302,48 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">ReactQueryDevtools</span> <span class="hljs-attr">initialIsOpen</span>=<span class="hljs-string">{false}</span> /></span>
   <span class="hljs-tag">&#x3C;/<span class="hljs-name">QueryClientProvider</span>></span></span>
 </code></pre>
-</section><section class="slide"><h2>React Query: Exercise</h2>
-<p>Create an exchange rate app that loads data from an API like this:</p>
-<p><em><a href="https://api.exchangerate.host/latest?base=USD&#x26;symbols=EUR" target="_blank">https://api.exchangerate.host/latest?base=USD&#x26;symbols=EUR</a></em></p>
-</section><section class="slide"><h2>React Query</h2>
+</section><section class="slide"><h2>Query start on user action</h2>
+<p>by default: query starts when a component is mounted</p>
+<p>alternative behavior: query starts on a specific user action (e.g. button click, hitting enter)</p>
+</section><section class="slide"><h2>Query start on user action</h2>
+<p>example: state for a search functionality:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// text content of an input (changes when user types)</span>
+<span class="hljs-keyword">const</span> [search, setSearch] = useState(<span class="hljs-string">''</span>);
+<span class="hljs-comment">// active search (changes when user hits enter)</span>
+<span class="hljs-keyword">const</span> [submittedSearch, setSubmittedSearch] = useState&#x3C;
+  <span class="hljs-built_in">string</span> | <span class="hljs-literal">null</span>
+>(<span class="hljs-literal">null</span>);
+</code></pre>
+</section><section class="slide"><h2>Query start on user action</h2>
+<p>only activate a query when the user has submitted for the first time:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> searchQuery = useQuery({
+  <span class="hljs-attr">queryKey</span>: [<span class="hljs-string">'search'</span>, submittedSearch],
+  <span class="hljs-attr">enabled</span>: submittedSearch !== <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">queryFn</span>: <span class="hljs-function">() =></span> fetchSearch(submittedSearch <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+});
+</code></pre>
+</section><section class="slide"><h2>Mutations</h2>
 <p>writing mutations:</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useMutation, useQueryClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-query'</span>;
-<span class="hljs-keyword">import</span> { addTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
+<span class="hljs-keyword">import</span> { apiAddTodo } <span class="hljs-keyword">from</span> <span class="hljs-string">'./todosApi'</span>;
+</code></pre>
+<pre><code class="hljs language-js"><span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">const</span> queryClient = useQueryClient();
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-comment">// ...</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleAddTodo</span>(<span class="hljs-params"></span>) </span>{
-    addTodoMutation.mutate({ <span class="hljs-attr">title</span>: newTitle });
-  }
-  <span class="hljs-keyword">const</span> addTodoMutation = useMutation(addTodo, {
-    <span class="hljs-attr">onSuccess</span>: refetchTodos,
-  });
-  <span class="hljs-keyword">const</span> queryClient = useQueryClient();
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">refetchTodos</span>(<span class="hljs-params"></span>) </span>{
-    queryClient.invalidateQueries(<span class="hljs-string">'todos'</span>);
-  }
-  <span class="hljs-comment">// ...</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">invalidateTodos</span>(<span class="hljs-params"></span>) </span>{
+  queryClient.invalidateQueries({ <span class="hljs-attr">queryKey</span>: [<span class="hljs-string">'todos'</span>] });
 }
+
+<span class="hljs-keyword">const</span> addTodoMutation = useMutation({
+  <span class="hljs-attr">mutationFn</span>: apiAddTodo,
+  <span class="hljs-attr">onSuccess</span>: invalidateTodos,
+});
+
+<span class="hljs-comment">// this function is connected to a submit form</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleAddTodo</span>(<span class="hljs-params">newTitle</span>) </span>{
+  addTodoMutation.mutate({ <span class="hljs-attr">title</span>: newTitle });
+}
+<span class="hljs-comment">// ...</span>
 </code></pre></section></section></div>
     </div>
     <script>/*!

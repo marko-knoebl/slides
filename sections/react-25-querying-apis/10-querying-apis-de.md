@@ -5,7 +5,7 @@
 Grundwissen:
 
 - Asynchrones Verhalten in JavaScript
-- Netzwerkanfragen mittels _fetch_ / _axios_
+- Netzwerkanfragen mittels _fetch_
 
 API-Anfragen in React:
 

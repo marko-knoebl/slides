@@ -5,7 +5,7 @@
 basic knowledge:
 
 - asynchronous behavior in JavaScript
-- network requests via _fetch_ / _axios_
+- network requests via _fetch_
 
 API queries in React:
 

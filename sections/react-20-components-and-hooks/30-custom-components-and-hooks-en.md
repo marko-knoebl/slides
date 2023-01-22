@@ -29,7 +29,7 @@ examples of custom hooks:
 
 in a todo app: `useTodos`
 
-in a web shop app: `useProducts`, `useProductQuery`, `useCart`
+in a web shop app: `useProducts`, `useCart`
 
 ## Example: Todo list application
 

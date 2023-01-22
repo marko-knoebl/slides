@@ -16,6 +16,20 @@ Antwort: kommt vom Server
 
 HTTP Anfragen und Antworten werden wiederum über ein "niedrigeres" Protokoll übertragen, üblicherweise _TCP_.
 
+## HTTP
+
+Anfrageformat:
+
+- Anfragezeile
+- Header-Felder
+- Body (optional)
+
+Antwortformat:
+
+- Statuszeile
+- Header-Felder
+- Body (optional)
+
 ## Experimentieren mit HTTP
 
 Möglichkeiten:
@@ -135,7 +149,7 @@ Etag: W/"5c-cn8o...
 - `Accept-Encoding`
 - `Cookie`
 - `Cache-Control`
-- `Dnt`
+- `Authorization`
 
 ## Wichtige HTTP-Statuscodes
 
@@ -170,7 +184,7 @@ siehe auch: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 - `Location`
 - `Cache-Control`
 
-## Content-Type-Headerfeld
+## Headerfeld "Content-Type"
 
 Mögliche Werte:
 
@@ -183,7 +197,7 @@ Mögliche Werte:
 - `image/png`
 - ...
 
-## Set-Cookie-Headerfeld
+## Headerfeld "Set-Cookie"
 
 Beispiel:
 

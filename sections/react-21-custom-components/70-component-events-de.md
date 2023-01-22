@@ -1,10 +1,5 @@
 # Komponenten-Events
 
-## Datenfluss
-
-- parent → child: props
-- child → parent: events
-
 ## Komponenten-Events
 
 Props:
@@ -18,6 +13,8 @@ Eine Unterkomponente kann ein Event auslösen, wodurch sich dann State in einer 
 ## Komponenten-Events
 
 Eventhandler werden als Funktionen definiert und via props übergeben / erhalten.
+
+Eventnamen beginnen üblicherweise mit `on`, z.B. `onChange`, `onClose`, ...
 
 ## Komponenten-Events
 
@@ -46,7 +43,7 @@ type RatingProps = {
 ## Komponenten-Events
 
 ```tsx
-function Rating({ value, onChange }: RatingProps) {
+function Rating({ value, onChange }: Props) {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>

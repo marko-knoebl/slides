@@ -7,10 +7,9 @@ _promises_: modern way of handling asynchronous code:
 - promises and `async` / `await`
 - promises and `.then()`
 
-modern ways of sending network requests (based on promises):
+sending network requests (based on promises):
 
-- `fetch()` (included in browsers)
-- _axios_ (library)
+- `fetch`
 
 ## Network requests in JavaScript
 
@@ -37,23 +36,15 @@ async function fetchTodos(): Promise<Array<Todo>> {
 
 ## Network requests in JavaScript
 
-asynchronous function that fetches an exchange rate from an API:
+possible helper function for fetching JSON data:
 
 ```ts
-async function fetchExchangeRate(
-  from: string,
-  to: string
-): Promise<number> {
-  const res = await fetch(
-    'https://api.exchangerate.host/latest?base=' +
-      from.toUpperCase() +
-      '&symbols=' +
-      to.toUpperCase()
-  );
+async function fetchJson(url): Promise<any> {
+  const res = await fetch(url);
   if (!res.ok) {
-    throw new Error('could not fetch data from network');
+    throw new Error(res);
   }
   const data = await res.json();
-  return data.rates[to.toUpperCase()];
+  return data;
 }
 ```

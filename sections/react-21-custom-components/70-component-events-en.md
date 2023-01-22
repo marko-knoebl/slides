@@ -1,10 +1,5 @@
 # Component events
 
-## Data/event flow
-
-- parent → child: props
-- child → parent: events
-
 ## Component events
 
 Props:
@@ -17,7 +12,9 @@ A sub-component may trigger an event which will cause the state of a parent to u
 
 ## Component events
 
-Event handlers are defined as functions and passed down via props.
+Event handlers are defined as functions and passed down via props
+
+Event names conventionally start with `on`, e.g. `onChange`, `onClose`, ...
 
 ## Component events
 
@@ -46,7 +43,7 @@ type RatingProps = {
 ## Component events
 
 ```tsx
-function Rating({ value, onChange }: RatingProps) {
+function Rating({ value, onChange }: Props) {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>

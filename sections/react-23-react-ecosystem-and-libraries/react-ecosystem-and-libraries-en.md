@@ -2,7 +2,7 @@
 
 ## React ecosystem and libraries
 
-- component libraries
+- UI components
 - API queries
 - routing
 - styling tools
@@ -11,7 +11,7 @@
 - state management
 - ...
 
-## Component libraries
+## UI components
 
 - _React Bootstrap_
 - _MUI_
@@ -54,9 +54,9 @@ tools for CSS-in-JS:
 
 ## State management libraries
 
+- _zustand_
 - _redux_
 - _mobX_
-- _zustand_
 - _recoil_
 
 built-in: _context_ + _reducer hook_ / _context_ + custom hooks

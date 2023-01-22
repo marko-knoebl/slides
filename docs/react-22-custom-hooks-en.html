@@ -2114,80 +2114,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 </section><section class="slide"><h2>Custom hooks - useTodos</h2>
 <p>definition of <code>useTodos</code>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useTodos</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [todos, setTodos] = useState&#x3C;<span class="hljs-built_in">Array</span>&#x3C;Todo>>([]);
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">title</span>) </span>{
-    <span class="hljs-keyword">const</span> maxId = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, ...todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id));
-    setTodos([
-      ...todos,
-      { <span class="hljs-attr">id</span>: maxId + <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: title, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-    ]);
+    <span class="hljs-comment">// ...</span>
   }
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteTodo</span>(<span class="hljs-params">id</span>) </span>{
-    setTodos(todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id !== id));
+    <span class="hljs-comment">// ...</span>
   }
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTodoCompleted</span>(<span class="hljs-params">id, completed</span>) </span>{
-    setTodos(
-      todos.map(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span>
-        t.id === id ? { ...t, <span class="hljs-attr">completed</span>: completed } : t
-      )
-    );
+    <span class="hljs-comment">// ...</span>
   }
   <span class="hljs-keyword">return</span> { todos, addTodo, deleteTodo, setTodoCompleted };
-}
-</code></pre>
-</section><section class="slide"><h2>Custom hooks - useExchangeRate</h2>
-<p>use of a custom hook for loading exchange rates:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ExchangeRate</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">from</span>, setFrom] = useState(<span class="hljs-string">'usd'</span>);
-  <span class="hljs-keyword">const</span> [to, setTo] = useState(<span class="hljs-string">'eur'</span>);
-
-  <span class="hljs-keyword">const</span> { status, rate } = useExchangeRate(<span class="hljs-keyword">from</span>, to);
-
-  <span class="hljs-comment">// ...</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Custom hooks - useExchangeRate</h2>
-<p>definition of <code>useExchangeRate</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useExchangeRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) </span>{
-  <span class="hljs-keyword">const</span> [rate, setRate] = useState(<span class="hljs-literal">null</span>);
-  <span class="hljs-keyword">const</span> [status, setStatus] = useState(<span class="hljs-string">'loading'</span>);
-  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadRate</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>: string, to: string</span>) </span>{
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">const</span> newRate = <span class="hljs-keyword">await</span> fetchExchangeRate(<span class="hljs-keyword">from</span>, to);
-      setRate(newRate);
-      setStatus(<span class="hljs-string">'success'</span>);
-    } <span class="hljs-keyword">catch</span> {
-      setRate(<span class="hljs-literal">null</span>);
-      setStatus(<span class="hljs-string">'error'</span>);
-    }
-  }
-  useEffect(<span class="hljs-function">() =></span> {
-    loadRate(<span class="hljs-keyword">from</span>, to);
-  }, [<span class="hljs-keyword">from</span>, to]);
-  <span class="hljs-keyword">return</span> { status, rate };
-}
-</code></pre>
-</section><section class="slide"><h2>Custom hooks - useDate</h2>
-<p>Example: <code>useDate</code> - provides the current time and updates the component every 1000 milliseconds</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Clock = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">const</span> time = useDate(<span class="hljs-number">1000</span>);
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>The time is: {time.toLocaleTimeString()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Custom hooks - useDate</h2>
-<p>basic implementation of <code>useDate</code>:</p>
-<pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useDate</span>(<span class="hljs-params">interval</span>) </span>{
-  <span class="hljs-keyword">const</span> [date, setDate] = useState(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
-  useEffect(<span class="hljs-function">() =></span> {
-    <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> {
-      setDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
-    }, interval);
-    <span class="hljs-keyword">return</span> <span class="hljs-function">() =></span> <span class="hljs-built_in">clearInterval</span>(id);
-  }, []);
-  <span class="hljs-keyword">return</span> date;
 }
 </code></pre></section></section></div>
     </div>

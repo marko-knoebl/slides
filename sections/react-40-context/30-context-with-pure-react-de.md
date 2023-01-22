@@ -40,7 +40,7 @@ Definieren eines Context-Typs in TypeScript:
 ```ts
 type ThemeContextType = {
   theme: string;
-  changeTheme: (theme: string) => void;
+  onThemeChange: (theme: string) => void;
 };
 ```
 
@@ -53,7 +53,7 @@ tatsächliches Bereitstellen eines Standard-Werts:
 ```ts
 const ThemeContext = createContext<ThemeContextType>({
   theme: 'light',
-  changeTheme: () => {},
+  onThemeChange: () => {},
 });
 ```
 
@@ -76,7 +76,7 @@ function App() {
   const [theme, setTheme] = useState('light');
   return (
     <ThemeContext.Provider
-      value={{ theme: theme, changeTheme: setTheme }}
+      value={{ theme: theme, onThemeChange: setTheme }}
     >
       ... sub-components ...
     </ThemeContext.Provider>

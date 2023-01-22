@@ -14,8 +14,8 @@ Hooks = besondere Funktionen, die in einer Komponentenfunktion aufgerufen werden
 Beispiele:
 
 - `useState`
-- `useContext`: um State über einen Komponentenbaum hinweg zu teilen
-- `useQuery`: zum Abfragen eines APIs
+- `useEffect`: zum Auslösen von _Side Effects_, wie z.B. API-Anfragen
+- `useQuery`: für eine einfachere Möglichkeit, APIs anzufragen
 - `useTodos`: eigener Hook zum Verwalten einer Liste von Todos
 
 ## Regeln für Hooks

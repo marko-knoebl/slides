@@ -29,7 +29,7 @@ Beispiele für eigene Hooks:
 
 in einer Todo-Anwendung: `useTodos`
 
-in einem Online-Shop: `useProducts`,`useProductQuery`, `useCart`
+in einem Online-Shop: `useProducts`, `useCart`
 
 ## Beispiel: Todo-Anwendung
 

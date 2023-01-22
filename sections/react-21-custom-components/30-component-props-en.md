@@ -1,14 +1,5 @@
 # Component props
 
-## State and props
-
-- state = internal to the component
-- props = parameters that are passed down from the parent
-
-## State and props
-
-If we know a component's props and state, we will usually know how it is rendered pretty accurately
-
 ## Component props
 
 example:
@@ -21,12 +12,12 @@ example:
 
 ## Component props
 
-Props are passed to function components via parameters:
+props are passed to function components via parameters:
 
 ```tsx
-type RatingProps = { value: number };
+type Props = { value: number };
 
-function Rating(props: RatingProps) {
+function Rating(props: Props) {
   // we can access "props.value"
 }
 ```
@@ -36,9 +27,9 @@ function Rating(props: RatingProps) {
 alternative notation with object destructuring:
 
 ```tsx
-type RatingProps = { value: number };
+type Props = { value: number };
 
-function Rating({ value }: RatingProps) {
+function Rating({ value }: Props) {
   // we can access "value" directly
 }
 ```
@@ -48,9 +39,9 @@ function Rating({ value }: RatingProps) {
 implementation of a Rating component:
 
 ```tsx
-type RatingProps = { value: number };
+type Props = { value: number };
 
-function Rating({ value }: RatingProps) {
+function Rating({ value }: Props) {
   const starIds = [1, 2, 3, 4, 5];
   return (
     <div>

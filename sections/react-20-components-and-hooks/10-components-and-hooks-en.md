@@ -14,8 +14,8 @@ Hook = special function that can be called inside a component definition
 possible examples:
 
 - `useState`
-- `useContext`: for sharing state across a component tree
-- `useQuery`: for querying an API
+- `useEffect`: for triggering _side effects_ (e.g. API queries)
+- `useQuery`: more convenient way to query APIs
 - `useTodos`: custom hook for managing an array of todos
 
 ## Rules of Hooks
