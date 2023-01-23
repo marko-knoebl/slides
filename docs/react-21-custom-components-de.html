@@ -2362,7 +2362,15 @@ function Rating({ value }: Props) {
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXQAAAAoCAYAAADuWAFrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAADhSURBVHhe7dXBCYRQAEPBX/p2rh3oZRMkzMBrITkXABMMOsAIgw4wwqADjDDoACMMOsAIgw4w4nHQzzmSpI/05n3Qf5L0HHkGXVIl8gy6pErkGXRJlcgz6JIqkWfQJVUiz6BLqkSeQZdUiTyDLqkSeQZdUiXyDLqkSuQZdEmVyDPokiqRZ9AlVSLPoEuqRJ5Bl1SJPIMuqRJ5Bl1SJfIMuqRK5Bl0SZXIM+iSKpFn0CVVIs+gS6pEnkGXVIm8/wy6JOkTvXGtACMMOsAIgw4wwqADjDDoACMMOsAIgw4w4bpuWEaun31NO2YAAAAASUVORK5CYII=" style="width:16em" />
 </section></section><section class="slides-section"><section class="slide"><h1>Inhalte an Komponenten übergeben</h1>
 </section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
-<p>Beispiele:</p>
+<p>Beispiel mit einem "Slot":</p>
+<pre><code class="hljs language-jsx">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+&#x3C;/Notification>
+</code></pre>
+<p>Beispiel mit zwei benannten "Slots":</p>
 <pre><code class="hljs language-jsx">&#x3C;ConfirmationDialog
   header={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Delete this folder?<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>}
   body={
@@ -2371,6 +2379,34 @@ function Rating({ value }: Props) {
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   }
 />
+</code></pre>
+</section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
+<p>diese Notationen sind gleichwertig:</p>
+<pre><code class="hljs language-js">&#x3C;Notification>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+&#x3C;/Notification>
+</code></pre>
+<pre><code class="hljs language-js">&#x3C;Notification children={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>} />
+</code></pre>
+<p>was zwischen den öffnenden und schließenden Tags übergeben wird, wird als <code>props.children</code> erhalten</p>
+</section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
+<p>Implementierung einer <code>Notification</code> Komponente:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Props = {
+  <span class="hljs-attr">children</span>: ReactNode;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Notification</span>(<span class="hljs-params">{ children }: Props</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"Notification"</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
+<p>Übung: Card-Komponente mit Styling (<a href="https://www.w3schools.com/howto/howto_css_cards.asp" target="_blank">Beispiel für ein Resultat</a>)</p>
+<pre><code class="hljs language-jsx">&#x3C;Card>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>content<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+&#x3C;/Card>
 </code></pre>
 <!--
 ```jsx
@@ -2388,61 +2424,20 @@ function Rating({ value }: Props) {
 >
 ```
 -->
-</section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
-<p>Implementierung eines <code>ConfirmationDialog</code>:</p>
-<pre><code class="hljs language-js">interface Props {
-  <span class="hljs-attr">header</span>: ReactNode;
-  body: ReactNode;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ConfirmationDialog</span>(<span class="hljs-params">{ header, body }: Props</span>) </span>{
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ConfirmationDialog"</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">header</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ConfirmationDialog__Header"</span>></span>
-        {header}
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">header</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ConfirmationDialog__Body"</span>></span>{body}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ConfirmationDialog__Buttons"</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>Cancel<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>OK<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
-<p>diese Notationen sind gleichwertig:</p>
-<pre><code class="hljs language-jsx">&#x3C;Notification
-  type=<span class="hljs-string">"error"</span>
-  children={
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  }
-/>
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-&#x3C;/Notification>
-</code></pre>
-</section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
-<p>Was zwischen öffnendem und schließendem Tag übergeben wird, ist als <code>props.children</code> abrufbar</p>
-</section><section class="slide"><h2>Inhalte an Komponenten übergeben</h2>
-<p>Übung: Card-Komponente mit Styling (<a href="https://www.w3schools.com/howto/howto_css_cards.asp" target="_blank">Beispiel für ein Resultat</a>)</p>
-<pre><code class="hljs language-jsx">&#x3C;Card>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>content<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
-&#x3C;/Card>
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
 </section><section class="slide"><h2>Übungen</h2>
-<p>Aufgabe: In der Todo-Anwendung: Erstelle eine neue <code>Statistics</code>-Komponente, die z.B. die folgenden Informationen anzeigt:</p>
+<p>Aufgabe: In der Todo-Anwendung: Extrahiere eine <code>Statistics</code>-Komponente, die z.B. die folgenden Informationen anzeigt:</p>
 <p><em>5 todos (3 incomplete, 1 completed)</em></p>
-<p>Aufgabe: Erstelle wiederverwendbare Komponenten, die hauptsächlich für Styling verwendet werden können - z.B. eine <code>Card</code>-Komponente oder eine <code>Button</code>-Komponente</p>
+</section><section class="slide"><h2>Übungen</h2>
+<p>Aufgabe: Erstelle einfache wiederverwendbare Komponenten, die hauptsächlich für Styling verwendet werden</p>
+<p>Beispiele:</p>
+<ul>
+<li><code>List</code> und <code>ListItem</code> (Beispiel: <a href="https://mui.com/material-ui/react-list/" target="_blank">MUI</a>)</li>
+<li><code>AppBar</code> (Beispiele: <a href="https://mui.com/material-ui/react-app-bar/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/navbar/" target="_blank">react-bootstrap</a>)</li>
+<li><code>Alert</code> (Beispiele: <a href="https://mui.com/material-ui/react-alert/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/alerts/" target="_blank">react-bootstrap</a>)</li>
+<li><code>Avatar</code> or <code>LetterAvatar</code> (Beispiel: <a href="https://mui.com/material-ui/react-avatar/" target="_blank">MUI</a>)</li>
+</ul>
+<p>Diese Komponenten sollten keine Interaktivität haben (keine <em>Events</em>)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Komponenten-Events</h1>
 </section><section class="slide"><h2>Komponenten-Events</h2>
 <p>Props:</p>
@@ -2500,8 +2495,16 @@ function Rating({ value }: Props) {
 </section></section><section class="slides-section"><section class="slide"><h1>Übungen</h1>
 </section><section class="slide"><h2>Übungen</h2>
 <p>Aufgabe: Teile die Todo-Anwendung in kleinere Komponenten, die mittels Props und Events kommunizieren (z.B. <em>AddTodo</em>, <em>TodoItem</em>, <em>TodoList</em>)</p>
-<p>Aufgabe: Entwirf Komponenteninterfaces (Props und Events) für verschiedene Komponenten (z.B. <em>Calendar</em>, <em>ColorPicker</em>, <em>BarChart</em>, <em>Tabs</em>)</p>
-<p>Aufgabe: "Nachbau" einer der Komponenten auf <a href="https://github.com/brillout/awesome-react-components" target="_blank">awesome-react-components</a> (z.B. bar chart, color picker, table / data grid, tabs)</p></section></section></div>
+</section><section class="slide"><h2>Übungen</h2>
+<p>Aufgabe: Erstelle wiederverwendbare interaktive Komponenten (mit etwas Styling)</p>
+<p>Beispiele:</p>
+<ul>
+<li><code>Button</code> (Beispiele: <a href="https://mui.com/material-ui/react-button/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/buttons/" target="_blank">react-bootstrap</a>)</li>
+<li><code>TextInput</code> (Beispiele: <a href="https://mui.com/material-ui/react-text-field/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/forms/input-group/" target="_blank">react-bootstrap</a>)</li>
+<li><code>Pagination</code> (Beispiele: <a href="https://mui.com/material-ui/react-pagination/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/pagination/" target="_blank">react-bootstrap</a>)</li>
+</ul>
+</section><section class="slide"><h2>Übungen</h2>
+<p>Aufgabe: Entwirf die Struktur von <em>Props</em>, <em>Events</em> und <em>State</em> für verschiedene Komponenten (z.B. <em>Calendar</em>, <em>ColorPicker</em>, <em>BarChart</em>, <em>Tabs</em>)</p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

@@ -2362,7 +2362,15 @@ function Rating({ value }: Props) {
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXQAAAAoCAYAAADuWAFrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAADhSURBVHhe7dXBCYRQAEPBX/p2rh3oZRMkzMBrITkXABMMOsAIgw4wwqADjDDoACMMOsAIgw4w4nHQzzmSpI/05n3Qf5L0HHkGXVIl8gy6pErkGXRJlcgz6JIqkWfQJVUiz6BLqkSeQZdUiTyDLqkSeQZdUiXyDLqkSuQZdEmVyDPokiqRZ9AlVSLPoEuqRJ5Bl1SJPIMuqRJ5Bl1SJfIMuqRK5Bl0SZXIM+iSKpFn0CVVIs+gS6pEnkGXVIm8/wy6JOkTvXGtACMMOsAIgw4wwqADjDDoACMMOsAIgw4w4bpuWEaun31NO2YAAAAASUVORK5CYII=" style="width:16em" />
 </section></section><section class="slides-section"><section class="slide"><h1>Passing content to components</h1>
 </section><section class="slide"><h2>Passing content to components</h2>
-<p>example:</p>
+<p>example with one "slot":</p>
+<pre><code class="hljs language-jsx">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+&#x3C;/Notification>
+</code></pre>
+<p>example with two named "slots":</p>
 <pre><code class="hljs language-jsx">&#x3C;ConfirmationDialog
   header={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Delete this folder?<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>}
   body={
@@ -2371,6 +2379,34 @@ function Rating({ value }: Props) {
     <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   }
 />
+</code></pre>
+</section><section class="slide"><h2>Passing content to components</h2>
+<p>equivalent notations:</p>
+<pre><code class="hljs language-js">&#x3C;Notification>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+&#x3C;/Notification>
+</code></pre>
+<pre><code class="hljs language-js">&#x3C;Notification children={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>} />
+</code></pre>
+<p>anything passed in between opening and closing tags will be received as <code>props.children</code></p>
+</section><section class="slide"><h2>Passing content to components</h2>
+<p>implementation of a <code>Notification</code> component:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Props = {
+  <span class="hljs-attr">children</span>: ReactNode;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Notification</span>(<span class="hljs-params">{ children }: Props</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"Notification"</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
+</section><section class="slide"><h2>Passing content to components</h2>
+<p>Exercise: Card component with Styling (<a href="https://www.w3schools.com/howto/howto_css_cards.asp" target="_blank">example result</a>)</p>
+<pre><code class="hljs language-jsx">&#x3C;Card>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>content<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
+&#x3C;/Card>
 </code></pre>
 <!--
 ```jsx
@@ -2388,61 +2424,20 @@ function Rating({ value }: Props) {
 >
 ```
 -->
-</section><section class="slide"><h2>Passing content to components</h2>
-<p>implementation of a <code>ConfirmationDialog</code>:</p>
-<pre><code class="hljs language-js">interface Props {
-  <span class="hljs-attr">header</span>: ReactNode;
-  body: ReactNode;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ConfirmationDialog</span>(<span class="hljs-params">{ header, body }: Props</span>) </span>{
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ConfirmationDialog"</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">header</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ConfirmationDialog__Header"</span>></span>
-        {header}
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">header</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ConfirmationDialog__Body"</span>></span>{body}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ConfirmationDialog__Buttons"</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>Cancel<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">button</span>></span>OK<span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-}
-</code></pre>
-</section><section class="slide"><h2>Passing content to components</h2>
-<p>these notations are equivalent:</p>
-<pre><code class="hljs language-jsx">&#x3C;Notification
-  type=<span class="hljs-string">"error"</span>
-  children={
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  }
-/>
-</code></pre>
-<pre><code class="hljs language-jsx">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-&#x3C;/Notification>
-</code></pre>
-</section><section class="slide"><h2>Passing content to components</h2>
-<p>anything passed between opening and closing tags will be received as <code>props.children</code></p>
-</section><section class="slide"><h2>Passing content to components</h2>
-<p>Exercise: Card component with Styling (<a href="https://www.w3schools.com/howto/howto_css_cards.asp" target="_blank">example result</a>)</p>
-<pre><code class="hljs language-jsx">&#x3C;Card>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>content<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
-&#x3C;/Card>
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
 </section><section class="slide"><h2>Exercises</h2>
-<p>Task: In the todo application, create a new <code>Statistics</code> component that displays information like this:</p>
+<p>Task: In the todo application, extract a <code>Statistics</code> component that displays information like this:</p>
 <p><em>5 todos (3 incomplete, 1 completed)</em></p>
-<p>Task: Create reusable components that are mainly used for styling - e.g. a <code>Card</code> component or a <code>Button</code> component</p>
+</section><section class="slide"><h2>Exercises</h2>
+<p>Task: Create simple reusable components that are mainly used for styling</p>
+<p>examples:</p>
+<ul>
+<li><code>List</code> and <code>ListItem</code> (example: <a href="https://mui.com/material-ui/react-list/" target="_blank">MUI</a>)</li>
+<li><code>AppBar</code> (examples: <a href="https://mui.com/material-ui/react-app-bar/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/navbar/" target="_blank">react-bootstrap</a>)</li>
+<li><code>Alert</code> (examples: <a href="https://mui.com/material-ui/react-alert/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/alerts/" target="_blank">react-bootstrap</a>)</li>
+<li><code>Avatar</code> or <code>LetterAvatar</code> (example: <a href="https://mui.com/material-ui/react-avatar/" target="_blank">MUI</a>)</li>
+</ul>
+<p>These components should not provide any interactivity (have no <em>events</em>)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Component events</h1>
 </section><section class="slide"><h2>Component events</h2>
 <p>Props:</p>
@@ -2500,8 +2495,16 @@ function Rating({ value }: Props) {
 </section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
 </section><section class="slide"><h2>Exercises</h2>
 <p>Task: split the todo app into smaller components that communicate via props and events (e.g. <em>AddTodo</em>, <em>TodoItem</em>, <em>TodoList</em>)</p>
-<p>Task: draft component interfaces (props and events) for various components (e.g. <em>Calendar</em>, <em>ColorPicker</em>, <em>BarChart</em>, <em>Tabs</em>)</p>
-<p>Task: "recreate" one of the components listed at <a href="https://github.com/brillout/awesome-react-components" target="_blank">awesome-react-components</a> (e.g. bar chart, color picker, table / data grid, tabs)</p></section></section></div>
+</section><section class="slide"><h2>Exercises</h2>
+<p>Task: Create reusable interactive components (with some styling)</p>
+<p>examples:</p>
+<ul>
+<li><code>Button</code> (examples: <a href="https://mui.com/material-ui/react-button/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/buttons/" target="_blank">react-bootstrap</a>)</li>
+<li><code>TextInput</code> (examples: <a href="https://mui.com/material-ui/react-text-field/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/forms/input-group/" target="_blank">react-bootstrap</a>)</li>
+<li><code>Pagination</code> (examples: <a href="https://mui.com/material-ui/react-pagination/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/pagination/" target="_blank">react-bootstrap</a>)</li>
+</ul>
+</section><section class="slide"><h2>Exercises</h2>
+<p>Task: draft the structure of <em>props</em>, <em>event</em> and <em>state</em> for various components (e.g. <em>Calendar</em>, <em>ColorPicker</em>, <em>BarChart</em>, <em>Tabs</em>)</p></section></section></div>
     </div>
     <script>/*!
  * reveal.js
