@@ -12,3 +12,15 @@ options:
 component names always start with a capital letter
 
 (to distinguish them from ordinary HTML elements)
+
+## Component definition
+
+components will usually be defined as the _default export_ in their own files
+
+```js
+// TodoItem.tsx
+
+export default function TodoItem() {
+  // ...
+}
+```

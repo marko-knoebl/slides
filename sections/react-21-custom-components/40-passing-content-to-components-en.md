@@ -6,23 +6,20 @@ example with one "slot":
 
 ```jsx
 <Notification type="error">
-  <div>
-    <h1>Error</h1>
-    <p>Changes could not be saved</p>
-  </div>
+  <h1>Error</h1>
+  <p>Changes could not be saved</p>
 </Notification>
 ```
+
+## Passing content to components
 
 example with two named "slots":
 
 ```jsx
-<ConfirmationDialog
-  header={<h1>Delete this folder?</h1>}
-  body={
-    <div>
-      This will delete <i>foo/bar</i> and all its contents
-    </div>
-  }
+<Notification
+  type="error"
+  header={<h1>Error</h1>}
+  body={<p>Changes could not be saved</p>}
 />
 ```
 
@@ -31,13 +28,13 @@ example with two named "slots":
 equivalent notations:
 
 ```js
-<Notification>
+<Notification type="error">
   <div>foo</div>
 </Notification>
 ```
 
 ```js
-<Notification children={<div>foo</div>} />
+<Notification type="error" children={<div>foo</div>} />
 ```
 
 anything passed in between opening and closing tags will be received as `props.children`
@@ -48,19 +45,22 @@ implementation of a `Notification` component:
 
 ```ts
 type Props = {
+  type: 'info' | 'warning' | 'error';
   children: ReactNode;
 };
 
-function Notification({ children }: Props) {
+function Notification({ type, children }: Props) {
   return (
-    <div className="Notification">{props.children}</div>
+    <div className={`Notification Notification--${type}`}>
+      {children}
+    </div>
   );
 }
 ```
 
 ## Passing content to components
 
-Exercise: Card component with Styling ([example result](https://www.w3schools.com/howto/howto_css_cards.asp))
+Exercise: Card component with Styling ([example result with CSS declarations](https://www.w3schools.com/howto/howto_css_cards.asp))
 
 ```jsx
 <Card>

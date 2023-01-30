@@ -6,23 +6,20 @@ Beispiel mit einem "Slot":
 
 ```jsx
 <Notification type="error">
-  <div>
-    <h1>Error</h1>
-    <p>Changes could not be saved</p>
-  </div>
+  <h1>Error</h1>
+  <p>Changes could not be saved</p>
 </Notification>
 ```
+
+## Inhalte an Komponenten übergeben
 
 Beispiel mit zwei benannten "Slots":
 
 ```jsx
-<ConfirmationDialog
-  header={<h1>Delete this folder?</h1>}
-  body={
-    <div>
-      This will delete <i>foo/bar</i> and all its contents
-    </div>
-  }
+<Notification
+  type="error"
+  header={<h1>Error</h1>}
+  body={<p>Changes could not be saved</p>}
 />
 ```
 
@@ -31,13 +28,13 @@ Beispiel mit zwei benannten "Slots":
 diese Notationen sind gleichwertig:
 
 ```js
-<Notification>
+<Notification type="error">
   <div>foo</div>
 </Notification>
 ```
 
 ```js
-<Notification children={<div>foo</div>} />
+<Notification type="error" children={<div>foo</div>} />
 ```
 
 was zwischen den öffnenden und schließenden Tags übergeben wird, wird als `props.children` erhalten
@@ -48,19 +45,22 @@ Implementierung einer `Notification` Komponente:
 
 ```ts
 type Props = {
+  type: 'info' | 'warning' | 'error';
   children: ReactNode;
 };
 
-function Notification({ children }: Props) {
+function Notification({ type, children }: Props) {
   return (
-    <div className="Notification">{props.children}</div>
+    <div className={`Notification Notification--${type}`}>
+      {children}
+    </div>
   );
 }
 ```
 
 ## Inhalte an Komponenten übergeben
 
-Übung: Card-Komponente mit Styling ([Beispiel für ein Resultat](https://www.w3schools.com/howto/howto_css_cards.asp))
+Übung: Card-Komponente mit Styling ([Beispiel für ein Resultat mit CSS-Deklarationen](https://www.w3schools.com/howto/howto_css_cards.asp))
 
 ```jsx
 <Card>

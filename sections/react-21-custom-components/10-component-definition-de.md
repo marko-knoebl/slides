@@ -12,3 +12,15 @@ Optionen:
 Komponentennamen beginnen immer mit einem Großbuchstaben
 
 (um sie von gewöhnlichen HTML-Elementen zu unterscheiden)
+
+## Komponentendefinition
+
+Komponenten werden üblicherweise als _default export_ in seperaten Dateien definiert
+
+```js
+// TodoItem.tsx
+
+export default function TodoItem() {
+  // ...
+}
+```

@@ -2070,17 +2070,18 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Component definition</h2>
 <p>component names always start with a capital letter</p>
 <p>(to distinguish them from ordinary HTML elements)</p>
+</section><section class="slide"><h2>Component definition</h2>
+<p>components will usually be defined as the <em>default export</em> in their own files</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// TodoItem.tsx</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoItem</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>State, props and events</h1>
 </section><section class="slide"><h2>State and props</h2>
 <p>parent components can pass down data from their <strong>state</strong> to child components via <strong>props</strong> (unidirectional data flow)</p>
 <p>if we know a component's props and state, we will know how it is rendered</p>
-</section><section class="slide"><h2>State, props and events</h2>
-<p>child components can trigger <strong>events</strong> that cause the state in their parent component to update</p>
-</section><section class="slide"><h2>Where should state live?</h2>
-<p>if multiple components need to access the same state:</p>
-<p>the state is stored in their common ancestor component and passed down via props</p>
-<p>(see: <a href="https://reactjs.org/docs/lifting-state-up.html" target="_blank">React docs: lifting state up</a>)</p>
-<p>often, the main parts of the state will be stored in the top-level component (e.g. in <code>App</code>)</p>
 </section><section class="slide"><h2>Example: components and props in a todo app</h2>
 <svg width="200mm" height="100mm" viewBox="0 0 200 100" version="1.1" id="svg8" inkscape:version="1.1.2 (b8e25be833, 2022-02-05)" sodipodi:docname="todo-components-state-props.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs id="defs2">
@@ -2183,6 +2184,13 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
     </g>
   </g>
 </svg>
+</section><section class="slide"><h2>Sharing state between components</h2>
+<p>if multiple components need to access the same state:</p>
+<p>the state is stored in a component higher up in the component tree and passed down via props</p>
+<p>(see: <a href="https://beta.reactjs.org/learn/sharing-state-between-components" target="_blank">React docs: sharing state between components</a>)</p>
+<p>often, the main parts of the state will be stored in the top-level component (e.g. in <code>App</code>)</p>
+</section><section class="slide"><h2>State, props and events</h2>
+<p>child components can trigger <strong>events</strong> that cause the state in their parent component to update</p>
 </section><section class="slide"><h2>Example: components and events in a todo app</h2>
 <svg width="200mm" height="100mm" viewBox="0 0 200 100" version="1.1" id="svg8" inkscape:version="1.1.2 (b8e25be833, 2022-02-05)" sodipodi:docname="todo-components-state-events-new.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs id="defs2">
@@ -2364,45 +2372,44 @@ function Rating({ value }: Props) {
 </section><section class="slide"><h2>Passing content to components</h2>
 <p>example with one "slot":</p>
 <pre><code class="hljs language-jsx">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
+  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
 &#x3C;/Notification>
 </code></pre>
+</section><section class="slide"><h2>Passing content to components</h2>
 <p>example with two named "slots":</p>
-<pre><code class="hljs language-jsx">&#x3C;ConfirmationDialog
-  header={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Delete this folder?<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>}
-  body={
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      This will delete <span class="hljs-tag">&#x3C;<span class="hljs-name">i</span>></span>foo/bar<span class="hljs-tag">&#x3C;/<span class="hljs-name">i</span>></span> and all its contents
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  }
+<pre><code class="hljs language-jsx">&#x3C;Notification
+  type=<span class="hljs-string">"error"</span>
+  header={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Error<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>}
+  body={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>Changes could not be saved<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>}
 />
 </code></pre>
 </section><section class="slide"><h2>Passing content to components</h2>
 <p>equivalent notations:</p>
-<pre><code class="hljs language-js">&#x3C;Notification>
+<pre><code class="hljs language-js">&#x3C;Notification type=<span class="hljs-string">"error"</span>>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
 &#x3C;/Notification>
 </code></pre>
-<pre><code class="hljs language-js">&#x3C;Notification children={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>} />
+<pre><code class="hljs language-js">&#x3C;Notification type=<span class="hljs-string">"error"</span> children={<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>foo<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>} />
 </code></pre>
 <p>anything passed in between opening and closing tags will be received as <code>props.children</code></p>
 </section><section class="slide"><h2>Passing content to components</h2>
 <p>implementation of a <code>Notification</code> component:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Props = {
-  <span class="hljs-attr">children</span>: ReactNode;
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'info'</span> | <span class="hljs-string">'warning'</span> | <span class="hljs-string">'error'</span>;
+  children: ReactNode;
 };
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Notification</span>(<span class="hljs-params">{ children }: Props</span>) </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Notification</span>(<span class="hljs-params">{ <span class="hljs-keyword">type</span>, children }: Props</span>) </span>{
   <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"Notification"</span>></span>{props.children}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{</span>`<span class="hljs-attr">Notification</span> <span class="hljs-attr">Notification--</span>${<span class="hljs-attr">type</span>}`}></span>
+      {children}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
   );
 }
 </code></pre>
 </section><section class="slide"><h2>Passing content to components</h2>
-<p>Exercise: Card component with Styling (<a href="https://www.w3schools.com/howto/howto_css_cards.asp" target="_blank">example result</a>)</p>
+<p>Exercise: Card component with Styling (<a href="https://www.w3schools.com/howto/howto_css_cards.asp" target="_blank">example result with CSS declarations</a>)</p>
 <pre><code class="hljs language-jsx">&#x3C;Card>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span>
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>content<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span></span>
@@ -2427,15 +2434,28 @@ function Rating({ value }: Props) {
 </section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
 </section><section class="slide"><h2>Exercises</h2>
 <p>Task: In the todo application, extract a <code>Statistics</code> component that displays information like this:</p>
-<p><em>5 todos (3 incomplete, 1 completed)</em></p>
+<p><em>5 todos (3 incomplete, 2 completed)</em></p>
+<p>potential simple file structure:</p>
+<ul>
+<li><em>index.tsx</em></li>
+<li><em>App.tsx</em></li>
+<li><em>App.css</em></li>
+<li><em>components</em>
+<ul>
+<li><em>Statistics.tsx</em></li>
+<li><em>Statistics.css</em></li>
+<li>...</li>
+</ul>
+</li>
+</ul>
 </section><section class="slide"><h2>Exercises</h2>
 <p>Task: Create simple reusable components that are mainly used for styling</p>
 <p>examples:</p>
 <ul>
-<li><code>List</code> and <code>ListItem</code> (example: <a href="https://mui.com/material-ui/react-list/" target="_blank">MUI</a>)</li>
 <li><code>AppBar</code> (examples: <a href="https://mui.com/material-ui/react-app-bar/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/navbar/" target="_blank">react-bootstrap</a>)</li>
 <li><code>Alert</code> (examples: <a href="https://mui.com/material-ui/react-alert/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/alerts/" target="_blank">react-bootstrap</a>)</li>
 <li><code>Avatar</code> or <code>LetterAvatar</code> (example: <a href="https://mui.com/material-ui/react-avatar/" target="_blank">MUI</a>)</li>
+<li><code>List</code> and <code>ListItem</code> (example: <a href="https://mui.com/material-ui/react-list/" target="_blank">MUI</a>)</li>
 </ul>
 <p>These components should not provide any interactivity (have no <em>events</em>)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Component events</h1>
@@ -2494,8 +2514,6 @@ function Rating({ value }: Props) {
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Exercises</h1>
 </section><section class="slide"><h2>Exercises</h2>
-<p>Task: split the todo app into smaller components that communicate via props and events (e.g. <em>AddTodo</em>, <em>TodoItem</em>, <em>TodoList</em>)</p>
-</section><section class="slide"><h2>Exercises</h2>
 <p>Task: Create reusable interactive components (with some styling)</p>
 <p>examples:</p>
 <ul>
@@ -2503,6 +2521,8 @@ function Rating({ value }: Props) {
 <li><code>TextInput</code> (examples: <a href="https://mui.com/material-ui/react-text-field/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/forms/input-group/" target="_blank">react-bootstrap</a>)</li>
 <li><code>Pagination</code> (examples: <a href="https://mui.com/material-ui/react-pagination/" target="_blank">MUI</a>, <a href="https://react-bootstrap.github.io/components/pagination/" target="_blank">react-bootstrap</a>)</li>
 </ul>
+</section><section class="slide"><h2>Exercises</h2>
+<p>Task: split the todo app into smaller components that communicate via props and events (e.g. <em>AddTodo</em>, <em>TodoItem</em>, <em>TodoList</em>)</p>
 </section><section class="slide"><h2>Exercises</h2>
 <p>Task: draft the structure of <em>props</em>, <em>event</em> and <em>state</em> for various components (e.g. <em>Calendar</em>, <em>ColorPicker</em>, <em>BarChart</em>, <em>Tabs</em>)</p></section></section></div>
     </div>
