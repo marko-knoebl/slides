@@ -42,12 +42,10 @@ async function fetchExchangeRate(
   to: string
 ): Promise<number> {
   const res = await fetch(
-    'https://api.exchangerate.host/latest?base=' +
-      from.toUpperCase() +
-      '&symbols=' +
-      to.toUpperCase()
+    `https://api.exchangerate.host/convert?from=${from}&to=${to}`
   );
   const data = await res.json();
-  return data.rates[to.toUpperCase()];
+  return data.result;
+}
 }
 ```

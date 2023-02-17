@@ -2244,13 +2244,10 @@ useEffect(<span class="hljs-function">() =></span> {
   to: <span class="hljs-built_in">string</span>
 </span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">number</span>> </span>{
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://api.exchangerate.host/latest?base='</span> +
-      <span class="hljs-keyword">from</span>.toUpperCase() +
-      <span class="hljs-string">'&#x26;symbols='</span> +
-      to.toUpperCase()
+    <span class="hljs-string">`https://api.exchangerate.host/convert?from=<span class="hljs-subst">${<span class="hljs-keyword">from</span>}</span>&#x26;to=<span class="hljs-subst">${to}</span>`</span>
   );
   <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> data.rates[to.toUpperCase()];
+  <span class="hljs-keyword">return</span> data.result;
 }
 </code></pre>
 </section><section class="slide"><h2>Beispiel: Laden von Wechselkursen</h2>

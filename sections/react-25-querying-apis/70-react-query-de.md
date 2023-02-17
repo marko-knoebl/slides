@@ -113,10 +113,7 @@ const rateQuery = useQuery({
   queryKey: ['exchange-rate', { from: from, to: to }],
   queryFn: () =>
     fetchJson(
-      'https://api.exchangerate.host/latest?base=' +
-        from.toUpperCase() +
-        '&symbols=' +
-        to.toUpperCase()
+      `https://api.exchangerate.host/convert?from=${from}&to=${to}`
     ),
 });
 ```
