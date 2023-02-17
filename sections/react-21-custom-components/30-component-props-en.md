@@ -12,7 +12,7 @@ example:
 
 ## Component props
 
-props are passed to function components via parameters:
+props are passed to function components via a _props_ parameter:
 
 ```tsx
 type Props = { value: number };
@@ -44,7 +44,7 @@ type Props = { value: number };
 function Rating({ value }: Props) {
   const starIds = [1, 2, 3, 4, 5];
   return (
-    <div>
+    <div className="Rating">
       {starIds.map((id) => (
         <span key={id}>{id <= value ? '★' : '☆'}</span>
       ))}
@@ -58,7 +58,7 @@ function Rating({ value }: Props) {
 exercise: create a progress bar component:
 
 ```jsx
-<ProgressBar value={0.75} color="green" />
+<ProgressBar percentage={75} color="lightgreen" />
 ```
 
 <img src="assets/progress-bar.png" style="width:16em" />

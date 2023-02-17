@@ -24,3 +24,13 @@ export default function TodoItem() {
   // ...
 }
 ```
+
+## Komponentendefinition
+
+Komponenten haben oft eine zugehörige Stil-Datei
+
+```js
+// TodoItem.tsx
+
+import './TodoItem.css';
+```

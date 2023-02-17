@@ -34,7 +34,7 @@ Beispiel:
 Beispiel für Prop-Types einer Rating-Komponente:
 
 ```tsx
-type RatingProps = {
+type Props = {
   value: number;
   onChange?: (value: number) => void;
 };
@@ -46,7 +46,7 @@ type RatingProps = {
 function Rating({ value, onChange }: Props) {
   const starIds = [1, 2, 3, 4, 5];
   return (
-    <div>
+    <div className="Rating">
       {starIds.map((id) => (
         <span
           onClick={() => {

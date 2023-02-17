@@ -31,10 +31,10 @@ Example:
 
 ## Component events
 
-example prop types for a rating component:
+example property types for a rating component:
 
 ```tsx
-type RatingProps = {
+type Props = {
   value: number;
   onChange?: (value: number) => void;
 };
@@ -46,7 +46,7 @@ type RatingProps = {
 function Rating({ value, onChange }: Props) {
   const starIds = [1, 2, 3, 4, 5];
   return (
-    <div>
+    <div className="Rating">
       {starIds.map((id) => (
         <span
           onClick={() => {

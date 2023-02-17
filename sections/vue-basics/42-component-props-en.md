@@ -10,7 +10,7 @@
 Examples:
 
 ```jsx
-<ProgressBar :value="0.75" color="green" />
+<ProgressBar percentage={75} color="lightgreen" />
 ```
 
 <img src="assets/progress-bar.png" style="width:16em" />

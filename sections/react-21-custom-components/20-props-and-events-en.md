@@ -1,4 +1,4 @@
-# State, props and events
+# Props and events
 
 ## State and props
 
@@ -20,7 +20,7 @@ the state is stored in a component higher up in the component tree and passed do
 
 often, the main parts of the state will be stored in the top-level component (e.g. in `App`)
 
-## State, props and events
+## Events
 
 child components can trigger **events** that cause the state in their parent component to update
 

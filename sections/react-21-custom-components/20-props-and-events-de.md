@@ -1,6 +1,6 @@
-# State, Props und Events
+# Props und Events
 
-## State, Props und Events
+## State und Props
 
 Elternkomponenten können Daten aus ihrem **State** via **Props** an Unterkomponenten weitergeben (unidirektionaler Datenfluss)
 
@@ -20,7 +20,7 @@ der State wird in einer gemeinsamen übergeordneten Komponente gespeichert und w
 
 Oft wird der Großteil des States in der obersten Komponente gespeichert (z.B. in `App`)
 
-## State, Props and Events
+## Events
 
 Unterkomponenten können **Events** auslösen, die dazu führen, dass sich der State in der Elternkomponente ändert
 
