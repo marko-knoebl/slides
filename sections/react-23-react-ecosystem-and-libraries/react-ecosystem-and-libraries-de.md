@@ -9,6 +9,7 @@
 - Animationen
 - Formulare
 - State-Management
+- Frameworks
 - ...
 
 ## UI-Komponenten
@@ -26,10 +27,6 @@
 eingebaut:
 
 - _effect hook_ (kann kompliziert sein)
-
-zukünftig:
-
-- _suspense for data fetching_
 
 ## Libraries für Routing
 
@@ -60,3 +57,10 @@ Werkzeuge für CSS-in-JS:
 - _recoil_
 
 eingebaut: _Context_ + _Reducer-Hook_ / _Context_ + eigene Hooks
+
+## Frameworks
+
+- _next.js_
+- _remix_
+
+Funktionalität: server-side rendering, Routing, (data fetching)
