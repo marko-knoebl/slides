@@ -111,11 +111,11 @@ GET /todos/2 HTTP/2.0
 Host: jsonplaceholder.typicode.com
 ```
 
-_get_: querying three entities by identifier:
+_get_: querying multiple entities:
 
 ```http
-GET /rest/v2/alpha?codes=de;fr;it HTTP/2.0
-Host: restcountries.eu
+GET /todos?userId=1&completed=false
+Host: jsonplaceholder.typicode.com
 ```
 
 ## REST examples
