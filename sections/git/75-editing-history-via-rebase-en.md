@@ -15,7 +15,7 @@ example use cases:
 
 rules:
 
-- don't change history of branches that others may branch off of (e.g. _master_)
+- don't change history of branches that others may branch off of (e.g. _main_)
 - you may change history of your own repository
 
 ## Editing history via rebase
@@ -23,11 +23,11 @@ rules:
 original commit log:
 
 ```
-  * merge branch 'master' into 'footer' (footer)
+  * merge branch 'main' into 'footer' (footer)
  /|
-* | add company logo (master)
+* | add company logo (main)
 | * add copyright notice to footer
-| * merge branch 'master' into 'footer'
+| * merge branch 'main' into 'footer'
 |/|
 * | add sidebar
 | * add logo to footer
@@ -44,23 +44,23 @@ new commit log:
 ```
   * add footer (footer)
  /
-* add company logo (master)
+* add company logo (main)
 * add sidebar
 * add placeholder content
 * initialize website
 ```
 
-note: the _master_ branch was not modified
+note: the _main_ branch was not modified
 
 ## Editing history via rebase
 
 editing history via rebase in git:
 
 ```bash
-git rebase -i master
+git rebase -i main
 ```
 
-interactively edit the current branch from the point where it branched off of _master_
+interactively edit the current branch from the point where it branched off of _main_
 
 ## Editing history via rebase
 

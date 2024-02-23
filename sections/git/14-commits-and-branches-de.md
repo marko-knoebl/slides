@@ -10,10 +10,10 @@ Manchmal bezeichnet man mit dem Begriff Commit auch den Übergang / die Änderun
 
 ## Commits
 
-Einfacher Commit-Log mit einem Branch (_master_):
+Einfacher Commit-Log mit einem Branch (_main_):
 
 ```
-* add footer (master)
+* add footer (main)
 * add company logo
 * add sidebar
 * add placeholder content
@@ -24,7 +24,7 @@ Einfacher Commit-Log mit einem Branch (_master_):
 
 _Branches_ erlauben das gleichzeitige / parallele Arbeiten an mehreren Aufgaben
 
-Der Standard-Branch heißt üblicherweise _master_ oder _main_
+Der Standard-Branch heißt üblicherweise _main_ oder _master_
 
 In Git ist ein Branch ein Pointer zu einem bestimmten Commit
 
@@ -33,7 +33,7 @@ In Git ist ein Branch ein Pointer zu einem bestimmten Commit
 Commit-Log mit einem aktiven Feature-Branch:
 
 ```
-* add sidebar (master)
+* add sidebar (main)
 | * correct typo in footer (footer)
 | * add logo to footer
 | * add footer with basic content
@@ -47,7 +47,7 @@ Commit-Log mit einem aktiven Feature-Branch:
 Zusammenführen von Branches (via _merge_):
 
 ```
-* merge branch 'footer' into master (master)
+* merge branch 'footer' into main (main)
 |\
 | * correct typo in footer (footer)
 | * add logo to footer
@@ -63,7 +63,7 @@ Zusammenführen von Branches (via _merge_):
 Zusammenführen von Branches (via _rebase_ und _squash_):
 
 ```
-* add footer (master)
+* add footer (main)
 * add sidebar
 * add placeholder content
 * initialize website

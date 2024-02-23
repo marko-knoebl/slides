@@ -19,10 +19,10 @@ git log --oneline --graph
 git log --oneline --graph --all
 ```
 
-Beispiel für Ausgabe zum letzten Befehl:
+Beispiel für Ausgabe zum zweiten Befehl:
 
 ```bash
-* e84890f (HEAD -> master, origin/master, origin/HEAD) add footer
+* e84890f (HEAD -> main, origin/main, origin/HEAD) add footer
 * 9eb2f53 add company logo
 * 5c41c01 add sidebar
 * f4f591c add placeholder content
@@ -57,10 +57,10 @@ Zugreifen auf die Inhalte eines früheren Commits (mit id b4c906...):
 git checkout b4c9
 ```
 
-Zurück zum aktuellsten Commit des master-Branches:
+Zurück zum aktuellsten Commit des main-Branches:
 
 ```bash
-git switch master
+git switch main
 ```
 
 ## Commit-History

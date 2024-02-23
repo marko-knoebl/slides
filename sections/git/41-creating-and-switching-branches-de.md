@@ -17,11 +17,11 @@ git branch python-3-port
 
 ## Wechseln von Branches
 
-Wechseln zwischen _python-3-port_ und _master_:
+Wechseln zwischen _python-3-port_ und _main_:
 
 ```bash
 git switch python-3-port
-git switch master
+git switch main
 ```
 
 ## Wechseln von Branches
@@ -33,7 +33,7 @@ git status
 ```
 
 ```bash
-git switch master
+git switch main
 ```
 
 ## Erstellen und Wechseln in einem

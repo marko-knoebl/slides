@@ -15,7 +15,7 @@ Beispiele für Anwendungsfälle:
 
 Regeln:
 
-- ändere die Geschichte eines Branches nicht, von dem andere Branches abzweigen könnten (z.B. _master_)
+- ändere die Geschichte eines Branches nicht, von dem andere Branches abzweigen könnten (z.B. _main_)
 - die Geschichte einer Branches in einem eigenen Repository kann abgeändert werden
 
 ## Bearbeiten der Commit-History mittels rebase
@@ -23,11 +23,11 @@ Regeln:
 ursprünglicher Commit-Log:
 
 ```
-  * merge branch 'master' into 'footer' (footer)
+  * merge branch 'main' into 'footer' (footer)
  /|
-* | add company logo (master)
+* | add company logo (main)
 | * add copyright notice to footer
-| * merge branch 'master' into 'footer'
+| * merge branch 'main' into 'footer'
 |/|
 * | add sidebar
 | * add logo to footer
@@ -44,23 +44,23 @@ neuer Commit-Log:
 ```
   * add footer (footer)
  /
-* add company logo (master)
+* add company logo (main)
 * add sidebar
 * add placeholder content
 * initialize website
 ```
 
-Bemerkung: der _master_-Branch wurde nicht geändert
+Bemerkung: der _main_-Branch wurde nicht geändert
 
 ## Bearbeiten der Commit-History mittels rebase
 
 Befehl in Git:
 
 ```bash
-git rebase -i master
+git rebase -i main
 ```
 
-Ermöglicht das Interaktive Bearbeiten des aktuellen Branches von dem Punkt, bei dem er von _master_ abzweigt
+Ermöglicht das Interaktive Bearbeiten des aktuellen Branches von dem Punkt, bei dem er von _main_ abzweigt
 
 ## Bearbeiten der Commit-History mittels rebase
 

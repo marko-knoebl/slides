@@ -8,15 +8,15 @@ Install from <https://git-scm.com>
 
 recommendations:
 
-- **Select Components**:
-  - uncheck _Git GUI Here_
-  - check _Git Bash Here_ for an easy way to get into the _bash_ from the Windows Explorer
-- **Default editor**:
-  - if unsure, use _Nano_
-- **line ending conversions**:
-  - recommendation: _Checkout as-is, commit Unix-style line endings_
-- **Choose a credential helper**:
-  - choose _Git Credential Manager Core_ for advanced integration with services like _GitHub_, otherwise choose _None_
+**select components**: uncheck _Windows Explorer integration_ (this would add new entries in the right-click menu of the explorer)
+
+**default editor**: choose _Nano_ as a simple console based text editor
+
+**name of the initial branch**: choose "main"
+
+**line ending conversions**: _Checkout as-is, commit as-is_ - and set up your development environment to use LF
+
+**default behavior of git pull**: _only ever fast-forward_
 
 ## Configuring git
 

@@ -8,15 +8,15 @@ Installation von <https://git-scm.com>
 
 Empfehlungen:
 
-- **Select Components**:
-  - _Git GUI Here_: deaktivieren
-  - _Git Bash Here_: aktivieren, um aus dem Windows Explorer einfach ein _Bash_-Terminal öffnen zu können
-- **Default editor**:
-  - falls unsicher, wählre _Nano_ als einfachen Konsolen-baiserten Texteditor
-- **line ending conversions**:
-  - Empfehlung: _Checkout as-is, commit Unix-style line endings_
-- **Choose a credential helper**:
-  - wähle _Git Credential Manager Core_ für erweiterte Integration mit Services wie _GitHub_, anderfalls wähle _None_
+**select components**: _Windows Explorer integration_ deaktivieren (würde zusätzliche Befehle ins Rechtsklickmenü des Explorers hinzufügen)
+
+**default editor**: wähle _Nano_ als einfachen Konsolen-baiserten Texteditor
+
+**name of the initial branch**: wähle "main"
+
+**line ending conversions**: _Checkout as-is, commit as-is_ - und Konfiguration der Entwicklungsumgebung auf LF
+
+**default behavior of git pull**: _only ever fast-forward_
 
 ## Konfiguration von Git
 
@@ -26,5 +26,5 @@ git config --global user.email johndoe@example.com
 ```
 
 ```bash
-git config --global pull.rebase false
+git config --global pull.ff true
 ```

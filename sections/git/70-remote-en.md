@@ -6,8 +6,6 @@ Hosts for Git:
 
 - **GitHub**
 - **GitLab**
-- Bitbucket
-- SourceForge
 
 ## Collaboration via GitHub
 
@@ -45,10 +43,10 @@ git remote add origin https://github.com/...
 Whenever we want to publish a branch the remote doesn't know about:
 
 ```bash
-git push -u origin master
+git push -u origin main
 ```
 
-The above command copies the the commits in the local _master_ branch to a newly created remote _master_ branch.
+The above command copies the the commits in the local _main_ branch to a newly created remote _main_ branch.
 
 ## Publishing commits to a known branch
 

@@ -7,9 +7,9 @@ example commit history (during feature development):
 ```
   * merge branches (footer)
  /|
-* | add company logo (master)
+* | add company logo (main)
 | * add copyright notice to footer
-| * merge branch 'master' into 'footer'
+| * merge branch 'main' into 'footer'
 |/|
 * | add sidebar
 | * add logo to footer
@@ -24,11 +24,11 @@ example commit history (during feature development):
 example commit history (when feature is complete):
 
 ```
-* merge branches (master)
+* merge branches (main)
 |\
 * | add company logo
 | * add copyright notice to footer
-| * merge branch 'master' into 'footer'
+| * merge branch 'main' into 'footer'
 |/|
 * | add sidebar
 | * add logo to footer
@@ -40,11 +40,11 @@ example commit history (when feature is complete):
 
 ## Combining branches via merge
 
-commands for merging changes of _master_ into _footer_:
+commands for merging changes of _main_ into _footer_:
 
 ```bash
 git switch footer
-git merge master
+git merge main
 ```
 
 ## Merge conflicts
@@ -62,7 +62,7 @@ Second line
 Thrd line!
 ======
 Third line
->>>>>> master
+>>>>>> main
 Fourth line
 ```
 

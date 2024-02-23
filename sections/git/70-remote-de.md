@@ -6,8 +6,6 @@ Hosts für Git:
 
 - **GitHub**
 - **GitLab**
-- Bitbucket
-- SourceForge
 
 ## Zusammenarbeit via GitHub
 
@@ -45,10 +43,10 @@ git remote add origin https://github.com/...
 Zum Veröffentlichen eines Branches, der am remote Repository noch nicht bekannt ist:
 
 ```bash
-git push -u origin master
+git push -u origin main
 ```
 
-kopiert die Commits des lokalen _master_-Branches in einen neu angelegten _master_-Branch im remote Repository
+kopiert die Commits des lokalen _main_-Branches in einen neu angelegten _main_-Branch im remote Repository
 
 ## Veröffentlichen von Commits eines bekannten Branches
 

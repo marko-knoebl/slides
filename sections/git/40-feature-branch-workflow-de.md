@@ -6,11 +6,11 @@ Workflow:
 
 Um neue Features / Änderungen umzusetzen, erstellt man einen sogenannten _Feature Branch_
 
-Der Feature Branch kann sich individuell parallel zum master Branch entwickeln
+Der Feature Branch kann sich individuell parallel zum main Branch entwickeln
 
-Entwickelt sich der master Branch weiter, können die Änderungen in den Feature Branch übernommen werden
+Entwickelt sich der main Branch weiter, können die Änderungen in den Feature Branch übernommen werden
 
-Ist ein Feature komplett, können die Änderungen in den master Branch übernommen werden (nach begutachtung durch andere Entwickler)
+Ist ein Feature komplett, können die Änderungen in den main Branch übernommen werden (nach begutachtung durch andere Entwickler)
 
 ## Feature Branch Workflow
 
@@ -31,16 +31,16 @@ Beispiel: Entwickler arbeiten an zwei unterschiedlichen Tasks gleichzeitig:
 | * add logo to footer (footer)
 | * add footer with basic content
 |/
-* add placeholder content (master)
+* add placeholder content (main)
 * initialize website
 ```
 
 ## Feature Branch Workflow
 
-nach Vervollständigung eines Features kann es in den Master-Branch eingebunden werden:
+nach Vervollständigung eines Features kann es in den main-Branch eingebunden werden:
 
 ```txt
-* merge branches (master)
+* merge branches (main)
 |\
 * | add sidebar
 | * add logo to footer
@@ -56,14 +56,14 @@ alte Feature-Branches werden üblicherweise gelöscht
 
 während der Entwicklung:
 
-- erstelle einen neuen Feature-Branch, der von _master_ abzweigt
+- erstelle einen neuen Feature-Branch, der von _main_ abzweigt
 - füge bei Änderungen regelmäßig neue Commits hinzu
-- merge (oder rebase), wenn neue Commits auf dem _master_-Branch gemacht werden
+- merge (oder rebase), wenn neue Commits auf dem _main_-Branch gemacht werden
 
 wenn das Feature fertiggestellt ist:
 
 - optional: kombiniere alle Commits auf dem Branch zu einem (rebase)
-- merge in den _master_-Branch
+- merge in den _main_-Branch
 - lösche den Feature-Branch
 
 ## Siehe auch
