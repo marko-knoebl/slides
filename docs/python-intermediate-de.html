@@ -3129,42 +3129,57 @@ print(sys.path)
 <pre><code class="hljs language-py"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
     print(<span class="hljs-string">"this file was run directly (and not imported)"</span>)
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>PIP und pipenv</h1>
-</section><section class="slide"><h2>PIP</h2>
-<p>Installation bestimmter Versionen:</p>
-<pre><code class="hljs language-apache"><span class="hljs-attribute">pip</span> install requests~=<span class="hljs-number">2</span>.<span class="hljs-number">0</span>
-<span class="hljs-attribute">pip</span> install numpy~=<span class="hljs-number">1</span>.<span class="hljs-number">19</span>
+</section></section><section class="slides-section"><section class="slide"><h1>Package versions and virtual environments</h1>
+</section><section class="slide"><h2>Package versions</h2>
+<p>installing a package via PIP:</p>
+<pre><code class="hljs language-cmake">pip <span class="hljs-keyword">install</span> cowsay
 </code></pre>
-</section><section class="slide"><h2>PIP</h2>
-<p>Abhängigkeitenliste in einer Requirements-Datei, die einfach mit anderen geteilt werden kann:</p>
-<p>requirements.txt:</p>
-<pre><code class="hljs language-apache"><span class="hljs-attribute">requests</span>==<span class="hljs-number">1</span>.<span class="hljs-number">1</span>
-<span class="hljs-attribute">numpy</span>>=<span class="hljs-number">1</span>.<span class="hljs-number">16</span>
+<p>installing a specific version:</p>
+<pre><code class="hljs language-apache"><span class="hljs-attribute">pip</span> install cowsay==<span class="hljs-number">6</span>.<span class="hljs-number">1</span>
 </code></pre>
+<p>installing a compatible version (this could also install versions 6.2, 6.3, etc. - if they are available):</p>
+<pre><code class="hljs language-apache"><span class="hljs-attribute">pip</span> install cowsay~=<span class="hljs-number">6</span>.<span class="hljs-number">1</span>
+</code></pre>
+</section><section class="slide"><h2>Virtual environments</h2>
+<p><strong>virtual environments</strong>: allow for installing different dependencies and dependency versions for different projects</p>
+</section><section class="slide"><h2>Virtual environments</h2>
+<p>creating a virtual environment (typically named ".venv"):</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-tag">python</span> <span class="hljs-selector-tag">-m</span> <span class="hljs-selector-tag">venv</span> <span class="hljs-selector-class">.venv</span>
+</code></pre>
+<p>will create a new folder ".venv/" which contains the virtual environment</p>
+</section><section class="slide"><h2>Virtual environments</h2>
+<p>activating an environment on Windows:</p>
+<pre><code class="hljs language-awk">.<span class="hljs-regexp">/.venv/</span>Scripts/activate
+</code></pre>
+<p>deactivating a venv:</p>
+<pre><code class="hljs language-ebnf"><span class="hljs-attribute">deactivate</span>
+</code></pre>
+<p>if necessary: enable execution of local scripts on Windows - from an admin terminal:</p>
+<pre><code class="hljs language-bash">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+</code></pre>
+</section><section class="slide"><h2>Dependency lists</h2>
+<p>"old" configuration file: <em>requirements.txt</em></p>
+<p>"new" configuration file: <em>pyproject.toml</em></p>
+</section><section class="slide"><h2>Dependency lists</h2>
+<p>example <em>requirements.txt</em>:</p>
+<pre><code class="hljs language-txt">cowsay~=6.1
+requests~=2.30
+</code></pre>
+<p>installation from <em>requirements.txt</em>:</p>
 <pre><code class="hljs language-bash">pip install -r requirements.txt
 </code></pre>
-</section><section class="slide"><h2>Pipenv</h2>
-<p>Pipenv: virtuelle Umgebungen, die die projektweise Installation verschiedener Paketversionen erlauben</p>
-</section><section class="slide"><h2>Pipenv</h2>
-<pre><code class="hljs language-bash">pip install pipenv
+</section><section class="slide"><h2>Dependency lists</h2>
+<p>example <em>pyproject.toml</em>:</p>
+<pre><code class="hljs language-toml"><span class="hljs-section">[project]</span>
+<span class="hljs-attr">name</span> = <span class="hljs-string">"my-python-project"</span>
+<span class="hljs-attr">version</span> = <span class="hljs-string">"1.0"</span>
+<span class="hljs-attr">dependencies</span> = [
+  <span class="hljs-string">"cowsay~=6.1"</span>,
+  <span class="hljs-string">"requests~=2.30"</span>,
+]
 </code></pre>
-</section><section class="slide"><h2>Pipenv</h2>
-<p>Verwendung von pipenv:</p>
-<pre><code class="hljs language-bash">pipenv install requests~=2.0
-pipenv install numpy~=1.19
-</code></pre>
-<p>Es entstehen zwei Dateien:</p>
-<ul>
-<li><em>Pipfile</em>: allgemeine Abhängigkeitsinformationen</li>
-<li><em>Pipfile.lock</em>: genaue Versionsnummern</li>
-</ul>
-</section><section class="slide"><h2>Pipenv</h2>
-<p>Installation basierend auf einer bestehenden <em>Pipfile</em>:</p>
-<pre><code class="hljs language-bash">pipenv install
-</code></pre>
-</section><section class="slide"><h2>Pipenv</h2>
-<p>Ausführen in einer PIP-Umgebung:</p>
-<pre><code class="hljs language-bash">pipenv run python foo.py
+<p>installation:</p>
+<pre><code class="hljs language-cmake">pip <span class="hljs-keyword">install</span> .
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Funktionen</h1>
 </section><section class="slide"><h2>Beliebige Anzahl an Parametern (args / kwargs)</h2>
