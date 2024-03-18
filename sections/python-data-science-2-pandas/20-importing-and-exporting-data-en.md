@@ -25,7 +25,7 @@ Example: Euribor (interest rates of European bonds)
 
 ```py
 euribor = pd.read_csv(
-    "https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"
+    "https://raw.githubusercontent.com/datasets/euribor/master/data/euribor-12m-monthly.csv"
 )
 ```
 
@@ -54,7 +54,7 @@ Advanced Euribor example:
 
 ```py
 euribor = pd.read_csv(
-    "https://datahub.io/core/euribor/r/euribor-12m-monthly.csv",
+    "https://raw.githubusercontent.com/datasets/euribor/master/data/euribor-12m-monthly.csv",
     parse_dates=["date"],
     index_col="date",
     usecols=["date", "rate"]
@@ -65,7 +65,7 @@ euribor = pd.read_csv(
 
 Task: Import the following data sources, ensuring the data is formatted nicely:
 
-- S&P 500 monthly prices (US stock index): https://datahub.io/core/s-and-p-500/r/data.csv
+- S&P 500 monthly prices (US stock index): https://raw.githubusercontent.com/datasets/s-and-p-500/main/data/data.csv
 - Iris dataset (statistics of leaf sizes for iris flowers): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data
 - Titanic passenger data: https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv
 
@@ -75,7 +75,7 @@ possible solutions:
 
 ```py
 sp500 = pd.read_csv(
-    "https://datahub.io/core/s-and-p-500/r/data.csv",
+    "https://raw.githubusercontent.com/datasets/s-and-p-500/main/data/data.csv",
     index_col="Date",
     parse_dates=["Date"],
 )

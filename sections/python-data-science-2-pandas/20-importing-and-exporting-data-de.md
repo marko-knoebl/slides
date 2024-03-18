@@ -25,7 +25,7 @@ Beispiel: Euribor (Zinsen für europäische Anleihen)
 
 ```py
 euribor = pd.read_csv(
-    "https://datahub.io/core/euribor/r/euribor-12m-monthly.csv"
+    "https://raw.githubusercontent.com/datasets/euribor/master/data/euribor-12m-monthly.csv"
 )
 ```
 
@@ -54,7 +54,7 @@ Fortgeschrittenes Euribor-Beispiel:
 
 ```py
 euribor = pd.read_csv(
-    "https://datahub.io/core/euribor/r/euribor-12m-monthly.csv",
+    "https://raw.githubusercontent.com/datasets/euribor/master/data/euribor-12m-monthly.csv",
     parse_dates=["date"],
     index_col="date",
     usecols=["date", "rate"]
@@ -65,7 +65,7 @@ euribor = pd.read_csv(
 
 Aufgabe: Importiere die folgenden Datenquellen und achte dabei auf passendes Format:
 
-- Monatliche Preise des US-Aktienindex _S&P 500_: https://datahub.io/core/s-and-p-500/r/data.csv
+- Monatliche Preise des US-Aktienindex _S&P 500_: https://raw.githubusercontent.com/datasets/s-and-p-500/main/data/data.csv
 - Wechselkurse: https://datahub.io/core/us-euro-foreign-exchange-rate/r/monthly.csv
 - Iris Dataset (Statistiken zu Blütengrößen von Iris-Blumen): http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data
 - Passagierdaten der Titanic: https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv
@@ -76,7 +76,7 @@ mögliche Lösungen:
 
 ```py
 sp500 = pd.read_csv(
-    "https://datahub.io/core/s-and-p-500/r/data.csv",
+    "https://raw.githubusercontent.com/datasets/s-and-p-500/main/data/data.csv",
     index_col="Date",
     parse_dates=["Date"],
 )
