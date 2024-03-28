@@ -4,12 +4,29 @@
 
 Database API Specification: Standard, der von verschiedenen Python-Datenbankanbindungen umgesetzt wird; standardisiert in PEP 249
 
-Anbindungen für:
+## PEP 249 Funktionalität
 
-- sqlite (Python-Paket _sqlite3_)
-- Postgresql (PIP-Paket _psycopg2_)
-- MySQL / mariadb (PIP-Paket _PyMySQL_
-- Oracle (PIP-Paket _cx_oracle_)
+PEP 249 definiert:
+
+- Connections (Verbindung zu einer Datenbank)
+  - Transaction (typischerweise eine offene Transaktion für eine Connection)
+    - commit
+    - rollback
+- Cursors
+  - Ausführen von Operationen
+  - Auslesen von Query-Ergebnissen
+
+https://www.python.org/dev/peps/pep-0249
+
+## Libraries für SQL-Datenbanken
+
+Libraries, die PEP 249 implementieren:
+
+- **sqlite3**: für SQLite, ist Teil der Standardlibrary
+- **psycopg**: für Postgres
+- **PyMySQL**: für MySQL
+- **cx_oracle**: für Oracle
+- **pyodbc**: für viele verschiedene Datenbanken (via ODBC)
 
 ## SQLite und Python
 
@@ -25,6 +42,26 @@ connection = sqlite3.connect('contacts.db')
 
 # in-memory database
 connection = sqlite3.connect(':memory:')
+```
+
+## PostgreSQL und Python
+
+PIP-Paket _psycopg_
+
+```py
+import psycopg
+
+connection = psycopg.connect(host="localhost",
+                             user="...",
+                             password="...",
+                             dbname="...")
+```
+
+oder
+
+```py
+connection = psycopg.connect(
+  "postgresql://user:password@localhost/dbname")
 ```
 
 ## MySQL und Python
@@ -70,22 +107,17 @@ connection = pyodbc.connect(
 
 ```py
 connection = ...
-...
 cursor = connection.cursor()
+
 cursor.execute("SELECT ...")
 print(cursor.fetchall())
 ...
-cursor = connection.cursor()
 cursor.execute("INSERT INTO ...")
 cursor.execute("INSERT INTO ...")
 connection.commit()
 ...
 connection.close()
 ```
-
-## PEP 249
-
-https://www.python.org/dev/peps/pep-0249
 
 ## SQL Statements mit Parametern
 
@@ -97,6 +129,8 @@ res = cursor.execute(
   f"""SELECT tel FROM person WHERE name = '{search_name}'"""
 )
 ```
+
+https://xkcd.com/327/
 
 ## SQL Statements mit Parametern
 
@@ -118,7 +152,7 @@ Die Attribute `sqlite3.paramstyle`, `pymysql.paramstyle` etc. geben das Format f
 
 - sqlite3: qmark
 - pymysql: pyformat
-- psycopg2: pyformat
+- psycopg: pyformat
 - cx_Oracle: named
 
 ## PEP 249: das cursor Objekt

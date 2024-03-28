@@ -2893,12 +2893,35 @@ app = FastAPI()
 </section></section><section class="slides-section"><section class="slide"><h1>SQL with Python</h1>
 </section><section class="slide"><h2>Python interfaces for SQL databases</h2>
 <p>Database API specification: standard which is implemented by various Python database bindings; standardized in PEP 249</p>
-<p>bindings for:</p>
+</section><section class="slide"><h2>PEP 249 functionality</h2>
+<p>PEP 249 defines:</p>
 <ul>
-<li>sqlite (Python package <em>sqlite3</em>)</li>
-<li>Postgresql (PIP package <em>psycopg2</em>)</li>
-<li>MySQL / mariadb (PIP package <em>PyMySQL</em></li>
-<li>Oracle (PIP package <em>cx_oracle</em>)</li>
+<li>connections (connections to a database)
+<ul>
+<li>transactions (typically one open transaction for a connection)
+<ul>
+<li>commit</li>
+<li>rollback</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>cursors
+<ul>
+<li>executing operations</li>
+<li>fetching query results</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.python.org/dev/peps/pep-0249" target="_blank">https://www.python.org/dev/peps/pep-0249</a></p>
+</section><section class="slide"><h2>Libraries for SQL databases</h2>
+<p>some libraries that implement PEP 249:</p>
+<ul>
+<li><strong>sqlite3</strong>: for SQLite, included in the standard library</li>
+<li><strong>psycopg</strong>: for Postgres</li>
+<li><strong>PyMySQL</strong>: for MySQL</li>
+<li><strong>cx_oracle</strong>: for Oracle</li>
+<li><strong>pyodbc</strong>: for many different databases (via ODBC)</li>
 </ul>
 </section><section class="slide"><h2>SQLite and Python</h2>
 <p>SQLite uses one file to store a database</p>
@@ -2910,6 +2933,19 @@ connection = sqlite3.connect(<span class="hljs-string">'contacts.db'</span>)
 
 <span class="hljs-comment"># in-memory database</span>
 connection = sqlite3.connect(<span class="hljs-string">':memory:'</span>)
+</code></pre>
+</section><section class="slide"><h2>PostgreSQL and Python</h2>
+<p>PIP package <em>psycopg</em></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> psycopg
+</code></pre>
+<pre><code class="hljs language-py">connection = psycopg.connect(host=<span class="hljs-string">"localhost"</span>,
+                             dbname=<span class="hljs-string">"..."</span>,
+                             user=<span class="hljs-string">"..."</span>,
+                             password=<span class="hljs-string">"..."</span>)
+</code></pre>
+<p>or</p>
+<pre><code class="hljs language-py">connection = psycopg.connect(
+  <span class="hljs-string">"postgresql://user:password@localhost/dbname"</span>)
 </code></pre>
 </section><section class="slide"><h2>MySQL and Python</h2>
 <p>PIP package <em>PyMySQL</em></p>
@@ -2939,20 +2975,17 @@ connection = pyodbc.connect(
 </code></pre>
 </section><section class="slide"><h2>Common interface (PEP 249)</h2>
 <pre><code class="hljs language-py">connection = ...
-...
 cursor = connection.cursor()
+
 cursor.execute(<span class="hljs-string">"SELECT ..."</span>)
 print(cursor.fetchall())
 ...
-cursor = connection.cursor()
 cursor.execute(<span class="hljs-string">"INSERT INTO ..."</span>)
 cursor.execute(<span class="hljs-string">"INSERT INTO ..."</span>)
 connection.commit()
 ...
 connection.close()
 </code></pre>
-</section><section class="slide"><h2>PEP 249</h2>
-<p><a href="https://www.python.org/dev/peps/pep-0249" target="_blank">https://www.python.org/dev/peps/pep-0249</a></p>
 </section><section class="slide"><h2>SQL statements with parameters</h2>
 <p>dangerous:</p>
 <pre><code class="hljs language-py">search_name = <span class="hljs-built_in">input</span>()
@@ -2960,6 +2993,7 @@ res = cursor.execute(
   <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
 )
 </code></pre>
+<p><a href="https://xkcd.com/327/" target="_blank">https://xkcd.com/327/</a></p>
 </section><section class="slide"><h2>SQL statements with parameters</h2>
 <p>safe method (with SQL escaping):</p>
 <pre><code class="hljs language-py">search_name = <span class="hljs-built_in">input</span>()
@@ -2974,7 +3008,7 @@ res = cursor.execute(
 <ul>
 <li>sqlite3: qmark</li>
 <li>pymysql: pyformat</li>
-<li>psycopg2: pyformat</li>
+<li>psycopg: pyformat</li>
 <li>cx_Oracle: named</li>
 </ul>
 </section><section class="slide"><h2>PEP 249: the cursor object</h2>
@@ -3035,8 +3069,6 @@ requirements: classes
 <p>SQLAlchemy = Object Relational Mapper</p>
 <p>Object oriented access to arbitrary SQL databases</p>
 <p>potential alternative: Django ORM</p>
-</section><section class="slide"><h2>SQLAlchemy</h2>
-<p>Pip package <em>sqlalchemy</em></p>
 </section><section class="slide"><h2>Connecting with an SQLite database</h2>
 <pre><code class="hljs language-py"><span class="hljs-comment"># db_interface.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> create_engine
@@ -3047,16 +3079,16 @@ engine.connect()
 </code></pre>
 </section><section class="slide"><h2>Defining tables</h2>
 <pre><code class="hljs language-py"><span class="hljs-comment"># schema.py</span>
-<span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declarative_base
-<span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> Column, Integer, String
+<span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> mapped_column, Mapped, DeclarativeBase
 
-Base = declarative_base()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span>(<span class="hljs-params">DeclarativeBase</span>):</span>
+    <span class="hljs-keyword">pass</span>
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span>(<span class="hljs-params">Base</span>):</span>
     __tablename__ = <span class="hljs-string">"artist"</span>
-    <span class="hljs-built_in">id</span> = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
-    name = Column(String(<span class="hljs-number">30</span>))
-    country = Column(String(<span class="hljs-number">20</span>))
+    <span class="hljs-built_in">id</span>: Mapped[<span class="hljs-built_in">int</span>] = mapped_column(primary_key=<span class="hljs-literal">True</span>)
+    name: Mapped[<span class="hljs-built_in">str</span>] = mapped_column()
+    country: Mapped[<span class="hljs-built_in">str</span>] = mapped_column()
 </code></pre>
 <pre><code class="hljs language-py"><span class="hljs-comment"># db_interface.py</span>
 Base.metadata.create_all(engine)
@@ -3134,20 +3166,20 @@ entry.title = <span class="hljs-string">"Help"</span>
     __tablename__ = <span class="hljs-string">"song"</span>
     <span class="hljs-built_in">id</span> = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
     title = Column(String(<span class="hljs-number">30</span>))
-    artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))
+    artist_id = mapped_column(ForeignKey(<span class="hljs-string">"artist.id"</span>))
 </code></pre>
 </section><section class="slide"><h2>Querying a related table</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> relationship
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span>(<span class="hljs-params">Base</span>):</span>
     ...
-    songs = relationship(<span class="hljs-string">"Song"</span>)
+    songs: Mapped[Song] = relationship(<span class="hljs-string">"Song"</span>, back_populates=<span class="hljs-string">"artist"</span>)
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span>(<span class="hljs-params">Base</span>):</span>
     ...
-    artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))
+    artist_id = mapped_column(ForeignKey(<span class="hljs-string">"artist.id"</span>))
 
-    artist = relationship(<span class="hljs-string">"Artist"</span>)
+    artist: Mapped[Artist] = relationship(<span class="hljs-string">"Artist"</span>, back_populates=<span class="hljs-string">"song"</span>)
 </code></pre>
 </section><section class="slide"><h2>Querying a related table</h2>
 <pre><code class="hljs language-py">yesterday = Song(title=<span class="hljs-string">"Yesterday"</span>, artist=beatles)

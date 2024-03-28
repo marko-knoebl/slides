@@ -12,10 +12,6 @@ Objektorientierter Zugriff auf beliebige SQL-Datenbanken
 
 Alternative: Django ORM
 
-## SQLAlchemy
-
-Pip-Paket _sqlalchemy_
-
 ## Verbinden mit SQLite-Datenbank
 
 ```py
@@ -31,16 +27,16 @@ engine.connect()
 
 ```py
 # schema.py
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import mapped_column, Mapped, DeclarativeBase
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
 
 class Artist(Base):
     __tablename__ = "artist"
-    id = Column(Integer, primary_key=True)
-    name = Column(String(30))
-    country = Column(String(20))
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column()
+    country: Mapped[str] = mapped_column()
 ```
 
 ```py
@@ -173,7 +169,7 @@ class Song(Base):
     __tablename__ = "song"
     id = Column(Integer, primary_key=True)
     title = Column(String(30))
-    artist_id = Column(Integer, ForeignKey("artist.id"))
+    artist_id = mapped_column(ForeignKey("artist.id"))
 ```
 
 ## Einfaches Abfragen einer verknüpften Tabelle
@@ -183,13 +179,13 @@ from sqlalchemy.orm import relationship
 
 class Artist(Base):
     ...
-    songs = relationship("Song")
+    songs: Mapped[Song] = relationship("Song", back_populates="artist")
 
 class Song(Base):
     ...
-    artist_id = Column(Integer, ForeignKey("artist.id"))
+    artist_id = mapped_column(ForeignKey("artist.id"))
 
-    artist = relationship("Artist")
+    artist: Mapped[Artist] = relationship("Artist", back_populates="song")
 ```
 
 ## Einfaches Abfragen einer verknüpften Tabelle
