@@ -1,1 +1,1 @@
-# JavaScript: Promises, fetch and axios
+# JavaScript: Asynchronous JavaScript and fetch

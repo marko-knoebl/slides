@@ -8,17 +8,6 @@ Verschiedene Fehler können beim Fetch auftreten:
 - Server antwortet mit 404 oder ähnlicher Meldung
 - Antwort ist leer oder beinhaltet etwas anderes als text
 
-## Fehlerbehandlung
-
-Abfangen von möglichen Fehlern:
-
-```js
-fetch('https://jsonplaceholder.typicode.com/todos')
-  .then((res) => res.json())
-  .then((data) => console.log(data))
-  .catch((err) => console.log(err));
-```
-
 ## Fehlerbehandlung: Überprüfen des Status
 
 Standardmäßig wird eine Antwort mit einem Fehlercode (z.B. 404 oder 500) auch als Erfolg angesehen.

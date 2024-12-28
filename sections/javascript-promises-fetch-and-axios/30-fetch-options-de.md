@@ -2,6 +2,8 @@
 
 ## Fetch Optionen
 
+Beispiel für einen fetch-Aufruf mit Optionen:
+
 ```js
 fetch(url, {
   method: 'POST',

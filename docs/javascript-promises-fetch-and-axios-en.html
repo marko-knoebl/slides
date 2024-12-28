@@ -2060,7 +2060,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>JavaScript: Promises, fetch and axios</h1>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>JavaScript: Asynchronous JavaScript and fetch</h1>
 </section></section><section class="slides-section"><section class="slide"><h1>Asynchronous JavaScript</h1>
 </section><section class="slide"><h2>Asynchronous JavaScript</h2>
 <p>some tasks in JavaScript may be scheduled to run in parallel (in particular tasks related to input/output):</p>
@@ -2078,7 +2078,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Asynchronous JavaScript</h2>
 <ul>
 <li><em>callbacks</em>: traditional way to handle asynchronous requests</li>
-<li><strong>promises and .then()</strong></li>
+<li>promises and .then()</li>
 <li><strong>promises and async / await</strong></li>
 </ul>
 </section><section class="slide"><h2>Asynchronous JavaScript</h2>
@@ -2098,99 +2098,52 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </code></pre>
 <pre><code class="hljs language-coffeescript">jquery.getJSON(url, <span class="hljs-function"><span class="hljs-params">(data)</span> =></span> <span class="hljs-built_in">console</span>.log(data));
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Promises and fetch</h1>
-</section><section class="slide"><h2>Promises</h2>
-<p>Promise: representation of a future result that is not available immediately</p>
-</section><section class="slide"><h2>Promises</h2>
-<p>real-world example:</p>
-<p>You place an order at a fast food restaurant. The cashier hands you this receipt:</p>
-<pre><code class="hljs language-txt">order #42:
+</section></section><section class="slides-section"><section class="slide"><h1>Fetch</h1>
+</section><section class="slide"><h2>Fetch</h2>
+<p>example that can be executed in the browser console:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// request a URL and wait for the response header</span>
+res = <span class="hljs-keyword">await</span> fetch(
+  <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
+);
 
-- cheeseburger
-- small fries
+<span class="hljs-comment">// wait for the response body and read it as JSON data</span>
+content = <span class="hljs-keyword">await</span> res.json();
 
-The order will be served to you at your seat when ready.
+<span class="hljs-built_in">console</span>.log(content);
 </code></pre>
-<p>the receipt is a "promise" - a representation of a future result</p>
-</section><section class="slide"><h2>Promises</h2>
-<p>waiting for a promise is non-blocking: other code may be executed while waiting for the result</p>
-</section><section class="slide"><h2>Promises</h2>
-<p>waiting for a promise to <em>resolve</em>:</p>
-<ul>
-<li><code>.then()</code></li>
-<li><code>await</code></li>
-</ul>
-</section><section class="slide"><h2>Example: fetching a web page</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// request the home page (/)</span>
-fetch(<span class="hljs-string">'/'</span>)
-  <span class="hljs-comment">// wait for a response, then request its text content</span>
-  .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.text())
-  <span class="hljs-comment">// wait for the text content, then log it</span>
-  .then(<span class="hljs-function">(<span class="hljs-params">content</span>) =></span> <span class="hljs-built_in">console</span>.log(content));
+</section><section class="slide"><h2>Fetch</h2>
+<p>example that can be executed in the browser console with any open website:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// request the current URL</span>
+res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">"/"</span>);
+
+<span class="hljs-comment">// wait for the response body and read its text content</span>
+content = <span class="hljs-keyword">await</span> res.text();
+
+<span class="hljs-built_in">console</span>.log(content);
 </code></pre>
-<p>may be executed in the browser console for any open website</p>
-</section><section class="slide"><h2>Example: fetching a web page</h2>
-<p>Fetching a URL and reading the response text may both take some time.</p>
-<p>By using <code>.then()</code> we can wait for their respective results.</p>
-<p>The method <code>.then()</code> will receive another function which will act as a handler for the response.</p>
-<p>The first handler (<code>(res) => res.text()</code>) will result in another Promise.</p>
-<p>The second handler (<code>(content) => console.log(content)</code>) will log the results.</p>
-</section><section class="slide"><h2>Promises and fetch</h2>
-<p>example: fetching JSON data - two functions that return promises</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fetchTodos = <span class="hljs-function">() =></span> {
-  <span class="hljs-keyword">return</span> fetch(
-    <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
-  ).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json());
-};
-</code></pre>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fetchTodos = <span class="hljs-keyword">async</span> () => {
+</section></section><section class="slides-section"><section class="slide"><h1>Asynchronous functions</h1>
+</section><section class="slide"><h2>Asynchronous functions</h2>
+<p>Functions that perform input / output functionality are often declared as asynchronous functions.</p>
+<p>Asynchronous functions can run in parallel to other code: E.g. for loading multiple files over the network in parallel.</p>
+</section><section class="slide"><h2>Asynchronous functions</h2>
+<p>defining an asynchronous function:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadTodo</span>(<span class="hljs-params">id</span>) </span>{
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
+    <span class="hljs-string">`https://jsonplaceholder.typicode.com/todos/<span class="hljs-subst">${id}</span>`</span>
   );
-  <span class="hljs-keyword">const</span> todos = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">return</span> todos;
-};
-</code></pre>
-</section><section class="slide"><h2>Promises and fetch</h2>
-<p>As per the current ES standard, an <code>await</code> statement always has to be inside an <code>async</code> function</p>
-<p>state of "top level await" (await outside of async functions):</p>
-<ul>
-<li><a href="https://github.com/tc39/proposal-top-level-await" target="_blank">ES proposal at stage 3 of 4</a></li>
-<li>supported in Chrome</li>
-<li>supported in <em>node.js</em> since version 14.8</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Then vs. await</h1>
-</section><section class="slide"><h2>Then vs. await</h2>
-<p>advantages of <code>await</code>:</p>
-<ul>
-<li>code resembles "synchronous" code</li>
-<li>error handling is more straightforward</li>
-</ul>
-<p>advantages of <code>.then</code>:</p>
-<ul>
-<li>simpler parallel requests</li>
-<li>does not have to be inside an async function</li>
-</ul>
-<!--
-use case for await:
-
-async function getFirstIncompleteTodo() {
-  let i = 1;
-  while (true) {
-    const reply = await fetch(
-      `https://jsonplaceholder.typicode.com/todos/${i}`
-    );
-    const todoData = await reply.json();
-    if (todoData.completed) {
-      i++;
-    } else {
-      return todoData;
-    }
-  }
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
+  <span class="hljs-keyword">return</span> data;
 }
--->
+</code></pre>
+</section><section class="slide"><h2>Asynchronous functions</h2>
+<p>run the asynchronous function in parallel multiple times (you can watch the requests in your browser console):</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-number">10</span>; i++) {
+  loadTodo(i);
+}
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Fetch options</h1>
 </section><section class="slide"><h2>Fetch options</h2>
+<p>example of a fetch call with some options:</p>
 <pre><code class="hljs language-js">fetch(url, {
   <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
   <span class="hljs-attr">cache</span>: <span class="hljs-string">'no-cache'</span>,
@@ -2206,16 +2159,9 @@ async function getFirstIncompleteTodo() {
 <li>server responds with a 404 or similar</li>
 <li>receives non-text or empty reply</li>
 </ul>
-</section><section class="slide"><h2>Error handling</h2>
-<p>catching any errors that might have occured:</p>
-<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
-  .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =></span> res.json())
-  .then(<span class="hljs-function">(<span class="hljs-params">data</span>) =></span> <span class="hljs-built_in">console</span>.log(data))
-  .catch(<span class="hljs-function">(<span class="hljs-params">err</span>) =></span> <span class="hljs-built_in">console</span>.log(err));
-</code></pre>
 </section><section class="slide"><h2>Error handling: checking status</h2>
 <p>by default a reply with an error code (e.g. 404 or 500) is considered a success</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fetchTodos = <span class="hljs-keyword">async</span> () => {
+<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchTodos</span> (<span class="hljs-params"></span>) => </span>{
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
     <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
   );
@@ -2226,6 +2172,35 @@ async function getFirstIncompleteTodo() {
   <span class="hljs-keyword">return</span> todos;
 };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Promises</h1>
+</section><section class="slide"><h2>Promises</h2>
+<p>Promise: JavaScript class that represents future results</p>
+<p>Promises are used internally when <code>async</code> / <code>await</code> is used</p>
+</section><section class="slide"><h2>Promises</h2>
+<p>we can access promises if we "forget" to await an asynchronous result:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// a will be a promise</span>
+<span class="hljs-keyword">const</span> a = fetch(<span class="hljs-string">'...'</span>);
+
+<span class="hljs-comment">// b will be the actual result</span>
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">await</span> a;
+</code></pre>
+</section><section class="slide"><h2>Promises</h2>
+<p>real-world example:</p>
+<p>You place an order at a fast food restaurant. The cashier hands you this receipt:</p>
+<pre><code class="hljs language-txt">order #42:
+
+- cheeseburger
+- small fries
+
+The order will be served to you at your seat when ready.
+</code></pre>
+<p>the receipt is a "promise" - a representation of a future result</p>
+</section><section class="slide"><h2>Promises</h2>
+<p>waiting for a promise to <em>resolve</em>:</p>
+<ul>
+<li><code>await</code></li>
+<li><code>.then()</code></li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Promises advanced</h1>
 </section><section class="slide"><h2>Creating custom promises</h2>
 <p>A promise that, after 1 second, either results in the string <code>'hello'</code> or fails</p>
@@ -2282,63 +2257,6 @@ async function getFirstIncompleteTodo() {
 <li>status codes in the 200 range: successful promise resolution</li>
 <li>status codes in 400 and 500 ranges: promise rejection</li>
 </ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Fetch and axios: examples</h1>
-</section><section class="slide"><h2>Fetching JSON data</h2>
-<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>)
-  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.json())
-  .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(data));
-</code></pre>
-<!-- prettier-ignore -->
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
-
-axios(<span class="hljs-string">'https://jsonplaceholder.typice.com/todos'</span>)
-  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> <span class="hljs-built_in">console</span>.log(res.data));
-</code></pre>
-</section><section class="slide"><h2>Fetching text content</h2>
-<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://www.w3.org'</span>)
-  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.text())
-  .then(<span class="hljs-function"><span class="hljs-params">content</span> =></span> <span class="hljs-built_in">console</span>.log(content));
-</code></pre>
-<!-- prettier-ignore -->
-<pre><code class="hljs language-js">axios(<span class="hljs-string">'https://www.w3.org'</span>, { <span class="hljs-attr">responseType</span>: <span class="hljs-string">'text'</span> })
-  .then(<span class="hljs-function"><span class="hljs-params">content</span> =></span> <span class="hljs-built_in">console</span>.log(content));
-</code></pre>
-<p>Warning: By default axios will at least <em>try</em> to parse as JSON</p>
-</section><section class="slide"><h2>Posting data</h2>
-<pre><code class="hljs language-js">fetch(<span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>, {
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
-  <span class="hljs-attr">body</span>: <span class="hljs-string">'{"title": "xyz"}'</span>,
-  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
-});
-</code></pre>
-<pre><code class="hljs language-js">axios.post(
-  <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>,
-  <span class="hljs-string">'{"title": "xyz"}'</span>,
-  { <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> } }
-);
-</code></pre>
-</section><section class="slide"><h2>Querying a GraphQL API</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> query = <span class="hljs-string">'{pokemon(name: "Pikachu") {number name}}'</span>;
-<span class="hljs-keyword">const</span> body = <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: query });
-
-fetch(<span class="hljs-string">'https://graphql-pokemon.now.sh'</span>, {
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
-  <span class="hljs-attr">body</span>: body,
-  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
-})
-  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> res.json())
-  .then(<span class="hljs-function"><span class="hljs-params">data</span> =></span> <span class="hljs-built_in">console</span>.log(data.data));
-</code></pre>
-</section><section class="slide"><h2>Querying a GraphQL API</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> query = <span class="hljs-string">'{pokemon(name: "Pikachu") {number name}}'</span>;
-<span class="hljs-keyword">const</span> body = <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">query</span>: query });
-
-axios
-  .post(<span class="hljs-string">'https://graphql-pokemon.now.sh'</span>, body, {
-    <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
-  })
-  .then(<span class="hljs-function"><span class="hljs-params">res</span> =></span> <span class="hljs-built_in">console</span>.log(res.data.data));
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Axios advanced</h1>
 </section><section class="slide"><h2>Global defaults</h2>
 <p>examples:</p>

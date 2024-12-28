@@ -17,7 +17,7 @@ some tasks in JavaScript may be scheduled to run in parallel (in particular task
 ## Asynchronous JavaScript
 
 - _callbacks_: traditional way to handle asynchronous requests
-- **promises and .then()**
+- promises and .then()
 - **promises and async / await**
 
 ## Asynchronous JavaScript

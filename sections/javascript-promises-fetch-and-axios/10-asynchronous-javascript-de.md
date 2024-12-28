@@ -17,7 +17,7 @@ manche Aufgaben in JavaScript können gleichzeitig laufen (insbesondere Aufgaben
 ## Asynchrones JavaScript
 
 - _callbacks_: traditionelle Möglichkeit, um asynchrone Anfragen zu bearbeiten
-- **promises und .then()**
+- promises und .then()
 - **promises und async / await**
 
 ## Asynchrones JavaScript
