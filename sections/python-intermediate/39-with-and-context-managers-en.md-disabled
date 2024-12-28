@@ -1,0 +1,82 @@
+# With Statement and Context Managers
+
+## With Statement and Context Managers
+
+With statement: Can be used to set up some specific state / conditions before some code runs and do cleanup afterwards
+
+## With Statement and Context Managers
+
+e.g. reading files:
+
+before: make sure program has permissions to open file, request file from operating system
+
+after: make sure any write operations are actually performed (flushing)
+
+e.g. database connection:
+
+before: connect to database
+
+actions: read / write data to database
+
+after: disconnect from database
+
+e.g. thread pools for parallel processing:
+
+before: create a thread pool and allocate resources for it
+
+actions: submit tasks to be executed
+
+after: wait for all tasks to finish, release corresponding resources
+
+## With Statement and Context Managers
+
+common pattern:
+
+```py
+setup_foo()
+some_actions()
+cleanup_foo()
+```
+
+or
+
+```py
+setup_foo()
+try:
+    some_actions()
+finally:
+    cleanup_foo()
+```
+
+Files should be _closed_ when writing is finished (otherwise contens may not be written completely):
+
+```py
+file = open("foo.txt")
+content = file.read()
+file.close()
+```
+
+Using with will automatically close a file when execution leaves the with Block:
+
+```py
+with open("foo.txt") as file:
+    content = file.read()
+```
+
+
+```py
+with ThreadPoolExecutor() as executor:
+```
+
+```py
+with Pool(processes=4) as pool:
+```
+
+```py
+# connect to a database and disconnect after operations are completed
+with psycopg.connect(db_url) as conn:
+    pass
+```
+
+```
+```
