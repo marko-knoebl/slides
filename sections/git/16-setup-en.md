@@ -4,27 +4,28 @@
 
 Install from <https://git-scm.com>
 
-## Setting up git on Windows
-
-recommendations:
-
-**select components**: uncheck _Windows Explorer integration_ (this would add new entries in the right-click menu of the explorer)
-
-**default editor**: choose _Nano_ as a simple console based text editor
-
-**name of the initial branch**: choose "main"
-
-**line ending conversions**: _Checkout as-is, commit as-is_ - and set up your development environment to use LF
-
-**default behavior of git pull**: _only ever fast-forward_
+Install with default options - we will configure it afterwards
 
 ## Configuring git
 
-```bash
-git config --global user.name "John Doe"
-git config --global user.email johndoe@example.com
-```
+example: show the current value of the "core.editor" setting:
 
 ```bash
-git config --global pull.ff true
+git config --global core.editor
 ```
+
+set the value of "core.editor" to "nano":
+
+```bash
+git config --global core.editor nano
+```
+
+## Configuring git
+
+some configuration options:
+
+- `user.name` (e.g. "John Doe" - with quotation marks)
+- `user.email` (does not _have_ to be a real email)
+- `core.editor` (default: _vi_, simpler option: _nano_)
+- `pull.ff` (recommendation: set to _true_)
+- `init.defaultBranch` (recommendation: _main_ or _master_)
