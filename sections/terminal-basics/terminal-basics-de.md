@@ -10,7 +10,7 @@ Varianten:
 
 - cmd (Windows)
 - **powershell** (Windows)
-- **bash** and variants (Unix, Linux, MacOS, [Windows])
+- **bash** und Varianten davon (Unix, Linux, MacOS, [Windows])
 
 ## Grundlegende Befehle
 
@@ -68,7 +68,7 @@ Benannte Argumente via Optionen (getrennt via Leerzeichen oder Gleichheitszeiche
 
 ## Befehlsverlauf
 
-_Pfeil nach oben_ (und \_Pfeil nach unten) navigieren durch bisherige Befehle
+_Pfeil nach oben_ (und _Pfeil nach unten_) navigieren durch bisherige Befehle
 
 _Ctrl_ + _R_ durchsucht bisherige Befehle
 
