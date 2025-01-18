@@ -4,5 +4,4 @@
 - uhr
 - Todo-Liste
 - chessboard
-- facebook
-- es6
+- Chat View

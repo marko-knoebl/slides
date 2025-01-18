@@ -1,10 +1,10 @@
-# Custom Elements
+# Web components
 
-## Custom Elements
+## Web components
 
-Custom Elements = Benutzerdefinierte Elemente: Können mittels JavaScript erstellt und wie reguläre HTML-Elemente verwendet werden
+Web components = benutzerdefinierte Elemente: Können mittels JavaScript erstellt und wie reguläre HTML-Elemente verwendet werden
 
-## Custom Elements
+## Web components
 
 Beispiel: Fußzeile, die auf mehreren Seiten verwendet werden kann
 
@@ -12,7 +12,7 @@ Beispiel: Fußzeile, die auf mehreren Seiten verwendet werden kann
 <my-footer></my-footer>
 ```
 
-## Custom Elements
+## Web components
 
 Beispiel: Elemente, die eine Navigationsleiste bilden
 
@@ -28,7 +28,7 @@ Beispiel: Elemente, die eine Navigationsleiste bilden
 </my-navbar>
 ```
 
-## Custom Elements
+## Web components
 
 Beispiel: Kartenansicht mit verschiedenen Konfigurationsoptionen
 
@@ -36,9 +36,9 @@ Beispiel: Kartenansicht mit verschiedenen Konfigurationsoptionen
 <my-map-view lat="48.2" lon="17.5" zoom="8"></my-map-view>
 ```
 
-## Custom Elements
+## Web components
 
-Beispiel: E-Mail-Liste mit verschiedenen Ereignissen
+Beispiel: E-Mail-Liste
 
 ```js
 <my-email-list>
@@ -47,7 +47,7 @@ Beispiel: E-Mail-Liste mit verschiedenen Ereignissen
 </my-email-list>
 ```
 
-## Custom Elements: Funktionalitäten
+## Web components: Funktionalitäten
 
 Relativ einfach zu implementieren:
 

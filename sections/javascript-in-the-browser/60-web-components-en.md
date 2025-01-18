@@ -1,10 +1,10 @@
-# Custom elements
+# Web components
 
-## Custom elements
+## Web components
 
-Custom elements can be created via JavaScript and used like regular HTML elements
+Web components can be created via JavaScript and used like regular HTML elements
 
-## Custom elements
+## Web components
 
 example: footer that can be used on multiple pages
 
@@ -12,7 +12,7 @@ example: footer that can be used on multiple pages
 <my-footer></my-footer>
 ```
 
-## Custom elements
+## Web components
 
 example: elements that form a navbar
 
@@ -28,7 +28,7 @@ example: elements that form a navbar
 </my-navbar>
 ```
 
-## Custom elements
+## Web components
 
 example: map view with various configuration options
 
@@ -36,9 +36,9 @@ example: map view with various configuration options
 <my-map-view lat="48.2" lon="17.5" zoom="8"></my-map-view>
 ```
 
-## Custom elements
+## Web components
 
-example: email list with various events
+example: email list
 
 ```js
 <my-email-list>
@@ -47,7 +47,7 @@ example: email list with various events
 </my-email-list>
 ```
 
-## Custom elements: functionalities
+## Web components: functionalities
 
 relatively easy to implement:
 

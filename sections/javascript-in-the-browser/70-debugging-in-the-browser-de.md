@@ -11,7 +11,7 @@ Breakpoints:
 - setzen von Breakpoints
 - Aktivieren / Deaktivieren von Breakpoints
 
-## Debugger im Browser
+## Debuggen im Browser
 
 Manuell weiterspringen:
 
@@ -20,6 +20,6 @@ Manuell weiterspringen:
 - _step into / Schritt hinein_: einem Funktionsaufruf folgen
 - _step out / Schritt heraus_: aktuellen Funktionsaufruf verlassen
 
-## Debugger im Browser
+## Debuggen im Browser
 
 Beobachten von Variablen
