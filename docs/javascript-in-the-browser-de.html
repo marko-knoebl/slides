@@ -2083,6 +2083,31 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'3 seconds have passed'</span>);
 }, <span class="hljs-number">3000</span>);
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Einbinden von JavaScript in HTML-Dokumente</h1>
+</section><section class="slide"><h2>Einbinden von JavaScript in HTML-Dokumente</h2>
+<p>Möglichkeiten:</p>
+<p>intern, innerhalb des HTML-Codes:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>></span><span class="javascript">
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hallo welt'</span>);
+</span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+</code></pre>
+<p>extern, in einer separaten Datei:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"main.js"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Bedeutung von type="module"</h2>
+<p>"ältere" Version des Einbindens von JS:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">script</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+</code></pre>
+<p>"moderne" Version:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+</code></pre>
+</section><section class="slide"><h2>Bedeutung von type="module"</h2>
+<p>Auswirkungen der Verwendung von <code>type="module"</code>:</p>
+<ul>
+<li>JS wird erst ausgeführt, wenn das HTML-Dokument vollständig geladen und bereit ist (JS-Ausführung ist "deferred")</li>
+<li>JS wird im "strict mode" ausgeführt (verbietet z.B. nicht deklarierte Variablen)</li>
+<li>Import-/Export-Funktionalität ist aktiviert</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Document Object Model</h1>
 </section><section class="slide"><h2>Document Object Model</h2>
 <p><strong>DOM (Document Object Model)</strong> = JavaScript-API für Interaktion mit dem HTML-Inhalt</p>
