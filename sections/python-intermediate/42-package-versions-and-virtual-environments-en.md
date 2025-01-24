@@ -1,83 +1,83 @@
-# Paketversionen und virtuelle Umgebungen
+# Package versions and virtual environments
 
-## Paketversionen
+## Package versions
 
-Installation eines Pakets via PIP:
+installing a package via PIP:
 
 ```
 pip install cowsay
 ```
 
-Installation einer bestimmten Version:
+installing a specific version:
 
 ```
 pip install cowsay==6.1
 ```
 
-Installation einer _kompatiblen_ Version (könnte auch Versionen 6.2, 6.3, etc. installieren - falls verfügbar)
+installing a compatible version (this could also install versions 6.2, 6.3, etc. - if they are available):
 
 ```
 pip install cowsay~=6.1
 ```
 
-## Virtuelle Umgebungen
+## Virtual environments
 
-**Virtuelle Umgebungen**: ermöglichen es, für verschiedene Projekte unterschiedliche Abhängigkeiten und Versionen von Abhängigkeiten zu installieren
+**virtual environments**: allow for installing different dependencies and dependency versions for different projects
 
-## Virtuelle Umgebungen
+## Virtual environments
 
-Erstellen einer neuen Virtuellen Umgebung (typischer Name: ".venv")
+creating a virtual environment (typically named ".venv"):
 
 ```
 python -m venv .venv
 ```
 
-erstellt einen Ordner ".venv/", der die virtuelle Umgebung enthält
+will create a new folder ".venv/" which contains the virtual environment
 
-## Virtuelle Umgebungen
+## Virtual environments
 
-Aktivieren einer Virtuellen Umgebung unter Windows:
+activating an environment on Windows:
 
 ```
 ./.venv/Scripts/activate
 ```
 
-Deaktivieren der Umgebung:
+deactivating a venv:
 
 ```
 deactivate
 ```
 
-falls nötig: erlaube die Ausführung lokaler Scrits unter Windows - aus einem Admin-Terminal:
+if necessary: enable execution of local scripts on Windows - from an admin terminal:
 
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 ```
 
-## Abhängigkeitslisten
+## Dependency lists
 
-"alte" Konfigurationsdatei: _requirements.txt_
+"old" configuration file: _requirements.txt_
 
-"neue" Konfigurationsdatei: _pyproject.toml_
+"new" configuration file: _pyproject.toml_
 
-## Abhängigkeitslisten
+## Dependency lists
 
-Beispiel für _requirements.txt_:
+example _requirements.txt_:
 
 ```txt
 cowsay~=6.1
 requests~=2.30
 ```
 
-Installation der Abhängigkeiten in _requirements.txt_:
+installation from _requirements.txt_:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Abhängigkeitslisten
+## Dependency lists
 
-Beispiel für _pyproject.toml_:
+example _pyproject.toml_:
 
 ```toml
 [project]
@@ -89,7 +89,7 @@ dependencies = [
 ]
 ```
 
-Installation:
+installation:
 
 ```
 pip install .
