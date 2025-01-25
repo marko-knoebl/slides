@@ -2347,6 +2347,55 @@ model.fit(passenger_data, survived)
 )
 model.predict(new_passenger_data)
 <span class="hljs-comment"># [0.93, 0.23]</span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>TensorFlow: Übersicht und Demo</h1>
+</section><section class="slide"><h2>TensorFlow: Übersicht und Demo</h2>
+<p>Übung: Vorhersage von Überleben auf der Titanic mittels eines einfachen neuronalen Netzwerks</p>
+</section><section class="slide"><h2>TensorFlow: Übersicht und Demo</h2>
+<p>Definitieren der Eingabedaten und Ausgabedaten:</p>
+<pre><code class="hljs language-py">passagierdaten = titanic[
+    [<span class="hljs-string">"Female"</span>, <span class="hljs-string">"Pclass"</span>, <span class="hljs-string">"Age"</span>, <span class="hljs-string">"SibSp"</span>, <span class="hljs-string">"Parch"</span>]
+]
+überlebt = titanic[<span class="hljs-string">"Survived"</span>]
+</code></pre>
+</section><section class="slide"><h2>TensorFlow: Übersicht und Demo</h2>
+<p>Definitieren eines neuronalen Netzwerks in TensorFlow:</p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">from</span> tensorflow <span class="hljs-keyword">import</span> keras
+
+modell = keras.Sequential([
+    <span class="hljs-comment"># versteckte Schicht mit 4 Neuronen</span>
+    keras.layers.Dense(<span class="hljs-number">4</span>),
+    keras.layers.Activation(<span class="hljs-string">"relu"</span>),
+    <span class="hljs-comment"># Ausgabeschicht mit 2 Neuronen (2 Kategorien)</span>
+    keras.layers.Dense(<span class="hljs-number">2</span>),
+    keras.layers.Activation(<span class="hljs-string">"softmax"</span>)
+])
+</code></pre>
+<p>(Hinweis: Dieses neuronale Netzwerk ist sehr einfach - aber immer noch komplizierter als für diese Aufgabe erforderlich)</p>
+</section><section class="slide"><h2>TensorFlow: Übersicht und Demo</h2>
+<p>Kompilieren und Trainieren des Modells:</p>
+<pre><code class="hljs language-py">modell.<span class="hljs-built_in">compile</span>(
+    loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
+    metrics=[<span class="hljs-string">"accuracy"</span>]
+)
+
+modell.fit(passenger_data, survived, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.1</span>)
+</code></pre>
+</section><section class="slide"><h2>TensorFlow: Übersicht und Demo</h2>
+<p>Vorhersage eines Wertes für das Überleben von:</p>
+<ul>
+<li>40-jährige Frau in der ersten Klasse (ohne Begleitung)</li>
+<li>TensorFlow: overview and demo</li>
+</ul>
+<pre><code class="hljs language-py">new_passenger_data = pd.DataFrame(
+    [
+        [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+    ],
+    columns=[<span class="hljs-string">"Female"</span>, <span class="hljs-string">"Pclass"</span>, <span class="hljs-string">"Age"</span>, <span class="hljs-string">"SibSp"</span>, <span class="hljs-string">"Parch"</span>],
+)
+model.predict(new_passenger_data)
+<span class="hljs-comment"># [[0.16, 0.84], [0.80, 0.20]]</span>
 </code></pre></section></section></div>
     </div>
     <script>/*!
