@@ -2353,33 +2353,33 @@ model.predict(new_passenger_data)
 <p>Übung: Vorhersage von Überleben auf der Titanic mittels eines einfachen neuronalen Netzwerks</p>
 </section><section class="slide"><h2>TensorFlow: Übersicht und Demo</h2>
 <p>Definitieren der Eingabedaten und Ausgabedaten:</p>
-<pre><code class="hljs language-py">passagierdaten = titanic[
+<pre><code class="hljs language-py">passenger_data = titanic[
     [<span class="hljs-string">"Female"</span>, <span class="hljs-string">"Pclass"</span>, <span class="hljs-string">"Age"</span>, <span class="hljs-string">"SibSp"</span>, <span class="hljs-string">"Parch"</span>]
 ]
-überlebt = titanic[<span class="hljs-string">"Survived"</span>]
+survived = titanic[<span class="hljs-string">"Survived"</span>]
 </code></pre>
 </section><section class="slide"><h2>TensorFlow: Übersicht und Demo</h2>
 <p>Definitieren eines neuronalen Netzwerks in TensorFlow:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> tensorflow <span class="hljs-keyword">import</span> keras
 
-modell = keras.Sequential([
-    <span class="hljs-comment"># versteckte Schicht mit 4 Neuronen</span>
-    keras.layers.Dense(<span class="hljs-number">4</span>),
-    keras.layers.Activation(<span class="hljs-string">"relu"</span>),
-    <span class="hljs-comment"># Ausgabeschicht mit 2 Neuronen (2 Kategorien)</span>
-    keras.layers.Dense(<span class="hljs-number">2</span>),
-    keras.layers.Activation(<span class="hljs-string">"softmax"</span>)
+model = keras.Sequential([
+    <span class="hljs-comment"># input layer with 5 inputs</span>
+    keras.Input(shape=(<span class="hljs-number">5</span>,))
+    <span class="hljs-comment"># hidden layer with 8 neurons</span>
+    keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">"relu"</span>),
+    <span class="hljs-comment"># output layer with 2 neurons (2 categories)</span>
+    keras.layers.Dense(<span class="hljs-number">2</span>, activation=<span class="hljs-string">"softmax"</span>)
 ])
 </code></pre>
 <p>(Hinweis: Dieses neuronale Netzwerk ist sehr einfach - aber immer noch komplizierter als für diese Aufgabe erforderlich)</p>
 </section><section class="slide"><h2>TensorFlow: Übersicht und Demo</h2>
 <p>Kompilieren und Trainieren des Modells:</p>
-<pre><code class="hljs language-py">modell.<span class="hljs-built_in">compile</span>(
+<pre><code class="hljs language-py">model.<span class="hljs-built_in">compile</span>(
     loss=<span class="hljs-string">"sparse_categorical_crossentropy"</span>,
     metrics=[<span class="hljs-string">"accuracy"</span>]
 )
 
-modell.fit(passenger_data, survived, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.1</span>)
+model.fit(passenger_data, survived, epochs=<span class="hljs-number">100</span>, validation_split=<span class="hljs-number">0.1</span>)
 </code></pre>
 </section><section class="slide"><h2>TensorFlow: Übersicht und Demo</h2>
 <p>Vorhersage eines Wertes für das Überleben von:</p>

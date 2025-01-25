@@ -23,12 +23,12 @@ defining a neural network in TensorFlow:
 from tensorflow import keras
 
 model = keras.Sequential([
-    # hidden layer with 4 neurons
-    keras.layers.Dense(4),
-    keras.layers.Activation("relu"),
+    # input layer with 5 inputs
+    keras.Input(shape=(5,))
+    # hidden layer with 8 neurons
+    keras.layers.Dense(4, activation="relu"),
     # output layer with 2 neurons (2 categories)
-    keras.layers.Dense(2),
-    keras.layers.Activation("softmax")
+    keras.layers.Dense(2, activation="softmax")
 ])
 ```
 

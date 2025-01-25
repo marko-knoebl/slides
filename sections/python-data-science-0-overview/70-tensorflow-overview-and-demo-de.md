@@ -9,10 +9,10 @@
 Definitieren der Eingabedaten und Ausgabedaten:
 
 ```py
-passagierdaten = titanic[
+passenger_data = titanic[
     ["Female", "Pclass", "Age", "SibSp", "Parch"]
 ]
-überlebt = titanic["Survived"]
+survived = titanic["Survived"]
 ```
 
 ## TensorFlow: Übersicht und Demo
@@ -22,13 +22,13 @@ Definitieren eines neuronalen Netzwerks in TensorFlow:
 ```py
 from tensorflow import keras
 
-modell = keras.Sequential([
-    # versteckte Schicht mit 4 Neuronen
-    keras.layers.Dense(4),
-    keras.layers.Activation("relu"),
-    # Ausgabeschicht mit 2 Neuronen (2 Kategorien)
-    keras.layers.Dense(2),
-    keras.layers.Activation("softmax")
+model = keras.Sequential([
+    # input layer with 5 inputs
+    keras.Input(shape=(5,))
+    # hidden layer with 8 neurons
+    keras.layers.Dense(4, activation="relu"),
+    # output layer with 2 neurons (2 categories)
+    keras.layers.Dense(2, activation="softmax")
 ])
 ```
 
@@ -39,12 +39,12 @@ modell = keras.Sequential([
 Kompilieren und Trainieren des Modells:
 
 ```py
-modell.compile(
+model.compile(
     loss="sparse_categorical_crossentropy",
     metrics=["accuracy"]
 )
 
-modell.fit(passenger_data, survived, epochs=100, validation_split=0.1)
+model.fit(passenger_data, survived, epochs=100, validation_split=0.1)
 ```
 
 ## TensorFlow: Übersicht und Demo
