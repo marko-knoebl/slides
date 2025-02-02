@@ -63,3 +63,10 @@ Beispiele für Befehle:
 
 - _Ctrl_ + _F2_: Mehrere Textcursor setzen
 - _Alt_ + Mausklick: Mehrere Textcursor setzen
+
+## GitHub Copilot
+
+eingebaute Unterstützung für den AI-Assistenten _GitHub Copilot_
+
+- GitHub-Account wird benötigt
+- kostenloses Abo verfügbar (2000 Autovervollständigungen pro Monat, 50 Chatnachrichten pro Monat)

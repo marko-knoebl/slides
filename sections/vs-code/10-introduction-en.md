@@ -63,3 +63,10 @@ Example commands:
 
 - _Ctrl_ + _F2_: set multiple text cursors
 - _Alt_ + click: set multiple text cursors
+
+## GitHub Copilot
+
+built-in support for AI assistant _GitHub Copilot_
+
+- requires a GitHub account
+- free plan available (2000 code completions per month, 50 chat messages per month)
