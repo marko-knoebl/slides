@@ -20,5 +20,5 @@ Empfehlung: Verwende eine ältere Python-Version (z.B. 3.8 anstatt 3.9) oder ein
 Installation der wichtigsten Pakete in einer vorhandenen Python-Umgebung:
 
 ```bash
-pip install jupyter numpy pandas matplotlib sklearn tensorflow
+pip install jupyter numpy pandas matplotlib scikit-learn tensorflow
 ```
