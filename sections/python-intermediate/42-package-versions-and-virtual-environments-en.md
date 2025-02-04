@@ -56,11 +56,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 
 ## Dependency lists
 
-"old" configuration file: _requirements.txt_
-
-"new" configuration file: _pyproject.toml_
-
-## Dependency lists
+project dependencies (requirements) can be listed in a _requirements.txt_ file
 
 example _requirements.txt_:
 
@@ -69,28 +65,10 @@ cowsay~=6.1
 requests~=2.30
 ```
 
+## Dependency lists
+
 installation from _requirements.txt_:
 
 ```bash
 pip install -r requirements.txt
-```
-
-## Dependency lists
-
-example _pyproject.toml_:
-
-```toml
-[project]
-name = "my-python-project"
-version = "1.0"
-dependencies = [
-  "cowsay~=6.1",
-  "requests~=2.30",
-]
-```
-
-installation:
-
-```
-pip install .
 ```
