@@ -54,7 +54,7 @@ git diff 19e0 --name-status
 accessing the contents of an earlier commit (whose id is b4c906...):
 
 ```bash
-git checkout . b4c9
+git checkout b4c9
 ```
 
 going back to the most recent commit of the main branch:
