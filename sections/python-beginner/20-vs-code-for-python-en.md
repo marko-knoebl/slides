@@ -21,8 +21,8 @@ Basic functionality:
 
 functionality:
 
-- show errors / warnings (via _pylint_, _flake8_)
-- automatic formatting (via _black_ / _autopep8_, _yapf_)
+- shows errors / warnings
+- automatic formatting (via extra tools)
 - debugging
 - Jupyter notebooks
 
@@ -40,6 +40,10 @@ registering your Python installation with VS Code:
 - Enter
 - wait...
 - choose the desired Python version (probably only 1 choice)
+
+## Formatter extensions
+
+recommended formatter: _black_ (available via the extension "Black Formatter")
 
 ## Configuration
 

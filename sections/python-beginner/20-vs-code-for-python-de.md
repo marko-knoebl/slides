@@ -21,8 +21,8 @@ Grundlegendes:
 
 Funktionalität:
 
-- anzeigen von Fehlern / Warnungen (pylint, flake8)
-- Automatische Formatierung (mittels _black_ / _autopep8_ / _yapf_)
+- anzeigen von Fehlern / Warnungen
+- Automatische Formatierung (mittels zusätzlicher Tools)
 - Debugging
 - Jupyter Notebooks
 
@@ -40,6 +40,10 @@ Registrierung der Python-Installation in VS Code:
 - _Enter_
 - warte ...
 - wähle die gewünschte Python-Version (vermutlich nur 1 Option verfügbar)
+
+## Formatierungs-Extension
+
+empfohlenes Formatierungs-Tool: _black_ (verfügbar über die Extension "Black Formatter")
 
 ## Konfiguration
 
