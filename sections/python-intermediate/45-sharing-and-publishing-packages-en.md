@@ -2,7 +2,7 @@
 
 ## Sharing and publishing packages
 
-Python code can be "packaged" and with other users / other projects
+Python code can be "packaged" and shared with other users / other projects
 
 ## Sharing and publishing packages
 
