@@ -1,7 +1,7 @@
 # Übungen
 
-- Lottery number generator
-- clock
-- todo list
-- chess board
-- chat view
+- Lotto - Generator
+- uhr
+- Todo-Liste
+- chessboard
+- Chat View
