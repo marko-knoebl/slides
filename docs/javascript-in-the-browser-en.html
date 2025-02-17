@@ -2061,7 +2061,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>JavaScript in the browser</h1>
-</section></section><section class="slides-section"><section class="slide"><h1>JavaScript in the browser</h1>
+</section><section class="slide"><h2>JavaScript in the browser</h2>
 <p>APIs that are available in the browser:</p>
 <ul>
 <li><strong>DOM (document object model)</strong></li>
@@ -2224,7 +2224,7 @@ element.classList.add(<span class="hljs-string">'important'</span>);
 
 <span class="hljs-keyword">let</span> link = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'a'</span>);
 link.href = <span class="hljs-string">'https://example.com'</span>;
-link.innerText = <span class="hljs-string">'JavaScript'</span>;
+link.textContent = <span class="hljs-string">'JavaScript'</span>;
 
 p.append(<span class="hljs-string">"I'm learning "</span>, link, <span class="hljs-string">"."</span>);
 </code></pre>
@@ -2267,16 +2267,16 @@ p.innerHTML =
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>DOM: Events</h1>
 </section><section class="slide"><h2>DOM: Events</h2>
-<p>Wir können auf Benutzerinteraktionen und andere Ereignisse reagieren, z.B.:</p>
+<p>we can react to user interaction and other events, e.g.:</p>
 <ul>
-<li>Klicken / Drücken auf ein Element</li>
-<li>Bewegen der Maus über ein Element</li>
-<li>Eingabe in ein Eingabefeld</li>
-<li>Absenden eines Formulars</li>
+<li>clicking / pressing on an element</li>
+<li>moving the mouse over an element</li>
+<li>typing in an input field</li>
+<li>submitting a form</li>
 <li>...</li>
 </ul>
 </section><section class="slide"><h2>DOM: Events</h2>
-<p>Wir können Funktionen als "Event-Listener" hinzufügen:</p>
+<p>we can add functions as "event listeners":</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> button = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#my-button'</span>);
 
 button.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function">() =></span> {
@@ -2284,11 +2284,11 @@ button.addEventListener(<span class="hljs-string">'click'</span>, <span class="h
 });
 </code></pre>
 </section><section class="slide"><h2>DOM: Events</h2>
-<p>Beispiel: Klickzähler - Anzeigen einer Zahl in einem div, die bei jedem Klick auf einen Button erhöht wird</p>
+<p>example: click counter - displaying a number in a div that is incremented when a button is clicked</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">let</span> counterDisplay = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
 counterDisplay.textContent = <span class="hljs-string">'0'</span>;
 <span class="hljs-keyword">let</span> counterButton = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'button'</span>);
-counterButton.textContent = <span class="hljs-string">'erhöhen'</span>;
+counterButton.textContent = <span class="hljs-string">'increment'</span>;
 
 counterButton.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function">() =></span> {
   counterDisplay.textContent =
@@ -2300,18 +2300,18 @@ counterButton.addEventListener(<span class="hljs-string">'click'</span>, <span c
   .append(counterDisplay, counterButton);
 </code></pre>
 </section><section class="slide"><h2>DOM: Events</h2>
-<p>Eventnamen:</p>
+<p>event names:</p>
 <ul>
-<li><em>click</em> (kann durch jedes HTML-Element ausgelöst werden)</li>
-<li><em>input</em> (wird ausgelöst, wenn der Wert eines Eingabefelds geändert wird)</li>
-<li><em>submit</em> (für Formulare)</li>
-<li><em>mouseenter</em> (wenn der Mauszeiger in ein Element hinein bewegt wird)</li>
+<li><em>click</em> (can be triggered by any HTML element)</li>
+<li><em>input</em> (is triggered when the value of an input field is changed)</li>
+<li><em>submit</em> (for forms)</li>
+<li><em>mouseenter</em> (when the mouse cursor enters an element)</li>
 <li>...</li>
 </ul>
-<p>Siehe <a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_event.asp</a> für eine ausführliche Liste</p>
+<p>see <a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_event.asp</a> for a long list</p>
 </section><section class="slide"><h2>DOM: Events</h2>
-<p>Übung: Erstelle eine HTML-Datei mit verschiedenen Elementen, die Event-Listener haben. Wenn ein Event auftritt, logge es in die Konsole.</p>
-<p>Beispielausgabe in der Konsole:</p>
+<p>exercise: Create an HTML file with various elements that have event listeners. Whenever an event occurs, log it to the console.</p>
+<p>example output in the console:</p>
 <pre><code class="hljs language-avrasm"><span class="hljs-symbol">button1:</span> mouseenter
 <span class="hljs-symbol">button1:</span> click
 <span class="hljs-symbol">button1:</span> mouseleave
@@ -2321,8 +2321,8 @@ counterButton.addEventListener(<span class="hljs-string">'click'</span>, <span c
 <span class="hljs-symbol">textbox1:</span> input
 <span class="hljs-symbol">textbox1:</span> mouseleave
 </code></pre>
-</section><section class="slide"><h2>DOM: Event-Objekte</h2>
-<p>Wenn ein Event auftritt, können wir in JavaScript auf das entsprechende <code>Event</code>-Objekt zugreifen:</p>
+</section><section class="slide"><h2>DOM: Event objects</h2>
+<p>When an event occurs, we can access its corresponding <code>Event</code> object in JavaScript:</p>
 <pre><code class="hljs language-js">myButton.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =></span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'myButton was clicked'</span>);
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mouse button:'</span>, event.button);
@@ -2330,12 +2330,12 @@ counterButton.addEventListener(<span class="hljs-string">'click'</span>, <span c
 });
 </code></pre>
 </section><section class="slide"><h2>DOM: Events</h2>
-<p>Beispiele:</p>
+<p>examples:</p>
 <ul>
-<li>Spiel: click the box</li>
+<li>game: click the box</li>
 </ul>
-</section><section class="slide"><h2>DOM: Formulare und Formularereignisse</h2>
-<p>Beispiel: Todo-Liste</p>
+</section><section class="slide"><h2>DOM: forms and form events</h2>
+<p>Example: todo list</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Web components</h1>
 </section><section class="slide"><h2>Web components</h2>
 <p>Web components can be created via JavaScript and used like regular HTML elements</p>

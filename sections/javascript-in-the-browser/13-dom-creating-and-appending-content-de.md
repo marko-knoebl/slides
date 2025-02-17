@@ -24,7 +24,7 @@ let p = document.createElement('p');
 
 let link = document.createElement('a');
 link.href = 'https://example.com';
-link.innerText = 'JavaScript';
+link.textContent = 'JavaScript';
 
 p.append("I'm learning ", link, ".");
 ```

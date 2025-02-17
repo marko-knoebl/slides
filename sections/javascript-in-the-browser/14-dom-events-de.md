@@ -2,17 +2,17 @@
 
 ## DOM: Events
 
-we can react to user interaction and other events, e.g.:
+Wir können auf Benutzerinteraktionen und andere Ereignisse reagieren, z.B.:
 
-- clicking / pressing on an element
-- moving the mouse over an element
-- typing in an input field
-- submitting a form
+- Klicken / Drücken auf ein Element
+- Bewegen der Maus über ein Element
+- Eingabe in ein Eingabefeld
+- Absenden eines Formulars
 - ...
 
 ## DOM: Events
 
-we can add functions as "event listeners":
+Wir können Funktionen als "Event-Listener" hinzufügen:
 
 ```js
 let button = document.querySelector('#my-button');
@@ -24,7 +24,7 @@ button.addEventListener('click', () => {
 
 ## DOM: Events
 
-example: click counter - displaying a number in a div that is incremented when a button is clicked
+Beispiel: Klickzähler - Anzeigen einer Zahl in einem div, die bei jedem Klick auf einen Button erhöht wird
 
 ```js
 let counterDisplay = document.createElement('div');
@@ -44,21 +44,21 @@ document
 
 ## DOM: Events
 
-event names:
+Eventnamen:
 
-- _click_ (can be triggered by any HTML element)
-- _input_ (is triggered when the value of an input field is changed)
-- _submit_ (for forms)
-- _mouseenter_ (when the mouse cursor enters an element)
+- _click_ (kann durch jedes HTML-Element ausgelöst werden)
+- _input_ (wird ausgelöst, wenn der Wert eines Eingabefelds geändert wird)
+- _submit_ (für Formulare)
+- _mouseenter_ (wenn der Mauszeiger in ein Element hinein bewegt wird)
 - ...
 
-see <https://www.w3schools.com/jsref/dom_obj_event.asp> for a long list
+Siehe <https://www.w3schools.com/jsref/dom_obj_event.asp> für eine ausführliche Liste
 
 ## DOM: Events
 
-exercise: Create an HTML file with various elements that have event listeners. Whenever an event occurs, log it to the console.
+Übung: Erstelle eine HTML-Datei mit verschiedenen Elementen, die Event-Listener haben. Wenn ein Event auftritt, logge es in die Konsole.
 
-example output in the console:
+Beispielausgabe in der Konsole:
 
 ```
 button1: mouseenter
@@ -71,9 +71,9 @@ textbox1: input
 textbox1: mouseleave
 ```
 
-## DOM: Event objects
+## DOM: Event-Objekte
 
-When an event occurs, we can access its corresponding `Event` object in JavaScript:
+Wenn ein Event auftritt, können wir in JavaScript auf das entsprechende `Event`-Objekt zugreifen:
 
 ```js
 myButton.addEventListener('click', (event) => {
@@ -85,10 +85,10 @@ myButton.addEventListener('click', (event) => {
 
 ## DOM: Events
 
-examples:
+Beispiele:
 
-- game: click the box
+- Spiel: click the box
 
-## DOM: forms and form events
+## DOM: Formulare und Formularereignisse
 
-Example: todo list
+Beispiel: Todo-Liste

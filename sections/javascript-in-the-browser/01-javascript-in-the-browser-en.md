@@ -1,6 +1,6 @@
 # JavaScript in the browser
 
-# JavaScript in the browser
+## JavaScript in the browser
 
 APIs that are available in the browser:
 
