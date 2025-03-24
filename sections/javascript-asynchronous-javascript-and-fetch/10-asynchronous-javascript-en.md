@@ -9,6 +9,18 @@ some tasks in JavaScript may be scheduled to run in parallel (in particular task
 - timers
 - ...
 
+## Asynchronous JavaScript
+
+Examples of tasks and timings
+
+| Task                                   | Approximate Time         |
+| -------------------------------------- | ------------------------ |
+| Single CPU cycle                       | **0.000000001 s** (1 ns) |
+| Read from RAM (1 byte)                 | **0.0000001 s** (100 ns) |
+| Read from an SSD (1 byte)              | **0.0001 s** (100 µs)    |
+| Display one frame on a monitor         | **0.01 s** (10 ms)       |
+| Request & receive 1 byte from a server | **0.1 s** (100 ms)       |
+
 ## Tools for asynchronous JavaScript
 
 - **callbacks, promises, async / await**: for parallelized input/output

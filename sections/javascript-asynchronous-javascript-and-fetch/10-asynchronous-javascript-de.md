@@ -9,6 +9,18 @@ manche Aufgaben in JavaScript können gleichzeitig laufen (insbesondere Aufgaben
 - Timer
 - ...
 
+## Asynchrones JavaScript
+
+Beispiele für Tasks und Zeiten:
+
+| Task                                         | ungefähre Zeit           |
+| -------------------------------------------- | ------------------------ |
+| einzelner CPU-Zyklus                         | **0.000000001 s** (1 ns) |
+| Lesen aus dem RAM (1 Byte)                   | **0.0000001 s** (100 ns) |
+| Lesen von einer SSD (1 Byte)                 | **0.0001 s** (100 µs)    |
+| Anzeigen eines Frames auf einem Display      | **0.01 s** (10 ms)       |
+| 1 Byte aus dem Internet anfragen & empfangen | **0.1 s** (100 ms)       |
+
 ## Tools für asynchrones JavaScript
 
 - **callbacks, promises, async / await**: für parallels Input / Output
