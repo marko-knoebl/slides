@@ -4,16 +4,15 @@
 
 The npm registry is an online registry consisting primarily of open source JavaScript packages
 
-by far the largest software registry ([over 1 million packages](http://www.modulecounts.com/))
-
-examples: [most depended upon packages](https://www.npmjs.com/browse/depended)
+examples: [most depended upon packages](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491#file-01-most-dependent-upon-md)
 
 ## Package managers
 
-two major package managers for the npm registry:
+major package managers for the npm registry:
 
 - _npm_: Node package manager, comes with node.js
-- _yarn_: may be installed separately
+- _pnpm_
+- _yarn_
 
 ## Package configuration
 
@@ -59,7 +58,7 @@ Effects of the previous `npm install` commands:
 
 The file `package.json` now lists dependencies together with a version specifier
 
-The version specifier uses _semantic versioning_: `major.minor.patch`
+The version specifier typically uses _semantic versioning_: `major.minor.patch`
 
 possible configurations:
 

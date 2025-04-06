@@ -4,16 +4,15 @@
 
 Die npm Registry enthält hauptsächlich open source JavaScript Pakete
 
-Mit [über 1 Million Pakete](http://www.modulecounts.com/) die bei weitem größte Software Registry
-
-Beispiele [most depended upon packages](https://www.npmjs.com/browse/depended)
+Beispiele: [most depended upon packages](https://gist.github.com/anvaka/8e8fa57c7ee1350e3491#file-01-most-dependent-upon-md)
 
 ## Package Manager
 
-zwei wichtige Package Manager für die npm Registry:
+wichtige Package Manager für die npm Registry:
 
 - _npm_: Node package manager, in _node.js_ beinhaltet
-- _yarn_: Kann zusätzlich installiert werden
+- _pnpm_
+- _yarn_
 
 ## Paketkonfiguration
 
@@ -59,7 +58,7 @@ Auswirkungen der bisherigen `npm install` Befehle:
 
 Die Datei `package.json` listet nun Abhängigkeiten gemeinsam mit deren Version auf.
 
-Die Version verwendet _semantic versioning_: `major.minor.patch`
+Die Versionen verwenden typischerweise _semantic versioning_: `major.minor.patch`
 
 Mögliche Konfigurationen:
 
@@ -90,7 +89,7 @@ Manche npm Scripts haben Abkürzungen, insbesondere `npm test` und `npm start`
 
 ## npm scripts
 
-Npm Scripts werden `package.json` konfiguriert:
+Npm Scripts werden in `package.json` konfiguriert:
 
 ```json
 {

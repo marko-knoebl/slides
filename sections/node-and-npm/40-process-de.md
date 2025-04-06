@@ -7,7 +7,7 @@
 - `process.argv` (Kommandozeilenparameter)
 - `process.cwd()`
 - `process.exit()`
-- ... (siehe <https://nodejs.org/dist/latest-v15.x/docs/api/process.html>)
+- ...
 
 ## Process
 
@@ -15,6 +15,10 @@
 
 ```bash
 node sum.js 1 2 3
+```
 
+output:
+
+```
 the sum is 6
 ```

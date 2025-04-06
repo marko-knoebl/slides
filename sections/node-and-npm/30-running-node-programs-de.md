@@ -8,6 +8,8 @@ hello.js:
 console.log('Hello world!');
 ```
 
+ausführen:
+
 ```bash
 node hello.js
 ```

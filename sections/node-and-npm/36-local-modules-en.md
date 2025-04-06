@@ -37,7 +37,7 @@ local modules are referenced via relative file paths:
 import mainMessage, { message1 } from './messages.js';
 ```
 
-the filename extension is optional:
+in node, the filename extension is optional:
 
 ```js
 import mainMessage, { message1 } from './messages';
@@ -45,7 +45,7 @@ import mainMessage, { message1 } from './messages';
 
 ## Local modules
 
-older export syntax:
+older, node-specific, export syntax:
 
 ```js
 const message1 = 'hello!';

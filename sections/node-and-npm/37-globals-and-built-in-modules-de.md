@@ -2,21 +2,23 @@
 
 ## Globals
 
-etwas andere globale Objekte als im Browser
+in node gibt es andere globale Objekte als im Browser
 
 ## Globals
 
 nur im Browser:
 
-- `window` (globaler Namespace) - Alternativname `globalThis`
-- `fetch`
+- `document`
 - `localStorage`, `sessionStorage`
+- `window` (globaler Namespace) - Alternativname `globalThis`
+- ...
 
 nur in Node
 
-- `global` (globaler Namespace) - Alternativname `globalThis`
 - `process` (z.B. `process.argv`)
 - `__filename` und `__dirname`
+- `global` (globaler Namespace) - Alternativname `globalThis`
+- ...
 
 ## Eingabaute Module (built-in)
 
@@ -27,29 +29,3 @@ nur in Node
 - os
 - path
 - ...
-
-## Reading command line arguments
-
-command line arguments are available via the global `process.argv`
-
-example:
-
-```bash
-node program.js 1 2 3
-```
-
-will result in
-
-```json
-["node", "/path/to/your/program.js", "1", "2", "3"];
-```
-
-## Exercise
-
-Implement a program that would work like this:
-
-```bash
-node sum.js 1 2 3
-
-the sum is 6
-```

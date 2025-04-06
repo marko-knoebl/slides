@@ -12,42 +12,30 @@ Node programs can import objects from so-called modules
 
 ## Importing modules
 
-in newer versions:
+standard JavaScript imports:
 
 ```js
-import fs from 'fs';
+import { readdir } from 'node:fs/promises';
 
-const currentDirectoryContent = fs.readdirSync('.');
+const currentDirectoryContent = await readdir('.');
 console.log(currentDirectoryContent);
 ```
 
-older syntax:
+older, node-specific variant:
 
 ```js
-const fs = require('fs');
+const { readdir } = require('node:fs/promises');
 
-const currentDirectoryContent = fs.readdirSync('.');
+const currentDirectoryContent = readdir('.');
 console.log(currentDirectoryContent);
 ```
 
 ## Importing modules
 
-to use the more modern syntax in a node project, declare it as a module in `package.json` (needs node ≥ 13):
+to use the `import` syntax in a node project, declare it as a module in `package.json`:
 
 ```json
 {
-  "type": "module",
-
-  "eslintConfig": {
-    "sourceType": "module"
-  }
+  "type": "module"
 }
 ```
-
-## Importing modules
-
-to switch to the more modern syntax inside of individual JavaScript files, change their file endings to `.mjs` (needs node ≥ 13)
-
-## Importing modules
-
-task: write a node script that uses imports via the old syntax, then switch to the new syntax

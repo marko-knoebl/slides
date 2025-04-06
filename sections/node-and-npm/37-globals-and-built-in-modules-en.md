@@ -2,21 +2,23 @@
 
 ## Globals
 
-different globals than in the browser
+node has different global objects than in the browser
 
 ## Globals
 
 browser-only globals:
 
-- `window` (global namespace) - alternative name `globalThis`
-- `fetch`
+- `document`
 - `localStorage`, `sessionStorage`
+- `window` (global namespace) - alternative name `globalThis`
+- ...
 
 node-only globals:
 
-- `global` (global namespace) - alternative name `globalThis`
 - `process` (e.g. `process.argv`)
 - `__filename` and `__dirname`
+- `global` (global namespace) - alternative name `globalThis`
+- ...
 
 ## Built-in modules
 

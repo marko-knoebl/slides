@@ -12,42 +12,30 @@ Kategorien:
 
 ## Importieren von Modulen
 
-moderne Möglichkeit:
+standard JavaScript Imports:
 
 ```js
-import fs from 'fs';
+import { readdir } from 'node:fs/promises';
 
-const currentDirectoryContent = fs.readdirSync('.');
+const currentDirectoryContent = await readdir('.');
 console.log(currentDirectoryContent);
 ```
 
-ältere Syntax:
+ältere, node-spezifische Variante:
 
 ```js
-const fs = require('fs');
+const { readdir } = require('node:fs/promises');
 
-const currentDirectoryContent = fs.readdirSync('.');
+const currentDirectoryContent = readdir('.');
 console.log(currentDirectoryContent);
 ```
 
 ## Importieren von Modulen
 
-für Verwendung der moderneren Syntax: in _package.json_ als _"module"_ deklarieren (benötigt node ≥ 13):
+für Verwendung der `import`-Syntax: in _package.json_ als _"module"_ deklarieren:
 
 ```json
 {
-  "type": "module",
-
-  "eslintConfig": {
-    "sourceType": "module"
-  }
+  "type": "module"
 }
 ```
-
-## Importieren von Modulen
-
-auf die moderne Syntax kann auch individuell in einzelnen Dateien gewechselt werden: verwende dazu die Datiendung _.mjs_ (benötigt node ≥ 13)
-
-## Importieren von Modulen
-
-Aufgabe: Schreibe ein node-Script, das die alte Syntax benutzt, migriere es dann zur neuen Syntax
