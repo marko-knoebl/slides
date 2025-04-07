@@ -11,7 +11,7 @@ const requestHandler = (req, res) => {
   res.end('Hello World\n');
 };
 
-server = http.createServer(requestHandler);
+const server = http.createServer(requestHandler);
 
 server.listen({ port: 3000 });
 ```

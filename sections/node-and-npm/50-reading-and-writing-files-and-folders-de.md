@@ -40,16 +40,10 @@ const fileContent = await readFile('package.json', 'utf8');
 
 Beim Lesen von Dateien als Text _muss_ ein Encoding angegeben werden (in diesem Fall UTF-8)
 
-## Lesen von Dateien als binär
+## Lesen von Ordnerinhalten
 
 ```js
-const fileContent = await readFile('./package.json');
-```
+const folderContent = await readdir('.');
 
-gibt ein _buffer_-objekt zurück (eie Folge von Bytes)
-
-Umwandeln in einen String:
-
-```js
-const fileTextContent = myFile.toString('utf-8');
+console.log(folderContent);
 ```

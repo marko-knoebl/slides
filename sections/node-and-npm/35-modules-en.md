@@ -15,19 +15,13 @@ Node programs can import objects from so-called modules
 standard JavaScript imports:
 
 ```js
-import { readdir } from 'node:fs/promises';
-
-const currentDirectoryContent = await readdir('.');
-console.log(currentDirectoryContent);
+import { platform, release } from 'os';
 ```
 
 older, node-specific variant:
 
 ```js
-const { readdir } = require('node:fs/promises');
-
-const currentDirectoryContent = readdir('.');
-console.log(currentDirectoryContent);
+const { platform, release } = require('os');
 ```
 
 ## Importing modules

@@ -1,6 +1,6 @@
-# Reading and writing files
+# Reading and writing files and folders
 
-## Reading and writing files
+## Reading and writing files and folders
 
 Examples:
 
@@ -40,16 +40,10 @@ const fileContent = await readFile('package.json', 'utf8');
 
 When reading files as text, we _must_ specify an encoding (in this case, UTF-8)
 
-## Reading files as binary
+## Reading folder content
 
 ```js
-const myFile = readFile('./package.json');
-```
+const folderContent = await readdir('.');
 
-This will return a buffer (a sequence of bytes)
-
-converting a buffer into a string:
-
-```js
-const fileTextContent = myFile.toString('utf-8');
+console.log(folderContent);
 ```

@@ -2193,16 +2193,10 @@ cowsay hello
 </ul>
 </section><section class="slide"><h2>Importing modules</h2>
 <p>standard JavaScript imports:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { readdir } <span class="hljs-keyword">from</span> <span class="hljs-string">'node:fs/promises'</span>;
-
-<span class="hljs-keyword">const</span> currentDirectoryContent = <span class="hljs-keyword">await</span> readdir(<span class="hljs-string">'.'</span>);
-<span class="hljs-built_in">console</span>.log(currentDirectoryContent);
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { platform, release } <span class="hljs-keyword">from</span> <span class="hljs-string">'os'</span>;
 </code></pre>
 <p>older, node-specific variant:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { readdir } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node:fs/promises'</span>);
-
-<span class="hljs-keyword">const</span> currentDirectoryContent = readdir(<span class="hljs-string">'.'</span>);
-<span class="hljs-built_in">console</span>.log(currentDirectoryContent);
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { platform, release } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'os'</span>);
 </code></pre>
 </section><section class="slide"><h2>Importing modules</h2>
 <p>to use the <code>import</code> syntax in a node project, declare it as a module in <code>package.json</code>:</p>
@@ -2296,8 +2290,8 @@ cowsay hello
 <p>output:</p>
 <pre><code class="hljs language-axapta">the <span class="hljs-keyword">sum</span> <span class="hljs-keyword">is</span> <span class="hljs-number">6</span>
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Reading and writing files</h1>
-</section><section class="slide"><h2>Reading and writing files</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Reading and writing files and folders</h1>
+</section><section class="slide"><h2>Reading and writing files and folders</h2>
 <p>Examples:</p>
 <p>asynchronous via promises (recommended):</p>
 <pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { readFile } <span class="hljs-keyword">from</span> <span class="hljs-string">'node:fs/promises'</span>;
@@ -2318,12 +2312,10 @@ cowsay hello
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fileContent = <span class="hljs-keyword">await</span> readFile(<span class="hljs-string">'package.json'</span>, <span class="hljs-string">'utf8'</span>);
 </code></pre>
 <p>When reading files as text, we <em>must</em> specify an encoding (in this case, UTF-8)</p>
-</section><section class="slide"><h2>Reading files as binary</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myFile = readFile(<span class="hljs-string">'./package.json'</span>);
-</code></pre>
-<p>This will return a buffer (a sequence of bytes)</p>
-<p>converting a buffer into a string:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fileTextContent = myFile.toString(<span class="hljs-string">'utf-8'</span>);
+</section><section class="slide"><h2>Reading folder content</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> folderContent = <span class="hljs-keyword">await</span> readdir(<span class="hljs-string">'.'</span>);
+
+<span class="hljs-built_in">console</span>.log(folderContent);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>HTTP server with node</h1>
 </section><section class="slide"><h2>Running an HTTP server with node</h2>
@@ -2335,7 +2327,7 @@ cowsay hello
   res.end(<span class="hljs-string">'Hello World\n'</span>);
 };
 
-server = http.createServer(requestHandler);
+<span class="hljs-keyword">const</span> server = http.createServer(requestHandler);
 
 server.listen({ <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span> });
 </code></pre>

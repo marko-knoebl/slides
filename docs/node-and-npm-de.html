@@ -2193,16 +2193,10 @@ cowsay hello
 </ul>
 </section><section class="slide"><h2>Importieren von Modulen</h2>
 <p>standard JavaScript Imports:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { readdir } <span class="hljs-keyword">from</span> <span class="hljs-string">'node:fs/promises'</span>;
-
-<span class="hljs-keyword">const</span> currentDirectoryContent = <span class="hljs-keyword">await</span> readdir(<span class="hljs-string">'.'</span>);
-<span class="hljs-built_in">console</span>.log(currentDirectoryContent);
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { platform, release } <span class="hljs-keyword">from</span> <span class="hljs-string">'os'</span>;
 </code></pre>
-<p>ältere, node-spezifische Variante:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { readdir } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node:fs/promises'</span>);
-
-<span class="hljs-keyword">const</span> currentDirectoryContent = readdir(<span class="hljs-string">'.'</span>);
-<span class="hljs-built_in">console</span>.log(currentDirectoryContent);
+<p>older, node-specific variant:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { platform, release } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'os'</span>);
 </code></pre>
 </section><section class="slide"><h2>Importieren von Modulen</h2>
 <p>für Verwendung der <code>import</code>-Syntax: in <em>package.json</em> als <em>"module"</em> deklarieren:</p>
@@ -2318,12 +2312,10 @@ cowsay hello
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fileContent = <span class="hljs-keyword">await</span> readFile(<span class="hljs-string">'package.json'</span>, <span class="hljs-string">'utf8'</span>);
 </code></pre>
 <p>Beim Lesen von Dateien als Text <em>muss</em> ein Encoding angegeben werden (in diesem Fall UTF-8)</p>
-</section><section class="slide"><h2>Lesen von Dateien als binär</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fileContent = <span class="hljs-keyword">await</span> readFile(<span class="hljs-string">'./package.json'</span>);
-</code></pre>
-<p>gibt ein <em>buffer</em>-objekt zurück (eie Folge von Bytes)</p>
-<p>Umwandeln in einen String:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> fileTextContent = myFile.toString(<span class="hljs-string">'utf-8'</span>);
+</section><section class="slide"><h2>Lesen von Ordnerinhalten</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> folderContent = <span class="hljs-keyword">await</span> readdir(<span class="hljs-string">'.'</span>);
+
+<span class="hljs-built_in">console</span>.log(folderContent);
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>HTTP server mit node</h1>
 </section><section class="slide"><h2>Betreiben eines HTTP-Servers mit node</h2>
@@ -2335,7 +2327,7 @@ cowsay hello
   res.end(<span class="hljs-string">'Hello World\n'</span>);
 };
 
-server = http.createServer(requestHandler);
+<span class="hljs-keyword">const</span> server = http.createServer(requestHandler);
 
 server.listen({ <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span> });
 </code></pre>
