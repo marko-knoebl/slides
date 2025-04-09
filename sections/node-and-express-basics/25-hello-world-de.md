@@ -46,9 +46,6 @@ Erstellen von _package.json_:
 ```json
 {
   "type": "module",
-  "eslintConfig": {
-    "sourceType": "module"
-  },
   "scripts": {
     "start": "node server.js"
   }

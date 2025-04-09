@@ -16,7 +16,7 @@ example of a request object:
 
 class in plain node / _connect_: [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage)
 
-class in _express_: [Request](https://expressjs.com/de/api.html#req)
+class in _express_: [Request](https://expressjs.com/en/5x/api.html#req)
 
 ## The request object
 

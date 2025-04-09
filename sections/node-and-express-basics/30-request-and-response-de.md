@@ -14,8 +14,8 @@ Web-Entwicklung in node geschieht über Request-Hanlder-Funktionen, z.B.:
 
 Ein Request Handler bekommt zwei Argumente:
 
-- `req` - repräsentiert den eingehenden _request_ (Klasse [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) in node, Unterklasse [Request](http://expressjs.com/en/4x/api.html#req) in express)
-- `res` - repräsentiert die _response_ / Antwort, die gensendet wird (Klasse [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) in node, Unterklasse [Response](http://expressjs.com/en/4x/api.html#res) in express)
+- `req` - repräsentiert den eingehenden _request_ (Klasse [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) in node, Unterklasse [Request](http://expressjs.com/en/5x/api.html#req) in express)
+- `res` - repräsentiert die _response_ / Antwort, die gensendet wird (Klasse [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) in node, Unterklasse [Response](http://expressjs.com/en/5x/api.html#res) in express)
 
 ## Übung
 

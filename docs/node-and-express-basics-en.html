@@ -2108,9 +2108,6 @@ server.listen(<span class="hljs-number">3000</span>);
 <p>create a <em>package.json</em> file:</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"module"</span>,
-  <span class="hljs-attr">"eslintConfig"</span>: {
-    <span class="hljs-attr">"sourceType"</span>: <span class="hljs-string">"module"</span>
-  },
   <span class="hljs-attr">"scripts"</span>: {
     <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node server.js"</span>
   }
@@ -2135,8 +2132,8 @@ server.listen(<span class="hljs-number">3000</span>);
 </section><section class="slide"><h2>Request and response</h2>
 <p>a request handler function receives two arguments:</p>
 <ul>
-<li><code>req</code> - represents the incoming <em>request</em> (class <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage" target="_blank">IncomingMessage</a> in node, subclass <a href="http://expressjs.com/en/4x/api.html#req" target="_blank">Request</a> in express)</li>
-<li><code>res</code> - respresents the <em>response</em> that will be sent (class <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse" target="_blank">ServerResponse</a> in node, subclass <a href="http://expressjs.com/en/4x/api.html#res" target="_blank">Response</a> in express)</li>
+<li><code>req</code> - represents the incoming <em>request</em> (class <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage" target="_blank">IncomingMessage</a> in node, subclass <a href="https://expressjs.com/en/5x/api.html#req" target="_blank">Request</a> in express)</li>
+<li><code>res</code> - respresents the <em>response</em> that will be sent (class <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse" target="_blank">ServerResponse</a> in node, subclass <a href="http://expressjs.com/en/5x/api.html#res" target="_blank">Response</a> in express)</li>
 </ul>
 </section><section class="slide"><h2>Exercise</h2>
 <p>exercise: create a web app that displays the current time</p>
@@ -2165,13 +2162,13 @@ app.listen(<span class="hljs-number">3000</span>);
 }
 </code></pre>
 <p>class in plain node / <em>connect</em>: <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage" target="_blank">IncomingMessage</a></p>
-<p>class in <em>express</em>: <a href="https://expressjs.com/de/api.html#req" target="_blank">Request</a></p>
+<p>class in <em>express</em>: <a href="https://expressjs.com/en/5x/api.html#req" target="_blank">Request</a></p>
 </section><section class="slide"><h2>The request object</h2>
 <p>exercise: create a website with different responses based on the requested URL</p>
 </section></section><section class="slides-section"><section class="slide"><h1>The response object</h1>
 </section><section class="slide"><h2>The response object</h2>
 <p>class in plain node / <em>connect</em>: <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse" target="_blank">ServerResponse</a></p>
-<p>class in <em>express</em>: <a href="https://expressjs.com/de/api.html#res" target="_blank">Response</a></p>
+<p>class in <em>express</em>: <a href="http://expressjs.com/en/5x/api.html#res" target="_blank">Response</a></p>
 </section><section class="slide"><h2>The response object</h2>
 <p>methods in express:</p>
 <ul>
@@ -2219,7 +2216,7 @@ app.get(<span class="hljs-string">'/about'</span>, <span class="hljs-function">(
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Rendering HTML</h1>
 </section><section class="slide"><h2>Rendering HTML</h2>
-<p>manually (dangerous):</p>
+<p>manually (can be open to attacks):</p>
 <pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   <span class="hljs-keyword">const</span> name = <span class="hljs-string">'world'</span>;
   res.send(<span class="hljs-string">`
@@ -2235,11 +2232,8 @@ app.get(<span class="hljs-string">'/about'</span>, <span class="hljs-function">(
 <p>via a template engine:</p>
 <ul>
 <li>ejs: <a href="https://ejs.co/" target="_blank">website</a>, <a href="https://github.com/mde/ejs/wiki/Using-EJS-with-Express" target="_blank">express integration</a></li>
-<li>handlebars (or mustache): <a href="https://handlebarsjs.com/" target="_blank">website</a>, <a href="https://github.com/pillarjs/hbs" target="_blank">express integration</a></li>
+<li>handlebars: <a href="https://handlebarsjs.com/" target="_blank">website</a>, <a href="https://github.com/pillarjs/hbs" target="_blank">express integration</a></li>
 <li>pug: <a href="https://pugjs.org" target="_blank">website</a>, <a href="https://expressjs.com/en/guide/using-template-engines.html" target="_blank">express integration</a></li>
-<li>react: <a href="https://reactjs.org/" target="_blank">website</a>, <a href="https://github.com/reactjs/express-react-views" target="_blank">express integration</a></li>
-<li>marko: <a href="https://markojs.com/" target="_blank">website</a>, <a href="https://markojs.com/docs/express/" target="_blank">express integration</a></li>
-<li>... (<a href="https://expressjs.com/en/resources/template-engines.html" target="_blank">list of options</a>)</li>
 </ul>
 </section><section class="slide"><h2>Rendering HTML</h2>
 <p>general procedure:</p>
@@ -2258,78 +2252,59 @@ app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span
 });
 </code></pre>
 </section><section class="slide"><h2>Rendering HTML</h2>
-<p>registering various template engines:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> ejs <span class="hljs-keyword">from</span> <span class="hljs-string">'ejs'</span>;
-<span class="hljs-keyword">import</span> expressHandlebars <span class="hljs-keyword">from</span> <span class="hljs-string">'express-handlebars'</span>;
-<span class="hljs-keyword">import</span> expressReactViews <span class="hljs-keyword">from</span> <span class="hljs-string">'express-react-views'</span>;
-
-app.engine(<span class="hljs-string">'ejs'</span>, ejs);
-app.engine(<span class="hljs-string">'handlebars'</span>, expressHandlebars());
-app.engine(<span class="hljs-string">'jsx'</span>, expressReactViews.createEngine());
+<p>example with handlebars:</p>
+<pre><code class="hljs language-bash">npm install hbs
 </code></pre>
-</section><section class="slide"><h2>Rendering HTML via express-react-views</h2>
-<p>install npm packages: <em>express-react-views</em>, <em>react</em>, <em>react-dom</em></p>
-</section><section class="slide"><h2>Rendering HTML via express-react-views</h2>
-<p><em>views/index.jsx</em>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<pre><code class="hljs language-js">app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'hbs'</span>);
 
-<span class="hljs-keyword">const</span> Index = <span class="hljs-function">(<span class="hljs-params">{ name }</span>) =></span> {
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>Hello, {name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Hello, {name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span></span>
-  );
-};
+<span class="hljs-comment">// ...</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Index;
+app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  <span class="hljs-keyword">const</span> name = <span class="hljs-string">'world'</span>;
+  <span class="hljs-comment">// renders the file 'views/index.hbs'</span>
+  res.render(<span class="hljs-string">'index'</span>, { <span class="hljs-attr">name</span>: name });
+});
 </code></pre>
+<p>(replace <em>hbs</em> with <em>ejs</em> / <em>pug</em> for other template engines)</p>
 </section><section class="slide"><h2>Exercises</h2>
 <p>exercises:</p>
 <ul>
 <li>create a website with different pages (<em>home</em>, <em>about</em>, <em>newsletter</em>, ...)</li>
 <li>create a website that displays information from a public API (e.g. <a href="https://pokeapi.co/" target="_blank">https://pokeapi.co/</a>)</li>
+<li>create a website that displays information from a database on your computer</li>
 </ul>
 </section><section class="slide"><h2>Exercises</h2>
 <p>Pokeapi part 1:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/pokemon/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
   <span class="hljs-keyword">const</span> id = req.params.id;
   <span class="hljs-keyword">const</span> dataRes = <span class="hljs-keyword">await</span> fetch(
     <span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>
   );
   <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> dataRes.json();
-  <span class="hljs-keyword">await</span> res.render(<span class="hljs-string">'pokemon'</span>, { <span class="hljs-attr">id</span>: id, <span class="hljs-attr">data</span>: data });
+  res.render(<span class="hljs-string">'pokemon'</span>, {
+    <span class="hljs-attr">id</span>: id,
+    <span class="hljs-attr">name</span>: data.name,
+    <span class="hljs-attr">imgSrc</span>: data.sprites.front_default,
+  });
 });
-app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.redirect(<span class="hljs-string">'/1'</span>);
+app.get(<span class="hljs-string">'/pokemon'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+  res.redirect(<span class="hljs-string">'/pokemon/1'</span>);
 });
 </code></pre>
 </section><section class="slide"><h2>Exercise: Pokeapi</h2>
 <p>Pokeapi part 2:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-comment">// views/pokemon.jsx</span>
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-keyword">const</span> Pokemon = <span class="hljs-function">(<span class="hljs-params">props</span>) =></span> {
-  <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">Number</span>(props.id);
-  <span class="hljs-keyword">const</span> data = props.data;
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">article</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{data.species.name}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{data.sprites.front_default}</span> /></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">article</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">{</span>`/${<span class="hljs-attr">id</span> <span class="hljs-attr">-</span> <span class="hljs-attr">1</span>}`}></span>prev<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">br</span> /></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">{</span>`/${<span class="hljs-attr">id</span> + <span class="hljs-attr">1</span>}`}></span>next<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Pokemon;
+<p><em>views/pokemon.hbs</em>:</p>
+<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE <span class="hljs-meta-keyword">html</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span> /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>{{name}}<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{{name}}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"{{imgSrc}}"</span> /></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
 </code></pre>
 <!--
 section duplicated in:
@@ -2361,83 +2336,6 @@ dotenv.config();
 </section><section class="slide"><h2>NODE_ENV</h2>
 <p>Environment variable <code>NODE_ENV</code>: important when using e.g. express</p>
 <p>in production environments, <code>NODE_ENV=production</code> should always be set - otherwise the user will be able to see JavaScript error messages in detail (with stack traces)</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Summary: basic setup</h1>
-</section><section class="slide"><h2>Summary: basic setup</h2>
-<ol>
-<li>create <em>package.json</em></li>
-<li>install packages</li>
-<li>add <em>.gitignore</em> file</li>
-<li>load configuration from <em>.env</em> file</li>
-<li>configure rendering engine and routes</li>
-<li>add views</li>
-</ol>
-</section><section class="slide"><h2>Create package.json</h2>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"module"</span>,
-  <span class="hljs-attr">"eslintConfig"</span>: {
-    <span class="hljs-attr">"sourceType"</span>: <span class="hljs-string">"module"</span>
-  },
-  <span class="hljs-attr">"scripts"</span>: {
-    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node server.js"</span>
-  }
-}
-</code></pre>
-</section><section class="slide"><h2>Install packages</h2>
-<p>install <em>express</em>, <em>dotenv</em> and a template engine</p>
-<p>template engines:</p>
-<ul>
-<li><em>pug</em></li>
-<li><em>express-handlebars</em></li>
-<li><em>ejs</em></li>
-<li><em>express-react-views</em>, <em>react</em>, <em>react-dom</em></li>
-</ul>
-</section><section class="slide"><h2>Add .gitignore file</h2>
-<p>example <em>.gitignore</em> file:</p>
-<pre><code class="hljs language-txt">.env
-node_modules
-</code></pre>
-</section><section class="slide"><h2>Load configuration from .env file</h2>
-<p>.env file example:</p>
-<pre><code class="hljs language-txt">PORT=3000
-</code></pre>
-<p>loading configuration:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> dotenv <span class="hljs-keyword">from</span> <span class="hljs-string">'dotenv'</span>;
-
-dotenv.config();
-
-<span class="hljs-keyword">const</span> PORT = process.env.PORT;
-</code></pre>
-</section><section class="slide"><h2>Create app with rendering engine and routes</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
-<span class="hljs-keyword">import</span> expressReactViews <span class="hljs-keyword">from</span> <span class="hljs-string">'express-react-views'</span>;
-<span class="hljs-keyword">const</span> app = express();
-
-app.engine(<span class="hljs-string">'jsx'</span>, expressReactViews.createEngine());
-app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'jsx'</span>);
-
-app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.render(<span class="hljs-string">'index'</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'world'</span> });
-});
-
-app.listen(PORT);
-</code></pre>
-</section><section class="slide"><h2>Add views</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// views/index.jsx</span>
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ({ name }) => {
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>Hello, {name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>Hello, {name}!<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span></span>
-  );
-};
-</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Hosting</h1>
 </section><section class="slide"><h2>Hosting options</h2>
 <p>online editors:</p>

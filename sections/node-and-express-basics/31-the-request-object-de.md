@@ -16,7 +16,7 @@ Beispiel für ein Request-Objekt:
 
 Klasse in reinem Node bzw in _connect_: [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage)
 
-Klasse in _express_: [Request](https://expressjs.com/de/api.html#req)
+Klasse in _express_: [Request](https://expressjs.com/en/5x/api.html#req)
 
 ## Das Request-Objekt
 

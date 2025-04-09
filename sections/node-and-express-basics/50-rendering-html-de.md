@@ -2,7 +2,7 @@
 
 ## Rendern von HTML
 
-manuell (gefährlich):
+manuell (kann angreifbar sein):
 
 ```js
 app.get('/', (req, res) => {
@@ -30,64 +30,25 @@ mit Hilfe einer Template Engine:
 
 ## Rendern von HTML
 
-allgemeines Prozedere:
+Beispiel mit handlebars:
+
+```bash
+npm install hbs
+```
 
 ```js
-import express from 'express';
-import myengine from 'myengine';
+app.set('view engine', 'hbs');
 
-const app = express();
-
-app.engine('myengine', myengine());
-app.set('view engine', 'myengine');
+// ...
 
 app.get('/', (req, res) => {
   const name = 'world';
-  // renders 'views/index.myengine'
+  // renders the file 'views/index.hbs'
   res.render('index', { name: name });
 });
 ```
 
-## Rendern von HTML
-
-registrieren verschiedener Template Engines:
-
-```js
-import ejs from 'ejs';
-import expressHandlebars from 'express-handlebars';
-import expressReactViews from 'express-react-views';
-
-app.engine('ejs', ejs);
-app.engine('handlebars', expressHandlebars());
-app.engine('jsx', expressReactViews.createEngine());
-```
-
-## Rendern von HTML via express-react-views
-
-npm-Pakete: _express-react-views_, _react_, _react-dom_
-
-## Rendern von HTML via express-react-views
-
-_views/index.jsx_:
-
-```jsx
-import React from 'react';
-
-const Index = ({ name }) => {
-  return (
-    <html>
-      <head>
-        <title>Hello, {name}!</title>
-      </head>
-      <body>
-        <h1>Hello, {name}!</h1>
-      </body>
-    </html>
-  );
-};
-
-export default Index;
-```
+(ersetze _hbs_ durch _ejs_ / _pug_ für andere Template-Enginges)
 
 ## Übungen
 
@@ -95,22 +56,27 @@ export default Index;
 
 - erstelle eine Website mit verschiedenen Seiten (_home_, _about_, _newsletter_, ...)
 - erstelle eine Website, die Informationen von einem öffentlichen API anzeigt (z.B. https://pokeapi.co/)
+- erstelle eine Website, die Informationen aus einer lokalen Datenbank darstellt
 
 ## Übungen
 
 Pokeapi Teil 1:
 
 ```js
-app.get('/:id', async (req, res) => {
+app.get('/pokemon/:id', async (req, res) => {
   const id = req.params.id;
   const dataRes = await fetch(
     `https://pokeapi.co/api/v2/pokemon/${id}`
   );
   const data = await dataRes.json();
-  await res.render('pokemon', { id: id, data: data });
+  res.render('pokemon', {
+    id: id,
+    name: data.name,
+    imgSrc: data.sprites.front_default,
+  });
 });
-app.get('/', (req, res) => {
-  res.redirect('/1');
+app.get('/pokemon', (req, res) => {
+  res.redirect('/pokemon/1');
 });
 ```
 
@@ -118,25 +84,18 @@ app.get('/', (req, res) => {
 
 Pokeapi Teil 2:
 
-```jsx
-// views/pokemon.jsx
-import React from 'react';
+_views/pokemon.hbs_:
 
-const Pokemon = (props) => {
-  const id = Number(props.id);
-  const data = props.data;
-  return (
-    <div>
-      <article>
-        <h1>{data.species.name}</h1>
-        <img src={data.sprites.front_default} />
-      </article>
-      <a href={`/${id - 1}`}>prev</a>
-      <br />
-      <a href={`/${id + 1}`}>next</a>
-    </div>
-  );
-};
-
-export default Pokemon;
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{name}}</title>
+  </head>
+  <body>
+    <h1>{{name}}</h1>
+    <img src="{{imgSrc}}" />
+  </body>
+</html>
 ```

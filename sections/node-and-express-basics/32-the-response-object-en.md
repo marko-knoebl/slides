@@ -4,7 +4,7 @@
 
 class in plain node / _connect_: [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse)
 
-class in _express_: [Response](https://expressjs.com/de/api.html#res)
+class in _express_: [Response](http://expressjs.com/en/5x/api.html#res)
 
 ## The response object
 
