@@ -2,7 +2,7 @@
 
 ## Request und Response
 
-Web-Entwicklung in node geschieht über Request-Hanlder-Funktionen, z.B.:
+Web-Entwicklung in node geschieht über Request-Handler-Funktionen, z.B.:
 
 ```js
 (req, res) => {
@@ -12,28 +12,30 @@ Web-Entwicklung in node geschieht über Request-Hanlder-Funktionen, z.B.:
 
 ## Request und Response
 
-Ein Request Handler bekommt zwei Argumente:
+Ein Request Handler bekommt zwei Argumente übergeben:
 
-- `req` - repräsentiert den eingehenden _request_ (Klasse [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) in node, Unterklasse [Request](http://expressjs.com/en/5x/api.html#req) in express)
-- `res` - repräsentiert die _response_ / Antwort, die gensendet wird (Klasse [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse) in node, Unterklasse [Response](http://expressjs.com/en/5x/api.html#res) in express)
+- `req` - repräsentiert den eingehenden _request_
+- `res` - repräsentiert die _response_ / Antwort, die wir senden werden
 
-## Übung
+## Das Request-Objekt
 
-Übung: erstelle eine Seite, die die aktuelle Uhrzeit anzeigt
+Beispiel für ein Request-Objekt:
 
-## Übung
-
-Lösung:
-
-```js
-import express from 'express';
-
-const app = express();
-
-app.use((req, res) => {
-  const timeString = new Date().toTimeString();
-  res.send('<h1>current time: ' + timeString + '</h1>');
-});
-
-app.listen(3000);
+```json
+{
+  "method": "GET",
+  "path": "/products/123",
+  "params": { "id": "123" },
+  "headers": { "user-agent": "Mozilla/5.0 (Windows ..." }
+}
 ```
+
+Klasse in reinem Node: [IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage)
+
+Unterklasse in _express_: [Request](https://expressjs.com/en/5x/api.html#req)
+
+## Das Response-Objekt
+
+Klasse in reinem Node: [ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse)
+
+Unterklasse in _express_: [Response](http://expressjs.com/en/5x/api.html#res)

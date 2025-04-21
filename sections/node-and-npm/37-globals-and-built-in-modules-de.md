@@ -16,7 +16,6 @@ nur im Browser:
 nur in Node
 
 - `process` (z.B. `process.argv`)
-- `__filename` und `__dirname`
 - `global` (globaler Namespace) - Alternativname `globalThis`
 - ...
 

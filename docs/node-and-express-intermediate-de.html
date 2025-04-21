@@ -2060,651 +2060,263 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   </head>
   <body>
     <div class="reveal">
-      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Node and express basics</h1>
-</section></section><section class="slides-section"><section class="slide"><h1>Use case</h1>
-</section><section class="slide"><h2>Use case</h2>
-<p>express is a library for <em>backend development</em></p>
-<p>fundamentally, it can receive HTTP <em>requests</em> and send corresponding <em>responses</em></p>
-<p>typical use cases: developing a website (responses are HTML), developing an API (responses are JSON or another data format)</p>
-</section><section class="slide"><h2>Use case</h2>
-<p>examples:</p>
-<p>receives a request for some API data (e.g. <em>/api/article/19e2</em>), sends back that data</p>
-<p>receives a request for a static <em>resource</em>, sends back that resource (e.g. <em>styles.css</em>, <em>logo.png</em>, ...)</p>
-<p>receives a request for a page (e.g. <em>/news</em>), renders and sends back that page as HTML</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Libraries</h1>
-</section><section class="slide"><h2>Libraries</h2>
+      <div class="slides slides"><section class="slides-section"><section class="slide"><h1>Node und express: Intermediate</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Layers</h1>
+</section><section class="slide"><h2>Layers</h2>
+<p>häufige Strukturierung mit "Layers" in Web-Anwendungen:</p>
 <ul>
-<li>plain node (createServer)</li>
-<li><em>connect</em> (includes middleware)</li>
-<li><em>express</em> (includes middleware, routing, view rendering, ...)</li>
+<li><strong>Controller</strong> Layer (HTTP)</li>
+<li><strong>Service</strong> Layer (Geschäftslogik / business logic)</li>
+<li><strong>Model</strong> Layer (Datenbankanbindung)</li>
 </ul>
-<p>most projects will use <em>express</em></p>
-</section><section class="slide"><h2>Libraries</h2>
-<p>middleware: via <code>.use()</code></p>
-<p>routing: via <code>.get()</code>, <code>.post()</code>, ...</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Hello world</h1>
-</section><section class="slide"><h2>Hello world</h2>
-<p>hello world with express:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// server.js</span>
-<span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
-
-<span class="hljs-keyword">const</span> app = express();
-
-<span class="hljs-comment">// provide a function that handles a get request to "/"</span>
-<span class="hljs-comment">// and sends a response</span>
-app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  <span class="hljs-comment">// note: we should actually return a complete HTML file</span>
-  res.send(<span class="hljs-string">'&#x3C;h1>Hello World!&#x3C;/h1>\n'</span>);
-});
-
-<span class="hljs-comment">// listen on localhost:3000</span>
-app.listen(<span class="hljs-number">3000</span>);
+</section><section class="slide"><h2>Layers</h2>
+<p><strong>Controller</strong>: Empfängt einen HTTP-Request, ruft eine Service-Funktion für die Verarbeitung auf, sendet die Response</p>
+<p><strong>Service</strong>: Wird durch einen Controller aufgerufen; kann auf andere Services und Models zugreifen; Kann Daten an den Controller zurückliefern; beinhaltet die Haupt-Logik (Geschäftslogik)</p>
+<p><strong>Model</strong>: Stellt für Services Datenbankzugriffe zur Verfügung</p>
+</section><section class="slide"><h2>Layers</h2>
+<p>oft entspricht eine Route (HTTP-Anfrage) direkt einem Modell (Datenbank-Tabelle / -Abfrage)</p>
+<p>z.B. in einer Shopping-Anwendung:</p>
+<pre><code class="hljs language-text">/products?category=phones&#x26;max_price=500
 </code></pre>
-</section><section class="slide"><h2>Hello world</h2>
-<p>hello world without express (see <a href="https://nodejs.org/en/docs/guides/getting-started-guide/" target="_blank">https://nodejs.org/en/docs/guides/getting-started-guide/</a>):</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// server.js</span>
-<span class="hljs-keyword">import</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">'http'</span>;
-
-<span class="hljs-keyword">const</span> handler = <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.statusCode = <span class="hljs-number">200</span>;
-  res.setHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/html; charset=UTF-8'</span>);
-  res.end(<span class="hljs-string">'&#x3C;h1>Hello World!&#x3C;/h1>\n'</span>);
-};
-
-<span class="hljs-keyword">const</span> server = http.createServer(handler);
-server.listen(<span class="hljs-number">3000</span>);
+<p>entspricht:</p>
+<pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> products <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">category</span> = <span class="hljs-string">'phones'</span> <span class="hljs-keyword">AND</span> price &#x3C;= <span class="hljs-number">500</span>;
 </code></pre>
-</section><section class="slide"><h2>Starting the server</h2>
-<p>basic way to start the server:</p>
-<pre><code class="hljs language-bash">node server.js
-</code></pre>
-</section><section class="slide"><h2>Starting the server</h2>
-<p>to start a server and <em>restart</em> it every time some code changes:</p>
-<p>install <em>nodemon</em> and add this to <em>package.json</em>:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"scripts"</span>: {
-    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"nodemon server.js"</span>
-  }
-}
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Request and response</h1>
-</section><section class="slide"><h2>Request and response</h2>
-<p>web development in node is based on request handler functions, e.g.:</p>
-<pre><code class="hljs language-js">(req, res) => {
-  res.send(<span class="hljs-string">'&#x3C;h1>Hello World!&#x3C;/h1>\n'</span>);
-};
-</code></pre>
-</section><section class="slide"><h2>Request and response</h2>
-<p>a request handler function receives two arguments:</p>
+</section><section class="slide"><h2>Layers</h2>
+<p>manchmal kann einiges im Service Layer geschehen:</p>
+<p>Beispiel: Senden einer neuen Nachricht via <code>POST</code>-Request an <em>/messages</em></p>
+<p>messageService könnte folgendes verwenden:</p>
 <ul>
-<li><code>req</code> - represents the incoming <em>request</em></li>
-<li><code>res</code> - represents the <em>response</em> that we will send</li>
+<li>authService (zum Authentifizieren / Authorisieren des Versenders)</li>
+<li>userModel (um den Empfänger zu finden)</li>
+<li>spamDetectionService</li>
+<li>messageModel (um die Nachricht zu speichern)</li>
+<li>notificationService (um die Empfänger*innen zu benachrichtigen - z.B. via SMS / email)</li>
 </ul>
-</section><section class="slide"><h2>The request object</h2>
-<p>example for a request object:</p>
-<pre><code class="hljs language-json">{
-  <span class="hljs-attr">"method"</span>: <span class="hljs-string">"GET"</span>,
-  <span class="hljs-attr">"path"</span>: <span class="hljs-string">"/products/123"</span>,
-  <span class="hljs-attr">"params"</span>: { <span class="hljs-attr">"id"</span>: <span class="hljs-string">"123"</span> },
-  <span class="hljs-attr">"headers"</span>: { <span class="hljs-attr">"user-agent"</span>: <span class="hljs-string">"Mozilla/5.0 (Windows ..."</span> }
-}
-</code></pre>
-<p>class in plain node: <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage" target="_blank">IncomingMessage</a></p>
-<p>class in <em>express</em>: <a href="https://expressjs.com/en/5x/api.html#req" target="_blank">Request</a></p>
-</section><section class="slide"><h2>The response object</h2>
-<p>class in plain node / <em>connect</em>: <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse" target="_blank">ServerResponse</a></p>
-<p>subclass in <em>express</em>: <a href="http://expressjs.com/en/5x/api.html#res" target="_blank">Response</a></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Examples</h1>
-</section><section class="slide"><h2>Examples</h2>
-<p>send a hello world message under <em>/hello</em>:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/hello'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.send(<span class="hljs-string">'&#x3C;h1>Hello World!&#x3C;/h1>\n'</span>);
-});
-</code></pre>
-</section><section class="slide"><h2>Examples</h2>
-<p>send a static file:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/favicon.ico'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.sendFile(<span class="hljs-string">'public/favicon.ico'</span>);
-});
-</code></pre>
-</section><section class="slide"><h2>Examples</h2>
-<p>get database entries and send them back as JSON:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/products'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-comment">// use a DB library for accessing the database</span>
-  <span class="hljs-keyword">const</span> sqlQuery = <span class="hljs-string">'SELECT * FROM product'</span>;
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlQuery);
-
-  <span class="hljs-comment">// send the results as JSON</span>
-  res.json(results);
-});
-</code></pre>
-</section><section class="slide"><h2>Examples</h2>
-<p>get a database entry and send it as JSON based on a URL parameter:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/products/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">Number</span>(req.params.id);
-
-  <span class="hljs-keyword">const</span> sqlQuery = <span class="hljs-string">'SELECT * FROM product WHERE id = ?'</span>;
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlQuery, [id]);
-
-  res.json(results[<span class="hljs-number">0</span>]);
-});
-</code></pre>
-</section><section class="slide"><h2>Examples</h2>
-<p>get a database entry and send it as JSON based on <em>query parameters</em></p>
-<p>example request URL: <em>/api/products?min_rating=4&#x26;max_price=200</em></p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/products'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> minRating = <span class="hljs-built_in">Number</span>(req.query.min_rating);
-  <span class="hljs-keyword">const</span> maxPrice = <span class="hljs-built_in">Number</span>(req.query.max_price);
-
-  <span class="hljs-keyword">const</span> sqlQuery =
-    <span class="hljs-string">'SELECT * FROM product WHERE rating >= ? AND price &#x3C;= ?'</span>;
-  <span class="hljs-keyword">const</span> sqlParams = [minRating, maxPrice];
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlQuery, sqlParams);
-
-  res.json(results);
-});
-</code></pre>
-</section><section class="slide"><h2>Examples</h2>
-<p>render some HTML based on a database entry</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/products/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> sqlQuery = <span class="hljs-string">'SELECT * FROM product WHERE id = ?'</span>;
-  <span class="hljs-keyword">const</span> sqlParams = [req.params.id];
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlQuery, sqlParams);
-
-  <span class="hljs-comment">// look for the "product_detail" template and render it based on</span>
-  <span class="hljs-comment">// the retrieved data</span>
-  res.render(<span class="hljs-string">'product_detail'</span>, {
-    <span class="hljs-attr">name</span>: results[<span class="hljs-number">0</span>].name,
-    <span class="hljs-attr">price</span>: results[<span class="hljs-number">0</span>].price,
-  });
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Topics overview</h1>
-</section><section class="slide"><h2>Topics overview</h2>
+</section><section class="slide"><h2>Layers</h2>
+<p>häufige Struktur in Express-Anwendungen:</p>
 <ul>
-<li>common topics
+<li>Routing Layer: empfängt HTTP-Anfragen und leitet sie an einen Controller weiter; wendet eventuell sogenannte <em>Middleware</em> an</li>
+<li>Controller Layer</li>
+<li>Service Layer</li>
+<li>Model Layer</li>
+</ul>
+</section><section class="slide"><h2>Layers</h2>
+<p>kann für einfachere Projekte vereinfacht werden, z.B.:</p>
 <ul>
-<li>basic routing</li>
-<li>sending responses: content, status, headers</li>
-<li>route parameters and query parameters</li>
-<li>middleware</li>
+<li>Routing / Controller / Service Layer</li>
+<li>Model Layer</li>
 </ul>
-</li>
-<li>API topics
+</section><section class="slide"><h2>Source Code Struktur</h2>
+<p>Beispiel für eine typische Source Code Struktur:</p>
 <ul>
-<li>sending and receiving JSON data</li>
-<li>same origin policy</li>
-<li>Rest APIs</li>
-<li>testing APIs</li>
+<li><em>server.js</em></li>
+<li><em>db.js</em> (Datenbankanbindung)</li>
+<li><em>routes/</em></li>
+<li><em>controllers/</em></li>
+<li><em>models/</em></li>
 </ul>
-</li>
-<li>HTML topics
-<ul>
-<li>sending files and serving static folders</li>
-<li>rendering HTML</li>
-<li>handling form submissions</li>
-</ul>
-</li>
-</ul>
-</section><section class="slide"><h2>Intermediate topics (see other presentation)</h2>
-<ul>
-<li>redirects</li>
-<li>hosting</li>
-<li>authentication</li>
-<li>configuration via environment variables</li>
-<li>sessions</li>
-<li>application structure</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Basic routing</h1>
-</section><section class="slide"><h2>Basic routing</h2>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.send(<span class="hljs-string">'&#x3C;h1>Home&#x3C;/h1>\n'</span>);
-});
-app.get(<span class="hljs-string">'/about'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.send(<span class="hljs-string">'&#x3C;h1>About&#x3C;/h1>\n'</span>);
-});
-</code></pre>
-<p>other HTTP methods are handled via: <code>.post</code>, <code>.put</code>, <code>.delete</code>, ...</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Sending responses</h1>
-</section><section class="slide"><h2>Sending responses</h2>
-<p>methods of response objects:</p>
-<ul>
-<li><code>.status()</code> - for setting the status code</li>
-<li><code>.set()</code> - for setting headers</li>
-<li><code>.send()</code> - for sending content</li>
-</ul>
-</section><section class="slide"><h2>Sending responses</h2>
-<p>explicit example:</p>
-<pre><code class="hljs language-js">res.set({ <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/html'</span> });
-res.status(<span class="hljs-number">200</span>);
-res.send(<span class="hljs-string">'&#x3C;!DOCTYPE html>&#x3C;html>...&#x3C;/html>'</span>);
-</code></pre>
-</section><section class="slide"><h2>Sending responses</h2>
-<p>by <em>default</em>, the <em>Content-Type</em> will be <em>text/html</em> and the status will be 200</p>
-<p>shorter version:</p>
-<pre><code class="hljs language-js">res.send(<span class="hljs-string">'&#x3C;!DOCTYPE html>&#x3C;html>...&#x3C;/html>'</span>);
-</code></pre>
-</section><section class="slide"><h2>Sending responses</h2>
-<p>another example:</p>
-<pre><code class="hljs language-js">res.status(<span class="hljs-number">404</span>);
-res.set({ <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/plain'</span> });
-res.send(<span class="hljs-string">'Document not found.\n'</span>);
-</code></pre>
-</section><section class="slide"><h2>Sending responses</h2>
-<p>response objects support <em>method chaining</em>:</p>
-<pre><code class="hljs language-js">res
-  .status(<span class="hljs-number">404</span>)
-  .set({ <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/plain'</span> })
-  .send(<span class="hljs-string">'Document not found.\n'</span>);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Route parameters and query parameters</h1>
-</section><section class="slide"><h2>Route parameters</h2>
-<p>example URL: <em>/products/123</em></p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/products/:id'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  <span class="hljs-keyword">const</span> productId = req.params.id;
+</section></section><section class="slides-section"><section class="slide"><h1>Routing</h1>
+</section><section class="slide"><h2>Routing</h2>
+<p>Wir können unsere Routendefinitionen mittels <code>Router</code>-Objekten strukturieren</p>
+</section><section class="slide"><h2>Routing</h2>
+<p>alles an einem Ort:</p>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/accounts'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-comment">// ...</span>
 });
-</code></pre>
-<p>route parameters are always strings</p>
-</section><section class="slide"><h2>Query parameters</h2>
-<p>example URL: <em>/products?min_rating=4&#x26;max_price=200</em></p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/products'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  <span class="hljs-keyword">const</span> minRating = <span class="hljs-built_in">Number</span>(req.query.min_rating);
-  <span class="hljs-keyword">const</span> maxPrice = <span class="hljs-built_in">Number</span>(req.query.max_price);
+app.get(<span class="hljs-string">'/accounts/:id'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-comment">// ...</span>
 });
-</code></pre>
-<p>query parameters are always strings</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Middleware</h1>
-</section><section class="slide"><h2>Middleware</h2>
-<p>middleware can respond to requests or modify reqest / response objects</p>
-</section><section class="slide"><h2>Middleware</h2>
-<p>example use:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> compression <span class="hljs-keyword">from</span> <span class="hljs-string">'compression'</span>;
-<span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
-<span class="hljs-keyword">import</span> morgan <span class="hljs-keyword">from</span> <span class="hljs-string">'morgan'</span>;
-
-<span class="hljs-keyword">const</span> app = express();
-
-<span class="hljs-comment">// log all incoming requests</span>
-app.use(morgan(<span class="hljs-string">'common'</span>));
-<span class="hljs-comment">// serve content of the "public" folder as-is if found</span>
-app.use(express.static(<span class="hljs-string">'public'</span>));
-<span class="hljs-comment">// compress all responses</span>
-app.use(compression());
-
-app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
+app.post(<span class="hljs-string">'/accounts'</span>, <span class="hljs-function">() =></span> {
   <span class="hljs-comment">// ...</span>
 });
-</code></pre>
-</section><section class="slide"><h2>Middleware and routing</h2>
-<pre><code class="hljs language-js"><span class="hljs-comment">// log all incoming requests</span>
-app.use(morgan(<span class="hljs-string">'common'</span>));
-<span class="hljs-comment">// for any request that starts with /api, parse its</span>
-<span class="hljs-comment">// JSON body if it exists</span>
-app.use(<span class="hljs-string">'/api'</span>, express.json());
-<span class="hljs-comment">// compress API responses</span>
-app.use(<span class="hljs-string">'/api'</span>, compression());
-<span class="hljs-comment">// requests to /assets/...: send back static files</span>
-app.use(<span class="hljs-string">'/assets'</span>, express.static(<span class="hljs-string">'public'</span>));
-</code></pre>
-</section><section class="slide"><h2>Example middleware</h2>
-<ul>
-<li><em>express.json</em>, <em>express.urlencoded</em>, ... : parse the request body and make it available as <code>req.body</code></li>
-<li><em>cookie-parser</em>: parses cookies and makes them available under <code>req.cookies</code></li>
-<li><em>compression</em>: compresses the response content</li>
-<li><em>express.static</em>: sends static files (e.g. <em>index.html</em>) if available</li>
-<li><em>express-session</em>: stores session data (available under <code>req.session</code>)</li>
-<li><em>express-openid-connect</em> or <em>passport</em>: user authentication</li>
-<li><em>morgan</em>: logging</li>
-<li>... (see: <a href="https://expressjs.com/en/resources/middleware.html" target="_blank">list of available express middleware</a>)</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Sending and receiving JSON data</h1>
-</section><section class="slide"><h2>Sending and receiving JSON data</h2>
-<p>sending JSON (manually):</p>
-<pre><code class="hljs language-js">res.setHeader({<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"application/json"</span>});
-res.send(<span class="hljs-built_in">JSON</span>.stringify(data));
-</code></pre>
-<p>with the <code>.json()</code> helper:</p>
-<pre><code class="hljs language-js">res.json(data);
-</code></pre>
-</section><section class="slide"><h2>Sending and receiving JSON data</h2>
-<p>receiving (parsing) a JSON body via middleware:</p>
-<pre><code class="hljs language-js">app.use(<span class="hljs-string">"/api"</span>, express.json());
-</code></pre>
-<p>data will be available as <code>req.body</code></p>
-</section></section><section class="slides-section"><section class="slide"><h1>Same-origin policy and CORS</h1>
-</section><section class="slide"><h2>Same-origin policy</h2>
-<p>Same-origin plicy: safety rule in the browser</p>
-<p>by default, a webpage on one site (e.g. <em><a href="http://www.example.com" target="_blank">www.example.com</a></em>) is not allowed to make requests to another site (e.g. <em>api.example.com</em>)</p>
-</section><section class="slide"><h2>Same-origin policy</h2>
-<p>example: go to one website (e.g. Wikipedia), open the browser's JavaScript console and request another website, e.g. via <code>fetch("https://google.com")</code></p>
-<p>result: the request is prohibited</p>
-<p>reason: to prevent exploitation of cookie-based authentication</p>
-</section><section class="slide"><h2>Cross-Origin resource sharing</h2>
-<p>The requested site may allow <em>Cross-Origin resource sharing (CORS)</em> for some URLs or for all URLs</p>
-<p>This is done via the HTTP header "Access-Control-Allow-Origin"</p>
-<p>example: the <em>jsonplaceholder</em> API enables CORS for all sites - so <code>fetch("https://jsonplaceholder.typicode.com/todos")</code> works from any site</p>
-</section><section class="slide"><h2>CORS with express</h2>
-<p>enabling CORS in express:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> cors <span class="hljs-keyword">from</span> <span class="hljs-string">'cors'</span>;
-</code></pre>
-<p>allowing requests from all domains:</p>
-<pre><code class="hljs language-js">app.use(<span class="hljs-string">'/api'</span>, cors());
-</code></pre>
-<p>allowing requests from a specific domain:</p>
-<pre><code class="hljs language-js">app.use(<span class="hljs-string">'/api'</span>, cors({ <span class="hljs-attr">origin</span>: <span class="hljs-string">'https://example.com'</span> }));
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Rest APIs</h1>
-</section><section class="slide"><h2>Rest APIs</h2>
-<p>We'll create an example Rest API with express and a database that's connected via the <em>mysql2</em> library.</p>
-<p>We will create a database named "tasklist" with a single table named "task"</p>
-</section><section class="slide"><h2>Rest APIs</h2>
-<p>note: Different Rest APIs can behave differently on <em>mutations</em></p>
-<p>example: possible responses when an entry has been created via <em>POST</em>:</p>
-<ul>
-<li>return the complete new entry in the response body (including its new id)</li>
-<li>return just the new id in the response body</li>
-<li>return no response body</li>
-</ul>
-</section><section class="slide"><h2>Rest APIs</h2>
-<p>basic setup:</p>
-<pre><code class="hljs language-js">app.use(<span class="hljs-string">'/api'</span>, express.json());
-app.use(<span class="hljs-string">'/api'</span>, cors());
-</code></pre>
-</section><section class="slide"><h2>Rest APIs</h2>
-<p>get all entries from a resource:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/tasks'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(<span class="hljs-string">'SELECT * FROM task;'</span>);
-  res.json(results);
+
+app.get(<span class="hljs-string">'/transactions'</span>, <span class="hljs-function">() =></span> {
+  <span class="hljs-comment">// ...</span>
 });
-</code></pre>
-</section><section class="slide"><h2>Rest APIs</h2>
-<p>get by a specific id:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/tasks/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">Number</span>(req.params.id);
-  <span class="hljs-keyword">const</span> sqlStatement = <span class="hljs-string">'SELECT * FROM task WHERE id = ?'</span>;
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlStatement, [id]);
-  <span class="hljs-keyword">if</span> (results.length === <span class="hljs-number">0</span>) {
-    <span class="hljs-comment">// 404 Not Found</span>
-    res.status(<span class="hljs-number">404</span>).send();
-  } <span class="hljs-keyword">else</span> {
-    res.json(results[<span class="hljs-number">0</span>]);
-  }
-});
-</code></pre>
-</section><section class="slide"><h2>Rest APIs</h2>
-<p>get by some query parameters (<em>done</em>, <em>due_date</em>):</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/tasks/'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-comment">// array of conditions - e.g. ['done = ?', 'due_date = ?']</span>
-  <span class="hljs-keyword">const</span> conditions = [];
-  <span class="hljs-comment">// array of corresponding values - e.g. ['true', '2020-10-30']</span>
-  <span class="hljs-keyword">const</span> values = [];
-
-  <span class="hljs-keyword">if</span> (req.query.due_date) {
-    conditions.push(<span class="hljs-string">'due_date = ?'</span>);
-    values.push(req.query.due_date);
-  }
-
-  <span class="hljs-keyword">if</span> (req.query.done) {
-    conditions.push(<span class="hljs-string">'done = ?'</span>);
-    <span class="hljs-keyword">if</span> (
-      req.query.done === <span class="hljs-string">'0'</span> ||
-      req.query.done === <span class="hljs-string">'false'</span>
-    ) {
-      values.push(<span class="hljs-literal">false</span>);
-    } <span class="hljs-keyword">else</span> {
-      values.push(<span class="hljs-literal">true</span>);
-    }
-  }
-
-  <span class="hljs-keyword">let</span> sqlStatement = <span class="hljs-string">'SELECT * FROM task'</span>;
-  <span class="hljs-keyword">if</span> (conditions.length > <span class="hljs-number">0</span>) {
-    sqlStatement += <span class="hljs-string">` WHERE <span class="hljs-subst">${conditions.join(<span class="hljs-string">' AND '</span>)}</span>`</span>;
-  }
-
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlStatement, values);
-  res.json(results);
-});
-</code></pre>
-</section><section class="slide"><h2>Rest APIs</h2>
-<p>create a new entry:</p>
-<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/api/tasks'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">if</span> (
-    req.body.due_date === <span class="hljs-literal">undefined</span> ||
-    ![<span class="hljs-string">'0'</span>, <span class="hljs-string">'1'</span>, <span class="hljs-string">'false'</span>, <span class="hljs-string">'true'</span>].includes(req.body.done)
-  ) {
-    <span class="hljs-comment">// 400 Bad Request</span>
-    res.status(<span class="hljs-number">400</span>).send();
-    <span class="hljs-keyword">return</span>;
-  }
-
-  <span class="hljs-keyword">const</span> sqlStatement = <span class="hljs-string">`INSERT INTO task (due_date, done) VALUES (?, ?)`</span>;
-  <span class="hljs-keyword">const</span> values = [req.body.due_date, req.body.done];
-
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlStatement, values);
-
-  <span class="hljs-comment">// 201 Created (or 200 OK)</span>
-  res.status(<span class="hljs-number">201</span>).json({ <span class="hljs-attr">id</span>: results.insertId });
-});
-</code></pre>
-</section><section class="slide"><h2>Rest API</h2>
-<p>replace an entry - via put:</p>
-<pre><code class="hljs language-js">app.put(<span class="hljs-string">'/api/tasks/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> done = req.body.done;
-  <span class="hljs-keyword">const</span> dueDate = req.body.due_date;
-
-  <span class="hljs-keyword">if</span> (done === <span class="hljs-literal">undefined</span> || dueDate === <span class="hljs-literal">undefined</span>) {
-    <span class="hljs-comment">// 400 Bad Request</span>
-    res.status(<span class="hljs-number">400</span>).send();
-    <span class="hljs-keyword">return</span>;
-  }
-  <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">Number</span>(req.params.id);
-  <span class="hljs-keyword">const</span> sqlStatement = <span class="hljs-string">`
-    UPDATE task
-    SET due_date = ?, done = ?
-    WHERE id = ?
-  `</span>;
-  <span class="hljs-keyword">const</span> values = [dueDate, done, id];
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlStatement, values);
-  <span class="hljs-keyword">if</span> (results.affectedRows === <span class="hljs-number">0</span>) {
-    <span class="hljs-comment">// 404 Not Found</span>
-    res.status(<span class="hljs-number">404</span>).send();
-  } <span class="hljs-keyword">else</span> {
-    res.send();
-  }
-});
-</code></pre>
-</section><section class="slide"><h2>Rest API</h2>
-<p>delete an entry:</p>
-<pre><code class="hljs language-js">app.delete(<span class="hljs-string">'/api/tasks/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">Number</span>(req.params.id);
-  <span class="hljs-keyword">const</span> sqlStatement = <span class="hljs-string">`DELETE FROM task WHERE id = ?`</span>;
-  <span class="hljs-keyword">const</span> values = [id];
-  <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlStatement, values);
-
-  <span class="hljs-keyword">if</span> (results.affectedRows === <span class="hljs-number">0</span>) {
-    <span class="hljs-comment">// 404 Not Found</span>
-    res.status(<span class="hljs-number">404</span>).send();
-  } <span class="hljs-keyword">else</span> {
-    res.send();
-  }
-});
-</code></pre>
-</section><section class="slide"><h2>Exercise</h2>
-<ul>
-<li>POST request to /reset - deletes table "task", recreates table "task" with columns <em>id</em>, <em>done</em> (boolean), <em>due_date</em> (string)</li>
-<li>POST request to <code>/create_demodata</code> - fills the table with some demo data from <em>example_data.json</em> (note: the post request does not need a body, the demo data should be read directly from the directory)</li>
-<li>GET request to /tasks : returns all tasks</li>
-<li>GET request to /tasks/:id : returns one specific task</li>
-<li>GET request to /tasks?done=0 or /tasks?done=false : returns incomplete tasks</li>
-<li>POST request to /tasks : creates a new task</li>
-<li>PUT request to /tasks/:id : overwrites an existing task</li>
-<li>DELETE request to /tasks/:id : deletes an existing task</li>
-</ul>
-</section><section class="slide"><h2>Exercise</h2>
-<ul>
-<li>GET request to /notes : shows all notes</li>
-<li>GET request to /notes/:id : shows one specific note</li>
-<li>GET request to /notes?created_after=2012-03-04: only shows notes created after a specific date</li>
-<li>POST request to /notes: creates a new note</li>
-<li>PUT request to /notes/:id : overwrites an existing note</li>
-<li>DELETE request to /notes/:id : deletes an existing note</li>
-</ul>
-</section></section><section class="slides-section"><section class="slide"><h1>Testing APIs</h1>
-</section><section class="slide"><h2>Testing APIs</h2>
-<p>APIs are not as strightforward to test as scripts or UIs</p>
-<p>ways to test an API:</p>
-<ul>
-<li>use an application like <em>postman</em> to send HTTP requests and inspect the responses</li>
-<li>write automated tests</li>
-</ul>
-</section><section class="slide"><h2>Automated tests</h2>
-<p>simple test without any extra tools:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testGetTodos</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'/todos: returns an array of 200 todos'</span>);
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
-  );
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  <span class="hljs-keyword">if</span> (data.length !== <span class="hljs-number">200</span>) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'FAILED'</span>);
-  }
-}
-<span class="hljs-keyword">await</span> testGetTodos();
-</code></pre>
-</section><section class="slide"><h2>Automated tests</h2>
-<p>test with node's built-in testing tools:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">'node:test'</span>;
-<span class="hljs-keyword">import</span> assert <span class="hljs-keyword">from</span> <span class="hljs-string">'node:assert'</span>;
-
-test(<span class="hljs-string">'/todos: returns an array of 200 todos'</span>, <span class="hljs-keyword">async</span> () => {
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">'https://jsonplaceholder.typicode.com/todos'</span>
-  );
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> res.json();
-  assert.strictEqual(data.length, <span class="hljs-number">200</span>);
-});
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Sending files and serving static folders</h1>
-</section><section class="slide"><h2>Sending files and serving static folders</h2>
-<p>sending just a single static file:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/favicon.ico'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.sendFile(<span class="hljs-string">'public/favicon.ico'</span>);
-});
-</code></pre>
-</section><section class="slide"><h2>Serving static folders</h2>
-<p>specifying a folder that contains static files via middleware:</p>
-<p>look for static content for every request:</p>
-<pre><code class="hljs language-js">app.use(express.static(<span class="hljs-string">'public'</span>));
-</code></pre>
-<p>look for static content only if the URL starts with <em>/static</em>:</p>
-<pre><code class="hljs language-js">app.use(<span class="hljs-string">'/static'</span>, express.static(<span class="hljs-string">'public'</span>));
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Rendering HTML</h1>
-</section><section class="slide"><h2>Rendering HTML</h2>
-<p>express can generate HTML with <em>dynamic</em> content - the HTML will be generated (rendered) for every request</p>
-</section><section class="slide"><h2>Rendering HTML</h2>
-<p>manually (can be open to attacks):</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  <span class="hljs-keyword">const</span> name = <span class="hljs-string">'world'</span>;
-  res.send(<span class="hljs-string">`
-    &#x3C;!DOCTYPE html>
-    &#x3C;html>
-      &#x3C;head>&#x3C;title>Hello <span class="hljs-subst">${name}</span>&#x3C;/title>&#x3C;/head>
-      &#x3C;body>Hello <span class="hljs-subst">${name}</span>&#x3C;/body>
-    &#x3C;/html>
-  `</span>);
-});
-</code></pre>
-</section><section class="slide"><h2>Rendering HTML</h2>
-<p>via a template engine:</p>
-<ul>
-<li>ejs: <a href="https://ejs.co/" target="_blank">website</a>, <a href="https://github.com/mde/ejs/wiki/Using-EJS-with-Express" target="_blank">express integration</a></li>
-<li>handlebars: <a href="https://handlebarsjs.com/" target="_blank">website</a>, <a href="https://github.com/pillarjs/hbs" target="_blank">express integration</a></li>
-<li>pug: <a href="https://pugjs.org" target="_blank">website</a>, <a href="https://expressjs.com/en/guide/using-template-engines.html" target="_blank">express integration</a></li>
-</ul>
-</section><section class="slide"><h2>Rendering HTML</h2>
-<p>general procedure:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
-<span class="hljs-keyword">import</span> myengine <span class="hljs-keyword">from</span> <span class="hljs-string">'myengine'</span>;
-
-<span class="hljs-keyword">const</span> app = express();
-
-<span class="hljs-comment">// specify the rendering engine</span>
-app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'myengine'</span>);
-
-app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  <span class="hljs-keyword">const</span> name = <span class="hljs-string">'world'</span>;
-  <span class="hljs-comment">// renders 'views/index.myengine'</span>
-  res.render(<span class="hljs-string">'index'</span>, { <span class="hljs-attr">name</span>: name });
-});
-</code></pre>
-</section><section class="slide"><h2>Rendering HTML</h2>
-<p>example with handlebars:</p>
-<pre><code class="hljs language-bash">npm install hbs
-</code></pre>
-<pre><code class="hljs language-js">app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'hbs'</span>);
-
 <span class="hljs-comment">// ...</span>
+</code></pre>
+</section><section class="slide"><h2>Routing</h2>
+<p>saubere Struktur:</p>
+<pre><code class="hljs language-js">app.use(<span class="hljs-string">'/accounts'</span>, accountsRouter);
+app.use(<span class="hljs-string">'/transactions'</span>, transactionsRouter);
+</code></pre>
+</section><section class="slide"><h2>Routing</h2>
+<p>Definition von <code>accountsRouter</code> in separater Datei (z.B. <em>routes/accounts.route.js</em>)</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { Router } <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
 
-app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  <span class="hljs-keyword">const</span> name = <span class="hljs-string">'world'</span>;
-  <span class="hljs-comment">// renders the file 'views/index.hbs'</span>
-  res.render(<span class="hljs-string">'index'</span>, { <span class="hljs-attr">name</span>: name });
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> accountsRouter = Router();
+
+accountsRouter.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">() =></span> {
+  <span class="hljs-comment">// ...</span>
+});
+accountsRouter.get(<span class="hljs-string">'/:id'</span>, <span class="hljs-function">() =></span> {
+  <span class="hljs-comment">// ...</span>
 });
 </code></pre>
-<p>(replace <em>hbs</em> with <em>ejs</em> / <em>pug</em> for other template engines)</p>
-</section><section class="slide"><h2>Exercises</h2>
-<p>exercises:</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Authentifizierung und Authorisierung</h1>
+</section><section class="slide"><h2>Authentifizierung und Authorisierung</h2>
+<p>Themen:</p>
 <ul>
-<li>create a website with different pages (<em>home</em>, <em>about</em>, <em>newsletter</em>, ...)</li>
-<li>create a website that displays information from a public API (e.g. <a href="https://pokeapi.co/" target="_blank">https://pokeapi.co/</a>)</li>
-<li>create a website that displays information from a database on your computer</li>
+<li>Terminologie</li>
+<li>Roles und Permissions</li>
+<li>Session-Tokens</li>
+<li>Passwörter und Passwort-Hashes</li>
 </ul>
-</section><section class="slide"><h2>Exercises</h2>
-<p>Pokeapi part 1:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/pokemon/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> id = req.params.id;
-  <span class="hljs-keyword">const</span> dataRes = <span class="hljs-keyword">await</span> fetch(
-    <span class="hljs-string">`https://pokeapi.co/api/v2/pokemon/<span class="hljs-subst">${id}</span>`</span>
+</section><section class="slide"><h2>Terminologie</h2>
+<ul>
+<li><strong>Authentifizierung</strong>: Kommt diese Anfrage tatsächlich von User <em>xyz</em>?</li>
+<li><strong>Authorisierung</strong>: Darf User <em>xyz</em> diese Daten sehen / modifizieren?</li>
+</ul>
+</section><section class="slide"><h2>Rollen und Berechtigungen</h2>
+<p>Beispiele für Rollen und Berechtigungen auf einer Nachrichtenseite:</p>
+<ul>
+<li>Gäste können die ersten 500 Zeichen eines Artikels sehen</li>
+<li><em>User</em> können vollständige Artikel sehen; User können Kommentare sehen; User können eigene Kommentare erstellen, bearbeiten und löschen</li>
+<li><em>Moderatoren</em> können Artikel erstellen, ändern und löschen; Moderatoren können Kommentare löschen</li>
+</ul>
+</section><section class="slide"><h2>Session-Tokens</h2>
+<p>Typischer Auth-Ablauf mit <em>Tokens</em>:</p>
+<ul>
+<li>Client sendet Authentifizierungsdaten (z.B. Username + Passwort) zum Server</li>
+<li>Server überprüft Daten</li>
+<li>Server sendet ein geheimes Session-Token (als String) für diese Session zurück</li>
+<li>Client kann mit diesem Token auf bestimmte Seiten / APIs zugreifen</li>
+<li>Token wird typischerweise nach einer bestimmten Zeiten oder nach dem Logout ungültig</li>
+</ul>
+</section><section class="slide"><h2>Session-Tokens</h2>
+<p>Session-Tokens werden vom Client zum Server in HTTP-Headern gesendet:</p>
+<ul>
+<li><em>Authorization</em> Header (benötigt JavaScript am Client)</li>
+<li><em>Cookie</em> Header</li>
+</ul>
+</section><section class="slide"><h2>Session-Tokens</h2>
+<p>Beispiel am Client: Einloggen via Benutzername und Passwort, Erhalten des Tokens:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> loginRes = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/api/login'</span>, {
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+  <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({
+    <span class="hljs-attr">username</span>: <span class="hljs-string">'foo'</span>,
+    <span class="hljs-attr">password</span>: <span class="hljs-string">'bar'</span>,
+  }),
+});
+<span class="hljs-keyword">const</span> loginData = <span class="hljs-keyword">await</span> loginRes.json();
+<span class="hljs-keyword">const</span> token = loginData.token;
+</code></pre>
+</section><section class="slide"><h2>Session-Tokens</h2>
+<p>Beispiel am Client: mit Hilfe des Tokens auf bestimmte Daten zugreifen:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> notesRes = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/api/notes'</span>, {
+  <span class="hljs-attr">headers</span>: { <span class="hljs-attr">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${token}</span>`</span> },
+});
+<span class="hljs-keyword">const</span> notes = <span class="hljs-keyword">await</span> notesRes.json();
+</code></pre>
+</section><section class="slide"><h2>Session-Tokens</h2>
+<p>Beispiel am Server: Login-Anfrage:</p>
+<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/api/login'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> success = <span class="hljs-keyword">await</span> authService.validateLogin(
+    req.body.username,
+    req.body.password
   );
-  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> dataRes.json();
-  res.render(<span class="hljs-string">'pokemon'</span>, {
-    <span class="hljs-attr">id</span>: id,
-    <span class="hljs-attr">name</span>: data.name,
-    <span class="hljs-attr">imgSrc</span>: data.sprites.front_default,
-  });
+  <span class="hljs-keyword">if</span> (success) {
+    <span class="hljs-keyword">const</span> token = authService.createRandomToken();
+    <span class="hljs-keyword">await</span> authService.saveSession(req.body.username, token);
+    res.json({ <span class="hljs-attr">token</span>: token });
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// not authenticated</span>
+    res.status(<span class="hljs-number">401</span>).send();
+  }
 });
-app.get(<span class="hljs-string">'/pokemon'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
-  res.redirect(<span class="hljs-string">'/pokemon/1'</span>);
+</code></pre>
+</section><section class="slide"><h2>Session-Tokens</h2>
+<p>Beispiel am Server: Daten-Anfrage:</p>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/notes/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> authHeader = req.header(<span class="hljs-string">'Authorization'</span>);
+  <span class="hljs-keyword">const</span> token = authHeader.split(<span class="hljs-string">' '</span>)[<span class="hljs-number">1</span>];
+  <span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> authService.getSession(token);
+  <span class="hljs-keyword">if</span> (!session) {
+    res.status(<span class="hljs-number">401</span>).send(); <span class="hljs-comment">// not authenticated</span>
+    <span class="hljs-keyword">return</span>;
+  }
+  <span class="hljs-keyword">const</span> note = <span class="hljs-keyword">await</span> notesService.getNote(req.params.id);
+  <span class="hljs-keyword">const</span> role = <span class="hljs-keyword">await</span> authService.getRole(session);
+  <span class="hljs-keyword">if</span> (role === <span class="hljs-string">'user'</span> &#x26;&#x26; session.userId === note.userId) {
+    res.json(note);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (role === <span class="hljs-string">'admin'</span>) {
+    res.json(note);
+  } <span class="hljs-keyword">else</span> {
+    res.status(<span class="hljs-number">403</span>).send(); <span class="hljs-comment">// not authorized</span>
+  }
 });
 </code></pre>
-</section><section class="slide"><h2>Exercise: Pokeapi</h2>
-<p>Pokeapi part 2:</p>
-<p><em>views/pokemon.hbs</em>:</p>
-<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE <span class="hljs-meta-keyword">html</span>></span>
-<span class="hljs-tag">&#x3C;<span class="hljs-name">html</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span> /></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>{{name}}<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{{name}}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"{{imgSrc}}"</span> /></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
-<span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
+</section><section class="slide"><h2>Passwörter und Passwort-Hashes</h2>
+<ul>
+<li>schlecht: Speichern von Passwörtern direkt in der Datenbank</li>
+<li>besser: Speichern von Passwort-Hashes</li>
+<li>ideal / standard: Speichern von Passwort-Hashes die "salted" und "peppered" sind</li>
+</ul>
+</section><section class="slide"><h2>Passwörter und Passwort-Hashes</h2>
+<p>ursprüngliche Daten:</p>
+<pre><code class="hljs language-asciidoc"><span class="hljs-section">name    | password
+--------+--------------------</span>
+alice   | 123456
+bob     | 123456
+charlie | abc123
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Forms</h1>
-</section><section class="slide"><h2>Request parameters</h2>
-<p>By default, the browser sends form contents in URL-encoded format, e.g.:</p>
-<pre><code class="hljs language-txt">foo=1&#x26;bar=2&#x26;baz=3
+</section><section class="slide"><h2>Passwörter und Passwort-Hashes</h2>
+<p>Daten mit Passwort-Hashes:</p>
+<pre><code class="hljs language-apache"><span class="hljs-attribute">name</span>    | password hash
+--------+---------------------------------
+<span class="hljs-attribute">Alice</span>   | e<span class="hljs-number">10</span>adc<span class="hljs-number">3949</span>ba<span class="hljs-number">59</span>abbe<span class="hljs-number">56</span>e<span class="hljs-number">057</span>f<span class="hljs-number">20</span>f<span class="hljs-number">883</span>e
+<span class="hljs-attribute">Bob</span>     | e<span class="hljs-number">10</span>adc<span class="hljs-number">3949</span>ba<span class="hljs-number">59</span>abbe<span class="hljs-number">56</span>e<span class="hljs-number">057</span>f<span class="hljs-number">20</span>f<span class="hljs-number">883</span>e
+<span class="hljs-attribute">Charlie</span> | e<span class="hljs-number">99</span>a<span class="hljs-number">18</span>c<span class="hljs-number">428</span>cb<span class="hljs-number">38</span>d<span class="hljs-number">5</span>f<span class="hljs-number">260853678922</span>e<span class="hljs-number">03</span>
 </code></pre>
-<p>in get requests: as part of the URL, e.g. <code>https://google.com/search?ei=xyzg&#x26;q=foo...</code></p>
-<p>in post requests: in the request body</p>
-</section><section class="slide"><h2>Getting request parameters</h2>
-<p>in a <em>get</em> request: read <code>req.query</code></p>
-<p>in a <em>post</em> request: use <code>express.urlencoded</code> middleware, read <code>req.body</code></p></section></section></div>
+</section><section class="slide"><h2>Passwörter und Passwort-Hashes</h2>
+<p>Hashing-Algorithmen - sortiert von <em>am sichersten</em> zu <em>nicht sicher</em>:</p>
+<ul>
+<li>Argon2</li>
+<li>scrypt</li>
+<li>bcrypt</li>
+<li>PBKDF2</li>
+<li>MD5</li>
+</ul>
+<!--
+section almost duplicated in:
+- node-web-development-with-node-and-express
+- node-and-mongodb
+-->
+</section></section><section class="slides-section"><section class="slide"><h1>Konfiguration mittels Umgebungsvariablen</h1>
+</section><section class="slide"><h2>Konfiguration mittels Umgebungsvariablen</h2>
+<p>Zugangsdaten (z.B. für Datenbanken) und Konfiguration werden üblicherweise via Umgebungsvariablen bereitgestellt</p>
+<p>Zugangsdaten sollten nicht unter Versionskontrolle stehen</p>
+</section><section class="slide"><h2>.env-Datei</h2>
+<p>verbreitete Möglichkeit, um Zugangsdaten bereit zu stellen: speichern in einer Datei namens <em>.env</em>, laden als Umgebungsvariablen mittels <em>dotenv</em></p>
+<p>Stelle sicher, dass <em>.env</em> nicht unter Versionskontrolle steht (füge es zur Datei <em>.gitignore</em> hinzu)</p>
+</section><section class="slide"><h2>.env-Datei</h2>
+<p>Beispiel für <em>.env</em>-Datei:</p>
+<pre><code class="hljs language-bash">PORT=3000
+NODE_ENV=production
+DB_URL=mongodb+srv://...
+AUTH0_DOMAIN=xxx.eu.auth0.com
+</code></pre>
+<p>laden in JavaScript:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> dotenv <span class="hljs-keyword">from</span> <span class="hljs-string">'dotenv'</span>;
+
+dotenv.config();
+
+<span class="hljs-keyword">const</span> PORT = process.env.PORT;
+<span class="hljs-keyword">const</span> NODE_ENV = process.env.NODE_ENV;
+</code></pre>
+</section><section class="slide"><h2>NODE_ENV</h2>
+<p>Umgebungsvariable <code>NODE_ENV</code>: spielt z.B. bei express eine wichtige Rolle</p>
+<p>in Produktivumgebungen sollte immer <code>NODE_ENV=production</code> gesetzt sein - ansonsten werden z.B. dem Endnutzer JavaScript-Fehlermeldungen im Detail angezeigt (mit Stack Traces)</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Hosting</h1>
+</section><section class="slide"><h2>Hosting</h2>
+<p>Hosting Provider mit kostenlosen Optionen:</p>
+<ul>
+<li>glitch.com</li>
+<li>render.com</li>
+<li>fly.io</li>
+<li>...</li>
+</ul></section></section></div>
     </div>
     <script>/*!
  * reveal.js

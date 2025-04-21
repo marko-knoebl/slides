@@ -16,7 +16,6 @@ browser-only globals:
 node-only globals:
 
 - `process` (e.g. `process.argv`)
-- `__filename` and `__dirname`
 - `global` (global namespace) - alternative name `globalThis`
 - ...
 

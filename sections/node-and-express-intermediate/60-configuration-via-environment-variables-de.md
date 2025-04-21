@@ -1,5 +1,5 @@
 <!--
-section duplicated in:
+section almost duplicated in:
 - node-web-development-with-node-and-express
 - node-and-mongodb
 -->
@@ -39,3 +39,9 @@ dotenv.config();
 const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
 ```
+
+## NODE_ENV
+
+Umgebungsvariable `NODE_ENV`: spielt z.B. bei express eine wichtige Rolle
+
+in Produktivumgebungen sollte immer `NODE_ENV=production` gesetzt sein - ansonsten werden z.B. dem Endnutzer JavaScript-Fehlermeldungen im Detail angezeigt (mit Stack Traces)

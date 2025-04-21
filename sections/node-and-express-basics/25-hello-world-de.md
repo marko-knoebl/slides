@@ -10,7 +10,7 @@ import express from 'express';
 
 const app = express();
 
-// provide a function that handles a request to "/"
+// provide a function that handles a get request to "/"
 // and sends a response
 app.get('/', (req, res) => {
   // note: we should actually return a complete HTML file
@@ -39,33 +39,24 @@ const server = http.createServer(handler);
 server.listen(3000);
 ```
 
-## Hello world - komplettes Setup
+## Den Server starten
 
-Erstellen von _package.json_:
+grundlegende Möglichkeit, den Server zu starten:
+
+```bash
+node server.js
+```
+
+## Den Server starten
+
+Um den Server zu starten und bei Code-Änderungen neu zu starten:
+
+Installiere _nodemon_ und füge dies zu _package.json_ hinzu:
 
 ```json
 {
-  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   }
 }
 ```
-
-## Hello world - komplettes Setup
-
-Installation von express:
-
-```bash
-npm install express
-```
-
-## Hello world - komplettes Setup
-
-ausführen via:
-
-```bash
-npm run start
-```
-
-öffne <http://localhost:3000> im Browser für das Resultat

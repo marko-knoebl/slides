@@ -2,7 +2,7 @@
 
 ## Request parameters
 
-By default, the browser sends form contents are sent in URL-encoded format, e.g.:
+By default, the browser sends form contents in URL-encoded format, e.g.:
 
 ```txt
 foo=1&bar=2&baz=3

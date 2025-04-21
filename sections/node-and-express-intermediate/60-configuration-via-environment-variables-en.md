@@ -39,3 +39,9 @@ dotenv.config();
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 ```
+
+## NODE_ENV
+
+Environment variable `NODE_ENV`: important when using e.g. express
+
+in production environments, `NODE_ENV=production` should always be set - otherwise the user will be able to see JavaScript error messages in detail (with stack traces)

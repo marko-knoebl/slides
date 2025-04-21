@@ -1,4 +1,0 @@
-# Database connection
-
-## Database connection
-
