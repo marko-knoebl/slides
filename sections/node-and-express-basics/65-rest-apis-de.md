@@ -158,23 +158,3 @@ app.delete('/api/tasks/:id', async (req, res) => {
   }
 });
 ```
-
-## Exercise
-
-- POST request to /reset - deletes table "task", recreates table "task" with columns _id_, _done_ (boolean), _due_date_ (string)
-- POST request to /create*demodata - fills the table with some demo data from \_example_data.json* (note: the post request does not need a body, the demo data should be read directly from the directory)
-- GET request to /tasks : returns all tasks
-- GET request to /tasks/:id : returns one specific task
-- GET request to /tasks?done=0 or /tasks?done=false : returns incomplete tasks
-- POST request to /tasks : creates a new task
-- PUT request to /tasks/:id : overwrites an existing task
-- DELETE request to /tasks/:id : deletes an existing task
-
-## Exercise
-
-- GET request to /notes : shows all notes
-- GET request to /notes/:id : shows one specific note
-- GET request to /notes?created_after=2012-03-04: only shows notes created after a specific date
-- POST request to /notes: creates a new note
-- PUT request to /notes/:id : overwrites an existing note
-- DELETE request to /notes/:id : deletes an existing note
