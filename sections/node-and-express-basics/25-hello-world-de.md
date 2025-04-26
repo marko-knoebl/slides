@@ -41,22 +41,27 @@ server.listen(3000);
 
 ## Den Server starten
 
-grundlegende Möglichkeit, den Server zu starten:
+einfaches _start_ Skript um den Server zu starten:
 
-```bash
-node server.js
+```json
+{
+  "scripts": {
+    "start": "node server.js"
+  }
+}
 ```
 
 ## Den Server starten
 
 Um den Server zu starten und bei Code-Änderungen neu zu starten:
 
-Installiere _nodemon_ und füge dies zu _package.json_ hinzu:
+Installiere _nodemon_ von npm und füge ein _dev_-Skript zu _package.json_ hinzu:
 
 ```json
 {
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   }
 }
 ```

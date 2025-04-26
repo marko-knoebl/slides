@@ -15,13 +15,13 @@ Node programs can import objects from so-called modules
 standard JavaScript imports:
 
 ```js
-import { platform, release } from 'os';
+import { platform, release } from 'node:os';
 ```
 
 older, node-specific variant:
 
 ```js
-const { platform, release } = require('os');
+const { platform, release } = require('node:os');
 ```
 
 ## Importing modules

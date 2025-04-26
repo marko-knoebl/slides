@@ -37,12 +37,6 @@ local modules are referenced via relative file paths:
 import mainMessage, { message1 } from './messages.js';
 ```
 
-in node, the filename extension is optional:
-
-```js
-import mainMessage, { message1 } from './messages';
-```
-
 ## Local modules
 
 older, node-specific, export syntax:

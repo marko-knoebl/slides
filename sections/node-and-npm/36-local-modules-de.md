@@ -37,12 +37,6 @@ Lokale Module werden mittels relativer Dateipfade importiert
 import mainMessage, { message1 } from './messages.js';
 ```
 
-In Node ist die Dateiendung optional:
-
-```js
-import mainMessage, { message1 } from './messages';
-```
-
 ## Lokale Module
 
 ältere, node-spezifische, Syntax für den Export:

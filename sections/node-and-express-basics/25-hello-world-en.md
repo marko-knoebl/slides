@@ -41,22 +41,27 @@ server.listen(3000);
 
 ## Starting the server
 
-basic way to start the server:
+basic _start_ script to start the server:
 
-```bash
-node server.js
+```json
+{
+  "scripts": {
+    "start": "node server.js"
+  }
+}
 ```
 
 ## Starting the server
 
 to start a server and _restart_ it every time some code changes:
 
-install _nodemon_ and add this to _package.json_:
+install _nodemon_ from npm and specify a _dev_ script in _package.json_:
 
 ```json
 {
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   }
 }
 ```

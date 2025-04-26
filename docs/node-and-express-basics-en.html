@@ -2079,9 +2079,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><em>express</em> (includes middleware, routing, view rendering, ...)</li>
 </ul>
 <p>most projects will use <em>express</em></p>
-</section><section class="slide"><h2>Libraries</h2>
-<p>middleware: via <code>.use()</code></p>
-<p>routing: via <code>.get()</code>, <code>.post()</code>, ...</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Hello world</h1>
 </section><section class="slide"><h2>Hello world</h2>
 <p>hello world with express:</p>
@@ -2115,15 +2112,20 @@ app.listen(<span class="hljs-number">3000</span>);
 server.listen(<span class="hljs-number">3000</span>);
 </code></pre>
 </section><section class="slide"><h2>Starting the server</h2>
-<p>basic way to start the server:</p>
-<pre><code class="hljs language-bash">node server.js
+<p>basic <em>start</em> script to start the server:</p>
+<pre><code class="hljs language-json">{
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node server.js"</span>
+  }
+}
 </code></pre>
 </section><section class="slide"><h2>Starting the server</h2>
 <p>to start a server and <em>restart</em> it every time some code changes:</p>
-<p>install <em>nodemon</em> and add this to <em>package.json</em>:</p>
+<p>install <em>nodemon</em> from npm and specify a <em>dev</em> script in <em>package.json</em>:</p>
 <pre><code class="hljs language-json">{
   <span class="hljs-attr">"scripts"</span>: {
-    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"nodemon server.js"</span>
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"node server.js"</span>,
+    <span class="hljs-attr">"dev"</span>: <span class="hljs-string">"nodemon server.js"</span>
   }
 }
 </code></pre>
@@ -2246,15 +2248,6 @@ server.listen(<span class="hljs-number">3000</span>);
 </ul>
 </li>
 </ul>
-</section><section class="slide"><h2>Intermediate topics (see other presentation)</h2>
-<ul>
-<li>redirects</li>
-<li>hosting</li>
-<li>authentication</li>
-<li>configuration via environment variables</li>
-<li>sessions</li>
-<li>application structure</li>
-</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Basic routing</h1>
 </section><section class="slide"><h2>Basic routing</h2>
 <pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
@@ -2297,24 +2290,28 @@ res.send(<span class="hljs-string">'Document not found.\n'</span>);
   .set({ <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/plain'</span> })
   .send(<span class="hljs-string">'Document not found.\n'</span>);
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Route parameters and query parameters</h1>
-</section><section class="slide"><h2>Route parameters</h2>
-<p>example URL: <em>/products/123</em></p>
+</section></section><section class="slides-section"><section class="slide"><h1>URL parameters</h1>
+</section><section class="slide"><h2>URL parameters</h2>
+<p>examples of URLs with parameters:</p>
+<ul>
+<li><em>/products/123</em> (route parameter / path parameter)</li>
+<li><em>/products/?min_rating=4&#x26;max_price=200</em> (query parameters)</li>
+</ul>
+</section><section class="slide"><h2>Route parameters / path parameters</h2>
+<p>example URL: <em>/products/123</em> (references a specific product by an ID)</p>
 <pre><code class="hljs language-js">app.get(<span class="hljs-string">'/products/:id'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   <span class="hljs-keyword">const</span> productId = req.params.id;
   <span class="hljs-comment">// ...</span>
 });
 </code></pre>
-<p>route parameters are always strings</p>
 </section><section class="slide"><h2>Query parameters</h2>
-<p>example URL: <em>/products?min_rating=4&#x26;max_price=200</em></p>
+<p>example URL: <em>/products?min_rating=4&#x26;max_price=200</em> (filters by some criteria)</p>
 <pre><code class="hljs language-js">app.get(<span class="hljs-string">'/products'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   <span class="hljs-keyword">const</span> minRating = <span class="hljs-built_in">Number</span>(req.query.min_rating);
   <span class="hljs-keyword">const</span> maxPrice = <span class="hljs-built_in">Number</span>(req.query.max_price);
   <span class="hljs-comment">// ...</span>
 });
 </code></pre>
-<p>query parameters are always strings</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Middleware</h1>
 </section><section class="slide"><h2>Middleware</h2>
 <p>middleware can respond to requests or modify reqest / response objects</p>
