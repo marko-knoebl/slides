@@ -2431,34 +2431,33 @@ app.use(<span class="hljs-string">'/api'</span>, cors());
 });
 </code></pre>
 </section><section class="slide"><h2>Rest APIs</h2>
-<p>nach bestimmten Parametern abfragen (<em>done</em>, <em>due_date</em>):</p>
+<p>nach bestimmten Parametern abfragen (<em>is_done</em>, <em>due_date</em>):</p>
 <pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/tasks/'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-comment">// array of conditions - e.g. ['done = ?', 'due_date = ?']</span>
+  <span class="hljs-comment">// array of conditions - e.g. ['is_done = ?', 'due_date = ?']</span>
   <span class="hljs-keyword">const</span> conditions = [];
-  <span class="hljs-comment">// array of corresponding values - e.g. ['true', '2020-10-30']</span>
+  <span class="hljs-comment">// array of corresponding values - e.g. [1, '2020-10-30']</span>
   <span class="hljs-keyword">const</span> values = [];
 
-  <span class="hljs-keyword">if</span> (req.query.due_date) {
+  <span class="hljs-keyword">if</span> (req.query.due_date !== <span class="hljs-literal">undefined</span>) {
     conditions.push(<span class="hljs-string">'due_date = ?'</span>);
     values.push(req.query.due_date);
   }
 
-  <span class="hljs-keyword">if</span> (req.query.done) {
-    conditions.push(<span class="hljs-string">'done = ?'</span>);
-    <span class="hljs-keyword">if</span> (
-      req.query.done === <span class="hljs-string">'0'</span> ||
-      req.query.done === <span class="hljs-string">'false'</span>
-    ) {
-      values.push(<span class="hljs-literal">false</span>);
-    } <span class="hljs-keyword">else</span> {
-      values.push(<span class="hljs-literal">true</span>);
-    }
+  <span class="hljs-keyword">if</span> (req.query.is_done !== <span class="hljs-literal">undefined</span>) {
+    conditions.push(<span class="hljs-string">'is_done = ?'</span>);
+    <span class="hljs-comment">// can be either "0" or "1"</span>
+    values.push(<span class="hljs-built_in">Number</span>(req.query.is_done));
   }
 
   <span class="hljs-keyword">let</span> sqlStatement = <span class="hljs-string">'SELECT * FROM task'</span>;
   <span class="hljs-keyword">if</span> (conditions.length > <span class="hljs-number">0</span>) {
     sqlStatement += <span class="hljs-string">` WHERE <span class="hljs-subst">${conditions.join(<span class="hljs-string">' AND '</span>)}</span>`</span>;
   }
+
+  <span class="hljs-comment">// sqlStatement = complete SQL statement with variables, e.g.:</span>
+  <span class="hljs-comment">// SELECT * FROM task WHERE is_done = ? AND due_date = ?</span>
+  <span class="hljs-comment">// values = corresponding values, e.g.:</span>
+  <span class="hljs-comment">// [1, '2020-10-30']</span>
 
   <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlStatement, values);
   res.json(results);
@@ -2467,8 +2466,15 @@ app.use(<span class="hljs-string">'/api'</span>, cors());
 </section><section class="slide"><h2>Rest APIs</h2>
 <p>Einen neuen Eintrag erstellen:</p>
 <pre><code class="hljs language-js">app.post(<span class="hljs-string">'/api/tasks'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> sqlStatement = <span class="hljs-string">`INSERT INTO task (due_date, done) VALUES (?, ?)`</span>;
-  <span class="hljs-keyword">const</span> values = [req.body.due_date, req.body.done];
+  <span class="hljs-keyword">const</span> isDone = req.body.is_done;
+  <span class="hljs-keyword">const</span> dueDate = req.body.due_date;
+  <span class="hljs-keyword">if</span> (isDone === <span class="hljs-literal">undefined</span> || dueDate === <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-comment">// 400 Bad Request</span>
+    res.status(<span class="hljs-number">400</span>).send();
+    <span class="hljs-keyword">return</span>;
+  }
+  <span class="hljs-keyword">const</span> sqlStatement = <span class="hljs-string">`INSERT INTO task (due_date, is_done) VALUES (?, ?)`</span>;
+  <span class="hljs-keyword">const</span> values = [dueDate, isDone];
 
   <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlStatement, values);
 
@@ -2479,10 +2485,10 @@ app.use(<span class="hljs-string">'/api'</span>, cors());
 </section><section class="slide"><h2>Rest API</h2>
 <p>einen Eintrag ersetzen - via put:</p>
 <pre><code class="hljs language-js">app.put(<span class="hljs-string">'/api/tasks/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">if</span> (
-    req.body.done === <span class="hljs-literal">undefined</span> ||
-    req.body.due_date === <span class="hljs-literal">undefined</span>
-  ) {
+  <span class="hljs-keyword">const</span> isDone = req.body.is_done;
+  <span class="hljs-keyword">const</span> dueDate = req.body.due_date;
+
+  <span class="hljs-keyword">if</span> (isDone === <span class="hljs-literal">undefined</span> || dueDate === <span class="hljs-literal">undefined</span>) {
     <span class="hljs-comment">// 400 Bad Request</span>
     res.status(<span class="hljs-number">400</span>).send();
     <span class="hljs-keyword">return</span>;
@@ -2490,10 +2496,10 @@ app.use(<span class="hljs-string">'/api'</span>, cors());
   <span class="hljs-keyword">const</span> id = <span class="hljs-built_in">Number</span>(req.params.id);
   <span class="hljs-keyword">const</span> sqlStatement = <span class="hljs-string">`
     UPDATE task
-    SET due_date = ?, done = ?
+    SET due_date = ?, is_done = ?
     WHERE id = ?
   `</span>;
-  <span class="hljs-keyword">const</span> values = [req.params.due_date, done, id];
+  <span class="hljs-keyword">const</span> values = [dueDate, isDone, id];
   <span class="hljs-keyword">const</span> [results] = <span class="hljs-keyword">await</span> db.query(sqlStatement, values);
   <span class="hljs-keyword">if</span> (results.affectedRows === <span class="hljs-number">0</span>) {
     <span class="hljs-comment">// 404 Not Found</span>

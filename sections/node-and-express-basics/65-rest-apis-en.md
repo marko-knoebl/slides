@@ -56,36 +56,35 @@ app.get('/api/tasks/:id', async (req, res) => {
 
 ## Rest APIs
 
-get by some query parameters (_done_, _due_date_):
+get by some query parameters (_is_done_, _due_date_):
 
 ```js
 app.get('/api/tasks/', async (req, res) => {
-  // array of conditions - e.g. ['done = ?', 'due_date = ?']
+  // array of conditions - e.g. ['is_done = ?', 'due_date = ?']
   const conditions = [];
-  // array of corresponding values - e.g. ['true', '2020-10-30']
+  // array of corresponding values - e.g. [1, '2020-10-30']
   const values = [];
 
-  if (req.query.due_date) {
+  if (req.query.due_date !== undefined) {
     conditions.push('due_date = ?');
     values.push(req.query.due_date);
   }
 
-  if (req.query.done) {
-    conditions.push('done = ?');
-    if (
-      req.query.done === '0' ||
-      req.query.done === 'false'
-    ) {
-      values.push(false);
-    } else {
-      values.push(true);
-    }
+  if (req.query.is_done !== undefined) {
+    conditions.push('is_done = ?');
+    // can be either "0" or "1"
+    values.push(Number(req.query.is_done));
   }
 
   let sqlStatement = 'SELECT * FROM task';
   if (conditions.length > 0) {
     sqlStatement += ` WHERE ${conditions.join(' AND ')}`;
   }
+
+  // sqlStatement = complete SQL statement with variables, e.g.:
+  // SELECT * FROM task WHERE is_done = ? AND due_date = ?
+  // values = corresponding values, e.g.:
+  // [1, '2020-10-30']
 
   const [results] = await db.query(sqlStatement, values);
   res.json(results);
@@ -94,21 +93,19 @@ app.get('/api/tasks/', async (req, res) => {
 
 ## Rest APIs
 
-create a new entry:
+creating a new entry:
 
 ```js
 app.post('/api/tasks', async (req, res) => {
-  if (
-    req.body.due_date === undefined ||
-    !['0', '1', 'false', 'true'].includes(req.body.done)
-  ) {
+  const isDone = req.body.is_done;
+  const dueDate = req.body.due_date;
+  if (isDone === undefined || dueDate === undefined) {
     // 400 Bad Request
     res.status(400).send();
     return;
   }
-
-  const sqlStatement = `INSERT INTO task (due_date, done) VALUES (?, ?)`;
-  const values = [req.body.due_date, req.body.done];
+  const sqlStatement = `INSERT INTO task (due_date, is_done) VALUES (?, ?)`;
+  const values = [dueDate, isDone];
 
   const [results] = await db.query(sqlStatement, values);
 
@@ -119,14 +116,14 @@ app.post('/api/tasks', async (req, res) => {
 
 ## Rest API
 
-replace an entry - via put:
+replacing an entry - via put:
 
 ```js
 app.put('/api/tasks/:id', async (req, res) => {
-  const done = req.body.done;
+  const isDone = req.body.is_done;
   const dueDate = req.body.due_date;
 
-  if (done === undefined || dueDate === undefined) {
+  if (isDone === undefined || dueDate === undefined) {
     // 400 Bad Request
     res.status(400).send();
     return;
@@ -134,10 +131,10 @@ app.put('/api/tasks/:id', async (req, res) => {
   const id = Number(req.params.id);
   const sqlStatement = `
     UPDATE task
-    SET due_date = ?, done = ?
+    SET due_date = ?, is_done = ?
     WHERE id = ?
   `;
-  const values = [dueDate, done, id];
+  const values = [dueDate, isDone, id];
   const [results] = await db.query(sqlStatement, values);
   if (results.affectedRows === 0) {
     // 404 Not Found
