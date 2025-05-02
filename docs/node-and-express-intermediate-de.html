@@ -2153,8 +2153,8 @@ accountsRouter.get(<span class="hljs-string">'/:id'</span>, <span class="hljs-fu
   <span class="hljs-comment">// ...</span>
 });
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Authentifizierung und Authorisierung</h1>
-</section><section class="slide"><h2>Authentifizierung und Authorisierung</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Authentifizierung und Authorisierung: Theorie</h1>
+</section><section class="slide"><h2>Authentifizierung und Authorisierung: Theorie</h2>
 <p>Themen:</p>
 <ul>
 <li>Terminologie</li>
@@ -2209,44 +2209,6 @@ accountsRouter.get(<span class="hljs-string">'/:id'</span>, <span class="hljs-fu
 });
 <span class="hljs-keyword">const</span> notes = <span class="hljs-keyword">await</span> notesRes.json();
 </code></pre>
-</section><section class="slide"><h2>Session-Tokens</h2>
-<p>Beispiel am Server: Login-Anfrage:</p>
-<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/api/login'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> success = <span class="hljs-keyword">await</span> authService.validateLogin(
-    req.body.username,
-    req.body.password
-  );
-  <span class="hljs-keyword">if</span> (success) {
-    <span class="hljs-keyword">const</span> token = authService.createRandomToken();
-    <span class="hljs-keyword">await</span> authService.saveSession(req.body.username, token);
-    res.json({ <span class="hljs-attr">token</span>: token });
-  } <span class="hljs-keyword">else</span> {
-    <span class="hljs-comment">// not authenticated</span>
-    res.status(<span class="hljs-number">401</span>).send();
-  }
-});
-</code></pre>
-</section><section class="slide"><h2>Session-Tokens</h2>
-<p>Beispiel am Server: Daten-Anfrage:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/notes/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
-  <span class="hljs-keyword">const</span> authHeader = req.header(<span class="hljs-string">'Authorization'</span>);
-  <span class="hljs-keyword">const</span> token = authHeader.split(<span class="hljs-string">' '</span>)[<span class="hljs-number">1</span>];
-  <span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> authService.getSession(token);
-  <span class="hljs-keyword">if</span> (!session) {
-    res.status(<span class="hljs-number">401</span>).send(); <span class="hljs-comment">// not authenticated</span>
-    <span class="hljs-keyword">return</span>;
-  }
-  <span class="hljs-keyword">const</span> note = <span class="hljs-keyword">await</span> notesService.getNote(req.params.id);
-  <span class="hljs-keyword">const</span> role = <span class="hljs-keyword">await</span> authService.getRole(session);
-  <span class="hljs-keyword">if</span> (role === <span class="hljs-string">'user'</span> &#x26;&#x26; session.userId === note.userId) {
-    res.json(note);
-  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (role === <span class="hljs-string">'admin'</span>) {
-    res.json(note);
-  } <span class="hljs-keyword">else</span> {
-    res.status(<span class="hljs-number">403</span>).send(); <span class="hljs-comment">// not authorized</span>
-  }
-});
-</code></pre>
 </section><section class="slide"><h2>Passwörter und Passwort-Hashes</h2>
 <ul>
 <li>schlecht: Speichern von Passwörtern direkt in der Datenbank</li>
@@ -2278,6 +2240,44 @@ charlie | abc123
 <li>PBKDF2</li>
 <li>MD5</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Authentifizierung und Authorisierung in Express</h1>
+</section><section class="slide"><h2>Beispiel: Login Handler</h2>
+<pre><code class="hljs language-js">app.post(<span class="hljs-string">'/api/login'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> success = <span class="hljs-keyword">await</span> authService.validateLogin(
+    req.body.username,
+    req.body.password
+  );
+  <span class="hljs-keyword">if</span> (success) {
+    <span class="hljs-keyword">const</span> token = authService.createRandomToken();
+    <span class="hljs-keyword">await</span> authService.saveSession(req.body.username, token);
+    res.json({ <span class="hljs-attr">token</span>: token });
+  } <span class="hljs-keyword">else</span> {
+    res.status(<span class="hljs-number">401</span>).send();
+  }
+});
+</code></pre>
+</section><section class="slide"><h2>Beispiel: Data Handler</h2>
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/api/notes/:id'</span>, <span class="hljs-keyword">async</span> (req, res) => {
+  <span class="hljs-keyword">const</span> authHeader = req.header(<span class="hljs-string">'Authorization'</span>);
+  <span class="hljs-keyword">const</span> token = authHeader.split(<span class="hljs-string">' '</span>)[<span class="hljs-number">1</span>];
+  <span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> authService.getSession(token);
+  <span class="hljs-keyword">if</span> (!session) {
+    <span class="hljs-comment">// not authenticated</span>
+    res.status(<span class="hljs-number">401</span>).send();
+    <span class="hljs-keyword">return</span>;
+  }
+  <span class="hljs-keyword">const</span> note = <span class="hljs-keyword">await</span> notesService.getNote(req.params.id);
+  <span class="hljs-keyword">const</span> role = <span class="hljs-keyword">await</span> authService.getRole(session);
+  <span class="hljs-keyword">if</span> (role === <span class="hljs-string">'user'</span> &#x26;&#x26; session.userId === note.userId) {
+    res.json(note);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (role === <span class="hljs-string">'admin'</span>) {
+    res.json(note);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// not authorized</span>
+    res.status(<span class="hljs-number">403</span>).send();
+  }
+});
+</code></pre>
 <!--
 section almost duplicated in:
 - node-web-development-with-node-and-express
