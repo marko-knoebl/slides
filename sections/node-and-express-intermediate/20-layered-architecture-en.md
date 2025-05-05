@@ -70,4 +70,5 @@ typical source code structure:
 - _db.js_ (database connection)
 - _routes/_
 - _controllers/_
+- _services/_
 - _models/_

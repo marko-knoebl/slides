@@ -70,4 +70,5 @@ Beispiel für eine typische Source Code Struktur:
 - _db.js_ (Datenbankanbindung)
 - _routes/_
 - _controllers/_
+- _services/_
 - _models/_

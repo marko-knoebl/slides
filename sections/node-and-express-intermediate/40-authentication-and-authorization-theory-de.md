@@ -30,7 +30,7 @@ Typischer Auth-Ablauf mit _Tokens_:
 - Server überprüft Daten
 - Server sendet ein geheimes Session-Token (als String) für diese Session zurück
 - Client kann mit diesem Token auf bestimmte Seiten / APIs zugreifen
-- Token wird typischerweise nach einer bestimmten Zeiten oder nach dem Logout ungültig
+- Token wird typischerweise nach einer bestimmten Zeit oder nach dem Logout ungültig
 
 ## Session-Tokens
 
