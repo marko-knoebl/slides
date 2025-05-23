@@ -85,19 +85,6 @@ let todo: {
 };
 ```
 
-## Any
-
-Manchmals möchten wir die Typenüberprüfung aufheben:
-
-```ts
-const nameInput: any = document.getElementById(
-  'name-input'
-);
-console.log(nameInput.value);
-```
-
-Deklarieren wir eine Variable asl `any`, können wir auf beliebige Properties zugreifen
-
 ## Union Types
 
 Variablen, die mehrere Typen annehmen können:

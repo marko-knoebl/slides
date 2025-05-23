@@ -17,12 +17,6 @@ Vortile:
 - bessere Autovervollständigung
 - bessere Fehlererkennung
 
-## Playground
-
-online mit TypeScript experimentieren:
-
-https://www.typescriptlang.org/play
-
 ## Statische Typisierung
 
 Beispiel:

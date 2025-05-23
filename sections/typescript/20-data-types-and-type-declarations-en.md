@@ -79,19 +79,6 @@ let todo: {
 };
 ```
 
-## Any
-
-Sometimes we may want to make the type checker less strict
-
-```ts
-const nameInput: any = document.getElementById(
-  'name-input'
-);
-console.log(nameInput.value);
-```
-
-Declaring a variable as `any` enables accessing arbitrary properties
-
 ## Union types
 
 variables that can be one of multiple types:
