@@ -9,7 +9,6 @@ data types and declarations that we'll use:
 - string
 - array
 - object
-- any
 
 ## Variable types
 

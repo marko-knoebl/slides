@@ -14,6 +14,18 @@ const names: Array<string> = ['Alice', 'Bob', 'Charlie'];
 
 ## Generics
 
+Beispiel: `Promise` ist ein Generic
+
+```ts
+type User = { username: string; picture: string };
+
+async function fetchUser(): Promise<User> {
+  // ...
+}
+```
+
+## Generics
+
 Beispiel: Reacts `useState` kann als Generic verwendet werden
 
 ```ts

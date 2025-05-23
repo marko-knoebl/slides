@@ -2093,7 +2093,6 @@ names.push(<span class="hljs-string">'Bob'</span>);
 <li>string</li>
 <li>array</li>
 <li>object</li>
-<li>any</li>
 </ul>
 </section><section class="slide"><h2>Variable types</h2>
 <p>variable types can be specified when declaring variables:</p>
@@ -2205,11 +2204,34 @@ width = <span class="hljs-number">16</span>;
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^d{4}$'</span>).test(s);
 };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Generics</h1>
+</section><section class="slide"><h2>Generics</h2>
+<p><em>Generics</em>: type declarations that can receive more specific type information when applied (via <code>&#x3C;...></code>)</p>
+</section><section class="slide"><h2>Generics</h2>
+<p>example: <code>Array</code> is a generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
+</code></pre>
+</section><section class="slide"><h2>Generics</h2>
+<p>example: <code>Promise</code> is a generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> User = { <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>; picture: <span class="hljs-built_in">string</span> };
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">User</span>> </span>{
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Type assertions</h1>
 </section><section class="slide"><h2>Type assertions</h2>
-<p>Type assertions enable treating an existing object as a specific type</p>
+<p>With function calls that access "external" resources, TypeScript may be unable to correctly infer the type on its own</p>
+<p>examples:</p>
+<ul>
+<li><code>fetch()</code></li>
+<li><code>JSON.parse()</code></li>
+<li><code>document.getElementById()</code></li>
+</ul>
+<p>Type assertions allow us to treat an existing object as a specific type</p>
+</section><section class="slide"><h2>Type assertions</h2>
 <p>this fails:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// type: HTMLElement or null</span>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// inferred type: HTMLElement or null</span>
 <span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>);
 <span class="hljs-built_in">console</span>.log(nameInput.value);
 </code></pre>
@@ -2220,40 +2242,27 @@ width = <span class="hljs-number">16</span>;
 <span class="hljs-built_in">console</span>.log(nameInput.value);
 </code></pre>
 </section><section class="slide"><h2>Type assertions</h2>
-<p>type assertions can also work with <code>any</code>:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
-  <span class="hljs-string">'name-input'</span>
-) <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
-<span class="hljs-built_in">console</span>.log(nameInput.value);
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Generics</h1>
-</section><section class="slide"><h2>Generics</h2>
-<p><em>Generics</em>: type declarations that can receive more specific type information when applied (via <code>&#x3C;...></code>)</p>
-</section><section class="slide"><h2>Generics</h2>
-<p>example: <code>Array</code> is a generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
-</code></pre>
-</section><section class="slide"><h2>Generics</h2>
-<p>example: React's <code>useState</code> can be used as a generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> [name, setName] = useState&#x3C;<span class="hljs-built_in">string</span>>(<span class="hljs-string">''</span>);
-</code></pre>
-</section><section class="slide"><h2>Generics</h2>
-<p>example: React's event types can be used as generics:</p>
-<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleChange</span>(<span class="hljs-params">
-  event: ChangeEvent&#x3C;HTMLInputElement>
-</span>) </span>{
-  <span class="hljs-keyword">const</span> newValue = event.target.value;
-  <span class="hljs-comment">// ...</span>
+<p>example: fetching JSON data</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> User = { <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>; picture: <span class="hljs-built_in">string</span> };
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">User</span>> </span>{
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/api/user'</span>);
+  <span class="hljs-keyword">if</span> (!res.ok) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'fetch failed'</span>);
+  }
+  <span class="hljs-keyword">const</span> user = (<span class="hljs-keyword">await</span> res.json()) <span class="hljs-keyword">as</span> User;
+  <span class="hljs-keyword">return</span> user;
 }
 </code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>TypeScript: miscellaneous topics</h1>
-</section><section class="slide"><h2>Build</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Building</h1>
+</section><section class="slide"><h2>Building</h2>
 <p>browsers only understand JavaScript, not TypeScript</p>
-<p>during build: TypeScript is translated to JavaScript, all type information is discarded</p>
-</section><section class="slide"><h2>Type declarations for libraries</h2>
-<p>some libraries include TypeScript declarations - e.g. <em>redux</em>.</p>
-<p>other popular libraries mostly have type declaration packages that are prefixed with <em>@types</em></p>
-<p>e.g. for <em>react</em>: <em>@types/react</em></p></section></section></div>
+<p>→ code needs to be translated from TypeScript to JavaScript to run in the browser</p>
+</section><section class="slide"><h2>Building</h2>
+<p>example project setup with node / npm and <em>vite</em>:</p>
+<pre><code class="hljs language-bash">npm create vite@latest
+</code></pre>
+<p>→ select <em>Vanilla</em>, dann <em>TypeScript</em></p></section></section></div>
     </div>
     <script>/*!
  * reveal.js

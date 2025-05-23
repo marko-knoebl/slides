@@ -23,24 +23,3 @@ async function fetchUser(): Promise<User> {
   // ...
 }
 ```
-
-## Generics
-
-example: React's `useState` can be used as a generic
-
-```ts
-const [todos, setTodos] = useState<Array<Todo>>([]);
-```
-
-## Generics
-
-example: React's event types can be used as generics:
-
-```ts
-function handleChange(
-  event: ChangeEvent<HTMLInputElement>
-) {
-  const newValue = event.target.value;
-  // ...
-}
-```

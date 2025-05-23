@@ -9,7 +9,6 @@ Datentypen und Deklarationen, die wir verwenden werden:
 - string
 - array
 - object
-- any
 
 ## Variablentypen
 
