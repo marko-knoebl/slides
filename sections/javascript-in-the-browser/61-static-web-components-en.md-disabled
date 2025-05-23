@@ -1,0 +1,59 @@
+# Defining web components
+
+## Defining web components
+
+to define a web component:
+
+- define the component as a subclass of `HTMLElement`
+- register it via `customElements.define()`
+
+## Defining web components
+
+example: `<hello-world>` component
+
+```js
+class HelloWorld extends HTMLElement {
+  connectedCallback() {
+    this.attachShadow({ mode: 'open' });
+    const style = document.createElement('style');
+    style.textContent = `
+      h1 {
+        color: red;
+      }
+    `;
+    const heading = document.createElement('h1');
+    heading.textContent = 'Hello world';
+    this.shadowRoot.append(style, heading);
+  }
+}
+
+customElements.define('hello-world', HelloWorld);
+```
+
+## Defining web components - basics
+
+- connectedCallback
+- attachShadow
+- shadowRoot
+
+## Defining web components: connectedCallback
+
+`connectedCallback`
+
+a method that is called when a new instance of a component has been added to the document
+
+is used to fill the component with content
+
+## Defining web components: attachShadow
+
+`attachShadow`
+
+a web component has an internal element tree that is separate from the rest of the document (called the "shadow DOM")
+
+`attachShadow` creates / initializes the "shadow DOM" for the Component
+
+## Defining web components: shadowRoot
+
+`shadowRoot`
+
+in the component definition, we can access `shadowRoot`, which is the base element of the shadow DOM
