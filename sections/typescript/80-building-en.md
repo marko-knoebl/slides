@@ -14,4 +14,4 @@ example project setup with node / npm and _vite_:
 npm create vite@latest
 ```
 
-→ select _Vanilla_, dann _TypeScript_
+→ select _Vanilla_, then _TypeScript_
