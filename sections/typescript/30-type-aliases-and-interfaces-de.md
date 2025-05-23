@@ -8,7 +8,7 @@ Type Aliases können etwas einfacher und flexibler sein als Interfaces ([Verglei
 
 ## Type Aliases und Interfaces
 
-Type Aliases für Objekte:
+Type Alias für ein Objekt:
 
 ```ts
 type Todo = {
@@ -18,7 +18,7 @@ type Todo = {
 };
 ```
 
-Interfaces für Objekte:
+Interface für ein Objekt:
 
 ```ts
 interface Todo {
@@ -39,4 +39,4 @@ const todos: Array<Todo> = [
 
 ## Type Aliases und Interfaces
 
-type aliases and interfaces should be _capitalized_ (e.g. `Todo`, not `todo`)
+Type Aliases und Interfaces sollten groß geschrieben werden (z.B. `Todo`, nicht `todo`)
