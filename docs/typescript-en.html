@@ -2084,6 +2084,15 @@ names.push(<span class="hljs-string">'Bob'</span>);
 </section><section class="slide"><h2>Playground</h2>
 <p>experiment with TypeScript online:</p>
 <p><a href="https://www.typescriptlang.org/play" target="_blank">https://www.typescriptlang.org/play</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Building</h1>
+</section><section class="slide"><h2>Building</h2>
+<p>browsers only understand JavaScript, not TypeScript</p>
+<p>→ code needs to be translated from TypeScript to JavaScript to run in the browser</p>
+</section><section class="slide"><h2>Building</h2>
+<p>example project setup with node / npm and <em>vite</em>:</p>
+<pre><code class="hljs language-bash">npm create vite@latest
+</code></pre>
+<p>→ select <em>Vanilla</em>, then <em>TypeScript</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Data types and type declarations</h1>
 </section><section class="slide"><h2>Data types and type declarations</h2>
 <p>data types and declarations that we'll use:</p>
@@ -2223,16 +2232,34 @@ width = <span class="hljs-number">16</span>;
 <p>Type assertions allow us to treat an existing object as a specific type</p>
 </section><section class="slide"><h2>Type assertions</h2>
 <p>this fails:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// inferred type: HTMLElement or null</span>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript type: HTMElement or null</span>
 <span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>);
+<span class="hljs-comment">// error: nameInput is possibly null</span>
+<span class="hljs-built_in">console</span>.log(nameInput.id);
+<span class="hljs-comment">// error: nameInput is possibly null</span>
 <span class="hljs-built_in">console</span>.log(nameInput.value);
 </code></pre>
-<p>this works:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
+</section><section class="slide"><h2>Type assertions</h2>
+<p>asserting that a value is not <em>null</em> or <em>undefined</em> by using "!":</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript type: HTMLElement</span>
+<span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>)!;
+<span class="hljs-comment">// works</span>
+<span class="hljs-built_in">console</span>.log(nameInput.id);
+<span class="hljs-comment">// error: property `value` does not exist on type `HTMLElement`</span>
+<span class="hljs-built_in">console</span>.log(nameInput.value)
+</code></pre>
+</section><section class="slide"><h2>Type assertions</h2>
+<p>asserting that a value has a specific type by using "as":</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript type: HTMLInputElement</span>
+<span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
   <span class="hljs-string">'name-input'</span>
 ) <span class="hljs-keyword">as</span> HTMLInputElement;
+<span class="hljs-comment">// works</span>
+<span class="hljs-built_in">console</span>.log(nameInput.id);
+<span class="hljs-comment">// works</span>
 <span class="hljs-built_in">console</span>.log(nameInput.value);
 </code></pre>
+<p>(note: <code>HTMLInputElement</code> is a subclass of <code>HTMLElement</code>)</p>
 </section><section class="slide"><h2>Type assertions</h2>
 <p>example: fetching JSON data</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> User = { <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>; picture: <span class="hljs-built_in">string</span> };
@@ -2245,16 +2272,7 @@ width = <span class="hljs-number">16</span>;
   <span class="hljs-keyword">const</span> user = (<span class="hljs-keyword">await</span> res.json()) <span class="hljs-keyword">as</span> User;
   <span class="hljs-keyword">return</span> user;
 }
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Building</h1>
-</section><section class="slide"><h2>Building</h2>
-<p>browsers only understand JavaScript, not TypeScript</p>
-<p>→ code needs to be translated from TypeScript to JavaScript to run in the browser</p>
-</section><section class="slide"><h2>Building</h2>
-<p>example project setup with node / npm and <em>vite</em>:</p>
-<pre><code class="hljs language-bash">npm create vite@latest
-</code></pre>
-<p>→ select <em>Vanilla</em>, then <em>TypeScript</em></p></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

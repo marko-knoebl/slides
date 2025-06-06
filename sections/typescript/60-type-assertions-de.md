@@ -17,19 +17,43 @@ Type Assertions erlauben es uns, ein bestehendes Objekt als einen bestimmten Typ
 dies schlägt fehl:
 
 ```ts
-// type: HTMLElement or null
+// TypeScript type: HTMElement or null
 const nameInput = document.getElementById('name-input');
+// error: nameInput is possibly null
+console.log(nameInput.id);
+// error: nameInput is possibly null
 console.log(nameInput.value);
 ```
 
-dies klappt:
+## Type Assertions
+
+"Assertion", dass ein Wert nicht _null_ oder _undefined_ ist mittels "!":
+
+
+```ts
+// TypeScript type: HTMLElement
+const nameInput = document.getElementById('name-input')!;
+// works
+console.log(nameInput.id);
+// error: property `value` does not exist on type `HTMLElement`
+console.log(nameInput.value)
+```
+
+## Type Assertions
+
+"Assertion", dass ein Wert einen bestimmten Typ hat mittels "as":
 
 ```ts
 const nameInput = document.getElementById(
   'name-input'
 ) as HTMLInputElement;
+// works
+console.log(nameInput.id);
+// works
 console.log(nameInput.value);
 ```
+
+(Bemerkung: `HTMLInputElement` ist eine Unterklasse von `HTMLElement`)
 
 ## Type Assertions
 

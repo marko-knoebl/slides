@@ -2084,6 +2084,15 @@ names.push(<span class="hljs-string">'Bob'</span>);
 </section><section class="slide"><h2>Playground</h2>
 <p>online mit TypeScript experimentieren:</p>
 <p><a href="https://www.typescriptlang.org/play" target="_blank">https://www.typescriptlang.org/play</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Build</h1>
+</section><section class="slide"><h2>Build</h2>
+<p>Browser verstehen nur JavaScript, nicht TypeScript</p>
+<p>→ Code muss von TypeScript in JavaScript übersetzt werden, um im Browser zu laufen</p>
+</section><section class="slide"><h2>Build</h2>
+<p>Beispielhafte Projekteinrichtung mit node / npm und <em>vite</em>:</p>
+<pre><code class="hljs language-bash">npm create vite@latest
+</code></pre>
+<p>→ wähle <em>Vanilla</em>, dann <em>TypeScript</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Datentypen und Typendeklarationen</h1>
 </section><section class="slide"><h2>Datentypen</h2>
 <p>Datentypen und Deklarationen, die wir verwenden werden:</p>
@@ -2229,16 +2238,33 @@ width = <span class="hljs-number">16</span>;
 <p>Type Assertions erlauben es uns, ein bestehendes Objekt als einen bestimmten Typ zu behandeln</p>
 </section><section class="slide"><h2>Type Assertions</h2>
 <p>dies schlägt fehl:</p>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// type: HTMLElement or null</span>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript type: HTMElement or null</span>
 <span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>);
+<span class="hljs-comment">// error: nameInput is possibly null</span>
+<span class="hljs-built_in">console</span>.log(nameInput.id);
+<span class="hljs-comment">// error: nameInput is possibly null</span>
 <span class="hljs-built_in">console</span>.log(nameInput.value);
 </code></pre>
-<p>dies klappt:</p>
+</section><section class="slide"><h2>Type Assertions</h2>
+<p>"Assertion", dass ein Wert nicht <em>null</em> oder <em>undefined</em> ist mittels "!":</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript type: HTMLElement</span>
+<span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>)!;
+<span class="hljs-comment">// works</span>
+<span class="hljs-built_in">console</span>.log(nameInput.id);
+<span class="hljs-comment">// error: property `value` does not exist on type `HTMLElement`</span>
+<span class="hljs-built_in">console</span>.log(nameInput.value)
+</code></pre>
+</section><section class="slide"><h2>Type Assertions</h2>
+<p>"Assertion", dass ein Wert einen bestimmten Typ hat mittels "as":</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
   <span class="hljs-string">'name-input'</span>
 ) <span class="hljs-keyword">as</span> HTMLInputElement;
+<span class="hljs-comment">// works</span>
+<span class="hljs-built_in">console</span>.log(nameInput.id);
+<span class="hljs-comment">// works</span>
 <span class="hljs-built_in">console</span>.log(nameInput.value);
 </code></pre>
+<p>(Bemerkung: <code>HTMLInputElement</code> ist eine Unterklasse von <code>HTMLElement</code>)</p>
 </section><section class="slide"><h2>Type Assertions</h2>
 <p>Beispiel: Fetchen von JSON-Daten</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> User = { <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>; picture: <span class="hljs-built_in">string</span> };
@@ -2251,16 +2277,7 @@ width = <span class="hljs-number">16</span>;
   <span class="hljs-keyword">const</span> user = (<span class="hljs-keyword">await</span> res.json()) <span class="hljs-keyword">as</span> User;
   <span class="hljs-keyword">return</span> user;
 }
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Build</h1>
-</section><section class="slide"><h2>Build</h2>
-<p>Browser verstehen nur JavaScript, nicht TypeScript</p>
-<p>→ Code muss von TypeScript in JavaScript übersetzt werden, um im Browser zu laufen</p>
-</section><section class="slide"><h2>Build</h2>
-<p>Beispielhafte Projekteinrichtung mit node / npm und <em>vite</em>:</p>
-<pre><code class="hljs language-bash">npm create vite@latest
-</code></pre>
-<p>→ wähle <em>Vanilla</em>, dann <em>TypeScript</em></p></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js
