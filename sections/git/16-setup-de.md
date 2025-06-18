@@ -27,5 +27,5 @@ Beispiele für Konfigurationsoptionen:
 - `user.name` (z.B. "John Doe" - mit Anführungszeichen)
 - `user.email` (_muss_ keine echte email sein)
 - `core.editor` (Standard: _vi_, einfachere Möglichkeit: _nano_)
-- `pull.ff` (Empfehlung: auf _true_ setzen)
+- `pull.ff` (Empfehlung: auf _only_ setzen)
 - `init.defaultBranch` (Empfehlung: _main_ oder _master_)

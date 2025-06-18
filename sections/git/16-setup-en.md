@@ -27,5 +27,5 @@ some configuration options:
 - `user.name` (e.g. "John Doe" - with quotation marks)
 - `user.email` (does not _have_ to be a real email)
 - `core.editor` (default: _vi_, simpler option: _nano_)
-- `pull.ff` (recommendation: set to _true_)
+- `pull.ff` (recommendation: set to _only_)
 - `init.defaultBranch` (recommendation: _main_ or _master_)
