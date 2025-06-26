@@ -18,7 +18,7 @@ Container = basic building block for bootstrap, top-level division of a document
 
 ## Bootstrap: column layout (simple)
 
-using classes `container`, `row`, `col`
+using classes `row`, `col`
 
 ```html
 <div class="row">
