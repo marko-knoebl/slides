@@ -9,17 +9,6 @@ CSS framework for creating websites - we don't have to write (much) CSS
 - without any additional work: default style of elements like `body`, `h1`, `button`, ... changes
 - for more functionality: set the `class` attribute
 
-## Bootstrap project: restaurant website
-
-We'll create a simple website - e.g. for a restaurant
-
-contents:
-
-- navigation menu
-- table with opening hours
-- form for reservations
-- slideshow with images
-
 ## Bootstrap: container
 
 Container = basic building block for bootstrap, top-level division of a document
@@ -32,16 +21,14 @@ Container = basic building block for bootstrap, top-level division of a document
 using classes `container`, `row`, `col`
 
 ```html
-<div class="container">
-  <div class="row">
-    <div class="col">one</div>
-    <div class="col">two</div>
-    <div class="col">three</div>
-  </div>
-  <div class="row">
-    <div class="col">four</div>
-    <div class="col">five</div>
-  </div>
+<div class="row">
+  <div class="col">one</div>
+  <div class="col">two</div>
+  <div class="col">three</div>
+</div>
+<div class="row">
+  <div class="col">four</div>
+  <div class="col">five</div>
 </div>
 ```
 
@@ -51,10 +38,10 @@ Margins are spacings between elements
 
 Bootstrap classes for margins:
 
-- `ml-auto`: margin-left: auto
 - `ml-1`: small left margin
 - `mt-4`: big top margin
 - `my-2`: medium margin in y directions (top and bottom)
+- `mx-auto`: automatic horizontal margin (centered)
 
 ## Bootstrap: elements and components
 
@@ -65,3 +52,14 @@ e.g.:
 - carousel
 - navbar
 - ...
+
+## Bootstrap project: restaurant website
+
+We'll create a simple website - e.g. for a restaurant
+
+contents:
+
+- navigation menu
+- table with opening hours
+- form for reservations
+- slideshow with images
